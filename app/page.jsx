@@ -1,9 +1,14 @@
 import Link from 'next/link';
+import { headers } from 'next/headers';
 import { formatDate } from '@/lib/utils';
 
 // 조회수 높은 상위 3개 기록 가져오기
 async function getTopRecords() {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+  // 현재 요청의 호스트를 가져와서 base URL 생성
+  const headersList = await headers();
+  const host = headersList.get('host');
+  const protocol = headersList.get('x-forwarded-proto') || 'https';
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || `${protocol}://${host}`;
   
   try {
     const response = await fetch(`${baseUrl}/api/posts?sort=views&limit=3`, {

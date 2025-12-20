@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Suspense } from 'react';
+import { headers } from 'next/headers';
 import RecordList from '@/components/records/RecordList';
 import RecordToolbar from '@/components/records/RecordToolbar';
 import Pagination from '@/components/common/Pagination';
@@ -8,6 +9,14 @@ export const metadata = {
   title: '기록 - 아티링 | ARTIRING',
   description: '아티링이 문제를 정의하고, 실험하고, 설계한 과정을 기록합니다. 문제정의, 실험과정, 구조설계, 특허·법률, 창업준비의 모든 여정을 공유합니다.',
 };
+
+// Base URL 가져오기 헬퍼 함수
+async function getBaseUrl() {
+  const headersList = await headers();
+  const host = headersList.get('host');
+  const protocol = headersList.get('x-forwarded-proto') || 'https';
+  return process.env.NEXT_PUBLIC_BASE_URL || `${protocol}://${host}`;
+}
 
 async function getPosts(searchParams) {
   const params = new URLSearchParams();
@@ -19,7 +28,7 @@ async function getPosts(searchParams) {
   if (searchParams.sort) params.set('sort', searchParams.sort);
   params.set('limit', '10');
   
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+  const baseUrl = await getBaseUrl();
   
   try {
     const response = await fetch(`${baseUrl}/api/posts?${params.toString()}`, {
@@ -36,7 +45,7 @@ async function getPosts(searchParams) {
 }
 
 async function getCategories() {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+  const baseUrl = await getBaseUrl();
   
   try {
     const response = await fetch(`${baseUrl}/api/categories`, {
@@ -54,7 +63,7 @@ async function getCategories() {
 }
 
 async function getTags() {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+  const baseUrl = await getBaseUrl();
   
   try {
     const response = await fetch(`${baseUrl}/api/tags?withCount=true`, {

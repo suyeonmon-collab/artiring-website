@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { headers } from 'next/headers';
 import { notFound } from 'next/navigation';
 import { formatDate, calculateReadingTime, extractTextFromHtml } from '@/lib/utils';
 import TableOfContents from '@/components/records/TableOfContents';
@@ -29,8 +30,16 @@ export async function generateMetadata({ params }) {
   };
 }
 
+// Base URL 가져오기 헬퍼 함수
+async function getBaseUrl() {
+  const headersList = await headers();
+  const host = headersList.get('host');
+  const protocol = headersList.get('x-forwarded-proto') || 'https';
+  return process.env.NEXT_PUBLIC_BASE_URL || `${protocol}://${host}`;
+}
+
 async function getPost(slug) {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+  const baseUrl = await getBaseUrl();
   
   try {
     const response = await fetch(`${baseUrl}/api/posts/${slug}`, {
@@ -51,7 +60,7 @@ async function getPost(slug) {
 }
 
 async function incrementViewCount(slug) {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+  const baseUrl = await getBaseUrl();
   
   try {
     await fetch(`${baseUrl}/api/posts/${slug}/view`, {
