@@ -529,7 +529,7 @@ export default function AboutPage() {
 
 
       {/* CTA Section */}
-      <section className="section bg-[var(--color-bg-sub)]">
+      <section className="section">
         <div className="container-narrow">
           <h2 className="text-2xl md:text-3xl font-semibold tracking-tight">
             함께 구조를 만들어갈
