@@ -255,8 +255,8 @@ export default function ContactPage() {
                   </svg>
                   <div>
                     <span className="block font-medium text-[var(--color-text-primary)]">이메일</span>
-                    <a href="mailto:contact@artiring.com" className="hover:text-[var(--color-point)]">
-                      contact@artiring.com
+                    <a href="mailto:sy@artiring.com" className="hover:text-[var(--color-point)]">
+                      sy@artiring.com
                     </a>
                   </div>
                 </li>
@@ -286,6 +286,17 @@ export default function ContactPage() {
                 >
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                  </svg>
+                </a>
+                <a
+                  href="#"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 text-[var(--color-text-secondary)] hover:text-[var(--color-point)] transition-colors"
+                  aria-label="블로그"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                   </svg>
                 </a>
               </div>

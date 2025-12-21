@@ -251,7 +251,7 @@ export default function AboutPage() {
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-[var(--color-point)] mt-1">•</span>
-                  <span>구조가 책임집니다 (개인 ❌ 소속사 ⭕)</span>
+                  <span>구조가 책임집니다</span>
                 </li>
               </ul>
             </div>
@@ -276,10 +276,10 @@ export default function AboutPage() {
           </div>
 
           {/* 핵심 문제 리스트 - 가로 레이아웃 */}
-          <StaggerContainer className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6" staggerDelay={0.15}>
+          <StaggerContainer className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch" staggerDelay={0.15}>
             {problems.map((problem, index) => (
-              <StaggerItem key={index}>
-                <div className="bg-white rounded-xl p-6 border border-[var(--color-border)] shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 text-center">
+              <StaggerItem key={index} className="h-full">
+                <div className="bg-white rounded-xl p-6 border border-[var(--color-border)] shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 text-center h-full flex flex-col">
                   <div className="flex items-center justify-center w-24 h-24 mx-auto rounded-full bg-[var(--color-point)]/10 text-[var(--color-point)] mb-4">
                     <div className="w-14 h-14">
                       {problem.icon}
@@ -369,10 +369,10 @@ export default function AboutPage() {
           </MotionWrapper>
           
           {/* 미션 카드 - 가로 레이아웃 */}
-          <StaggerContainer className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6" staggerDelay={0.15}>
+          <StaggerContainer className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch" staggerDelay={0.15}>
             {missions.map((mission, index) => (
-              <StaggerItem key={index}>
-                <div className="bg-white rounded-xl p-6 border border-[var(--color-border)] shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 text-center">
+              <StaggerItem key={index} className="h-full">
+                <div className="bg-white rounded-xl p-6 border border-[var(--color-border)] shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 text-center h-full flex flex-col">
                   <div className="flex items-center justify-center w-24 h-24 mx-auto rounded-full bg-[var(--color-point)]/10 text-[var(--color-point)] mb-4">
                     <div className="w-14 h-14">
                       {mission.icon}
@@ -527,66 +527,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Section 8: 팀 소개 */}
-      <section className="section">
-        <div className="container-narrow">
-          <MotionWrapper
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.6 }}
-          >
-            <h2 className="text-2xl md:text-3xl font-semibold tracking-tight">
-              Team
-            </h2>
-            <p className="mt-4 text-[var(--color-text-secondary)]">
-              구조적 사고로 문제를 해결하는 팀
-            </p>
-          </MotionWrapper>
-          
-          <StaggerContainer className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8" staggerDelay={0.15}>
-            <StaggerItem>
-              <div className="bg-white rounded-xl p-6 border border-[var(--color-border)] shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300">
-                <h3 className="text-xl font-semibold">임수연</h3>
-                <p className="mt-2 text-[var(--color-point)] font-medium">Founder & CEO</p>
-                <p className="mt-4 text-[var(--color-text-secondary)] leading-relaxed">
-                  프리랜서 생태계 혁신과 구조 설계
-                </p>
-              </div>
-            </StaggerItem>
-            
-            <StaggerItem>
-              <div className="bg-white rounded-xl p-6 border border-[var(--color-border)] shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300">
-                <h3 className="text-xl font-semibold">이준호</h3>
-                <p className="mt-2 text-[var(--color-point)] font-medium">CTO</p>
-                <p className="mt-4 text-[var(--color-text-secondary)] leading-relaxed">
-                  AI 매칭 시스템 및 플랫폼 개발
-                </p>
-              </div>
-            </StaggerItem>
-            
-            <StaggerItem>
-              <div className="bg-white rounded-xl p-6 border border-[var(--color-border)] shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300">
-                <h3 className="text-xl font-semibold">박민지</h3>
-                <p className="mt-2 text-[var(--color-point)] font-medium">운영 매니저</p>
-                <p className="mt-4 text-[var(--color-text-secondary)] leading-relaxed">
-                  소속사 관리 및 프로젝트 운영
-                </p>
-              </div>
-            </StaggerItem>
-            
-            <StaggerItem>
-              <div className="bg-white rounded-xl p-6 border border-[var(--color-border)] shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300">
-                <h3 className="text-xl font-semibold">최서현</h3>
-                <p className="mt-2 text-[var(--color-point)] font-medium">마케팅 매니저</p>
-                <p className="mt-4 text-[var(--color-text-secondary)] leading-relaxed">
-                  브랜드 전략 및 파트너십 확대
-                </p>
-              </div>
-            </StaggerItem>
-          </StaggerContainer>
-        </div>
-      </section>
 
       {/* CTA Section */}
       <section className="section bg-[var(--color-bg-sub)]">

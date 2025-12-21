@@ -281,10 +281,10 @@ export default function StructurePage() {
               </div>
             </MotionWrapper>
 
-            <StaggerContainer className="mt-8 grid md:grid-cols-2 gap-6" staggerDelay={0.1}>
+            <StaggerContainer className="mt-8 grid md:grid-cols-2 gap-6 items-stretch" staggerDelay={0.1}>
               {system.features.map((feature, featureIndex) => (
-                <StaggerItem key={feature.name}>
-                  <div className="p-4 bg-white rounded-lg border border-[var(--color-border)] hover:shadow-md hover:-translate-y-1 transition-all duration-300">
+                <StaggerItem key={feature.name} className="h-full">
+                  <div className="p-4 bg-white rounded-lg border border-[var(--color-border)] hover:shadow-md hover:-translate-y-1 transition-all duration-300 h-full">
                     <h3 className="font-medium">{feature.name}</h3>
                     <p className="mt-2 text-sm text-[var(--color-text-secondary)]">
                       {feature.detail}
