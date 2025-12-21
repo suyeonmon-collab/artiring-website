@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { MotionWrapper, StaggerContainer, StaggerItem } from '@/components/common/MotionWrapper';
 
 export const metadata = {
   title: '서비스',
@@ -59,16 +60,16 @@ const systems = [
         detail: '프로젝트 시작 시 동일 역량의 백업 프리랜서를 미리 지정합니다.'
       },
       {
-        name: '실시간 진행 상황 공유',
-        detail: '백업 인력이 프로젝트 진행 상황을 실시간으로 파악할 수 있습니다.'
+        name: '3단계: 백업 탐색',
+        detail: '동일 소속사 내 유사 역량 디자이너/아티스트 검색 (AI가 포트폴리오·경력·작업 스타일 분석)'
       },
       {
         name: '즉시 투입 프로토콜',
         detail: '메인 프리랜서 이탈 시 24시간 내 백업 인력이 투입됩니다.'
       },
       {
-        name: '인수인계 자동화',
-        detail: '표준화된 문서와 시스템으로 빠른 인수인계가 가능합니다.'
+        name: '4단계: 자동 이관',
+        detail: '작업 파일 (PSD/AI/Figma), 프로젝트 히스토리, 클라이언트 요구사항 → 모두 자동으로 백업 디자이너/아티스트에게 전달'
       }
     ]
   },
@@ -261,28 +262,37 @@ export default function StructurePage() {
           className={`section ${index % 2 === 0 ? 'bg-[var(--color-bg-sub)]' : ''}`}
         >
           <div className="container-narrow">
-            <div className="flex items-start gap-4 mb-6">
-              <div className="text-[var(--color-point)]">
-                {system.icon}
-              </div>
-              <div>
-                <h2 className="text-2xl font-semibold tracking-tight">{system.title}</h2>
-                <p className="mt-2 text-[var(--color-text-secondary)]">
-                  {system.description}
-                </p>
-              </div>
-            </div>
-
-            <div className="mt-8 grid md:grid-cols-2 gap-6">
-              {system.features.map((feature) => (
-                <div key={feature.name} className="p-4 bg-white rounded-lg border border-[var(--color-border)]">
-                  <h3 className="font-medium">{feature.name}</h3>
-                  <p className="mt-2 text-sm text-[var(--color-text-secondary)]">
-                    {feature.detail}
+            <MotionWrapper
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.6 }}
+            >
+              <div className="flex items-start gap-4 mb-6">
+                <div className="text-[var(--color-point)]">
+                  {system.icon}
+                </div>
+                <div>
+                  <h2 className="text-2xl font-semibold tracking-tight">{system.title}</h2>
+                  <p className="mt-2 text-[var(--color-text-secondary)]">
+                    {system.description}
                   </p>
                 </div>
+              </div>
+            </MotionWrapper>
+
+            <StaggerContainer className="mt-8 grid md:grid-cols-2 gap-6" staggerDelay={0.1}>
+              {system.features.map((feature, featureIndex) => (
+                <StaggerItem key={feature.name}>
+                  <div className="p-4 bg-white rounded-lg border border-[var(--color-border)] hover:shadow-md hover:-translate-y-1 transition-all duration-300">
+                    <h3 className="font-medium">{feature.name}</h3>
+                    <p className="mt-2 text-sm text-[var(--color-text-secondary)]">
+                      {feature.detail}
+                    </p>
+                  </div>
+                </StaggerItem>
               ))}
-            </div>
+            </StaggerContainer>
           </div>
         </section>
       ))}

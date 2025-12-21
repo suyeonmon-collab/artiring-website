@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { headers } from 'next/headers';
 import { formatDate } from '@/lib/utils';
+import { MotionWrapper, StaggerContainer, StaggerItem } from '@/components/common/MotionWrapper';
 
 // 조회수 높은 상위 3개 기록 가져오기
 async function getTopRecords() {
@@ -84,88 +85,96 @@ export default async function HomePage() {
       {/* Section 1: Hero */}
       <section className="section border-b border-[var(--color-border)]">
         <div className="container-narrow">
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-semibold leading-tight tracking-tight">
-            프리랜서를 개인이 아닌
-            <br />
-            구조로 연결합니다.
-          </h1>
-          <p className="mt-6 text-lg text-[var(--color-text-secondary)] leading-relaxed max-w-2xl">
-            프로젝트는 사람 한 명이 아니라,
-            <br className="hidden md:block" />
-            지속 가능한 구조 위에서 완성되어야 한다고 생각합니다.
-          </p>
-          <div className="mt-8 flex gap-6">
-            <Link href="/structure" className="text-link text-base">
-              구조 보기
-            </Link>
-            <Link href="/records" className="text-link text-base">
-              기록 보기
-            </Link>
-          </div>
+          <MotionWrapper
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0 }}
+          >
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-semibold leading-tight tracking-tight">
+              보이지 않게, 끊어지지 않게
+            </h1>
+          </MotionWrapper>
+          <MotionWrapper
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
+            <p className="mt-6 text-lg md:text-xl text-[var(--color-text-secondary)] leading-relaxed max-w-2xl">
+              디자이너·아티스트를 위한 소속사 플랫폼
+              <br />
+              AI가 일감을 매칭하고, 구조가 창작자를 보호합니다
+            </p>
+          </MotionWrapper>
+          <MotionWrapper
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.9 }}
+          >
+            <div className="mt-8">
+              <Link href="/about" className="text-link text-base inline-flex items-center gap-2">
+                자세히 알아보기
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
+            </div>
+          </MotionWrapper>
         </div>
       </section>
 
       {/* Section 2: 문제 정의 */}
       <section className="section bg-[var(--color-bg-sub)]">
         <div className="container-narrow">
-          <h2 className="text-2xl md:text-3xl font-semibold tracking-tight">
-            왜 프리랜서 프로젝트가
-            <br />
-            일반 대행사보다 신뢰성이 떨어질까요?
-          </h2>
+          <MotionWrapper
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.6 }}
+          >
+            <h2 className="text-2xl md:text-3xl font-semibold tracking-tight">
+              디자이너, 아티스트는 왜 개인으로 일하면 불편할까요?
+            </h2>
+          </MotionWrapper>
           
-          <div className="mt-12 space-y-10">
-            {/* 문제 1 */}
-            <div className="flex items-start gap-4">
-              <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-full bg-white text-[var(--color-point)] border border-[var(--color-border)]">
-                {problemIcons.dropout}
+          <StaggerContainer className="mt-12 grid md:grid-cols-2 gap-8" staggerDelay={0.2}>
+            {/* 문제 1: 프로젝트 중단 리스크 */}
+            <StaggerItem>
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-full bg-white text-[var(--color-point)] border border-[var(--color-border)]">
+                  {problemIcons.dropout}
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold tracking-tight">
+                    프로젝트 중단 리스크
+                  </h3>
+                  <p className="mt-2 text-[var(--color-text-secondary)] leading-relaxed">
+                    프리랜서가 개인 단위로 활동하는 구조에서는
+                    이탈 시 프로젝트 전체가 중단됩니다.
+                    이는 시스템이 아닌 개인에게 모든 책임을 집중시킨 결과입니다.
+                  </p>
+                </div>
               </div>
-              <div>
-                <h3 className="text-lg font-semibold tracking-tight">
-                  중도 포기는 개인의 문제가 아닙니다
-                </h3>
-                <p className="mt-2 text-[var(--color-text-secondary)] leading-relaxed">
-                  프리랜서가 개인 단위로 활동하는 구조에서는
-                  이탈 시 프로젝트 전체가 중단됩니다.
-                  이는 시스템이 아닌 개인에게 모든 책임을 집중시킨 결과입니다.
-                </p>
-              </div>
-            </div>
+            </StaggerItem>
 
-            {/* 문제 2 */}
-            <div className="flex items-start gap-4">
-              <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-full bg-white text-[var(--color-point)] border border-[var(--color-border)]">
-                {problemIcons.matching}
+            {/* 문제 2: 행정 업무 과부하 */}
+            <StaggerItem>
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-full bg-white text-[var(--color-point)] border border-[var(--color-border)]">
+                  {problemIcons.management}
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold tracking-tight">
+                    행정 업무 과부하
+                  </h3>
+                  <p className="mt-2 text-[var(--color-text-secondary)] leading-relaxed">
+                    근태, 급여, 계약, 행정 처리를
+                    개별적으로 처리하는 구조는
+                    프로젝트 본질에 집중하기 어렵게 만듭니다.
+                  </p>
+                </div>
               </div>
-              <div>
-                <h3 className="text-lg font-semibold tracking-tight">
-                  매칭은 역량만으로 충분하지 않습니다
-                </h3>
-                <p className="mt-2 text-[var(--color-text-secondary)] leading-relaxed">
-                  개인의 포트폴리오와 평점만으로는
-                  프로젝트의 안정성을 보장할 수 없습니다.
-                  백업 가능성과 관리 구조가 함께 고려되어야 합니다.
-                </p>
-              </div>
-            </div>
-
-            {/* 문제 3 */}
-            <div className="flex items-start gap-4">
-              <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-full bg-white text-[var(--color-point)] border border-[var(--color-border)]">
-                {problemIcons.management}
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold tracking-tight">
-                  관리 부담이 프로젝트를 막습니다
-                </h3>
-                <p className="mt-2 text-[var(--color-text-secondary)] leading-relaxed">
-                  근태, 급여, 계약, 행정 처리를
-                  개별적으로 처리하는 구조는
-                  프로젝트 본질에 집중하기 어렵게 만듭니다.
-                </p>
-              </div>
-            </div>
-          </div>
+            </StaggerItem>
+          </StaggerContainer>
         </div>
       </section>
 
@@ -240,8 +249,11 @@ export default async function HomePage() {
           </p>
 
           <div className="mt-8 text-center">
-            <Link href="/structure" className="text-link text-base">
-              자세한 구조 보기
+            <Link href="/structure" className="text-link text-base inline-flex items-center gap-2">
+              아티링 서비스 보기
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
             </Link>
           </div>
         </div>
@@ -309,40 +321,48 @@ export default async function HomePage() {
       {/* Section 5: 최신 기록 미리보기 */}
       <section className="section">
         <div className="container-narrow">
-          <h2 className="text-2xl md:text-3xl font-semibold tracking-tight">
-            아티링의 기록
-          </h2>
-          <p className="mt-4 text-[var(--color-text-secondary)]">
-            문제를 정의하고, 실험하고, 설계한 과정을 기록합니다.
-          </p>
+          <MotionWrapper
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.6 }}
+          >
+            <h2 className="text-2xl md:text-3xl font-semibold tracking-tight">
+              아티링의 기록
+            </h2>
+            <p className="mt-4 text-[var(--color-text-secondary)]">
+              문제를 정의하고, 실험하고, 설계한 과정을 기록합니다.
+            </p>
+          </MotionWrapper>
           
           {topRecords.length > 0 ? (
             <>
-              <div className="mt-12 space-y-0">
+              <StaggerContainer className="mt-12 space-y-0" staggerDelay={0.15}>
                 {topRecords.map((record) => (
-                  <Link
-                    key={record.id}
-                    href={`/records/${record.slug}`}
-                    className="block py-6 border-b border-[var(--color-border)] last:border-b-0 hover:bg-[var(--color-bg-sub)] -mx-4 px-4 transition-colors"
-                  >
-                    <span className="text-xs font-semibold uppercase tracking-wider text-[var(--color-point)]">
-                      {record.blog_categories?.name || '기록'}
-                    </span>
-                    <h3 className="mt-2 text-lg font-semibold leading-snug">
-                      {record.title}
-                    </h3>
-                    <p className="mt-2 text-sm text-[var(--color-text-secondary)] line-clamp-2">
-                      {record.summary}
-                    </p>
-                    <div className="mt-2 flex items-center gap-4 text-sm text-[var(--color-text-secondary)]">
-                      <time>{formatDate(record.published_at)}</time>
-                      {record.view_count > 0 && (
-                        <span>조회 {record.view_count.toLocaleString()}</span>
-                      )}
-                    </div>
-                  </Link>
+                  <StaggerItem key={record.id}>
+                    <Link
+                      href={`/records/${record.slug}`}
+                      className="block py-6 border-b border-[var(--color-border)] last:border-b-0 hover:bg-[var(--color-bg-sub)] -mx-4 px-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
+                    >
+                      <span className="text-xs font-semibold uppercase tracking-wider text-[var(--color-point)]">
+                        {record.blog_categories?.name || '기록'}
+                      </span>
+                      <h3 className="mt-2 text-lg font-semibold leading-snug">
+                        {record.title}
+                      </h3>
+                      <p className="mt-2 text-sm text-[var(--color-text-secondary)] line-clamp-2">
+                        {record.summary}
+                      </p>
+                      <div className="mt-2 flex items-center gap-4 text-sm text-[var(--color-text-secondary)]">
+                        <time>{formatDate(record.published_at)}</time>
+                        {record.view_count > 0 && (
+                          <span>조회 {record.view_count.toLocaleString()}</span>
+                        )}
+                      </div>
+                    </Link>
+                  </StaggerItem>
                 ))}
-              </div>
+              </StaggerContainer>
 
               <div className="mt-8">
                 <Link href="/records" className="text-link text-base">
@@ -406,17 +426,50 @@ export default async function HomePage() {
       {/* Section 7: CTA */}
       <section className="section">
         <div className="container-narrow">
-          <h2 className="text-2xl md:text-3xl font-semibold tracking-tight">
-            함께 구조를 만들어갈
-            <br />
-            파트너를 찾고 있습니다.
-          </h2>
-          
-          <div className="mt-8">
-            <Link href="/contact" className="text-link text-lg">
-              제휴 문의하기
-            </Link>
-          </div>
+          <MotionWrapper
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className="space-y-8">
+              <div>
+                <h3 className="text-lg font-medium text-[var(--color-text-secondary)] mb-2">
+                  아티링이 처음이라면
+                </h3>
+                <Link href="/about" className="text-link text-lg inline-flex items-center gap-2 hover:gap-3 transition-all">
+                  소개 페이지 보기
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </Link>
+              </div>
+              
+              <div>
+                <h3 className="text-lg font-medium text-[var(--color-text-secondary)] mb-2">
+                  디자이너/아티스트라면
+                </h3>
+                <Link href="/structure" className="text-link text-lg inline-flex items-center gap-2 hover:gap-3 transition-all">
+                  지금 시작하기
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </Link>
+              </div>
+              
+              <div>
+                <h3 className="text-lg font-medium text-[var(--color-text-secondary)] mb-2">
+                  소속사를 운영한다면
+                </h3>
+                <Link href="/contact" className="text-link text-lg inline-flex items-center gap-2 hover:gap-3 transition-all">
+                  파트너 문의
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </Link>
+              </div>
+            </div>
+          </MotionWrapper>
         </div>
       </section>
     </div>
