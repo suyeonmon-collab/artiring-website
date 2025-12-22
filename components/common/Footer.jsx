@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 const footerLinks = [
   { name: '소개', href: '/about' },
@@ -48,9 +49,15 @@ export default function Footer() {
           <div className="max-w-sm">
             <Link 
               href="/" 
-              className="text-lg font-semibold tracking-tight"
+              className="inline-block hover:opacity-70 transition-opacity"
             >
-              ARTIRING
+              <Image
+                src="/images/logo.png"
+                alt="ARTIRING"
+                width={150}
+                height={50}
+                className="h-8 w-auto"
+              />
             </Link>
             <p className="mt-3 text-sm text-[var(--color-text-secondary)] leading-relaxed">
               프리랜서 소속사 기반 인력 관리 플랫폼

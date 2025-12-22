@@ -31,7 +31,7 @@ export default function Header() {
             className="flex items-center hover:opacity-70 transition-opacity"
           >
             <Image
-              src="/images/logo.jpg"
+              src="/images/logo.png"
               alt="ARTIRING"
               width={120}
               height={40}

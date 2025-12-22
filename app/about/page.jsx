@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import ProfileImage from '@/components/about/ProfileImage';
 import { MotionWrapper, StaggerContainer, StaggerItem } from '@/components/common/MotionWrapper';
 
@@ -209,9 +210,16 @@ export default function AboutPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight">
-              ARTIRING
-            </h1>
+            <div className="flex items-center">
+              <Image
+                src="/images/logo.png"
+                alt="ARTIRING"
+                width={200}
+                height={67}
+                className="h-12 md:h-16 w-auto"
+                priority
+              />
+            </div>
             <p className="mt-4 text-lg md:text-xl text-[var(--color-text-secondary)]">
               디자이너·아티스트를 소속사로 연결하는 플랫폼
             </p>
