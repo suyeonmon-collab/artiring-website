@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 
 const navigation = [
@@ -27,9 +28,16 @@ export default function Header() {
           {/* Logo */}
           <Link 
             href="/" 
-            className="text-xl font-semibold tracking-tight hover:opacity-70 transition-opacity"
+            className="flex items-center hover:opacity-70 transition-opacity"
           >
-            ARTIRING
+            <Image
+              src="/images/logo.jpg"
+              alt="ARTIRING"
+              width={120}
+              height={40}
+              className="h-8 w-auto"
+              priority
+            />
           </Link>
 
           {/* Desktop Navigation */}
