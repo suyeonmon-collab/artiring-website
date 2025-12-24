@@ -267,7 +267,7 @@ export default function ContactPage() {
               <h3 className="font-medium mb-4">소셜 미디어</h3>
               <div className="flex gap-3">
                 <a
-                  href="#"
+                  href="https://www.instagram.com/arti_ring"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-2 text-[var(--color-text-secondary)] hover:text-[var(--color-point)] transition-colors"
@@ -278,7 +278,7 @@ export default function ContactPage() {
                   </svg>
                 </a>
                 <a
-                  href="#"
+                  href="https://www.youtube.com/@artiring"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-2 text-[var(--color-text-secondary)] hover:text-[var(--color-point)] transition-colors"
@@ -289,7 +289,7 @@ export default function ContactPage() {
                   </svg>
                 </a>
                 <a
-                  href="#"
+                  href="https://blog.naver.com/artiring"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-2 text-[var(--color-text-secondary)] hover:text-[var(--color-point)] transition-colors"

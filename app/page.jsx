@@ -387,7 +387,7 @@ export default async function HomePage() {
           
           <div className="mt-8 flex items-center gap-6">
             <a 
-              href="#" 
+              href="https://blog.naver.com/artiring" 
               target="_blank" 
               rel="noopener noreferrer"
               className="w-12 h-12 flex items-center justify-center rounded-full bg-white border border-[var(--color-border)] text-[var(--color-text)] hover:text-[var(--color-point)] transition-colors"
@@ -398,7 +398,7 @@ export default async function HomePage() {
               </svg>
             </a>
             <a 
-              href="#" 
+              href="https://www.instagram.com/arti_ring" 
               target="_blank" 
               rel="noopener noreferrer"
               className="w-12 h-12 flex items-center justify-center rounded-full bg-white border border-[var(--color-border)] text-[var(--color-text)] hover:text-[var(--color-point)] transition-colors"
@@ -409,7 +409,7 @@ export default async function HomePage() {
               </svg>
             </a>
             <a 
-              href="#" 
+              href="https://www.youtube.com/@artiring" 
               target="_blank" 
               rel="noopener noreferrer"
               className="w-12 h-12 flex items-center justify-center rounded-full bg-white border border-[var(--color-border)] text-[var(--color-text)] hover:text-[var(--color-point)] transition-colors"
