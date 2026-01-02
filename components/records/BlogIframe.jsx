@@ -24,29 +24,45 @@ export default function BlogIframe({ htmlFileName }) {
           iframe.style.height = height + 'px';
         }
       } catch (e) {
-        // CORS 오류 시 대체 방법
-        console.log('CORS 오류로 인해 자동 높이 조절이 불가능합니다.');
+        // CORS 오류 시 대체 방법 (postMessage 사용)
+        // 에러는 무시하고 postMessage로 처리
       }
     };
+
+    // postMessage 핸들러 (별도 함수로 분리하여 cleanup 가능하게)
+    const handleMessage = (e) => {
+      // 보안: 같은 origin에서 온 메시지만 처리
+      if (e.origin !== window.location.origin) {
+        return;
+      }
+      
+      if (e.data && e.data.type === 'iframe-resize' && typeof e.data.height === 'number') {
+        if (iframe && iframe === iframeRef.current) {
+          iframe.style.height = e.data.height + 'px';
+        }
+      }
+    };
+
+    // 메시지 리스너 등록
+    window.addEventListener('message', handleMessage);
 
     // iframe 로드 완료 이벤트
     iframe.onload = () => {
       adjustHeight();
-      
-      // iframe 내부에서 메시지 받기 (HTML 파일에 스크립트 추가 필요)
-      window.addEventListener('message', (e) => {
-        if (e.data.type === 'iframe-resize' && e.data.height) {
-          iframe.style.height = e.data.height + 'px';
-        }
-      });
     };
 
     // 주기적으로 높이 확인 (동적 콘텐츠 대응)
+    // CORS 문제로 직접 접근이 불가능한 경우 postMessage로 처리됨
     const interval = setInterval(adjustHeight, 1000);
 
+    // Cleanup
     return () => {
       clearInterval(interval);
-      window.removeEventListener('message', adjustHeight);
+      window.removeEventListener('message', handleMessage);
+      // iframe onload 핸들러 제거
+      if (iframe) {
+        iframe.onload = null;
+      }
     };
   }, [htmlFileName]);
 
