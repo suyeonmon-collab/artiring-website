@@ -329,13 +329,18 @@ export default function NewPostPage() {
         setContentHtml(''); // iframe 사용 시 빈 값
         setHasChanges(true);
         
-        alert(`HTML 파일이 업로드되었습니다!\n\n제목: ${result.post.title}\n파일: ${result.fileName}\n\n제목, 카테고리, 요약 등을 수정한 후 저장하세요.`);
+        alert(`✅ HTML 파일이 업로드되고 블로그 포스트가 생성되었습니다!\n\n제목: ${result.post.title}\n파일: ${result.fileName}\n상태: ${result.post.status === 'published' ? '발행됨 (기록 페이지에 표시됨)' : '임시저장'}\n\n제목, 카테고리, 요약 등을 수정할 수 있습니다.`);
         
         // 생성된 포스트로 이동하거나 대시보드로 이동
         if (confirm('생성된 포스트를 편집하시겠습니까?')) {
           router.push(`/admin/editor/${result.post.id}`);
         } else {
-          router.push('/admin/dashboard');
+          // 기록 페이지로 이동하여 생성된 글 확인
+          if (confirm('기록 페이지에서 생성된 글을 확인하시겠습니까?')) {
+            router.push('/records');
+          } else {
+            router.push('/admin/dashboard');
+          }
         }
       } else {
         console.error('No post in result:', result);

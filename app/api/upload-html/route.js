@@ -361,7 +361,8 @@ export async function POST(request) {
         content_html: '', // iframe 사용 시 빈 값
         html_file: fileName, // HTML 파일명
         summary: '', // 나중에 수정 가능
-        status: 'draft', // 초기값은 draft
+        status: 'published', // 자동 생성 시 바로 발행하여 /records 페이지에 표시
+        published_at: new Date().toISOString(), // 발행 시간 설정
         author_id: admin.id // admin 객체에 이미 id가 있음
       })
       .select()
