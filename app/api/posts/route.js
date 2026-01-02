@@ -170,6 +170,7 @@ export async function POST(request) {
       slug: body.slug || slug,
       content: body.content,
       content_html: body.content_html,
+      html_file: body.html_file || null, // iframe HTML 파일명
       summary: body.summary || null,
       thumbnail_url: thumbnailUrl,
       category_id: body.category_id || null,

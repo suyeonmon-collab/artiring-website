@@ -30,7 +30,9 @@ export default function NewPostPage() {
   const [lastSaved, setLastSaved] = useState(null);
   const [showPreview, setShowPreview] = useState(false);
   const [hasChanges, setHasChanges] = useState(false);
+  const [isUploadingHtml, setIsUploadingHtml] = useState(false);
   const thumbnailInputRef = useRef(null);
+  const htmlFileInputRef = useRef(null);
 
   useEffect(() => {
     checkAuth();
@@ -261,6 +263,87 @@ export default function NewPostPage() {
     }
   };
 
+  const handleHtmlFileUpload = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // HTML 파일 확인
+    if (!file.name.endsWith('.html') && !file.type.includes('html')) {
+      alert('HTML 파일만 업로드 가능합니다.');
+      return;
+    }
+
+    // 파일 크기 확인 (10MB)
+    const maxSize = 10 * 1024 * 1024;
+    if (file.size > maxSize) {
+      alert('파일 크기는 10MB 이하여야 합니다.');
+      return;
+    }
+
+    if (!confirm('HTML 파일을 업로드하면 자동으로 블로그 포스트가 생성됩니다. 계속하시겠습니까?')) {
+      return;
+    }
+
+    setIsUploadingHtml(true);
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    try {
+      const response = await fetch('/api/upload-html', {
+        method: 'POST',
+        headers: getAuthHeaders(),
+        body: formData,
+      });
+
+      if (response.status === 401) {
+        alert('인증이 만료되었습니다. 다시 로그인해주세요.');
+        router.push('/admin/login');
+        return;
+      }
+
+      if (!response.ok) {
+        const result = await response.json();
+        throw new Error(result.error || 'HTML 파일 업로드에 실패했습니다.');
+      }
+
+      const result = await response.json();
+      
+      // 생성된 포스트 정보로 폼 채우기
+      if (result.post) {
+        setTitle(result.post.title);
+        setSlug(result.post.slug);
+        setContentHtml(''); // iframe 사용 시 빈 값
+        setHasChanges(true);
+        
+        alert(`HTML 파일이 업로드되었습니다!\n\n제목: ${result.post.title}\n파일: ${result.fileName}\n\n제목, 카테고리, 요약 등을 수정한 후 저장하세요.`);
+        
+        // 생성된 포스트로 이동하거나 대시보드로 이동
+        if (confirm('생성된 포스트를 편집하시겠습니까?')) {
+          router.push(`/admin/editor/${result.post.id}`);
+        } else {
+          router.push('/admin/dashboard');
+        }
+      }
+
+      // input 초기화
+      if (htmlFileInputRef.current) {
+        htmlFileInputRef.current.value = '';
+      }
+    } catch (error) {
+      console.error('HTML upload error:', error);
+      alert('HTML 파일 업로드에 실패했습니다: ' + error.message);
+    } finally {
+      setIsUploadingHtml(false);
+    }
+  };
+
+  const handleHtmlFileButtonClick = () => {
+    if (htmlFileInputRef.current) {
+      htmlFileInputRef.current.click();
+    }
+  };
+
   const handleSave = async (publish = false) => {
     if (!title.trim()) {
       alert('제목을 입력하세요.');
@@ -461,6 +544,31 @@ export default function NewPostPage() {
                   <div className="text-right text-xs text-[var(--color-text-secondary)] mt-1">
                     {summary.length}/150
                   </div>
+                </div>
+
+                {/* HTML 파일 업로드 */}
+                <div className="meta-field md:col-span-2">
+                  <label className="meta-label">HTML 파일 업로드 (iframe 블로그)</label>
+                  <div className="flex gap-2">
+                    <button
+                      type="button"
+                      onClick={handleHtmlFileButtonClick}
+                      disabled={isUploadingHtml}
+                      className="upload-button flex-1"
+                    >
+                      {isUploadingHtml ? '업로드 중...' : 'HTML 파일 업로드'}
+                    </button>
+                    <input
+                      ref={htmlFileInputRef}
+                      type="file"
+                      accept=".html,text/html"
+                      onChange={handleHtmlFileUpload}
+                      style={{ display: 'none' }}
+                    />
+                  </div>
+                  <p className="text-xs text-[var(--color-text-secondary)] mt-2">
+                    HTML 파일을 업로드하면 자동으로 블로그 포스트가 생성되고 iframe으로 표시됩니다.
+                  </p>
                 </div>
 
                 {/* 썸네일 */}

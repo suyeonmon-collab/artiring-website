@@ -5,6 +5,7 @@ import { formatDate, calculateReadingTime, extractTextFromHtml } from '@/lib/uti
 import TableOfContents from '@/components/records/TableOfContents';
 import CopyLinkButton from '@/components/records/CopyLinkButton';
 import BlogPost5060 from '@/components/records/BlogPost5060';
+import BlogIframe from '@/components/records/BlogIframe';
 
 export async function generateMetadata({ params }) {
   const post = await getPost(params.slug);
@@ -156,6 +157,10 @@ export default async function RecordDetailPage({ params }) {
         {/* 본문 */}
         {post.slug === '5060-세대-디지털-격차와-노후-빈곤의-늪-수치로-알아봤습니다' ? (
           <BlogPost5060 contentHtml={post.content_html} />
+        ) : post.html_file ? (
+          // HTML 파일이 지정된 경우 iframe으로 표시
+          // 예: html_file = 'blog-post-5060.html'
+          <BlogIframe htmlFileName={post.html_file} />
         ) : (
           <div 
             className="article-body"

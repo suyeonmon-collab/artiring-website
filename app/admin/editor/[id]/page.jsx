@@ -24,6 +24,7 @@ export default function EditPostPage({ params }) {
   const [categoryId, setCategoryId] = useState('');
   const [selectedTags, setSelectedTags] = useState([]);
   const [thumbnailUrl, setThumbnailUrl] = useState('');
+  const [htmlFile, setHtmlFile] = useState('');
   const [status, setStatus] = useState('draft');
   const [categories, setCategories] = useState([]);
   const [tags, setTags] = useState([]);
@@ -101,6 +102,7 @@ export default function EditPostPage({ params }) {
       setCategoryId(data.category_id || '');
       setSelectedTags(data.tags?.map(t => t.id) || []);
       setThumbnailUrl(data.thumbnail_url || '');
+      setHtmlFile(data.html_file || '');
       setStatus(data.status || 'draft');
       
     } catch (error) {
@@ -260,6 +262,7 @@ export default function EditPostPage({ params }) {
           slug,
           content,
           content_html: contentHtml,
+          html_file: htmlFile || null, // iframe HTML 파일명
           summary,
           thumbnail_url: thumbnailUrl,
           category_id: categoryId || null,
@@ -441,6 +444,21 @@ export default function EditPostPage({ params }) {
                     {summary.length}/150
                   </div>
                 </div>
+
+                {/* HTML 파일 정보 (iframe 사용 시) */}
+                {htmlFile && (
+                  <div className="meta-field md:col-span-2">
+                    <label className="meta-label">HTML 파일 (iframe)</label>
+                    <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                      <p className="text-sm text-blue-800">
+                        📄 {htmlFile}
+                      </p>
+                      <p className="text-xs text-blue-600 mt-1">
+                        이 포스트는 iframe으로 표시됩니다. HTML 파일은 /public/blog/ 폴더에 저장되어 있습니다.
+                      </p>
+                    </div>
+                  </div>
+                )}
 
                 {/* 썸네일 */}
                 <div className="meta-field md:col-span-2">
