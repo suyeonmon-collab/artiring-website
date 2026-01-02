@@ -148,21 +148,20 @@ export default async function RecordDetailPage({ params }) {
         {/* 구분선 */}
         <hr className="article-divider" />
 
-        {/* 블로그 포스트 5060 특화 스크립트 및 스타일 */}
-        {post.slug === '5060-세대-디지털-격차와-노후-빈곤의-늪-수치로-알아봤습니다' && (
-          <BlogPost5060 />
-        )}
-
         {/* 목차 (H2가 3개 이상일 때만 표시) */}
         {showToc && (
           <TableOfContents content={post.content_html} />
         )}
 
         {/* 본문 */}
-        <div 
-          className={`article-body ${post.slug === '5060-세대-디지털-격차와-노후-빈곤의-늪-수치로-알아봤습니다' ? 'blog-post-5060' : ''}`}
-          dangerouslySetInnerHTML={{ __html: post.content_html }}
-        />
+        {post.slug === '5060-세대-디지털-격차와-노후-빈곤의-늪-수치로-알아봤습니다' ? (
+          <BlogPost5060 contentHtml={post.content_html} />
+        ) : (
+          <div 
+            className="article-body"
+            dangerouslySetInnerHTML={{ __html: post.content_html }}
+          />
+        )}
 
         {/* 자동 마무리 배너 */}
         <div className="mt-12 mb-8">
