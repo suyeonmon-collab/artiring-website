@@ -315,14 +315,9 @@ export async function POST(request) {
     const slug = `blog-${timestamp}`;
 
     // 10. 블로그 포스트 자동 생성
-    const { data: adminData } = await supabase
-      .from('blog_admins')
-      .select('id')
-      .eq('email', admin.email || admin.userId)
-      .single();
-
-    if (!adminData) {
-      return Response.json({ error: 'Admin not found' }, { status: 404 });
+    // admin 객체는 getAuthenticatedAdmin()에서 { id, email, name, role } 형태로 반환됨
+    if (!admin.id) {
+      return Response.json({ error: 'Admin ID not found' }, { status: 400 });
     }
 
     const { data: post, error: postError } = await supabase
@@ -334,7 +329,7 @@ export async function POST(request) {
         html_file: fileName, // HTML 파일명
         summary: '', // 나중에 수정 가능
         status: 'draft', // 초기값은 draft
-        author_id: adminData.id
+        author_id: admin.id // admin 객체에 이미 id가 있음
       })
       .select()
       .single();
