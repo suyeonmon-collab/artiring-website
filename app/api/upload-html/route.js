@@ -8,6 +8,183 @@ import { join } from 'path';
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 const ALLOWED_TYPES = ['text/html', 'application/xhtml+xml'];
 
+// PUT - 기존 포스트의 HTML 파일 업데이트
+export async function PUT(request) {
+  try {
+    // 1. 관리자 인증 확인
+    let admin = await getAuthenticatedAdmin();
+    
+    if (!admin) {
+      const authHeader = request.headers.get('x-admin-session');
+      if (authHeader) {
+        try {
+          const sessionData = JSON.parse(authHeader);
+          if (sessionData.role === 'admin' && sessionData.exp > Date.now()) {
+            admin = sessionData;
+          }
+        } catch (e) {
+          // ignore
+        }
+      }
+    }
+
+    if (!admin || admin.role !== 'admin') {
+      return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const supabase = createServerClient();
+
+    // 2. FormData 파싱
+    const formData = await request.formData();
+    const file = formData.get('file');
+    const postId = formData.get('postId');
+
+    if (!file) {
+      return Response.json({ error: 'No file provided' }, { status: 400 });
+    }
+
+    if (!postId) {
+      return Response.json({ error: 'Post ID is required' }, { status: 400 });
+    }
+
+    // 3. 파일 유효성 검사
+    if (file.size > MAX_FILE_SIZE) {
+      return Response.json(
+        { error: `파일이 너무 큽니다. 최대 크기: ${MAX_FILE_SIZE / 1024 / 1024}MB` },
+        { status: 400 }
+      );
+    }
+
+    if (!ALLOWED_TYPES.includes(file.type) && !file.name.endsWith('.html')) {
+      return Response.json(
+        { error: 'HTML 파일만 업로드 가능합니다.' },
+        { status: 400 }
+      );
+    }
+
+    // 4. 기존 포스트 확인
+    const { data: existingPost, error: postError } = await supabase
+      .from('blog_posts')
+      .select('id, html_file')
+      .eq('id', postId)
+      .single();
+
+    if (postError || !existingPost) {
+      return Response.json({ error: 'Post not found' }, { status: 404 });
+    }
+
+    // 5. 파일 내용 읽기
+    const arrayBuffer = await file.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+    const fileContent = buffer.toString('utf-8');
+
+    // 6. 파일명 결정 (기존 파일명 유지 또는 새 파일명 생성)
+    let fileName;
+    if (existingPost.html_file) {
+      // 기존 파일명 유지 (덮어쓰기)
+      fileName = existingPost.html_file;
+    } else {
+      // 새 파일명 생성
+      const originalName = file.name.replace(/[^a-zA-Z0-9가-힣._-]/g, '_');
+      const timestamp = Date.now();
+      fileName = `${timestamp}_${originalName}`;
+    }
+
+    // 7. public/blog 폴더에 저장
+    const blogDir = join(process.cwd(), 'public', 'blog');
+    await mkdir(blogDir, { recursive: true });
+    
+    const filePath = join(blogDir, fileName);
+    await writeFile(filePath, buffer);
+
+    // 8. HTML 파일에 높이 전달 스크립트 추가 (없는 경우)
+    let updatedContent = fileContent;
+    if (!updatedContent.includes('iframe-resize')) {
+      const scriptToAdd = `
+        // iframe 높이 자동 전달 (부모 창에 메시지 전송)
+        function sendHeightToParent() {
+          if (window.parent !== window) {
+            const height = Math.max(
+              document.body.scrollHeight,
+              document.body.offsetHeight,
+              document.documentElement.clientHeight,
+              document.documentElement.scrollHeight,
+              document.documentElement.offsetHeight
+            );
+            window.parent.postMessage({
+              type: 'iframe-resize',
+              height: height
+            }, '*');
+          }
+        }
+
+        // 초기 높이 전달
+        window.addEventListener('load', () => {
+          sendHeightToParent();
+          setTimeout(sendHeightToParent, 2000);
+        });
+
+        // 리사이즈 이벤트 감지
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+          clearTimeout(resizeTimer);
+          resizeTimer = setTimeout(sendHeightToParent, 300);
+        });
+
+        // MutationObserver로 DOM 변경 감지
+        const observer = new MutationObserver(() => {
+          sendHeightToParent();
+        });
+        observer.observe(document.body, {
+          childList: true,
+          subtree: true,
+          attributes: true
+        });
+      `;
+
+      // </body> 태그 앞에 스크립트 추가
+      if (updatedContent.includes('</body>')) {
+        updatedContent = updatedContent.replace('</body>', `<script>${scriptToAdd}</script></body>`);
+      } else {
+        updatedContent += `<script>${scriptToAdd}</script>`;
+      }
+
+      // 업데이트된 내용 저장
+      await writeFile(filePath, updatedContent, 'utf-8');
+    }
+
+    // 9. 포스트의 html_file 필드 업데이트
+    const { data: updatedPost, error: updateError } = await supabase
+      .from('blog_posts')
+      .update({ html_file: fileName })
+      .eq('id', postId)
+      .select()
+      .single();
+
+    if (updateError) {
+      console.error('Post update error:', updateError);
+      return Response.json({ 
+        error: '블로그 포스트 업데이트에 실패했습니다.',
+        details: updateError.message 
+      }, { status: 500 });
+    }
+
+    return Response.json({ 
+      success: true,
+      post: updatedPost,
+      fileName: fileName,
+      message: 'HTML 파일이 업데이트되었습니다.'
+    });
+
+  } catch (error) {
+    console.error('Update HTML error:', error);
+    return Response.json({ 
+      error: error.message || 'HTML 파일 업데이트에 실패했습니다.',
+      details: process.env.NODE_ENV === 'development' ? error.stack : undefined
+    }, { status: 500 });
+  }
+}
+
 // POST - HTML 파일 업로드 및 블로그 포스트 자동 생성
 export async function POST(request) {
   try {

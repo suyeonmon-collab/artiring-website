@@ -33,7 +33,9 @@ export default function EditPostPage({ params }) {
   const [isLoading, setIsLoading] = useState(true);
   const [showPreview, setShowPreview] = useState(false);
   const [hasChanges, setHasChanges] = useState(false);
+  const [isUploadingHtml, setIsUploadingHtml] = useState(false);
   const thumbnailInputRef = useRef(null);
+  const htmlFileInputRef = useRef(null);
 
   useEffect(() => {
     checkAuth();
@@ -233,6 +235,78 @@ export default function EditPostPage({ params }) {
     console.log('thumbnailInputRef:', thumbnailInputRef.current);
     if (thumbnailInputRef.current) {
       thumbnailInputRef.current.click();
+    }
+  };
+
+  const handleHtmlFileUpload = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // HTML 파일 확인
+    if (!file.name.endsWith('.html') && !file.type.includes('html')) {
+      alert('HTML 파일만 업로드 가능합니다.');
+      return;
+    }
+
+    // 파일 크기 확인 (10MB)
+    const maxSize = 10 * 1024 * 1024;
+    if (file.size > maxSize) {
+      alert('파일 크기는 10MB 이하여야 합니다.');
+      return;
+    }
+
+    if (!confirm('HTML 파일을 업데이트하시겠습니까? 기존 파일이 덮어쓰기됩니다.')) {
+      return;
+    }
+
+    setIsUploadingHtml(true);
+
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('postId', postId);
+
+    try {
+      const response = await fetch('/api/upload-html', {
+        method: 'PUT',
+        headers: getAuthHeaders(),
+        body: formData,
+      });
+
+      if (response.status === 401) {
+        alert('인증이 만료되었습니다. 다시 로그인해주세요.');
+        router.push('/admin/login');
+        return;
+      }
+
+      if (!response.ok) {
+        const result = await response.json();
+        throw new Error(result.error || 'HTML 파일 업데이트에 실패했습니다.');
+      }
+
+      const result = await response.json();
+      
+      // 업데이트된 html_file 정보 반영
+      if (result.post) {
+        setHtmlFile(result.post.html_file);
+        setHasChanges(true);
+        alert('HTML 파일이 업데이트되었습니다!');
+      }
+
+      // input 초기화
+      if (htmlFileInputRef.current) {
+        htmlFileInputRef.current.value = '';
+      }
+    } catch (error) {
+      console.error('HTML upload error:', error);
+      alert('HTML 파일 업데이트에 실패했습니다: ' + error.message);
+    } finally {
+      setIsUploadingHtml(false);
+    }
+  };
+
+  const handleHtmlFileButtonClick = () => {
+    if (htmlFileInputRef.current) {
+      htmlFileInputRef.current.click();
     }
   };
 
@@ -445,11 +519,14 @@ export default function EditPostPage({ params }) {
                   </div>
                 </div>
 
-                {/* HTML 파일 정보 (iframe 사용 시) */}
-                {htmlFile && (
-                  <div className="meta-field md:col-span-2">
-                    <label className="meta-label">HTML 파일 (iframe)</label>
-                    <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                {/* HTML 파일 업로드/업데이트 */}
+                <div className="meta-field md:col-span-2">
+                  <label className="meta-label">
+                    HTML 파일 (iframe 블로그)
+                    {htmlFile && <span className="text-xs text-[var(--color-text-secondary)] ml-2">현재: {htmlFile}</span>}
+                  </label>
+                  {htmlFile && (
+                    <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg mb-3">
                       <p className="text-sm text-blue-800">
                         📄 {htmlFile}
                       </p>
@@ -457,8 +534,30 @@ export default function EditPostPage({ params }) {
                         이 포스트는 iframe으로 표시됩니다. HTML 파일은 /public/blog/ 폴더에 저장되어 있습니다.
                       </p>
                     </div>
+                  )}
+                  <div className="flex gap-2">
+                    <button
+                      type="button"
+                      onClick={handleHtmlFileButtonClick}
+                      disabled={isUploadingHtml}
+                      className="upload-button flex-1"
+                    >
+                      {isUploadingHtml ? '업로드 중...' : htmlFile ? 'HTML 파일 업데이트' : 'HTML 파일 업로드'}
+                    </button>
+                    <input
+                      ref={htmlFileInputRef}
+                      type="file"
+                      accept=".html,text/html"
+                      onChange={handleHtmlFileUpload}
+                      style={{ display: 'none' }}
+                    />
                   </div>
-                )}
+                  <p className="text-xs text-[var(--color-text-secondary)] mt-2">
+                    {htmlFile 
+                      ? '새 HTML 파일을 업로드하면 기존 파일이 덮어쓰기됩니다.'
+                      : 'HTML 파일을 업로드하면 이 포스트가 iframe으로 표시됩니다.'}
+                  </p>
+                </div>
 
                 {/* 썸네일 */}
                 <div className="meta-field md:col-span-2">
