@@ -304,10 +304,12 @@ export default function NewPostPage() {
 
       if (!response.ok) {
         const result = await response.json();
-        throw new Error(result.error || 'HTML 파일 업로드에 실패했습니다.');
+        console.error('Upload failed:', result);
+        throw new Error(result.error || result.details || 'HTML 파일 업로드에 실패했습니다.');
       }
 
       const result = await response.json();
+      console.log('Upload success:', result);
       
       // 생성된 포스트 정보로 폼 채우기
       if (result.post) {
@@ -324,6 +326,9 @@ export default function NewPostPage() {
         } else {
           router.push('/admin/dashboard');
         }
+      } else {
+        console.error('No post in result:', result);
+        throw new Error('포스트가 생성되지 않았습니다.');
       }
 
       // input 초기화

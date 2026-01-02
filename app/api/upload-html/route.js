@@ -188,26 +188,50 @@ export async function PUT(request) {
 // POST - HTML 파일 업로드 및 블로그 포스트 자동 생성
 export async function POST(request) {
   try {
+    console.log('=== HTML Upload API called ===');
+    
     // 1. 관리자 인증 확인
     let admin = await getAuthenticatedAdmin();
+    console.log('Cookie auth result:', admin ? 'success' : 'failed');
     
     if (!admin) {
       const authHeader = request.headers.get('x-admin-session');
+      console.log('Auth header present:', !!authHeader);
+      
       if (authHeader) {
         try {
           const sessionData = JSON.parse(authHeader);
+          console.log('Session data:', { userId: sessionData.userId, role: sessionData.role, exp: sessionData.exp, now: Date.now() });
+          
           if (sessionData.role === 'admin' && sessionData.exp > Date.now()) {
-            admin = sessionData;
+            // 세션 데이터에서 admin 정보를 가져오기 위해 DB 조회 필요
+            const supabase = createServerClient();
+            const { data: adminData, error: adminError } = await supabase
+              .from('blog_admins')
+              .select('id, email, name, role')
+              .eq('id', sessionData.userId)
+              .single();
+            
+            if (adminError || !adminData) {
+              console.error('Admin lookup error:', adminError);
+              return Response.json({ error: 'Admin not found' }, { status: 401 });
+            }
+            
+            admin = adminData;
+            console.log('Header auth success, admin:', admin);
           }
         } catch (e) {
-          // ignore
+          console.error('Session header parse error:', e);
         }
       }
     }
 
     if (!admin || admin.role !== 'admin') {
-      return Response.json({ error: 'Unauthorized' }, { status: 401 });
+      console.log('Upload: Authentication failed - no admin found');
+      return Response.json({ error: 'Unauthorized - Please login again' }, { status: 401 });
     }
+
+    console.log('Auth passed for:', admin.email || admin.id);
 
     const supabase = createServerClient();
 
@@ -317,8 +341,16 @@ export async function POST(request) {
     // 10. 블로그 포스트 자동 생성
     // admin 객체는 getAuthenticatedAdmin()에서 { id, email, name, role } 형태로 반환됨
     if (!admin.id) {
+      console.error('Admin ID not found in admin object:', admin);
       return Response.json({ error: 'Admin ID not found' }, { status: 400 });
     }
+
+    console.log('Creating blog post with:', {
+      title: dateTitle,
+      slug: slug,
+      html_file: fileName,
+      author_id: admin.id
+    });
 
     const { data: post, error: postError } = await supabase
       .from('blog_posts')
@@ -338,9 +370,12 @@ export async function POST(request) {
       console.error('Post creation error:', postError);
       return Response.json({ 
         error: '블로그 포스트 생성에 실패했습니다.',
-        details: postError.message 
+        details: postError.message,
+        code: postError.code
       }, { status: 500 });
     }
+
+    console.log('Post created successfully:', post.id);
 
     return Response.json({ 
       success: true,
