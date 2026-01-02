@@ -406,15 +406,36 @@ export async function POST(request) {
       .single();
 
     if (postError) {
-      console.error('Post creation error:', postError);
+      console.error('❌ Post creation error:', postError);
+      console.error('❌ Error details:', {
+        message: postError.message,
+        code: postError.code,
+        details: postError.details,
+        hint: postError.hint
+      });
       return Response.json({ 
         error: '블로그 포스트 생성에 실패했습니다.',
         details: postError.message,
-        code: postError.code
+        code: postError.code,
+        hint: postError.hint
       }, { status: 500 });
     }
 
-    console.log('Post created successfully:', post.id);
+    if (!post || !post.id) {
+      console.error('❌ Post creation failed: No post returned');
+      return Response.json({ 
+        error: '블로그 포스트 생성에 실패했습니다.',
+        details: '포스트가 반환되지 않았습니다.'
+      }, { status: 500 });
+    }
+
+    console.log('✅ Post created successfully:', {
+      id: post.id,
+      title: post.title,
+      slug: post.slug,
+      status: post.status,
+      html_file: post.html_file
+    });
 
     return Response.json({ 
       success: true,

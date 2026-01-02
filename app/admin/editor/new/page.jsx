@@ -314,37 +314,64 @@ export default function NewPostPage() {
       }
 
       if (!response.ok) {
-        const result = await response.json();
-        console.error('Upload failed:', result);
-        throw new Error(result.error || result.details || 'HTML 파일 업로드에 실패했습니다.');
+        let errorMessage = 'HTML 파일 업로드에 실패했습니다.';
+        try {
+          const result = await response.json();
+          console.error('❌ Upload failed:', result);
+          errorMessage = result.error || result.details || errorMessage;
+          if (result.code) {
+            errorMessage += ` (코드: ${result.code})`;
+          }
+        } catch (e) {
+          console.error('❌ Failed to parse error response:', e);
+          errorMessage = `서버 오류: ${response.status} ${response.statusText}`;
+        }
+        alert(`❌ ${errorMessage}\n\n브라우저 콘솔(F12)에서 자세한 오류를 확인할 수 있습니다.`);
+        throw new Error(errorMessage);
       }
 
       const result = await response.json();
-      console.log('Upload success:', result);
+      console.log('✅ Upload success:', result);
+      
+      // 생성된 포스트 정보 확인
+      if (!result.post) {
+        console.error('❌ No post in result:', result);
+        alert('❌ 포스트가 생성되지 않았습니다.\n\n응답 데이터: ' + JSON.stringify(result, null, 2));
+        throw new Error('포스트가 생성되지 않았습니다.');
+      }
+
+      if (!result.post.id) {
+        console.error('❌ Post ID missing:', result.post);
+        alert('❌ 포스트 ID가 없습니다.\n\n응답 데이터: ' + JSON.stringify(result, null, 2));
+        throw new Error('포스트 ID가 없습니다.');
+      }
       
       // 생성된 포스트 정보로 폼 채우기
-      if (result.post) {
-        setTitle(result.post.title);
-        setSlug(result.post.slug);
-        setContentHtml(''); // iframe 사용 시 빈 값
-        setHasChanges(true);
-        
-        alert(`✅ HTML 파일이 업로드되고 블로그 포스트가 생성되었습니다!\n\n제목: ${result.post.title}\n파일: ${result.fileName}\n상태: ${result.post.status === 'published' ? '발행됨 (기록 페이지에 표시됨)' : '임시저장'}\n\n제목, 카테고리, 요약 등을 수정할 수 있습니다.`);
-        
-        // 생성된 포스트로 이동하거나 대시보드로 이동
-        if (confirm('생성된 포스트를 편집하시겠습니까?')) {
-          router.push(`/admin/editor/${result.post.id}`);
-        } else {
-          // 기록 페이지로 이동하여 생성된 글 확인
-          if (confirm('기록 페이지에서 생성된 글을 확인하시겠습니까?')) {
-            router.push('/records');
-          } else {
-            router.push('/admin/dashboard');
-          }
-        }
+      setTitle(result.post.title);
+      setSlug(result.post.slug);
+      setContentHtml(''); // iframe 사용 시 빈 값
+      setHasChanges(true);
+      
+      console.log('✅ Post created:', {
+        id: result.post.id,
+        title: result.post.title,
+        slug: result.post.slug,
+        status: result.post.status,
+        html_file: result.fileName
+      });
+      
+      alert(`✅ HTML 파일이 업로드되고 블로그 포스트가 생성되었습니다!\n\n제목: ${result.post.title}\n파일: ${result.fileName}\n상태: ${result.post.status === 'published' ? '발행됨 (기록 페이지에 표시됨)' : '임시저장'}\n\n제목, 카테고리, 요약 등을 수정할 수 있습니다.`);
+      
+      // 생성된 포스트로 이동하거나 대시보드로 이동
+      if (confirm('생성된 포스트를 편집하시겠습니까?')) {
+        router.push(`/admin/editor/${result.post.id}`);
       } else {
-        console.error('No post in result:', result);
-        throw new Error('포스트가 생성되지 않았습니다.');
+        // 기록 페이지로 이동하여 생성된 글 확인
+        if (confirm('기록 페이지에서 생성된 글을 확인하시겠습니까?')) {
+          router.push('/records');
+        } else {
+          router.push('/admin/dashboard');
+        }
       }
 
       // input 초기화
