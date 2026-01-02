@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import ProfileImage from '@/components/about/ProfileImage';
 import { MotionWrapper, StaggerContainer, StaggerItem } from '@/components/common/MotionWrapper';
 
 export const metadata = {
@@ -248,17 +247,29 @@ export default function AboutPage() {
               <p className="font-medium text-[var(--color-text-primary)]">
                 그 고리는:
               </p>
-              <ul className="space-y-3 list-none">
+              <ul className="space-y-4 list-none">
                 <li className="flex items-start gap-3">
-                  <span className="text-[var(--color-point)] mt-1">•</span>
+                  <div className="flex-shrink-0 w-6 h-6 mt-0.5 text-[var(--color-point)]">
+                    <svg className="w-full h-full" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                    </svg>
+                  </div>
                   <span>AI로 작동합니다 (자동 매칭)</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="text-[var(--color-point)] mt-1">•</span>
+                  <div className="flex-shrink-0 w-6 h-6 mt-0.5 text-[var(--color-point)]">
+                    <svg className="w-full h-full" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                  </div>
                   <span>기록으로 증명됩니다 (투명성)</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="text-[var(--color-point)] mt-1">•</span>
+                  <div className="flex-shrink-0 w-6 h-6 mt-0.5 text-[var(--color-point)]">
+                    <svg className="w-full h-full" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
+                    </svg>
+                  </div>
                   <span>구조가 책임집니다</span>
                 </li>
               </ul>
@@ -355,6 +366,46 @@ export default function AboutPage() {
                       {direction.description}
                     </p>
                   </div>
+                </div>
+              </StaggerItem>
+            ))}
+          </StaggerContainer>
+
+          {/* 아티링의 기술 */}
+          <MotionWrapper
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.6 }}
+            className="mt-16"
+          >
+            <h2 className="text-2xl md:text-3xl font-semibold tracking-tight mb-8">
+              아티링의 기술
+            </h2>
+          </MotionWrapper>
+
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch" staggerDelay={0.15}>
+            {[
+              {
+                title: '특허출원서'
+              },
+              {
+                title: '디자인등록출원서'
+              },
+              {
+                title: '상표등록출원서'
+              }
+            ].map((patent, index) => (
+              <StaggerItem key={index} className="h-full">
+                <div className="bg-white rounded-xl p-6 border border-[var(--color-border)] shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 h-full flex flex-col">
+                  <div className="w-full aspect-[4/3] mb-4 rounded-lg bg-[var(--color-bg-sub)] flex items-center justify-center border border-[var(--color-border)]">
+                    <span className="text-lg font-medium text-[var(--color-text-secondary)]">
+                      출원중
+                    </span>
+                  </div>
+                  <h3 className="text-lg font-semibold tracking-tight text-center">
+                    {patent.title}
+                  </h3>
                 </div>
               </StaggerItem>
             ))}
@@ -537,7 +588,7 @@ export default function AboutPage() {
 
 
       {/* CTA Section */}
-      <section className="section">
+      <section className="section bg-white">
         <div className="container-narrow">
           <h2 className="text-2xl md:text-3xl font-semibold tracking-tight">
             함께 구조를 만들어갈

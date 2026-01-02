@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { formatDate, calculateReadingTime, extractTextFromHtml } from '@/lib/utils';
 import TableOfContents from '@/components/records/TableOfContents';
 import CopyLinkButton from '@/components/records/CopyLinkButton';
+import BlogPost5060 from '@/components/records/BlogPost5060';
 
 export async function generateMetadata({ params }) {
   const post = await getPost(params.slug);
@@ -147,6 +148,11 @@ export default async function RecordDetailPage({ params }) {
         {/* 구분선 */}
         <hr className="article-divider" />
 
+        {/* 블로그 포스트 5060 특화 스크립트 및 스타일 */}
+        {post.slug === '5060-세대-디지털-격차와-노후-빈곤의-늪-수치로-알아봤습니다' && (
+          <BlogPost5060 />
+        )}
+
         {/* 목차 (H2가 3개 이상일 때만 표시) */}
         {showToc && (
           <TableOfContents content={post.content_html} />
@@ -154,9 +160,18 @@ export default async function RecordDetailPage({ params }) {
 
         {/* 본문 */}
         <div 
-          className="article-body"
+          className={`article-body ${post.slug === '5060-세대-디지털-격차와-노후-빈곤의-늪-수치로-알아봤습니다' ? 'blog-post-5060' : ''}`}
           dangerouslySetInnerHTML={{ __html: post.content_html }}
         />
+
+        {/* 자동 마무리 배너 */}
+        <div className="mt-12 mb-8">
+          <img 
+            src="/images/banner.jpg" 
+            alt="마무리 배너" 
+            className="w-full h-auto rounded-lg"
+          />
+        </div>
 
         {/* 공유 기능 */}
         <div className="mt-12 flex justify-center">
@@ -187,6 +202,15 @@ export default async function RecordDetailPage({ params }) {
               className="article-nav-item text-right"
             >
               <div className="article-nav-label">다음 글 →</div>
+              {post.nextPost.thumbnail_url && (
+                <div className="mt-2 mb-2">
+                  <img 
+                    src={post.nextPost.thumbnail_url} 
+                    alt={post.nextPost.title}
+                    className="w-full h-32 object-cover rounded-lg"
+                  />
+                </div>
+              )}
               <div className="article-nav-title line-clamp-1">
                 {post.nextPost.title}
               </div>

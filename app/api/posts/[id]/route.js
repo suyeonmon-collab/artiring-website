@@ -59,7 +59,7 @@ export async function GET(request, { params }) {
     // 이전/다음 글 조회
     const { data: prevPost } = await supabase
       .from('blog_posts')
-      .select('id, title, slug')
+      .select('id, title, slug, thumbnail_url')
       .eq('status', 'published')
       .lt('published_at', post.published_at)
       .order('published_at', { ascending: false })
@@ -68,7 +68,7 @@ export async function GET(request, { params }) {
 
     const { data: nextPost } = await supabase
       .from('blog_posts')
-      .select('id, title, slug')
+      .select('id, title, slug, thumbnail_url')
       .eq('status', 'published')
       .gt('published_at', post.published_at)
       .order('published_at', { ascending: true })
@@ -120,7 +120,28 @@ export async function PUT(request, { params }) {
       return Response.json({ error: 'Post not found' }, { status: 404 });
     }
 
-    // 3. 업데이트 데이터 구성
+    // 3. 썸네일 자동 할당 (없을 경우 랜덤 캐릭터)
+    let thumbnailUrl = body.thumbnail_url;
+    if (body.thumbnail_url === undefined) {
+      // 업데이트하지 않음
+    } else if (!body.thumbnail_url) {
+      // 빈 문자열이면 랜덤 캐릭터 할당
+      const characterImages = [
+        '/images/character1.jpg',
+        '/images/character2.jpg',
+        '/images/character3.jpg',
+        '/images/character4.jpg',
+        '/images/character5.jpg',
+        '/images/character6.jpg',
+        '/images/character7.jpg',
+        '/images/character8.jpg',
+        '/images/character9.jpg',
+      ];
+      const randomIndex = Math.floor(Math.random() * characterImages.length);
+      thumbnailUrl = characterImages[randomIndex];
+    }
+
+    // 4. 업데이트 데이터 구성
     const updateData = {};
 
     if (body.title !== undefined) updateData.title = body.title;
@@ -128,7 +149,7 @@ export async function PUT(request, { params }) {
     if (body.content !== undefined) updateData.content = body.content;
     if (body.content_html !== undefined) updateData.content_html = body.content_html;
     if (body.summary !== undefined) updateData.summary = body.summary;
-    if (body.thumbnail_url !== undefined) updateData.thumbnail_url = body.thumbnail_url;
+    if (body.thumbnail_url !== undefined) updateData.thumbnail_url = thumbnailUrl;
     if (body.category_id !== undefined) updateData.category_id = body.category_id;
 
     // 상태 변경 처리

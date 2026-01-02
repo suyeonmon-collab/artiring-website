@@ -16,13 +16,17 @@ export default function AdminDashboardPage() {
     publishedPosts: 0,
     draftPosts: 0,
     totalViews: 0,
-    pendingInquiries: 0
+    pendingInquiries: 0,
+    totalReservations: 0
   });
   const [isLoading, setIsLoading] = useState(true);
-  const [mainTab, setMainTab] = useState('posts'); // 'posts' or 'inquiries'
+  const [mainTab, setMainTab] = useState('posts'); // 'posts', 'inquiries', or 'reservations'
   const [activeTab, setActiveTab] = useState('all');
   const [inquiryFilter, setInquiryFilter] = useState('all');
   const [selectedInquiry, setSelectedInquiry] = useState(null);
+  const [reservations, setReservations] = useState([]);
+  const [reservationFilter, setReservationFilter] = useState('all');
+  const [reservationSort, setReservationSort] = useState('latest');
 
   useEffect(() => {
     checkAuth();
@@ -32,11 +36,13 @@ export default function AdminDashboardPage() {
     if (user) {
       if (mainTab === 'posts') {
         fetchPosts();
-      } else {
+      } else if (mainTab === 'inquiries') {
         fetchInquiries();
+      } else if (mainTab === 'reservations') {
+        fetchReservations();
       }
     }
-  }, [user, mainTab, activeTab, inquiryFilter]);
+  }, [user, mainTab, activeTab, inquiryFilter, reservationFilter, reservationSort]);
 
   const checkAuth = async () => {
     const storedUser = localStorage.getItem('user');
@@ -127,6 +133,45 @@ export default function AdminDashboardPage() {
       setInquiries(data || []);
     } catch (error) {
       console.error('Fetch inquiries error:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const fetchReservations = async () => {
+    setIsLoading(true);
+
+    try {
+      const params = new URLSearchParams();
+      if (reservationFilter !== 'all') {
+        params.set('type', reservationFilter);
+      }
+      params.set('sort', reservationSort);
+      params.set('limit', '100');
+
+      const response = await fetch(`/api/pre-reservations?${params.toString()}`, {
+        headers: getAuthHeaders()
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch reservations');
+      }
+
+      const { data } = await response.json();
+      setReservations(data || []);
+
+      // 통계 업데이트
+      if (mainTab === 'reservations') {
+        const allResponse = await fetch('/api/pre-reservations?limit=1000', {
+          headers: getAuthHeaders()
+        });
+        if (allResponse.ok) {
+          const { data: allData } = await allResponse.json();
+          setStats(prev => ({ ...prev, totalReservations: allData?.length || 0 }));
+        }
+      }
+    } catch (error) {
+      console.error('Fetch reservations error:', error);
     } finally {
       setIsLoading(false);
     }
@@ -315,6 +360,21 @@ export default function AdminDashboardPage() {
             {stats.pendingInquiries > 0 && (
               <span className="px-2 py-0.5 text-xs bg-[var(--color-point)] text-white rounded-full">
                 {stats.pendingInquiries}
+              </span>
+            )}
+          </button>
+          <button
+            onClick={() => setMainTab('reservations')}
+            className={`pb-3 text-sm font-medium transition-colors border-b-2 -mb-px flex items-center gap-2 ${
+              mainTab === 'reservations'
+                ? 'text-[var(--color-point)] border-[var(--color-point)]'
+                : 'text-[var(--color-text-secondary)] border-transparent hover:text-[var(--color-text-primary)]'
+            }`}
+          >
+            📋 사전예약 관리
+            {stats.totalReservations > 0 && (
+              <span className="px-2 py-0.5 text-xs bg-[var(--color-point)] text-white rounded-full">
+                {stats.totalReservations}
               </span>
             )}
           </button>
@@ -632,6 +692,96 @@ export default function AdminDashboardPage() {
                 )}
               </div>
             </div>
+          </>
+        )}
+
+        {/* 사전예약 관리 섹션 */}
+        {mainTab === 'reservations' && (
+          <>
+            {/* 필터 및 정렬 */}
+            <div className="flex flex-wrap items-center gap-4 mb-6">
+              {/* 유형 필터 */}
+              <div className="flex gap-2">
+                {[
+                  { key: 'all', label: '전체' },
+                  { key: '클라이언트', label: '클라이언트' },
+                  { key: '소속사', label: '소속사' },
+                  { key: '프리랜서', label: '프리랜서' },
+                ].map((tab) => (
+                  <button
+                    key={tab.key}
+                    onClick={() => setReservationFilter(tab.key)}
+                    className={`px-3 py-1.5 text-sm rounded-full transition-colors ${
+                      reservationFilter === tab.key
+                        ? 'bg-[var(--color-point)] text-white'
+                        : 'bg-[var(--color-bg-sub)] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]'
+                    }`}
+                  >
+                    {tab.label}
+                  </button>
+                ))}
+              </div>
+
+              {/* 정렬 */}
+              <select
+                value={reservationSort}
+                onChange={(e) => setReservationSort(e.target.value)}
+                className="px-3 py-1.5 text-sm border border-[var(--color-border)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--color-point)]"
+              >
+                <option value="latest">최신순</option>
+                <option value="oldest">오래된순</option>
+                <option value="name">이름순</option>
+              </select>
+            </div>
+
+            {/* 사전예약 목록 */}
+            {isLoading ? (
+              <div className="py-12 text-center text-[var(--color-text-secondary)]">
+                로딩 중...
+              </div>
+            ) : reservations.length > 0 ? (
+              <div className="overflow-x-auto">
+                <table className="posts-table w-full">
+                  <thead>
+                    <tr>
+                      <th className="w-1/6">신청일시</th>
+                      <th className="w-1/4">이름</th>
+                      <th className="w-1/4">전화번호</th>
+                      <th className="w-1/4">유형</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {reservations.map((reservation) => (
+                      <tr key={reservation.id}>
+                        <td className="text-[var(--color-text-secondary)]">
+                          {formatDate(reservation.created_at)}
+                        </td>
+                        <td className="font-medium">{reservation.name}</td>
+                        <td>
+                          <a
+                            href={`tel:${reservation.phone}`}
+                            className="text-[var(--color-point)] hover:underline"
+                          >
+                            {reservation.phone}
+                          </a>
+                        </td>
+                        <td>
+                          <span className="px-2 py-1 text-xs rounded-full bg-[var(--color-bg-sub)]">
+                            {reservation.type}
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : (
+              <div className="py-16 text-center">
+                <p className="text-[var(--color-text-secondary)]">
+                  사전예약이 없습니다.
+                </p>
+              </div>
+            )}
           </>
         )}
       </div>

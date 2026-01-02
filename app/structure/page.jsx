@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { MotionWrapper, StaggerContainer, StaggerItem } from '@/components/common/MotionWrapper';
+import PreReservationForm from '@/components/structure/PreReservationForm';
 
 export const metadata = {
   title: '서비스',
@@ -314,6 +315,23 @@ export default function StructurePage() {
               문의하기
             </Link>
           </div>
+        </div>
+      </section>
+
+      {/* 사전예약 폼 */}
+      <section className="section bg-[var(--color-bg-sub)]">
+        <div className="container-narrow">
+          <MotionWrapper
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.6 }}
+          >
+            <h2 className="text-2xl md:text-3xl font-semibold tracking-tight text-center mb-8">
+              사전예약 신청
+            </h2>
+            <PreReservationForm />
+          </MotionWrapper>
         </div>
       </section>
     </div>

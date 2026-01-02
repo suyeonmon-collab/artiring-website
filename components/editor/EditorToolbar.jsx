@@ -223,6 +223,48 @@ export default function EditorToolbar({ editor, onImageUpload }) {
         </svg>
       </ToolbarButton>
 
+      {/* 링크 박스 삽입 */}
+      <ToolbarButton
+        onClick={() => {
+          const url = window.prompt('URL을 입력하세요', 'https://');
+          if (!url || url === 'https://') return;
+
+          // 링크 박스 HTML 삽입
+          const linkBoxHtml = `
+            <div class="link-preview-box border border-[var(--color-border)] rounded-lg p-4 my-4 bg-[var(--color-bg-sub)] hover:bg-[var(--color-border)] transition-colors">
+              <a href="${url}" target="_blank" rel="noopener noreferrer" class="block">
+                <div class="text-xs text-[var(--color-point)] truncate mb-2">${url}</div>
+                <div class="text-sm text-[var(--color-text-secondary)]">링크를 클릭하여 이동하세요</div>
+              </a>
+            </div>
+          `;
+          editor.chain().focus().insertContent(linkBoxHtml).run();
+        }}
+        title="링크 박스 삽입"
+      >
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        </svg>
+      </ToolbarButton>
+
+      {/* 폰트 컬러 */}
+      <div className="relative inline-block">
+        <ToolbarButton
+          onClick={() => {
+            const color = window.prompt('색상 코드를 입력하세요 (예: #000000)', '#000000');
+            if (color) {
+              editor.chain().focus().setColor(color).run();
+            }
+          }}
+          isActive={editor.isActive('textStyle')}
+          title="텍스트 색상"
+        >
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+          </svg>
+        </ToolbarButton>
+      </div>
+
       {/* 이미지 */}
       <ToolbarButton
         onClick={handleImageButtonClick}

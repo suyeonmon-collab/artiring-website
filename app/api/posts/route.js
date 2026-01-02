@@ -146,14 +146,32 @@ export async function POST(request) {
 
     const slug = `${baseSlug}-${Date.now().toString(36)}`;
 
-    // 4. 게시글 생성
+    // 4. 썸네일 자동 할당 (없을 경우 랜덤 캐릭터)
+    let thumbnailUrl = body.thumbnail_url;
+    if (!thumbnailUrl) {
+      const characterImages = [
+        '/images/character1.jpg',
+        '/images/character2.jpg',
+        '/images/character3.jpg',
+        '/images/character4.jpg',
+        '/images/character5.jpg',
+        '/images/character6.jpg',
+        '/images/character7.jpg',
+        '/images/character8.jpg',
+        '/images/character9.jpg',
+      ];
+      const randomIndex = Math.floor(Math.random() * characterImages.length);
+      thumbnailUrl = characterImages[randomIndex];
+    }
+
+    // 5. 게시글 생성
     const postData = {
       title: body.title,
       slug: body.slug || slug,
       content: body.content,
       content_html: body.content_html,
       summary: body.summary || null,
-      thumbnail_url: body.thumbnail_url || null,
+      thumbnail_url: thumbnailUrl,
       category_id: body.category_id || null,
       author_id: admin.id,
       status: body.status || 'draft',
@@ -169,7 +187,7 @@ export async function POST(request) {
 
     if (postError) throw postError;
 
-    // 5. 태그 연결
+    // 6. 태그 연결
     if (body.tags && body.tags.length > 0) {
       const postTags = body.tags.map(tagId => ({
         post_id: post.id,

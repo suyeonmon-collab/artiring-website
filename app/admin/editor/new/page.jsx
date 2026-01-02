@@ -516,14 +516,44 @@ export default function NewPostPage() {
                   <label className="meta-label">태그</label>
                   <div className="tag-selector">
                     {tags.map((tag) => (
-                      <button
-                        key={tag.id}
-                        type="button"
-                        onClick={() => toggleTag(tag.id)}
-                        className={`tag-chip ${selectedTags.includes(tag.id) ? 'selected' : ''}`}
-                      >
-                        {tag.name}
-                      </button>
+                      <div key={tag.id} className="relative inline-block">
+                        <button
+                          type="button"
+                          onClick={() => toggleTag(tag.id)}
+                          className={`tag-chip ${selectedTags.includes(tag.id) ? 'selected' : ''}`}
+                        >
+                          {tag.name}
+                        </button>
+                        <button
+                          type="button"
+                          onClick={async (e) => {
+                            e.stopPropagation();
+                            if (!confirm(`태그 "${tag.name}"을(를) 삭제하시겠습니까?`)) return;
+                            
+                            try {
+                              const response = await fetch(`/api/tags/${tag.id}`, {
+                                method: 'DELETE',
+                                headers: getAuthHeaders()
+                              });
+
+                              if (response.ok) {
+                                setTags(tags.filter(t => t.id !== tag.id));
+                                setSelectedTags(selectedTags.filter(id => id !== tag.id));
+                              } else {
+                                const error = await response.json();
+                                alert(error.error || '태그 삭제에 실패했습니다.');
+                              }
+                            } catch (error) {
+                              console.error('Delete tag error:', error);
+                              alert('태그 삭제 중 오류가 발생했습니다.');
+                            }
+                          }}
+                          className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white rounded-full flex items-center justify-center text-xs hover:bg-red-600 transition-colors"
+                          title="태그 삭제"
+                        >
+                          ×
+                        </button>
+                      </div>
                     ))}
                   </div>
                   <div className="flex gap-2 mt-3">

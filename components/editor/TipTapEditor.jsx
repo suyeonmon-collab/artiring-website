@@ -8,6 +8,8 @@ import TextAlign from '@tiptap/extension-text-align';
 import Placeholder from '@tiptap/extension-placeholder';
 import Underline from '@tiptap/extension-underline';
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
+import TextStyle from '@tiptap/extension-text-style';
+import Color from '@tiptap/extension-color';
 import { common, createLowlight } from 'lowlight';
 import { useCallback, useEffect, useRef } from 'react';
 import EditorToolbar from './EditorToolbar';
@@ -39,7 +41,12 @@ export default function TipTapEditor({ content, onChange, placeholder = '내용�
         HTMLAttributes: {
           class: 'editor-link',
         },
+        renderHTML({ HTMLAttributes }) {
+          return ['a', { ...HTMLAttributes, class: 'editor-link' }, 0];
+        },
       }),
+      TextStyle,
+      Color,
       TextAlign.configure({
         types: ['heading', 'paragraph', 'image'],
       }),

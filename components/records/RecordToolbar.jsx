@@ -127,22 +127,6 @@ export default function RecordToolbar({
         </form>
       </div>
 
-      {/* 태그 필터 (태그가 있을 때만 표시) */}
-      {tags && tags.length > 0 && (
-        <div className="tag-filter mt-4 pt-4 border-t border-[var(--color-border)]">
-          {tags.slice(0, 10).map((tag) => (
-            <button
-              key={tag.id}
-              type="button"
-              onClick={() => handleTagClick(tag.id)}
-              className={`tag-filter-item ${currentTag === tag.id ? 'active' : ''}`}
-            >
-              #{tag.name}
-            </button>
-          ))}
-        </div>
-      )}
-
       {/* 활성 필터 표시 */}
       {(currentCategory || currentTag || currentSearch) && (
         <div className="flex flex-wrap items-center gap-2 mt-4 text-sm">
