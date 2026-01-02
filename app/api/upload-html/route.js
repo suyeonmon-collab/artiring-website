@@ -262,23 +262,56 @@ export async function POST(request) {
     // 4. 파일 내용 읽기
     const arrayBuffer = await file.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
-    const fileContent = buffer.toString('utf-8');
+    let fileContent = buffer.toString('utf-8');
+
+    // 4-1. 외부 이미지 URL 감지 및 제거 (403 오류 방지)
+    const externalDomains = [
+      'postfiles.pstatic.net',
+      'dthumb-phinf.pstatic.net',
+      'cdninstagram.com',
+      'scontent-icn2-1.cdninstagram.com'
+    ];
+
+    let hasExternalImages = false;
+    
+    // 외부 이미지 URL이 있는지 확인
+    externalDomains.forEach(domain => {
+      if (fileContent.includes(domain)) {
+        hasExternalImages = true;
+        console.log(`⚠️ 외부 이미지 URL 감지됨: ${domain}`);
+      }
+    });
+
+    // 외부 이미지 URL 제거
+    if (hasExternalImages) {
+      console.log('⚠️ 외부 이미지 URL 제거 중...');
+      
+      // <img> 태그에서 외부 URL 제거
+      externalDomains.forEach(domain => {
+        const escapedDomain = domain.replace(/\./g, '\\.');
+        // <img src="https://domain..." 형태 제거
+        fileContent = fileContent.replace(
+          new RegExp(`<img[^>]*src=["'][^"']*${escapedDomain}[^"']*["'][^>]*>`, 'gi'),
+          '<!-- 외부 이미지 제거됨 (403 오류 방지) -->'
+        );
+        // <img src='https://domain...' 형태 제거
+        fileContent = fileContent.replace(
+          new RegExp(`<img[^>]*src=['"][^'"]*${escapedDomain}[^'"]*['"][^>]*>`, 'gi'),
+          '<!-- 외부 이미지 제거됨 (403 오류 방지) -->'
+        );
+      });
+      
+      console.log('✅ 외부 이미지 URL 제거 완료');
+    }
 
     // 5. 파일명 생성 (원본 파일명 사용, 중복 방지)
     const originalName = file.name.replace(/[^a-zA-Z0-9가-힣._-]/g, '_');
     const timestamp = Date.now();
     const fileName = `${timestamp}_${originalName}`;
 
-    // 6. public/blog 폴더에 저장
-    const blogDir = join(process.cwd(), 'public', 'blog');
-    await mkdir(blogDir, { recursive: true });
-    
-    const filePath = join(blogDir, fileName);
-    await writeFile(filePath, buffer);
-
-    // 7. HTML 파일에 높이 전달 스크립트 추가 (없는 경우)
-    let updatedContent = fileContent;
-    if (!updatedContent.includes('iframe-resize')) {
+    // 6. HTML 파일에 높이 전달 스크립트 추가 (없는 경우)
+    // fileContent는 이미 외부 이미지가 제거된 상태
+    if (!fileContent.includes('iframe-resize')) {
       const scriptToAdd = `
         // iframe 높이 자동 전달 (부모 창에 메시지 전송)
         function sendHeightToParent() {
@@ -322,15 +355,19 @@ export async function POST(request) {
       `;
 
       // </body> 태그 앞에 스크립트 추가
-      if (updatedContent.includes('</body>')) {
-        updatedContent = updatedContent.replace('</body>', `<script>${scriptToAdd}</script></body>`);
+      if (fileContent.includes('</body>')) {
+        fileContent = fileContent.replace('</body>', `<script>${scriptToAdd}</script></body>`);
       } else {
-        updatedContent += `<script>${scriptToAdd}</script>`;
+        fileContent += `<script>${scriptToAdd}</script>`;
       }
-
-      // 업데이트된 내용 저장
-      await writeFile(filePath, updatedContent, 'utf-8');
     }
+
+    // 7. public/blog 폴더에 저장 (외부 이미지 제거 및 스크립트 추가된 최종 내용)
+    const blogDir = join(process.cwd(), 'public', 'blog');
+    await mkdir(blogDir, { recursive: true });
+    
+    const filePath = join(blogDir, fileName);
+    await writeFile(filePath, fileContent, 'utf-8');
 
     // 8. 날짜로 제목 생성
     const now = new Date();
@@ -383,7 +420,10 @@ export async function POST(request) {
       success: true,
       post: post,
       fileName: fileName,
-      message: 'HTML 파일이 업로드되고 블로그 포스트가 생성되었습니다.'
+      hasExternalImages: hasExternalImages,
+      message: hasExternalImages 
+        ? 'HTML 파일이 업로드되고 블로그 포스트가 생성되었습니다. (외부 이미지 URL이 제거되었습니다)'
+        : 'HTML 파일이 업로드되고 블로그 포스트가 생성되었습니다.'
     });
 
   } catch (error) {
