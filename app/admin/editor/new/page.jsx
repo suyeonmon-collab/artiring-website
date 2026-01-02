@@ -289,12 +289,23 @@ export default function NewPostPage() {
     const formData = new FormData();
     formData.append('file', file);
 
+    console.log('📤 HTML 파일 업로드 시작:', {
+      fileName: file.name,
+      fileSize: file.size,
+      fileType: file.type
+    });
+
     try {
+      const authHeaders = getAuthHeaders();
+      console.log('🔐 인증 헤더:', authHeaders);
+      
       const response = await fetch('/api/upload-html', {
         method: 'POST',
-        headers: getAuthHeaders(),
+        headers: authHeaders,
         body: formData,
       });
+
+      console.log('📥 응답 상태:', response.status, response.statusText);
 
       if (response.status === 401) {
         alert('인증이 만료되었습니다. 다시 로그인해주세요.');

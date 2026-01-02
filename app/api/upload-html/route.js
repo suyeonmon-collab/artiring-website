@@ -232,6 +232,7 @@ export async function POST(request) {
     }
 
     console.log('Auth passed for:', admin.email || admin.id);
+    console.log('Admin object:', { id: admin.id, email: admin.email, role: admin.role });
 
     const supabase = createServerClient();
 
