@@ -327,6 +327,14 @@ a {
   margin: 2rem 0;
 }
 
+.article-body iframe {
+  width: 100%;
+  border: none;
+  display: block;
+  margin: 24px 0;
+  min-height: 500px;
+}
+
 .article-body ul,
 .article-body ol {
   margin-bottom: 1.5rem;
