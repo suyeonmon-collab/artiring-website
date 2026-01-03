@@ -14,6 +14,7 @@ import { common, createLowlight } from 'lowlight';
 import { useCallback, useEffect, useRef } from 'react';
 import EditorToolbar from './EditorToolbar';
 import { getAuthHeaders } from '@/lib/authUtils';
+import Iframe from './Iframe';
 
 const lowlight = createLowlight(common);
 
@@ -57,6 +58,7 @@ export default function TipTapEditor({ content, onChange, placeholder = '내용�
       CodeBlockLowlight.configure({
         lowlight,
       }),
+      Iframe,
     ],
     content,
     // SSR 하이드레이션 오류 방지
