@@ -36,6 +36,36 @@ export default function TipTapEditor({ content, onChange, placeholder = '내용�
         HTMLAttributes: {
           class: 'editor-image',
         },
+        addAttributes() {
+          return {
+            ...this.parent?.(),
+            loading: {
+              default: 'lazy',
+            },
+          };
+        },
+        parseHTML() {
+          return [
+            {
+              tag: 'img[src]',
+              getAttrs: (element) => {
+                const src = element.getAttribute('src') || '';
+                // 외부 이미지 URL 차단
+                const blockedDomains = [
+                  'postfiles.pstatic.net',
+                  'dthumb-phinf.pstatic.net',
+                  'cdninstagram.com',
+                  'scontent-icn2-1.cdninstagram.com'
+                ];
+                const isBlocked = blockedDomains.some(domain => src.includes(domain));
+                if (isBlocked) {
+                  return false; // 파싱하지 않음 (이미지 제거)
+                }
+                return {};
+              },
+            },
+          ];
+        },
       }),
       Link.configure({
         openOnClick: false,
