@@ -357,7 +357,9 @@ export default function NewPostPage() {
         title: result.post.title,
         slug: result.post.slug,
         status: result.post.status,
-        html_file: result.fileName
+        html_file: result.post.html_file, // 실제 DB에 저장된 값
+        fileName: result.fileName, // 파일명
+        publicUrl: result.publicUrl // Supabase Storage 공개 URL
       });
       
       alert(`✅ HTML 파일이 업로드되고 블로그 포스트가 생성되었습니다!\n\n제목: ${result.post.title}\n파일: ${result.fileName}\n상태: ${result.post.status === 'published' ? '발행됨 (기록 페이지에 표시됨)' : '임시저장'}\n\n제목, 카테고리, 요약 등을 수정할 수 있습니다.`);
