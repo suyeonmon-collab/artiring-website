@@ -66,11 +66,15 @@ export default function BlogIframe({ htmlFileName }) {
     };
   }, [htmlFileName]);
 
+  // htmlFileName이 URL인지 확인 (http:// 또는 https://로 시작)
+  const isUrl = htmlFileName?.startsWith('http://') || htmlFileName?.startsWith('https://');
+  const iframeSrc = isUrl ? htmlFileName : `/blog/${htmlFileName}`;
+
   return (
     <div className="blog-iframe-wrapper my-8">
       <iframe
         ref={iframeRef}
-        src={`/blog/${htmlFileName}`}
+        src={iframeSrc}
         width="100%"
         height="2000"
         frameBorder="0"

@@ -3,11 +3,10 @@ export const dynamic = 'force-dynamic';
 
 import { createServerClient } from '@/lib/supabase';
 import { getAuthenticatedAdmin } from '@/lib/auth';
-import { writeFile, mkdir } from 'fs/promises';
-import { join } from 'path';
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 const ALLOWED_TYPES = ['text/html', 'application/xhtml+xml'];
+const BUCKET_NAME = 'blog-html';
 
 // PUT - 기존 포스트의 HTML 파일 업데이트
 export async function PUT(request) {
@@ -79,26 +78,12 @@ export async function PUT(request) {
     const buffer = Buffer.from(arrayBuffer);
     const fileContent = buffer.toString('utf-8');
 
-    // 6. 파일명 결정 (기존 파일명 유지 또는 새 파일명 생성)
-    let fileName;
-    if (existingPost.html_file) {
-      // 기존 파일명 유지 (덮어쓰기)
-      fileName = existingPost.html_file;
-    } else {
-      // 새 파일명 생성
-      const originalName = file.name.replace(/[^a-zA-Z0-9가-힣._-]/g, '_');
-      const timestamp = Date.now();
-      fileName = `${timestamp}_${originalName}`;
-    }
+    // 6. 파일명 결정 (새 파일명 생성, 기존 URL이 있어도 새로 업로드)
+    const originalName = file.name.replace(/[^a-zA-Z0-9가-힣._-]/g, '_');
+    const timestamp = Date.now();
+    const fileName = `${timestamp}_${originalName}`;
 
-    // 7. public/blog 폴더에 저장
-    const blogDir = join(process.cwd(), 'public', 'blog');
-    await mkdir(blogDir, { recursive: true });
-    
-    const filePath = join(blogDir, fileName);
-    await writeFile(filePath, buffer);
-
-    // 8. HTML 파일에 높이 전달 스크립트 추가 (없는 경우)
+    // 7. HTML 파일에 높이 전달 스크립트 추가 (없는 경우)
     let updatedContent = fileContent;
     if (!updatedContent.includes('iframe-resize')) {
       const scriptToAdd = `
@@ -149,15 +134,54 @@ export async function PUT(request) {
       } else {
         updatedContent += `<script>${scriptToAdd}</script>`;
       }
-
-      // 업데이트된 내용 저장
-      await writeFile(filePath, updatedContent, 'utf-8');
     }
 
-    // 9. 포스트의 html_file 필드 업데이트
+    // 8. Supabase Storage에 업로드
+    // 버킷 존재 확인 및 생성
+    const { data: buckets } = await supabase.storage.listBuckets();
+    const bucketExists = buckets?.some(b => b.name === BUCKET_NAME);
+    
+    if (!bucketExists) {
+      const { error: createError } = await supabase.storage.createBucket(BUCKET_NAME, {
+        public: true,
+        allowedMimeTypes: ALLOWED_TYPES,
+        fileSizeLimit: MAX_FILE_SIZE
+      });
+      
+      if (createError && !createError.message?.includes('already exists')) {
+        console.error('Bucket creation error:', createError);
+        throw createError;
+      }
+    }
+
+    // 업데이트된 HTML 내용을 Buffer로 변환
+    const updatedBuffer = Buffer.from(updatedContent, 'utf-8');
+
+    // Supabase Storage에 업로드
+    const { data: uploadData, error: uploadError } = await supabase.storage
+      .from(BUCKET_NAME)
+      .upload(fileName, updatedBuffer, {
+        contentType: 'text/html',
+        cacheControl: '3600',
+        upsert: true // 기존 파일 덮어쓰기
+      });
+
+    if (uploadError) {
+      console.error('Supabase upload error:', uploadError);
+      throw uploadError;
+    }
+
+    // 공개 URL 생성
+    const { data: urlData } = supabase.storage
+      .from(BUCKET_NAME)
+      .getPublicUrl(uploadData.path);
+
+    const publicUrl = urlData.publicUrl;
+
+    // 9. 포스트의 html_file 필드 업데이트 (공개 URL 저장)
     const { data: updatedPost, error: updateError } = await supabase
       .from('blog_posts')
-      .update({ html_file: fileName })
+      .update({ html_file: publicUrl })
       .eq('id', postId)
       .select()
       .single();
@@ -174,6 +198,7 @@ export async function PUT(request) {
       success: true,
       post: updatedPost,
       fileName: fileName,
+      publicUrl: publicUrl,
       message: 'HTML 파일이 업데이트되었습니다.'
     });
 
@@ -363,12 +388,47 @@ export async function POST(request) {
       }
     }
 
-    // 7. public/blog 폴더에 저장 (외부 이미지 제거 및 스크립트 추가된 최종 내용)
-    const blogDir = join(process.cwd(), 'public', 'blog');
-    await mkdir(blogDir, { recursive: true });
+    // 7. Supabase Storage에 업로드
+    // 버킷 존재 확인 및 생성
+    const { data: buckets } = await supabase.storage.listBuckets();
+    const bucketExists = buckets?.some(b => b.name === BUCKET_NAME);
     
-    const filePath = join(blogDir, fileName);
-    await writeFile(filePath, fileContent, 'utf-8');
+    if (!bucketExists) {
+      const { error: createError } = await supabase.storage.createBucket(BUCKET_NAME, {
+        public: true,
+        allowedMimeTypes: ALLOWED_TYPES,
+        fileSizeLimit: MAX_FILE_SIZE
+      });
+      
+      if (createError && !createError.message?.includes('already exists')) {
+        console.error('Bucket creation error:', createError);
+        throw createError;
+      }
+    }
+
+    // 외부 이미지 제거 및 스크립트 추가된 최종 HTML 내용을 Buffer로 변환
+    const finalBuffer = Buffer.from(fileContent, 'utf-8');
+
+    // Supabase Storage에 업로드
+    const { data: uploadData, error: uploadError } = await supabase.storage
+      .from(BUCKET_NAME)
+      .upload(fileName, finalBuffer, {
+        contentType: 'text/html',
+        cacheControl: '3600',
+        upsert: false
+      });
+
+    if (uploadError) {
+      console.error('Supabase upload error:', uploadError);
+      throw uploadError;
+    }
+
+    // 공개 URL 생성
+    const { data: urlData } = supabase.storage
+      .from(BUCKET_NAME)
+      .getPublicUrl(uploadData.path);
+
+    const publicUrl = urlData.publicUrl;
 
     // 8. 날짜로 제목 생성
     const now = new Date();
@@ -397,7 +457,7 @@ export async function POST(request) {
         title: dateTitle,
         slug: slug,
         content_html: '', // iframe 사용 시 빈 값
-        html_file: fileName, // HTML 파일명
+        html_file: publicUrl, // Supabase Storage 공개 URL
         summary: '', // 나중에 수정 가능
         status: 'published', // 자동 생성 시 바로 발행하여 /records 페이지에 표시
         published_at: new Date().toISOString(), // 발행 시간 설정
@@ -442,6 +502,7 @@ export async function POST(request) {
       success: true,
       post: post,
       fileName: fileName,
+      publicUrl: publicUrl,
       hasExternalImages: hasExternalImages,
       message: hasExternalImages 
         ? 'HTML 파일이 업로드되고 블로그 포스트가 생성되었습니다. (외부 이미지 URL이 제거되었습니다)'
