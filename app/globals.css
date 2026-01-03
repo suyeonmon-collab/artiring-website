@@ -1318,6 +1318,14 @@ a {
   margin: 24px 0;
 }
 
+/* 외부 이미지 로딩 실패 시 처리 */
+.editor-content img[src*="postfiles.pstatic.net"],
+.editor-content img[src*="dthumb-phinf.pstatic.net"],
+.editor-content img[src*="cdninstagram.com"],
+.editor-content img[src*="scontent-icn2-1.cdninstagram.com"] {
+  display: none !important;
+}
+
 .editor-content blockquote {
   border-left: 3px solid var(--color-point);
   padding-left: 20px;
