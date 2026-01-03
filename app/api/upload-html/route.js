@@ -295,7 +295,10 @@ export async function POST(request) {
       'postfiles.pstatic.net',
       'dthumb-phinf.pstatic.net',
       'cdninstagram.com',
-      'scontent-icn2-1.cdninstagram.com'
+      'scontent-icn2-1.cdninstagram.com',
+      'scontent-',
+      '.cdninstagram.com',
+      'pstatic.net'
     ];
 
     let hasExternalImages = false;
@@ -312,19 +315,56 @@ export async function POST(request) {
     if (hasExternalImages) {
       console.log('⚠️ 외부 이미지 URL 제거 중...');
       
-      // <img> 태그에서 외부 URL 제거
+      // <img> 태그에서 외부 URL 제거 (더 강력한 패턴 매칭)
       externalDomains.forEach(domain => {
         const escapedDomain = domain.replace(/\./g, '\\.');
-        // <img src="https://domain..." 형태 제거
+        
+        // 패턴 1: <img src="https://domain..." ...> (일반적인 형태)
         fileContent = fileContent.replace(
           new RegExp(`<img[^>]*src=["'][^"']*${escapedDomain}[^"']*["'][^>]*>`, 'gi'),
           '<!-- 외부 이미지 제거됨 (403 오류 방지) -->'
         );
-        // <img src='https://domain...' 형태 제거
+        
+        // 패턴 2: <img src='https://domain...' ...> (작은따옴표)
         fileContent = fileContent.replace(
           new RegExp(`<img[^>]*src=['"][^'"]*${escapedDomain}[^'"]*['"][^>]*>`, 'gi'),
           '<!-- 외부 이미지 제거됨 (403 오류 방지) -->'
         );
+        
+        // 패턴 3: <img ... src="https://domain..." ...> (속성 순서가 다른 경우)
+        fileContent = fileContent.replace(
+          new RegExp(`<img[^>]*src=["'][^"']*${escapedDomain}[^"']*["'][^>]*>`, 'gi'),
+          '<!-- 외부 이미지 제거됨 (403 오류 방지) -->'
+        );
+        
+        // 패턴 4: background-image나 style 속성에 포함된 경우
+        fileContent = fileContent.replace(
+          new RegExp(`background-image[^;]*url\\(["']?[^"')]*${escapedDomain}[^"')]*["']?\\)`, 'gi'),
+          'background-image: none; /* 외부 이미지 제거됨 */'
+        );
+        
+        // 패턴 5: style 속성 전체에서 제거
+        fileContent = fileContent.replace(
+          new RegExp(`style=["'][^"']*${escapedDomain}[^"']*["']`, 'gi'),
+          (match) => {
+            // style 속성에서 해당 URL만 제거
+            return match.replace(
+              new RegExp(`[^;]*url\\(["']?[^"')]*${escapedDomain}[^"')]*["']?\\)[^;]*;?`, 'gi'),
+              ''
+            );
+          }
+        );
+      });
+      
+      // 추가: URL 인코딩된 형태도 제거 (예: %22https%3A%2F%2F...)
+      externalDomains.forEach(domain => {
+        if (domain.includes('.')) {
+          const encodedDomain = encodeURIComponent(domain);
+          fileContent = fileContent.replace(
+            new RegExp(`[^"']*${encodedDomain}[^"']*`, 'gi'),
+            ''
+          );
+        }
       });
       
       console.log('✅ 외부 이미지 URL 제거 완료');
