@@ -74,7 +74,23 @@ export default function BlogIframe({ htmlFileName }) {
 
   // htmlFileName이 URL인지 확인 (http:// 또는 https://로 시작)
   const isUrl = htmlFileName?.startsWith('http://') || htmlFileName?.startsWith('https://');
-  const iframeSrc = isUrl ? htmlFileName : `/blog/${htmlFileName}`;
+  
+  // 파일명인 경우 Supabase Storage URL로 변환
+  let iframeSrc;
+  if (isUrl) {
+    iframeSrc = htmlFileName;
+  } else {
+    // 파일명인 경우 Supabase Storage URL 생성
+    // Supabase Storage 공개 URL 형식: https://[project].supabase.co/storage/v1/object/public/[bucket]/[path]
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://nxyjcawijvzhdvoxdpbv.supabase.co';
+    const bucketName = 'blog-html';
+    iframeSrc = `${supabaseUrl}/storage/v1/object/public/${bucketName}/${htmlFileName}`;
+  }
+
+  // 디버깅: 개발 환경에서만 로그 출력
+  if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
+    console.log('BlogIframe props:', { htmlFileName, isUrl, iframeSrc });
+  }
 
   return (
     <div className="blog-iframe-wrapper my-8">
@@ -91,6 +107,12 @@ export default function BlogIframe({ htmlFileName }) {
         }}
         title="Blog Post"
         loading="lazy"
+        onError={(e) => {
+          console.error('Iframe load error:', e);
+        }}
+        onLoad={() => {
+          console.log('Iframe loaded successfully:', iframeSrc);
+        }}
       />
     </div>
   );
