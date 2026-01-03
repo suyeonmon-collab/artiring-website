@@ -85,11 +85,12 @@ export default function BlogIframe({ htmlFileName }) {
   let iframeSrc;
   if (isUrl) {
     // URL인 경우 Next.js API route를 통해 프록시 (CSP 문제 해결)
-    // URL을 인코딩하여 전달
+    // URL을 query parameter로 전달
     const encodedUrl = encodeURIComponent(htmlFileName);
-    iframeSrc = `/blog/${encodedUrl}`;
+    iframeSrc = `/blog/proxy?url=${encodedUrl}`;
   } else if (htmlFileName) {
-    // 파일명인 경우 직접 파일명 사용 (Next.js API route가 처리)
+    // 파일명인 경우 직접 파일명 사용 (Next.js API route가 Supabase Storage에서 가져옴)
+    // 파일명 형식: 타임스탬프_파일명.html (예: 1767443802071_20260110-ai-designer-future.html)
     iframeSrc = `/blog/${htmlFileName}`;
   } else {
     // htmlFileName이 없는 경우 빈 문자열

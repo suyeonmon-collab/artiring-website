@@ -8,23 +8,33 @@ export const dynamic = 'force-dynamic';
 export async function GET(request, { params }) {
   try {
     const { filename } = params;
+    const { searchParams } = new URL(request.url);
+    const urlParam = searchParams.get('url');
     
     // 보안: 파일명 검증 (상위 디렉토리 접근 방지)
     if (!filename || filename.includes('..') || filename.includes('/')) {
       return new NextResponse('Invalid filename', { status: 400 });
     }
     
-    // Supabase Storage URL인 경우 프록시
-    if (filename.startsWith('http://') || filename.startsWith('https://')) {
+    // 파일명이 Supabase Storage 파일명 형식인지 확인 (타임스탬프_파일명.html)
+    // 예: 1767443802071_20260110-ai-designer-future.html
+    const isSupabaseStorageFile = /^\d+_[^/]+\.html$/.test(filename);
+    
+    if (isSupabaseStorageFile) {
+      // Supabase Storage URL 생성
+      const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://nxyjcawijvzhdvoxdpbv.supabase.co';
+      const bucketName = 'blog-html';
+      const storageUrl = `${supabaseUrl}/storage/v1/object/public/${bucketName}/${filename}`;
+      
       try {
-        const response = await fetch(filename, {
+        const response = await fetch(storageUrl, {
           headers: {
             'User-Agent': 'Mozilla/5.0',
           },
         });
         
         if (!response.ok) {
-          return new NextResponse('File not found', { status: 404 });
+          return new NextResponse('File not found in Supabase Storage', { status: 404 });
         }
         
         const fileContent = await response.text();
