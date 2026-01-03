@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI가 내 일자리를 빼앗아갈까요? | 아티링</title>
+    
+    <!-- CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/countup.js@2.8.0/dist/countUp.umd.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <style>
+        /* ===== Reset & Base ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Pretendard', -apple-system, sans-serif;
+            color: var(--black);
+            background: var(--bg-light);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        /* ===== Color Variables ===== */
+        :root {
+            --blue: #4169E1;
+            --gray: #5A5A5A;
+            --green: #2ECC71;
+            --beige: #F5DEB3;
+            --purple: #9B59B6;
+            --sky: #87CEEB;
+            --pink: #FF69B4;
+            --yellow: #FFD700;
+            --black: #2C2C2C;
+            --white: #FFFFFF;
+            --bg-light: #FAFAFA;
+        }
+
+        /* ===== Container ===== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .container-narrow {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ===== Hero Section ===== */
+        .hero-section {
+            background: white;
+            padding: 80px 0 60px;
+            text-align: center;
+        }
+
+        .breadcrumb {
+            font-size: 14px;
+            color: var(--gray);
+            margin-bottom: 24px;
+        }
+
+        .breadcrumb span:last-child {
+            color: var(--blue);
+            font-weight: 600;
+        }
+
+        .hero-title {
+            font-size: clamp(32px, 5vw, 56px);
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+            color: var(--black);
+        }
+
+        .hero-subtitle {
+            font-size: clamp(18px, 2.5vw, 24px);
+            color: var(--gray);
+            margin-bottom: 32px;
+            line-height: 1.5;
+        }
+
+        .meta-info {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            color: var(--gray);
+            flex-wrap: wrap;
+        }
+
+        .meta-info .divider {
+            color: #D1D5DB;
+        }
+
+        /* ===== Key Stats ===== */
+        .key-stats-section {
+            padding: 60px 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 40px 32px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+        }
+
+        .stat-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .stat-number {
+            font-size: 56px;
+            font-weight: 900;
+            color: var(--blue);
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .stat-unit {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--blue);
+            margin-bottom: 12px;
+        }
+
+        .stat-label {
+            font-size: 16px;
+            color: var(--gray);
+            font-weight: 500;
+        }
+
+        /* ===== Content Section ===== */
+        .content-section {
+            padding: 80px 0;
+            width: 100%;
+        }
+        
+        .content-section .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .section-tag {
+            display: inline-block;
+            padding: 6px 16px;
+            background: var(--blue);
+            color: white;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border-radius: 20px;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: clamp(28px, 4vw, 40px);
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.3;
+            color: var(--black);
+        }
+
+        /* ===== Content Card ===== */
+        .content-card {
+            background: white;
+            border-radius: 16px;
+            padding: 48px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .text-block {
+            max-width: 680px;
+            margin: 0 auto;
+        }
+
+        .text-block p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+
+        .lead-text {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--black);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .text-block ul {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        .text-block ul li {
+            padding: 12px 0 12px 32px;
+            position: relative;
+            font-size: 17px;
+            color: var(--gray);
+            line-height: 1.7;
+        }
+
+        .text-block ul li::before {
+            content: '•';
+            position: absolute;
+            left: 12px;
+            color: var(--gray);
+            font-weight: bold;
+        }
+
+        /* ===== Chart ===== */
+        .chart-wrapper {
+            background: var(--bg-light);
+            padding: 32px;
+            border-radius: 12px;
+        }
+
+        .chart-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            text-align: center;
+            color: var(--black);
+        }
+
+        .chart-caption {
+            margin-top: 16px;
+            font-size: 14px;
+            color: var(--gray);
+            text-align: center;
+        }
+
+        /* ===== Quote ===== */
+        .quote-section {
+            padding: 80px 0;
+            background: var(--blue);
+            color: white;
+        }
+
+        .big-quote {
+            text-align: center;
+            padding: 0;
+            border: none;
+        }
+
+        .big-quote p {
+            font-size: clamp(24px, 3vw, 36px);
+            font-weight: 700;
+            line-height: 1.4;
+            margin-bottom: 24px;
+        }
+
+        .big-quote cite {
+            font-size: 16px;
+            font-style: normal;
+            opacity: 0.8;
+        }
+
+        /* ===== Comparison Grid ===== */
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+            width: 100%;
+            justify-items: stretch;
+        }
+
+        .compare-card {
+            background: white;
+            border-radius: 16px;
+            padding: 40px 32px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .compare-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+        }
+
+        .compare-card.before {
+            border-top: 4px solid var(--gray);
+        }
+
+        .compare-card.after {
+            border-top: 4px solid var(--blue);
+        }
+
+        .compare-card.optimized {
+            border-top: 4px solid var(--green);
+        }
+
+        .card-header {
+            margin-bottom: 24px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-radius: 12px;
+            margin-bottom: 12px;
+        }
+
+        .badge-gray {
+            background: #F3F4F6;
+            color: var(--gray);
+        }
+
+        .badge-blue {
+            background: #DBEAFE;
+            color: var(--blue);
+        }
+
+        .badge-green {
+            background: #D1FAE5;
+            color: var(--green);
+        }
+
+        .card-header h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0;
+            color: var(--black);
+        }
+
+        .big-number {
+            font-size: 64px;
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 16px;
+        }
+
+        .big-number.color-gray {
+            color: var(--gray);
+        }
+
+        .big-number.color-blue {
+            color: var(--blue);
+        }
+
+        .big-number.color-green {
+            color: var(--green);
+        }
+
+        .compare-card p {
+            font-size: 18px;
+            color: var(--gray);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .sub-value {
+            font-size: 16px;
+            color: var(--gray);
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 24px;
+        }
+
+        .feature-list li {
+            padding: 12px 0 12px 32px;
+            position: relative;
+            font-size: 17px;
+            color: var(--gray);
+            line-height: 1.7;
+        }
+
+        .feature-list li::before {
+            content: '•';
+            position: absolute;
+            left: 12px;
+            color: var(--gray);
+        }
+
+        /* ===== Data Table ===== */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 15px;
+            margin-top: 24px;
+        }
+
+        .data-table thead {
+            background: var(--bg-light);
+        }
+
+        .data-table th {
+            padding: 16px;
+            text-align: left;
+            font-weight: 700;
+            color: var(--black);
+            border-bottom: 2px solid #E5E7EB;
+        }
+
+        .data-table td {
+            padding: 16px;
+            border-bottom: 1px solid #E5E7EB;
+        }
+
+        .data-table tbody tr:hover {
+            background: var(--bg-light);
+        }
+
+        .data-table tbody tr:last-child {
+            font-weight: 700;
+            background: var(--bg-light);
+        }
+
+        .data-table tbody tr:last-child td {
+            border-top: 2px solid #E5E7EB;
+        }
+
+        /* ===== Timeline ===== */
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--blue);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 48px;
+        }
+
+        .timeline-marker {
+            position: absolute;
+            left: -40px;
+            top: 0;
+            width: 32px;
+            height: 32px;
+            background: var(--blue);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .timeline-content h4 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--black);
+        }
+
+        .timeline-content p {
+            font-size: 18px;
+            color: var(--gray);
+            line-height: 1.7;
+            margin-bottom: 12px;
+        }
+
+        .timeline-content .timeline-features {
+            list-style: none;
+            padding: 0;
+            margin-top: 16px;
+        }
+
+        .timeline-content .timeline-features li {
+            padding: 8px 0 8px 24px;
+            position: relative;
+            font-size: 16px;
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        .timeline-content .timeline-features li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--blue);
+        }
+
+        .timeline-productivity {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 8px 16px;
+            background: var(--bg-light);
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--blue);
+        }
+
+        /* ===== Source Section ===== */
+        .source-section {
+            padding: 40px 0;
+            background: var(--bg-light);
+        }
+        
+        .source-text {
+            text-align: center;
+            font-size: 14px;
+            color: var(--gray);
+            opacity: 0.7;
+        }
+        
+        /* ===== CTA Section ===== */
+        .cta-section {
+            padding: 80px 0;
+            background: var(--black);
+            color: white;
+        }
+
+        .cta-card {
+            text-align: center;
+            padding: 60px 40px;
+            background: var(--black);
+            border-radius: 20px;
+        }
+
+        .cta-title {
+            font-size: clamp(28px, 4vw, 40px);
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+
+        .cta-description {
+            font-size: 18px;
+            opacity: 0.8;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 16px 40px;
+            font-size: 16px;
+            font-weight: 700;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+        }
+
+        .btn-primary {
+            background: var(--yellow);
+            color: var(--black);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 60px 0 40px;
+            }
+            
+            .content-card {
+                padding: 32px 24px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+
+            .data-table {
+                font-size: 13px;
+            }
+
+            .data-table th,
+            .data-table td {
+                padding: 12px 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container-narrow">
+            <div class="breadcrumb">
+                <span>블로그</span> > <span>디자인 산업 인사이트</span>
+            </div>
+            
+            <h1 class="hero-title" data-aos="fade-up">
+                AI가 내 일자리를 빼앗아갈까요?
+            </h1>
+            
+            <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="100">
+                생성형 AI 시대, 디자이너가 알아야 할 데이터와 전략
+            </p>
+            
+            <div class="meta-info" data-aos="fade-up" data-aos-delay="200">
+                <span class="date">2026.01.10</span>
+                <span class="divider">•</span>
+                <span class="read-time">8분 읽기</span>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Key Stats -->
+    <section class="key-stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card" data-aos="fade-up">
+                    <div class="stat-icon">🤖</div>
+                    <div class="stat-number" data-count="75">0</div>
+                    <div class="stat-unit">%</div>
+                    <div class="stat-label">AI 대체 가능한 단순 작업 비율</div>
+                </div>
+                
+                <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="stat-icon">📈</div>
+                    <div class="stat-number" data-count="3">0</div>
+                    <div class="stat-unit">배</div>
+                    <div class="stat-label">AI 활용 시 생산성 증가</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Section 1: Problem -->
+    <section class="content-section" id="problem">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Problem</span>
+                <h2 class="section-title">생성형 AI가 디자인 업계에 미치는 영향</h2>
+            </div>
+            
+            <div class="content-card" data-aos="fade-up">
+                <div class="card-body">
+                    <div class="text-block">
+                        <p class="lead-text">2023년 ChatGPT 출시 이후, 디자인 업계는 급격한 변화를 겪고 있습니다. McKinsey 보고서에 따르면 디자인 작업의 75%가 AI로 자동화 가능한 것으로 나타났습니다.</p>
+                        
+                        <p><strong>AI가 대체하기 쉬운 작업:</strong></p>
+                        <ul>
+                            <li>템플릿 기반 로고 디자인 (자동화율 85%)</li>
+                            <li>기본 배너/썸네일 제작 (자동화율 80%)</li>
+                            <li>이미지 편집 및 리터칭 (자동화율 70%)</li>
+                            <li>색상 조합 제안 (자동화율 90%)</li>
+                        </ul>
+                        
+                        <p><strong>AI가 대체하기 어려운 작업:</strong></p>
+                        <ul>
+                            <li>브랜드 전략 수립 (자동화율 15%)</li>
+                            <li>클라이언트 요구사항 파악 (자동화율 10%)</li>
+                            <li>맥락 기반 창의적 해결 (자동화율 20%)</li>
+                            <li>문화적 감수성 반영 (자동화율 5%)</li>
+                        </ul>
+                        
+                        <p>Adobe의 2024년 설문조사에 따르면, 디자이너 73%가 AI 도구를 주 1회 이상 사용하며, 이 중 45%는 생산성이 2배 이상 증가했다고 응답했습니다.</p>
+                    </div>
+                    
+                    <div class="chart-wrapper">
+                        <h3 class="chart-title">AI 도구 활용도에 따른 작업 효율 변화 (출처: Adobe 2024)</h3>
+                        <canvas id="chart1"></canvas>
+                        <p class="chart-caption">AI를 적극 활용하는 디자이너의 생산성은 3배까지 증가합니다.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Section 2: Data Analysis -->
+    <section class="content-section" id="data-analysis">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Data Analysis</span>
+                <h2 class="section-title">숫자로 보는 AI 시대 디자이너 현황</h2>
+            </div>
+            
+            <div class="comparison-grid">
+                <div class="compare-card before" data-aos="fade-up">
+                    <div class="card-header">
+                        <span class="badge badge-gray">Before</span>
+                        <h3>전통적 디자인 워크플로우</h3>
+                    </div>
+                    <div class="big-number color-gray">11시간</div>
+                    <div class="sub-value">평균 프로젝트 소요 시간</div>
+                    <ul class="feature-list">
+                        <li>시안 제작: 5시간</li>
+                        <li>수정 작업: 3시간</li>
+                        <li>레퍼런스 수집: 2시간</li>
+                        <li>기타 작업: 1시간</li>
+                    </ul>
+                </div>
+                
+                <div class="compare-card after" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card-header">
+                        <span class="badge badge-blue">After</span>
+                        <h3>AI 보조 워크플로우</h3>
+                    </div>
+                    <div class="big-number color-blue">6시간</div>
+                    <div class="sub-value">45% 시간 단축</div>
+                    <ul class="feature-list">
+                        <li>시안 제작: 2시간 (AI 초안 활용)</li>
+                        <li>수정 작업: 2시간 (자동화)</li>
+                        <li>레퍼런스 수집: 1시간 (AI 검색)</li>
+                        <li>기타 작업: 1시간</li>
+                    </ul>
+                </div>
+                
+                <div class="compare-card optimized" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card-header">
+                        <span class="badge badge-green">Optimized</span>
+                        <h3>AI 전문가 워크플로우</h3>
+                    </div>
+                    <div class="big-number color-green">3시간</div>
+                    <div class="sub-value">73% 시간 단축</div>
+                    <ul class="feature-list">
+                        <li>시안 제작: 1시간 (AI 대량 생성)</li>
+                        <li>수정 작업: 0.5시간 (자동화)</li>
+                        <li>레퍼런스: 0.5시간 (AI 큐레이션)</li>
+                        <li>전략 수립: 1시간 (인간 집중)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Section 3: Timeline -->
+    <section class="content-section" id="timeline">
+        <div class="container-narrow">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Timeline</span>
+                <h2 class="section-title">AI 도구 적응 로드맵 (업계 평균 데이터)</h2>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item" data-aos="fade-up">
+                    <div class="timeline-marker">1</div>
+                    <div class="timeline-content">
+                        <h4>1단계: 학습기 (1-2개월)</h4>
+                        <p>주요 AI 도구 사용법 익히기</p>
+                        <ul class="timeline-features">
+                            <li>ChatGPT: 카피라이팅 보조</li>
+                            <li>Midjourney: 레퍼런스 이미지 생성</li>
+                            <li>Runway: 영상 편집 자동화</li>
+                        </ul>
+                        <div class="timeline-productivity">예상 생산성: 기존 대비 120%</div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
+                    <div class="timeline-marker">2</div>
+                    <div class="timeline-content">
+                        <h4>2단계: 적용기 (3-4개월)</h4>
+                        <p>실무 프로젝트에 AI 도구 적용</p>
+                        <ul class="timeline-features">
+                            <li>단순 작업 자동화</li>
+                            <li>시안 제작 속도 2배 향상</li>
+                        </ul>
+                        <div class="timeline-productivity">예상 생산성: 기존 대비 180%</div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
+                    <div class="timeline-marker">3</div>
+                    <div class="timeline-content">
+                        <h4>3단계: 최적화기 (5-6개월)</h4>
+                        <p>AI-인간 협업 프로세스 확립</p>
+                        <ul class="timeline-features">
+                            <li>창의적 작업에 시간 투자 증가</li>
+                            <li>고부가가치 작업 집중</li>
+                        </ul>
+                        <div class="timeline-productivity">예상 생산성: 기존 대비 250%</div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
+                    <div class="timeline-marker">4</div>
+                    <div class="timeline-content">
+                        <h4>4단계: 전문가 (7개월 이상)</h4>
+                        <p>AI를 전략적 도구로 활용</p>
+                        <ul class="timeline-features">
+                            <li>단순 작업 80% 자동화</li>
+                            <li>프로젝트 단가 상승</li>
+                        </ul>
+                        <div class="timeline-productivity">예상 생산성: 기존 대비 300%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Section 4: Data Comparison -->
+    <section class="content-section" id="comparison">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Data Comparison</span>
+                <h2 class="section-title">디자인 작업별 AI 자동화 가능성 (2024년 기준)</h2>
+            </div>
+            
+            <div class="comparison-grid">
+                <div class="compare-card" data-aos="fade-up">
+                    <div class="card-header">
+                        <h3>로고 디자인</h3>
+                    </div>
+                    <div class="big-number color-blue">60%</div>
+                    <div class="sub-value">자동화 가능성</div>
+                    <p><strong>평균 시간 단축:</strong> 70%</p>
+                    <p><strong>주요 도구:</strong> Midjourney, Looka</p>
+                    <p><strong>인간의 역할:</strong> 브랜드 전략, 최종 선택</p>
+                </div>
+                
+                <div class="compare-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card-header">
+                        <h3>웹/앱 UI</h3>
+                    </div>
+                    <div class="big-number color-blue">50%</div>
+                    <div class="sub-value">자동화 가능성</div>
+                    <p><strong>평균 시간 단축:</strong> 55%</p>
+                    <p><strong>주요 도구:</strong> Figma AI, Uizard</p>
+                    <p><strong>인간의 역할:</strong> UX 전략, 사용성 검증</p>
+                </div>
+                
+                <div class="compare-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card-header">
+                        <h3>일러스트</h3>
+                    </div>
+                    <div class="big-number color-blue">70%</div>
+                    <div class="sub-value">자동화 가능성</div>
+                    <p><strong>평균 시간 단축:</strong> 80%</p>
+                    <p><strong>주요 도구:</strong> Midjourney, DALL-E</p>
+                    <p><strong>인간의 역할:</strong> 스타일 디렉션, 정교한 수정</p>
+                </div>
+                
+                <div class="compare-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="card-header">
+                        <h3>브랜딩 전략</h3>
+                    </div>
+                    <div class="big-number color-gray">15%</div>
+                    <div class="sub-value">자동화 가능성</div>
+                    <p><strong>평균 시간 단축:</strong> 20%</p>
+                    <p><strong>주요 도구:</strong> ChatGPT (보조)</p>
+                    <p><strong>인간의 역할:</strong> 전략 수립, 클라이언트 소통</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Section 5: Data Table -->
+    <section class="content-section" id="data-table">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Data Table</span>
+                <h2 class="section-title">실무 프로젝트 작업 시간 비교 (단위: 시간)</h2>
+            </div>
+            
+            <div class="content-card" data-aos="fade-up">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>작업 항목</th>
+                            <th>전통 방식</th>
+                            <th>AI 보조</th>
+                            <th>AI 전문가</th>
+                            <th>시간 절감</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>로고 시안 10개</td>
+                            <td>5.0</td>
+                            <td>2.0</td>
+                            <td>1.0</td>
+                            <td>80% ↓</td>
+                        </tr>
+                        <tr>
+                            <td>SNS 배너 20개</td>
+                            <td>4.0</td>
+                            <td>1.5</td>
+                            <td>0.8</td>
+                            <td>80% ↓</td>
+                        </tr>
+                        <tr>
+                            <td>레퍼런스 수집</td>
+                            <td>2.0</td>
+                            <td>0.5</td>
+                            <td>0.3</td>
+                            <td>85% ↓</td>
+                        </tr>
+                        <tr>
+                            <td>컬러 팔레트 제안</td>
+                            <td>1.0</td>
+                            <td>0.3</td>
+                            <td>0.2</td>
+                            <td>80% ↓</td>
+                        </tr>
+                        <tr>
+                            <td>클라이언트 소통</td>
+                            <td>2.0</td>
+                            <td>2.0</td>
+                            <td>2.5</td>
+                            <td>-25% (↑)</td>
+                        </tr>
+                        <tr>
+                            <td>브랜드 전략 수립</td>
+                            <td>3.0</td>
+                            <td>3.0</td>
+                            <td>4.0</td>
+                            <td>-33% (↑)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>전체 프로젝트</strong></td>
+                            <td><strong>17.0</strong></td>
+                            <td><strong>9.3</strong></td>
+                            <td><strong>8.8</strong></td>
+                            <td><strong>48% ↓</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p style="margin-top: 24px; font-size: 14px; color: var(--gray); text-align: center;">
+                    *주: 클라이언트 소통과 전략 수립은 오히려 시간을 더 투자하는 추세
+                </p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Section 6: Quote -->
+    <section class="quote-section">
+        <div class="container-narrow">
+            <blockquote class="big-quote" data-aos="fade-up">
+                <p>"AI는 도구입니다. 망치가 목수를 대체하지 못하듯, AI는 디자이너를 대체하지 못합니다. 다만 망치를 쓰는 목수가 맨손으로 일하는 목수보다 빠를 뿐입니다."</p>
+                <cite>Adobe Max 2024, AI와 창의성 세션</cite>
+            </blockquote>
+        </div>
+    </section>
+    
+    <!-- Section 7: Additional Stats -->
+    <section class="content-section" id="additional-stats">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Statistics</span>
+                <h2 class="section-title">2024년 디자인 업계 AI 활용 현황</h2>
+            </div>
+            
+            <div class="content-card" data-aos="fade-up">
+                <div class="chart-wrapper">
+                    <h3 class="chart-title">디자이너들의 AI 도구 사용 빈도</h3>
+                    <canvas id="chart2"></canvas>
+                    <p class="chart-caption">디자이너의 88%가 주 1회 이상 AI 도구를 사용하고 있습니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Source Section -->
+    <section class="source-section">
+        <div class="container-narrow">
+            <p class="source-text" data-aos="fade-up">
+                출처: McKinsey Global Institute (2024), Adobe Creative Cloud Survey (2024), Adobe Max 2024
+            </p>
+        </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container-narrow">
+            <div class="cta-card" data-aos="zoom-in">
+                <h3 class="cta-title">AI 시대, 어떻게 준비하고 계신가요?</h3>
+                <p class="cta-description">이 글이 도움이 되셨다면 공유해주세요. 더 많은 디자이너가 AI 시대를 준비할 수 있도록.</p>
+                
+                <div class="cta-buttons">
+                    <a href="https://www.artiring.com/records" class="btn btn-primary">다른 인사이트 보기</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <script>
+        // iframe 높이 자동 전달 (부모 창에 메시지 전송)
+        function sendHeightToParent() {
+            if (window.parent !== window) {
+                const height = Math.max(
+                    document.body.scrollHeight,
+                    document.body.offsetHeight,
+                    document.documentElement.clientHeight,
+                    document.documentElement.scrollHeight,
+                    document.documentElement.offsetHeight
+                );
+                window.parent.postMessage({
+                    type: 'iframe-resize',
+                    height: height
+                }, '*');
+            }
+        }
+
+        // 초기 높이 전달
+        window.addEventListener('load', () => {
+            sendHeightToParent();
+            setTimeout(sendHeightToParent, 2000);
+        });
+
+        // 리사이즈 이벤트 감지
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(sendHeightToParent, 300);
+        });
+
+        // MutationObserver로 DOM 변경 감지
+        const observer = new MutationObserver(() => {
+            sendHeightToParent();
+        });
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true,
+            attributes: true
+        });
+
+        // AOS 초기화
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+        
+        // 카운터 애니메이션
+        function initCounters() {
+            if (typeof CountUp === 'undefined' && typeof countUp === 'undefined') {
+                document.querySelectorAll('.stat-number').forEach(el => {
+                    const target = parseFloat(el.dataset.count);
+                    if (target && !isNaN(target)) {
+                        const hasDecimal = target % 1 !== 0;
+                        const decimals = hasDecimal ? 1 : 0;
+                        el.textContent = target.toFixed(decimals);
+                    }
+                });
+                setTimeout(initCounters, 500);
+                return;
+            }
+            
+            const CountUpClass = typeof CountUp !== 'undefined' ? CountUp : countUp;
+            
+            document.querySelectorAll('.stat-number').forEach(el => {
+                const target = parseFloat(el.dataset.count);
+                if (target && !isNaN(target)) {
+                    const hasDecimal = target % 1 !== 0;
+                    const decimals = hasDecimal ? 1 : 0;
+                    
+                    const options = {
+                        duration: 2,
+                        useEasing: true,
+                        separator: ',',
+                        decimal: '.',
+                        decimals: decimals
+                    };
+                    
+                    try {
+                        const counter = new CountUpClass(el, target, options);
+                        
+                        if (counter.error) {
+                            el.textContent = target.toFixed(decimals);
+                            return;
+                        }
+                        
+                        const observer = new IntersectionObserver(entries => {
+                            entries.forEach(entry => {
+                                if (entry.isIntersecting) {
+                                    counter.start();
+                                    observer.unobserve(entry.target);
+                                }
+                            });
+                        }, { threshold: 0.5 });
+                        
+                        observer.observe(el);
+                    } catch (e) {
+                        el.textContent = target.toFixed(decimals);
+                    }
+                }
+            });
+        }
+        
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initCounters);
+        } else {
+            setTimeout(initCounters, 100);
+        }
+        
+        // 차트 초기화 함수
+        function initCharts() {
+            if (typeof Chart === 'undefined') {
+                setTimeout(initCharts, 500);
+                return;
+            }
+            
+            // 차트 1: AI 도구 활용도에 따른 작업 효율 변화
+            const ctx1 = document.getElementById('chart1');
+            if (ctx1) {
+                new Chart(ctx1.getContext('2d'), {
+                    type: 'bar',
+                    data: {
+                        labels: ['AI 미사용', 'AI 보조 활용', 'AI 적극 활용'],
+                        datasets: [{
+                            label: '생산성 지수',
+                            data: [100, 180, 300],
+                            backgroundColor: [
+                                'rgba(90, 90, 90, 0.8)',
+                                'rgba(135, 206, 235, 0.8)',
+                                'rgba(65, 105, 225, 0.8)'
+                            ],
+                            borderWidth: 0,
+                            borderRadius: 8
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                backgroundColor: 'rgba(0,0,0,0.8)',
+                                padding: 12,
+                                titleFont: { size: 14, weight: 'bold' },
+                                bodyFont: { size: 13 },
+                                cornerRadius: 8,
+                                callbacks: {
+                                    label: function(context) {
+                                        return '생산성 지수: ' + context.parsed.y + ' (기준: 100)';
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: '생산성 지수 (기준: 100)'
+                                },
+                                grid: {
+                                    color: '#F3F4F6'
+                                }
+                            },
+                            x: {
+                                grid: {
+                                    display: false
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            // 차트 2: 디자이너들의 AI 도구 사용 빈도
+            const ctx2 = document.getElementById('chart2');
+            if (ctx2) {
+                new Chart(ctx2.getContext('2d'), {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['매일 사용', '주 2-3회', '주 1회', '거의 안씀'],
+                        datasets: [{
+                            data: [45, 28, 15, 12],
+                            backgroundColor: [
+                                'rgba(65, 105, 225, 0.8)',
+                                'rgba(135, 206, 235, 0.8)',
+                                'rgba(90, 90, 90, 0.6)',
+                                'rgba(90, 90, 90, 0.3)'
+                            ],
+                            borderWidth: 0
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    padding: 20,
+                                    font: { size: 14 }
+                                }
+                            },
+                            tooltip: {
+                                backgroundColor: 'rgba(0,0,0,0.8)',
+                                padding: 12,
+                                titleFont: { size: 14, weight: 'bold' },
+                                bodyFont: { size: 13 },
+                                cornerRadius: 8,
+                                callbacks: {
+                                    label: function(context) {
+                                        return context.label + ': ' + context.parsed + '%';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+        
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', function() {
+                setTimeout(initCharts, 100);
+            });
+        } else {
+            setTimeout(initCharts, 100);
+        }
+    </script>
+</body>
+</html>
+
