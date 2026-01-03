@@ -31,8 +31,14 @@ export default function BlogIframe({ htmlFileName }) {
 
     // postMessage 핸들러 (별도 함수로 분리하여 cleanup 가능하게)
     const handleMessage = (e) => {
-      // 보안: 같은 origin에서 온 메시지만 처리
-      if (e.origin !== window.location.origin) {
+      // Supabase Storage URL에서 오는 메시지도 허용
+      // iframe이 Supabase Storage URL인 경우 origin이 다를 수 있음
+      const isSupabaseOrigin = e.origin.includes('.supabase.co');
+      const isSameOrigin = e.origin === window.location.origin;
+      
+      // 같은 origin이거나 Supabase Storage origin인 경우만 허용
+      if (!isSameOrigin && !isSupabaseOrigin) {
+        // 알 수 없는 origin은 무시 (보안)
         return;
       }
       

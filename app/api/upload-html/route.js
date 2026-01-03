@@ -447,7 +447,7 @@ export async function POST(request) {
     console.log('Creating blog post with:', {
       title: dateTitle,
       slug: slug,
-      html_file: fileName,
+      html_file: publicUrl,
       author_id: admin.id
     });
 
