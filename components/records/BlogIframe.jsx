@@ -76,21 +76,34 @@ export default function BlogIframe({ htmlFileName }) {
   const isUrl = htmlFileName?.startsWith('http://') || htmlFileName?.startsWith('https://');
   
   // 파일명인 경우 Supabase Storage URL로 변환
+  // 클라이언트 컴포넌트에서는 환경 변수를 직접 사용할 수 있음 (NEXT_PUBLIC_ 접두사)
+  const supabaseUrl = typeof window !== 'undefined' 
+    ? (process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://nxyjcawijvzhdvoxdpbv.supabase.co')
+    : 'https://nxyjcawijvzhdvoxdpbv.supabase.co';
+  const bucketName = 'blog-html';
+  
   let iframeSrc;
   if (isUrl) {
     iframeSrc = htmlFileName;
-  } else {
+  } else if (htmlFileName) {
     // 파일명인 경우 Supabase Storage URL 생성
     // Supabase Storage 공개 URL 형식: https://[project].supabase.co/storage/v1/object/public/[bucket]/[path]
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://nxyjcawijvzhdvoxdpbv.supabase.co';
-    const bucketName = 'blog-html';
     iframeSrc = `${supabaseUrl}/storage/v1/object/public/${bucketName}/${htmlFileName}`;
+  } else {
+    // htmlFileName이 없는 경우 빈 문자열
+    iframeSrc = '';
   }
 
-  // 디버깅: 개발 환경에서만 로그 출력
-  if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
-    console.log('BlogIframe props:', { htmlFileName, isUrl, iframeSrc });
-  }
+  // 디버깅: 항상 로그 출력 (문제 해결을 위해)
+  useEffect(() => {
+    console.log('🔍 BlogIframe Debug:', { 
+      htmlFileName, 
+      isUrl, 
+      iframeSrc,
+      supabaseUrl,
+      hasHtmlFileName: !!htmlFileName
+    });
+  }, [htmlFileName, isUrl, iframeSrc, supabaseUrl]);
 
   return (
     <div className="blog-iframe-wrapper my-8">
