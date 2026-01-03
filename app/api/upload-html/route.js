@@ -1,4 +1,5 @@
 export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
 
 import { createServerClient } from '@/lib/supabase';
 import { getAuthenticatedAdmin } from '@/lib/auth';
