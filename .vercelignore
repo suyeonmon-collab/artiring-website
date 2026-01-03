@@ -1,5 +1,7 @@
 # Vercel 배포에서 제외할 파일/폴더
-# blog 폴더는 GitHub에는 업로드되지만 Vercel 배포에는 포함되지 않음
+# 프로젝트 루트의 blog 폴더만 제외 (GitHub에는 업로드되지만 Vercel 배포에는 포함되지 않음)
+# public/blog/ 폴더는 배포에 포함되어야 함 (iframe으로 서빙되는 HTML 파일들)
+# 주의: blog/ 패턴은 public/blog/도 매칭할 수 있으므로 절대 경로 사용
 ../blog/
-blog/
+
 
