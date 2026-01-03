@@ -84,11 +84,13 @@ export default function BlogIframe({ htmlFileName }) {
   
   let iframeSrc;
   if (isUrl) {
-    iframeSrc = htmlFileName;
+    // URL인 경우 Next.js API route를 통해 프록시 (CSP 문제 해결)
+    // URL을 인코딩하여 전달
+    const encodedUrl = encodeURIComponent(htmlFileName);
+    iframeSrc = `/blog/${encodedUrl}`;
   } else if (htmlFileName) {
-    // 파일명인 경우 Supabase Storage URL 생성
-    // Supabase Storage 공개 URL 형식: https://[project].supabase.co/storage/v1/object/public/[bucket]/[path]
-    iframeSrc = `${supabaseUrl}/storage/v1/object/public/${bucketName}/${htmlFileName}`;
+    // 파일명인 경우 직접 파일명 사용 (Next.js API route가 처리)
+    iframeSrc = `/blog/${htmlFileName}`;
   } else {
     // htmlFileName이 없는 경우 빈 문자열
     iframeSrc = '';
@@ -113,6 +115,7 @@ export default function BlogIframe({ htmlFileName }) {
         width="100%"
         height="2000"
         frameBorder="0"
+        sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-modals"
         style={{
           border: 'none',
           display: 'block',
