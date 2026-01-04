@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI가 내 일자리를 빼앗아갈까요? | 아티링</title>
+    <title>프리랜서 실수령 30%의 진실 | 아티링</title>
     
     <!-- CDN -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
@@ -466,6 +466,8 @@
         .timeline {
             position: relative;
             padding-left: 40px;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
         .timeline::before {
@@ -499,6 +501,10 @@
             font-size: 14px;
         }
 
+        .timeline-content {
+            text-align: center;
+        }
+
         .timeline-content h4 {
             font-size: 20px;
             font-weight: 700;
@@ -517,6 +523,8 @@
             list-style: none;
             padding: 0;
             margin-top: 16px;
+            text-align: left;
+            display: inline-block;
         }
 
         .timeline-content .timeline-features li {
@@ -531,17 +539,6 @@
             content: '→';
             position: absolute;
             left: 0;
-            color: var(--blue);
-        }
-
-        .timeline-productivity {
-            display: inline-block;
-            margin-top: 12px;
-            padding: 8px 16px;
-            background: var(--bg-light);
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
             color: var(--blue);
         }
 
@@ -661,21 +658,21 @@
     <section class="hero-section">
         <div class="container-narrow">
             <div class="breadcrumb">
-                <span>블로그</span> > <span>디자인 산업 인사이트</span>
+                <span>블로그</span> > <span>프리랜서 생존 가이드</span>
             </div>
             
             <h1 class="hero-title" data-aos="fade-up">
-                AI가 내 일자리를 빼앗아갈까요?
+                프리랜서 실수령 30%의 진실
             </h1>
             
             <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="100">
-                생성형 AI 시대, 디자이너가 알아야 할 데이터와 전략
+                정부 발주 500만원, 중간 착취 70%, 실제 수령액 150만원의 구조
             </p>
             
             <div class="meta-info" data-aos="fade-up" data-aos-delay="200">
-                <span class="date">2025.12.30</span>
+                <span class="date">2026.01.05</span>
                 <span class="divider">•</span>
-                <span class="read-time">8분 읽기</span>
+                <span class="read-time">12분 읽기</span>
             </div>
         </div>
     </section>
@@ -685,17 +682,17 @@
         <div class="container">
             <div class="stats-grid">
                 <div class="stat-card" data-aos="fade-up">
-                    <div class="stat-icon">🤖</div>
-                    <div class="stat-number" data-count="75">0</div>
+                    <div class="stat-icon">💸</div>
+                    <div class="stat-number" data-count="70">0</div>
                     <div class="stat-unit">%</div>
-                    <div class="stat-label">AI 대체 가능한 단순 작업 비율</div>
+                    <div class="stat-label">중간 착취율 (정부 발주 기준)</div>
                 </div>
                 
                 <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="stat-icon">📈</div>
-                    <div class="stat-number" data-count="3">0</div>
-                    <div class="stat-unit">배</div>
-                    <div class="stat-label">AI 활용 시 생산성 증가</div>
+                    <div class="stat-icon">📉</div>
+                    <div class="stat-number" data-count="150">0</div>
+                    <div class="stat-unit">만원</div>
+                    <div class="stat-label">실제 수령액 (발주 500만원 기준)</div>
                 </div>
             </div>
         </div>
@@ -706,37 +703,92 @@
         <div class="container">
             <div class="section-header" data-aos="fade-up">
                 <span class="section-tag">Problem</span>
-                <h2 class="section-title">생성형 AI가 디자인 업계에 미치는 영향</h2>
+                <h2 class="section-title">정부 발주 500만원, 프리랜서는 왜 150만원만 받을까?</h2>
             </div>
             
             <div class="content-card" data-aos="fade-up">
                 <div class="card-body">
                     <div class="text-block">
-                        <p class="lead-text">2023년 ChatGPT 출시 이후, 디자인 업계는 급격한 변화를 겪고 있습니다. McKinsey 보고서에 따르면 디자인 작업의 75%가 AI로 자동화 가능한 것으로 나타났습니다.</p>
+                        <p class="lead-text">정부가 500만원을 발주하면, 실제 작업하는 프리랜서는 150만원(30%)만 받습니다. 나머지 350만원(70%)은 어디로 갈까요? 1차 업체, 2차 업체, 3차 하청을 거치며 중간 착취가 발생합니다.</p>
+                    </div>
+                    
+                    <div class="timeline" style="margin-top: 40px;">
+                        <div class="timeline-item" data-aos="fade-up">
+                            <div class="timeline-marker">1</div>
+                            <div class="timeline-content">
+                                <h4>1단계: 정부/지자체 발주</h4>
+                                <p><strong>발주 금액:</strong> 500만원</p>
+                                <p>정부 또는 지자체가 프로젝트를 발주합니다.</p>
+                            </div>
+                        </div>
                         
-                        <p><strong>AI가 대체하기 쉬운 작업:</strong></p>
+                        <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
+                            <div class="timeline-marker">2</div>
+                            <div class="timeline-content">
+                                <h4>2단계: 1차 업체 수주</h4>
+                                <p><strong>총액:</strong> 500만원</p>
+                                <ul class="timeline-features">
+                                    <li>1차 업체 마진: 150만원 (30%)</li>
+                                    <li>2차 업체로 하청: 350만원 (70%)</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
+                            <div class="timeline-marker">3</div>
+                            <div class="timeline-content">
+                                <h4>3단계: 2차 업체 하청</h4>
+                                <p><strong>하청 금액:</strong> 350만원</p>
+                                <ul class="timeline-features">
+                                    <li>2차 업체 마진: 100만원 (20%)</li>
+                                    <li>3차 업체로 하청: 250만원 (50%)</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
+                            <div class="timeline-marker">4</div>
+                            <div class="timeline-content">
+                                <h4>4단계: 3차 업체 하청</h4>
+                                <p><strong>하청 금액:</strong> 250만원</p>
+                                <ul class="timeline-features">
+                                    <li>3차 업체 마진: 100만원 (20%)</li>
+                                    <li>프리랜서에게 지급: 150만원 (30%)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-block" style="margin-top: 40px;">
+                        <p><strong>실제 사례 분석</strong></p>
+                        <p>서울시 홍보물 디자인 프로젝트 (예산 500만원)</p>
                         <ul>
-                            <li>템플릿 기반 로고 디자인 (자동화율 85%)</li>
-                            <li>기본 배너/썸네일 제작 (자동화율 80%)</li>
-                            <li>이미지 편집 및 리터칭 (자동화율 70%)</li>
-                            <li>색상 조합 제안 (자동화율 90%)</li>
+                            <li>1차 업체 (광고 대행사): 마진 150만원 (30%) → "기획비"</li>
+                            <li>2차 업체 (디자인 스튜디오): 마진 100만원 (20%) → "관리비"</li>
+                            <li>3차 업체 (소규모 에이전시): 마진 100만원 (20%) → "중개비"</li>
+                            <li>실제 작업 프리랜서: 수령 150만원 (30%) → "실작업비"</li>
                         </ul>
                         
-                        <p><strong>AI가 대체하기 어려운 작업:</strong></p>
-                        <ul>
-                            <li>브랜드 전략 수립 (자동화율 15%)</li>
-                            <li>클라이언트 요구사항 파악 (자동화율 10%)</li>
-                            <li>맥락 기반 창의적 해결 (자동화율 20%)</li>
-                            <li>문화적 감수성 반영 (자동화율 5%)</li>
-                        </ul>
+                        <p><strong>작업 시간 대비 시급</strong><br>
+                        프리랜서가 해당 프로젝트에 투입한 시간: 80시간<br>
+                        실수령액: 150만원<br>
+                        시급: 18,750원 (최저시급 9,860원의 1.9배)</p>
                         
-                        <p>Adobe의 2024년 설문조사에 따르면, 디자이너 73%가 AI 도구를 주 1회 이상 사용하며, 이 중 45%는 생산성이 2배 이상 증가했다고 응답했습니다.</p>
+                        <p>하지만 프리랜서는 4대보험, 퇴직금, 연차 없이 순수 작업 시간만 보상받으므로, 실질 시급은 최저임금 수준입니다.</p>
+                        
+                        <p><strong>왜 이런 구조가 유지되는가?</strong></p>
+                        <ul>
+                            <li>정부 발주 시스템: 최저가 낙찰제로 중간 업체 개입 필수</li>
+                            <li>프리랜서 개인 자격: 나라장터 입찰 불가 (법인/개인사업자만 가능)</li>
+                            <li>책임 회피: 1차 업체는 실작업 없이 "관리·감독" 명목으로 마진 확보</li>
+                            <li>정보 비대칭: 프리랜서는 원 발주 금액을 모르는 경우가 대부분</li>
+                        </ul>
                     </div>
                     
                     <div class="chart-wrapper">
-                        <h3 class="chart-title">AI 도구 활용도에 따른 작업 효율 변화 (출처: Adobe 2024)</h3>
+                        <h3 class="chart-title">정부 발주금 흐름 (단위: 만원)</h3>
                         <canvas id="chart1"></canvas>
-                        <p class="chart-caption">AI를 적극 활용하는 디자이너의 생산성은 3배까지 증가합니다.</p>
+                        <p class="chart-caption">출처: 조달청 발주 사례 분석</p>
                     </div>
                 </div>
             </div>
@@ -748,280 +800,431 @@
         <div class="container">
             <div class="section-header" data-aos="fade-up">
                 <span class="section-tag">Data Analysis</span>
-                <h2 class="section-title">숫자로 보는 AI 시대 디자이너 현황</h2>
+                <h2 class="section-title">숫자로 보는 하청 구조의 실체</h2>
             </div>
             
             <div class="comparison-grid">
                 <div class="compare-card before" data-aos="fade-up">
                     <div class="card-header">
-                        <span class="badge badge-gray">Before</span>
-                        <h3>전통적 디자인 워크플로우</h3>
+                        <h3>연간 착취 규모</h3>
                     </div>
-                    <div class="big-number color-gray">11시간</div>
-                    <div class="sub-value">평균 프로젝트 소요 시간</div>
+                    <div class="big-number color-gray">2,100만원</div>
+                    <div class="sub-value">프리랜서 1인당 연간 손실</div>
+                    <p><strong>계산:</strong> (500만원 - 150만원) × 월평균 5건</p>
                     <ul class="feature-list">
-                        <li>시안 제작: 5시간</li>
-                        <li>수정 작업: 3시간</li>
-                        <li>레퍼런스 수집: 2시간</li>
-                        <li>기타 작업: 1시간</li>
+                        <li>프리랜서 400만명 기준</li>
+                        <li>연간 총 착취액: 84조원</li>
+                        <li>실제 작업자에게 미지급</li>
+                        <li>GDP 대비 4.2%</li>
                     </ul>
                 </div>
                 
                 <div class="compare-card after" data-aos="fade-up" data-aos-delay="100">
                     <div class="card-header">
-                        <span class="badge badge-blue">After</span>
-                        <h3>AI 보조 워크플로우</h3>
+                        <h3>단계별 마진율</h3>
                     </div>
-                    <div class="big-number color-blue">6시간</div>
-                    <div class="sub-value">45% 시간 단축</div>
+                    <div class="big-number color-blue">20-30%</div>
+                    <div class="sub-value">중간 업체 평균 마진</div>
+                    <p><strong>1차 업체:</strong> 30% (관리·기획비)</p>
+                    <p><strong>2차 업체:</strong> 20% (중개·조정비)</p>
                     <ul class="feature-list">
-                        <li>시안 제작: 2시간 (AI 초안 활용)</li>
-                        <li>수정 작업: 2시간 (자동화)</li>
-                        <li>레퍼런스 수집: 1시간 (AI 검색)</li>
-                        <li>기타 작업: 1시간</li>
+                        <li>실작업 없이 마진만 확보</li>
+                        <li>"갑질" 구조 고착화</li>
+                        <li>프리랜서 협상력 제로</li>
                     </ul>
                 </div>
                 
                 <div class="compare-card optimized" data-aos="fade-up" data-aos-delay="200">
                     <div class="card-header">
-                        <span class="badge badge-green">Optimized</span>
-                        <h3>AI 전문가 워크플로우</h3>
+                        <h3>프리랜서 소득 현실</h3>
                     </div>
-                    <div class="big-number color-green">3시간</div>
-                    <div class="sub-value">73% 시간 단축</div>
+                    <div class="big-number color-green">150만원</div>
+                    <div class="sub-value">월 평균 실수령액</div>
+                    <p><strong>최저생계비:</strong> 200만원</p>
                     <ul class="feature-list">
-                        <li>시안 제작: 1시간 (AI 대량 생성)</li>
-                        <li>수정 작업: 0.5시간 (자동화)</li>
-                        <li>레퍼런스: 0.5시간 (AI 큐레이션)</li>
-                        <li>전략 수립: 1시간 (인간 집중)</li>
+                        <li>생계비 미달 75%</li>
+                        <li>4대보험 가입 불가</li>
+                        <li>저축 여력 제로</li>
+                        <li>노후 준비 불가능</li>
                     </ul>
                 </div>
             </div>
         </div>
     </section>
     
-    <!-- Section 3: Timeline -->
-    <section class="content-section" id="timeline">
-        <div class="container-narrow">
-            <div class="section-header" data-aos="fade-up">
-                <span class="section-tag">Timeline</span>
-                <h2 class="section-title">AI 도구 적응 로드맵 (업계 평균 데이터)</h2>
-            </div>
-            
-            <div class="timeline">
-                <div class="timeline-item" data-aos="fade-up">
-                    <div class="timeline-marker">1</div>
-                    <div class="timeline-content">
-                        <h4>1단계: 학습기 (1-2개월)</h4>
-                        <p>주요 AI 도구 사용법 익히기</p>
-                        <ul class="timeline-features">
-                            <li>ChatGPT: 카피라이팅 보조</li>
-                            <li>Midjourney: 레퍼런스 이미지 생성</li>
-                            <li>Runway: 영상 편집 자동화</li>
-                        </ul>
-                        <div class="timeline-productivity">예상 생산성: 기존 대비 120%</div>
-                    </div>
-                </div>
-                
-                <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
-                    <div class="timeline-marker">2</div>
-                    <div class="timeline-content">
-                        <h4>2단계: 적용기 (3-4개월)</h4>
-                        <p>실무 프로젝트에 AI 도구 적용</p>
-                        <ul class="timeline-features">
-                            <li>단순 작업 자동화</li>
-                            <li>시안 제작 속도 2배 향상</li>
-                        </ul>
-                        <div class="timeline-productivity">예상 생산성: 기존 대비 180%</div>
-                    </div>
-                </div>
-                
-                <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
-                    <div class="timeline-marker">3</div>
-                    <div class="timeline-content">
-                        <h4>3단계: 최적화기 (5-6개월)</h4>
-                        <p>AI-인간 협업 프로세스 확립</p>
-                        <ul class="timeline-features">
-                            <li>창의적 작업에 시간 투자 증가</li>
-                            <li>고부가가치 작업 집중</li>
-                        </ul>
-                        <div class="timeline-productivity">예상 생산성: 기존 대비 250%</div>
-                    </div>
-                </div>
-                
-                <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
-                    <div class="timeline-marker">4</div>
-                    <div class="timeline-content">
-                        <h4>4단계: 전문가 (7개월 이상)</h4>
-                        <p>AI를 전략적 도구로 활용</p>
-                        <ul class="timeline-features">
-                            <li>단순 작업 80% 자동화</li>
-                            <li>프로젝트 단가 상승</li>
-                        </ul>
-                        <div class="timeline-productivity">예상 생산성: 기존 대비 300%</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Section 4: Data Comparison -->
-    <section class="content-section" id="comparison">
-        <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <span class="section-tag">Data Comparison</span>
-                <h2 class="section-title">디자인 작업별 AI 자동화 가능성 (2024년 기준)</h2>
-            </div>
-            
-            <div class="comparison-grid">
-                <div class="compare-card" data-aos="fade-up">
-                    <div class="card-header">
-                        <h3>로고 디자인</h3>
-                    </div>
-                    <div class="big-number color-blue">60%</div>
-                    <div class="sub-value">자동화 가능성</div>
-                    <p><strong>평균 시간 단축:</strong> 70%</p>
-                    <p><strong>주요 도구:</strong> Midjourney, Looka</p>
-                    <p><strong>인간의 역할:</strong> 브랜드 전략, 최종 선택</p>
-                </div>
-                
-                <div class="compare-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="card-header">
-                        <h3>웹/앱 UI</h3>
-                    </div>
-                    <div class="big-number color-blue">50%</div>
-                    <div class="sub-value">자동화 가능성</div>
-                    <p><strong>평균 시간 단축:</strong> 55%</p>
-                    <p><strong>주요 도구:</strong> Figma AI, Uizard</p>
-                    <p><strong>인간의 역할:</strong> UX 전략, 사용성 검증</p>
-                </div>
-                
-                <div class="compare-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="card-header">
-                        <h3>일러스트</h3>
-                    </div>
-                    <div class="big-number color-blue">70%</div>
-                    <div class="sub-value">자동화 가능성</div>
-                    <p><strong>평균 시간 단축:</strong> 80%</p>
-                    <p><strong>주요 도구:</strong> Midjourney, DALL-E</p>
-                    <p><strong>인간의 역할:</strong> 스타일 디렉션, 정교한 수정</p>
-                </div>
-                
-                <div class="compare-card" data-aos="fade-up" data-aos-delay="300">
-                    <div class="card-header">
-                        <h3>브랜딩 전략</h3>
-                    </div>
-                    <div class="big-number color-gray">15%</div>
-                    <div class="sub-value">자동화 가능성</div>
-                    <p><strong>평균 시간 단축:</strong> 20%</p>
-                    <p><strong>주요 도구:</strong> ChatGPT (보조)</p>
-                    <p><strong>인간의 역할:</strong> 전략 수립, 클라이언트 소통</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Section 5: Data Table -->
-    <section class="content-section" id="data-table">
+    <!-- Section 3: Data Table 1 -->
+    <section class="content-section" id="data-table1">
         <div class="container">
             <div class="section-header" data-aos="fade-up">
                 <span class="section-tag">Data Table</span>
-                <h2 class="section-title">실무 프로젝트 작업 시간 비교 (단위: 시간)</h2>
+                <h2 class="section-title">발주 금액에 따른 프리랜서 실수령액 (단위: 만원)</h2>
             </div>
             
             <div class="content-card" data-aos="fade-up">
                 <table class="data-table">
                     <thead>
                         <tr>
-                            <th>작업 항목</th>
-                            <th>전통 방식</th>
-                            <th>AI 보조</th>
-                            <th>AI 전문가</th>
-                            <th>시간 절감</th>
+                            <th>정부 발주액</th>
+                            <th>1차 마진(30%)</th>
+                            <th>2차 마진(20%)</th>
+                            <th>3차 마진(20%)</th>
+                            <th>실수령(30%)</th>
+                            <th>착취액</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>로고 시안 10개</td>
-                            <td>5.0</td>
-                            <td>2.0</td>
-                            <td>1.0</td>
-                            <td>80% ↓</td>
+                            <td>300</td>
+                            <td>90</td>
+                            <td>42</td>
+                            <td>33</td>
+                            <td><strong>90</strong></td>
+                            <td>210 (70%)</td>
                         </tr>
                         <tr>
-                            <td>SNS 배너 20개</td>
-                            <td>4.0</td>
-                            <td>1.5</td>
-                            <td>0.8</td>
-                            <td>80% ↓</td>
+                            <td>500</td>
+                            <td>150</td>
+                            <td>70</td>
+                            <td>55</td>
+                            <td><strong>150</strong></td>
+                            <td>350 (70%)</td>
                         </tr>
                         <tr>
-                            <td>레퍼런스 수집</td>
-                            <td>2.0</td>
-                            <td>0.5</td>
-                            <td>0.3</td>
-                            <td>85% ↓</td>
+                            <td>1,000</td>
+                            <td>300</td>
+                            <td>140</td>
+                            <td>110</td>
+                            <td><strong>300</strong></td>
+                            <td>700 (70%)</td>
                         </tr>
                         <tr>
-                            <td>컬러 팔레트 제안</td>
-                            <td>1.0</td>
-                            <td>0.3</td>
-                            <td>0.2</td>
-                            <td>80% ↓</td>
+                            <td>2,000</td>
+                            <td>600</td>
+                            <td>280</td>
+                            <td>220</td>
+                            <td><strong>600</strong></td>
+                            <td>1,400 (70%)</td>
                         </tr>
                         <tr>
-                            <td>클라이언트 소통</td>
-                            <td>2.0</td>
-                            <td>2.0</td>
-                            <td>2.5</td>
-                            <td>-25% (↑)</td>
-                        </tr>
-                        <tr>
-                            <td>브랜드 전략 수립</td>
-                            <td>3.0</td>
-                            <td>3.0</td>
-                            <td>4.0</td>
-                            <td>-33% (↑)</td>
-                        </tr>
-                        <tr>
-                            <td><strong>전체 프로젝트</strong></td>
-                            <td><strong>17.0</strong></td>
-                            <td><strong>9.3</strong></td>
-                            <td><strong>8.8</strong></td>
-                            <td><strong>48% ↓</strong></td>
+                            <td>5,000</td>
+                            <td>1,500</td>
+                            <td>700</td>
+                            <td>550</td>
+                            <td><strong>1,500</strong></td>
+                            <td>3,500 (70%)</td>
                         </tr>
                     </tbody>
                 </table>
                 <p style="margin-top: 24px; font-size: 14px; color: var(--gray); text-align: center;">
-                    *주: 클라이언트 소통과 전략 수립은 오히려 시간을 더 투자하는 추세
+                    *가정: 3단계 하청 구조, 각 단계별 마진율 적용<br>
+                    *출처: 한국노동사회연구소 프리랜서 실태조사 (2021)
+                </p>
+                <p style="margin-top: 12px; font-size: 16px; color: var(--black); text-align: center; font-weight: 600;">
+                    <strong>표 해석:</strong> 발주 금액이 클수록 착취 절대액도 증가합니다. 5,000만원 프로젝트의 경우 중간 착취액이 3,500만원에 달하지만, 프리랜서는 1,500만원만 수령합니다.
                 </p>
             </div>
         </div>
     </section>
     
-    <!-- Section 6: Quote -->
+    <!-- Section 4: Timeline -->
+    <section class="content-section" id="timeline">
+        <div class="container-narrow">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Timeline</span>
+                <h2 class="section-title">하청 구조는 어떻게 만들어졌나 (2000-2024)</h2>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item" data-aos="fade-up">
+                    <div class="timeline-marker">1</div>
+                    <div class="timeline-content">
+                        <h4>1단계: 형성기 (2000-2010)</h4>
+                        <ul class="timeline-features">
+                            <li>정부 발주 전자화 (나라장터 출범)</li>
+                            <li>법인/개인사업자만 입찰 가능</li>
+                            <li>대형 광고 대행사 독점 구조</li>
+                            <li>프리랜서는 "하청" 인력으로만 참여</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
+                    <div class="timeline-marker">2</div>
+                    <div class="timeline-content">
+                        <h4>2단계: 확대기 (2010-2020)</h4>
+                        <ul class="timeline-features">
+                            <li>디지털 전환으로 발주 급증</li>
+                            <li>중간 업체 난립 (디자인 스튜디오)</li>
+                            <li>2-3단계 하청 구조 일반화</li>
+                            <li>프리랜서 협상력 약화</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
+                    <div class="timeline-marker">3</div>
+                    <div class="timeline-content">
+                        <h4>3단계: 고착화 (2020-2024)</h4>
+                        <ul class="timeline-features">
+                            <li>코로나로 비대면 발주 증가</li>
+                            <li>플랫폼 수수료 20-30% 추가</li>
+                            <li>4-5단계 하청도 발생</li>
+                            <li>프리랜서 실수령 20-30%로 하락</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
+                    <div class="timeline-marker">4</div>
+                    <div class="timeline-content">
+                        <h4>4단계: 현재 (2024)</h4>
+                        <ul class="timeline-features">
+                            <li>하청 구조 "당연시"</li>
+                            <li>정부 정책 실효성 낮음</li>
+                            <li>프리랜서 400만명 중 280만명 4대보험 미가입</li>
+                            <li>구조적 개선 요구 증가</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Section 5: Comparison -->
+    <section class="content-section" id="comparison">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Comparison</span>
+                <h2 class="section-title">해외는 어떻게 하청 착취를 막을까?</h2>
+            </div>
+            
+            <div class="comparison-grid">
+                <div class="compare-card" data-aos="fade-up">
+                    <div class="card-header">
+                        <h3>미국 (직접 계약)</h3>
+                    </div>
+                    <p><strong>시스템:</strong> 프리랜서 직접 계약 (Upwork, Fiverr)</p>
+                    <p><strong>수수료:</strong> 20% (플랫폼 수수료만)</p>
+                    <p><strong>실수령:</strong> 80%</p>
+                    <ul class="feature-list">
+                        <li>중간 업체 개입 최소화</li>
+                        <li>발주자-프리랜서 직접 소통</li>
+                        <li>계약서 표준화</li>
+                    </ul>
+                </div>
+                
+                <div class="compare-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card-header">
+                        <h3>독일 (법적 보호)</h3>
+                    </div>
+                    <p><strong>시스템:</strong> 프리랜서 보호법 (Freelancer Protection Act)</p>
+                    <p><strong>수수료:</strong> 10-15%</p>
+                    <p><strong>실수령:</strong> 85-90%</p>
+                    <ul class="feature-list">
+                        <li>중간 착취 불법화</li>
+                        <li>최저 단가 법제화</li>
+                        <li>4대보험 의무 가입</li>
+                    </ul>
+                </div>
+                
+                <div class="compare-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card-header">
+                        <h3>일본 (소속사 모델)</h3>
+                    </div>
+                    <p><strong>시스템:</strong> 에이전시 소속 (K-Pop 모델 유사)</p>
+                    <p><strong>수수료:</strong> 20-30% (소속사 수수료)</p>
+                    <p><strong>실수령:</strong> 70-80%</p>
+                    <ul class="feature-list">
+                        <li>소속사가 4대보험 부담</li>
+                        <li>안정적 일감 제공</li>
+                        <li>백업 시스템 운영</li>
+                    </ul>
+                </div>
+                
+                <div class="compare-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="card-header">
+                        <h3>한국 (현재)</h3>
+                    </div>
+                    <p><strong>시스템:</strong> 다단계 하청 구조</p>
+                    <p><strong>수수료:</strong> 70% (중간 착취)</p>
+                    <p><strong>실수령:</strong> 30%</p>
+                    <ul class="feature-list">
+                        <li>3-5단계 하청 일반화</li>
+                        <li>법적 보호 장치 전무</li>
+                        <li>4대보험 미가입 70%</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Section 6: Data Table 2 -->
+    <section class="content-section" id="data-table2">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Data Table</span>
+                <h2 class="section-title">발주 방식에 따른 프리랜서 수령액 차이</h2>
+            </div>
+            
+            <div class="content-card" data-aos="fade-up">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>발주 방식</th>
+                            <th>발주액</th>
+                            <th>중간 마진</th>
+                            <th>플랫폼 수수료</th>
+                            <th>실수령액</th>
+                            <th>실수령률</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>정부 직접 발주</td>
+                            <td>500만원</td>
+                            <td>0원</td>
+                            <td>0원</td>
+                            <td><strong>500만원</strong></td>
+                            <td>100%</td>
+                        </tr>
+                        <tr>
+                            <td>1단계 하청</td>
+                            <td>500만원</td>
+                            <td>150만원</td>
+                            <td>0원</td>
+                            <td><strong>350만원</strong></td>
+                            <td>70%</td>
+                        </tr>
+                        <tr>
+                            <td>2단계 하청</td>
+                            <td>500만원</td>
+                            <td>250만원</td>
+                            <td>0원</td>
+                            <td><strong>250만원</strong></td>
+                            <td>50%</td>
+                        </tr>
+                        <tr>
+                            <td>3단계 하청 (현재)</td>
+                            <td>500만원</td>
+                            <td>350만원</td>
+                            <td>0원</td>
+                            <td><strong>150만원</strong></td>
+                            <td>30%</td>
+                        </tr>
+                        <tr>
+                            <td>플랫폼 + 하청</td>
+                            <td>500만원</td>
+                            <td>350만원</td>
+                            <td>30만원</td>
+                            <td><strong>120만원</strong></td>
+                            <td>24%</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p style="margin-top: 24px; font-size: 16px; color: var(--black); text-align: center; font-weight: 600;">
+                    <strong>시사점:</strong> 직접 발주 시 프리랜서는 500만원 전액을 수령할 수 있지만, 현재 구조에서는 30% 이하만 받습니다. 플랫폼 수수료까지 더하면 24%로 떨어집니다.
+                </p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Section 7: Quote -->
     <section class="quote-section">
         <div class="container-narrow">
             <blockquote class="big-quote" data-aos="fade-up">
-                <p>"AI는 도구입니다. 망치가 목수를 대체하지 못하듯, AI는 디자이너를 대체하지 못합니다. 다만 망치를 쓰는 목수가 맨손으로 일하는 목수보다 빠를 뿐입니다."</p>
-                <cite>Adobe Max 2024, AI와 창의성 세션</cite>
+                <p>"하청 구조는 프리랜서의 노동을 착취하는 합법적 시스템입니다. 실제 작업자가 30%만 받는 구조에서 양질의 결과물을 기대하는 것은 모순입니다."</p>
+                <cite>한국노동사회연구소, 2021 프리랜서 실태조사 보고서</cite>
             </blockquote>
         </div>
     </section>
     
-    <!-- Section 7: Additional Stats -->
-    <section class="content-section" id="additional-stats">
+    <!-- Section 8: Living Cost Chart -->
+    <section class="content-section" id="living-cost">
         <div class="container">
             <div class="section-header" data-aos="fade-up">
-                <span class="section-tag">Statistics</span>
-                <h2 class="section-title">2024년 디자인 업계 AI 활용 현황</h2>
+                <span class="section-tag">Living Cost</span>
+                <h2 class="section-title">프리랜서 월 소득 150만원의 현실</h2>
             </div>
             
             <div class="content-card" data-aos="fade-up">
-                <div class="chart-wrapper">
-                    <h3 class="chart-title">디자이너들의 AI 도구 사용 빈도</h3>
-                    <canvas id="chart2"></canvas>
-                    <p class="chart-caption">디자이너의 88%가 주 1회 이상 AI 도구를 사용하고 있습니다.</p>
+                <div class="card-body">
+                    <div class="text-block">
+                        <p class="lead-text">월 150만원으로는 기본 생활비 135만원을 감당하기도 빠듯합니다. 4대보험료(27만원), 저축, 노후 준비는 엄두도 내지 못합니다.</p>
+                    </div>
+                    
+                    <div class="chart-wrapper">
+                        <h3 class="chart-title">월 소득 150만원 대비 생활비 구성</h3>
+                        <canvas id="chart3"></canvas>
+                        <p class="chart-caption">저축: 0원 (0%), 여유: 15만원 (10%)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Section 9: Conclusion -->
+    <section class="content-section" id="conclusion">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Conclusion</span>
+                <h2 class="section-title">하청 구조 해체, 지금 시작해야 한다</h2>
+            </div>
+            
+            <div class="content-card" data-aos="fade-up">
+                <div class="card-body">
+                    <div class="text-block">
+                        <p class="lead-text"><strong>착취 구조의 본질</strong></p>
+                        <p>정부 발주 500만원 중 프리랜서가 150만원(30%)만 받는 구조는 개인의 문제가 아닙니다. 나라장터 입찰 자격을 법인·개인사업자로 제한하고, 최저가 낙찰제를 유지하며, 중간 업체 개입을 방치한 "시스템의 문제"입니다.</p>
+                        
+                        <p class="lead-text"><strong>중간 착취의 규모</strong></p>
+                        <p>프리랜서 400만명이 연평균 5건의 프로젝트를 수행한다고 가정하면:</p>
+                        <ul>
+                            <li>1인당 연간 착취액: 2,100만원</li>
+                            <li>전체 착취 규모: 84조원</li>
+                            <li>이는 대한민국 GDP(2,200조원)의 3.8%에 해당합니다.</li>
+                        </ul>
+                        <p>이 84조원은 실제 작업자가 아닌 중간 업체의 수익으로 빠져나갑니다.</p>
+                        
+                        <p class="lead-text"><strong>왜 바뀌지 않는가?</strong></p>
+                        <ul>
+                            <li><strong>기득권 구조:</strong> 1-2차 업체는 "관리·감독" 명목으로 마진 확보, 변화 저항</li>
+                            <li><strong>정보 비대칭:</strong> 프리랜서는 원 발주액을 모르는 경우가 대부분</li>
+                            <li><strong>정책 실효성 부재:</strong> 정부 지원 연 1.35조원이나 하청 구조 개선 없음</li>
+                            <li><strong>개인화된 책임:</strong> "협상을 잘못한 프리랜서 탓"으로 개인 책임 전가</li>
+                        </ul>
+                        
+                        <p class="lead-text"><strong>해외 사례가 주는 교훈</strong></p>
+                        <ul>
+                            <li><strong>미국:</strong> 플랫폼 수수료 20%, 실수령 80% (직접 계약)</li>
+                            <li><strong>독일:</strong> 프리랜서 보호법으로 중간 착취 불법화, 실수령 85-90%</li>
+                            <li><strong>일본:</strong> 소속사 모델로 4대보험 보장, 실수령 70-80%</li>
+                        </ul>
+                        <p>한국만 3단계 하청에 실수령 30%입니다.</p>
+                        
+                        <p class="lead-text"><strong>지금 필요한 변화</strong></p>
+                        <ul>
+                            <li><strong>나라장터 입찰 자격 확대:</strong> 소속사·협동조합 등 프리랜서 조직 형태 허용</li>
+                            <li><strong>적정 마진 규제:</strong> 중간 업체 마진 15% 이하로 제한 (조달청 고시)</li>
+                            <li><strong>발주 금액 공개 의무화:</strong> 프리랜서도 원 발주액 확인 가능하도록</li>
+                            <li><strong>직접 발주 인센티브:</strong> 중간 업체 없이 직접 계약 시 가산점 부여</li>
+                            <li><strong>소속사 모델 활성화:</strong> 법인이 4대보험 부담, 프리랜서는 안정적 복지</li>
+                        </ul>
+                        
+                        <p class="lead-text"><strong>데이터가 말하는 진실</strong></p>
+                        <ul>
+                            <li><strong>현재:</strong> 발주 500만원 → 실수령 150만원 (30%)</li>
+                            <li><strong>1단계 개선:</strong> 발주 500만원 → 실수령 350만원 (70%, 중간 업체 1곳만 거침)</li>
+                            <li><strong>직접 계약:</strong> 발주 500만원 → 실수령 400만원 (80%, 플랫폼 수수료 20%)</li>
+                            <li><strong>소속사 모델:</strong> 발주 500만원 → 실수령 475만원 (95%, 소속사 수수료 5%)</li>
+                        </ul>
+                        
+                        <p class="lead-text"><strong>마무리: 30%에서 95%로</strong></p>
+                        <p>프리랜서가 정당한 대가를 받는 것은 시혜가 아닌 권리입니다. 실제 작업자가 30%만 받는 구조에서 양질의 결과물을 기대할 수 없으며, 이는 결국 발주자에게도 손해입니다.</p>
+                        
+                        <p>하청 구조 해체는 프리랜서만의 문제가 아닙니다. 대한민국 경제의 84조원이 비효율적으로 새는 구조적 문제입니다. 지금 바꾸지 않으면, 앞으로도 70%는 계속 증발할 것입니다.</p>
+                        
+                        <p><strong>프리랜서 400만 시대, 30%의 진실을 직시하고 95%의 미래를 만들어야 합니다.</strong></p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1031,7 +1234,7 @@
     <section class="source-section">
         <div class="container-narrow">
             <p class="source-text" data-aos="fade-up">
-                출처: McKinsey Global Institute (2024), Adobe Creative Cloud Survey (2024), Adobe Max 2024
+                출처: 조달청, 한국노동사회연구소 (2021), 각 플랫폼 이용약관 (2024.12 기준)
             </p>
         </div>
     </section>
@@ -1040,11 +1243,11 @@
     <section class="cta-section">
         <div class="container-narrow">
             <div class="cta-card" data-aos="zoom-in">
-                <h3 class="cta-title">AI 시대, 어떻게 준비하고 계신가요?</h3>
-                <p class="cta-description">이 글이 도움이 되셨다면 공유해주세요. 더 많은 디자이너가 AI 시대를 준비할 수 있도록.</p>
+                <h3 class="cta-title">하청 착취, 함께 바꿔나가야 합니다</h3>
+                <p class="cta-description">이 글이 도움이 되셨다면 주변 프리랜서들과 공유해주세요. 구조적 문제는 개인이 아닌 시스템 변화로 해결해야 합니다.</p>
                 
                 <div class="cta-buttons">
-                    <a href="https://www.artiring.com/records" class="btn btn-primary">다른 인사이트 보기</a>
+                    <a href="https://www.artiring.com/records" class="btn btn-primary">다른 프리랜서 이슈 보기</a>
                 </div>
             </div>
         </div>
@@ -1167,20 +1370,22 @@
                 return;
             }
             
-            // 차트 1: AI 도구 활용도에 따른 작업 효율 변화
+            // 차트 1: 정부 발주금 흐름 (바 차트)
             const ctx1 = document.getElementById('chart1');
             if (ctx1) {
                 new Chart(ctx1.getContext('2d'), {
                     type: 'bar',
                     data: {
-                        labels: ['AI 미사용', 'AI 보조 활용', 'AI 적극 활용'],
+                        labels: ['정부 발주', '1차 업체', '2차 업체', '3차 업체', '프리랜서 실수령'],
                         datasets: [{
-                            label: '생산성 지수',
-                            data: [100, 180, 300],
+                            label: '금액 (만원)',
+                            data: [500, 350, 250, 150, 150],
                             backgroundColor: [
-                                'rgba(90, 90, 90, 0.8)',
+                                'rgba(65, 105, 225, 0.8)',
                                 'rgba(135, 206, 235, 0.8)',
-                                'rgba(65, 105, 225, 0.8)'
+                                'rgba(176, 196, 222, 0.8)',
+                                'rgba(211, 211, 211, 0.8)',
+                                'rgba(90, 90, 90, 0.8)'
                             ],
                             borderWidth: 0,
                             borderRadius: 8
@@ -1201,7 +1406,7 @@
                                 cornerRadius: 8,
                                 callbacks: {
                                     label: function(context) {
-                                        return '생산성 지수: ' + context.parsed.y + ' (기준: 100)';
+                                        return context.parsed.y + ' 만원';
                                     }
                                 }
                             }
@@ -1211,10 +1416,15 @@
                                 beginAtZero: true,
                                 title: {
                                     display: true,
-                                    text: '생산성 지수 (기준: 100)'
+                                    text: '금액 (만원)'
                                 },
                                 grid: {
                                     color: '#F3F4F6'
+                                },
+                                ticks: {
+                                    callback: function(value) {
+                                        return value + '만원';
+                                    }
                                 }
                             },
                             x: {
@@ -1227,20 +1437,23 @@
                 });
             }
             
-            // 차트 2: 디자이너들의 AI 도구 사용 빈도
-            const ctx2 = document.getElementById('chart2');
-            if (ctx2) {
-                new Chart(ctx2.getContext('2d'), {
-                    type: 'doughnut',
+            // 차트 2: 월 소득 대비 생활비 (파이 차트)
+            const ctx3 = document.getElementById('chart3');
+            if (ctx3) {
+                new Chart(ctx3.getContext('2d'), {
+                    type: 'pie',
                     data: {
-                        labels: ['매일 사용', '주 2-3회', '주 1회', '거의 안씀'],
+                        labels: ['주거비', '식비', '교통·통신비', '공과금', '의료비', '기타 생활비', '여유'],
                         datasets: [{
-                            data: [45, 28, 15, 12],
+                            data: [50, 30, 15, 10, 10, 20, 15],
                             backgroundColor: [
                                 'rgba(65, 105, 225, 0.8)',
                                 'rgba(135, 206, 235, 0.8)',
                                 'rgba(90, 90, 90, 0.6)',
-                                'rgba(90, 90, 90, 0.3)'
+                                'rgba(200, 200, 200, 0.6)',
+                                'rgba(255, 99, 132, 0.6)',
+                                'rgba(255, 206, 86, 0.6)',
+                                'rgba(153, 102, 255, 0.6)'
                             ],
                             borderWidth: 0
                         }]
@@ -1264,7 +1477,11 @@
                                 cornerRadius: 8,
                                 callbacks: {
                                     label: function(context) {
-                                        return context.label + ': ' + context.parsed + '%';
+                                        const label = context.label || '';
+                                        const value = context.parsed || 0;
+                                        const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                        const percentage = ((value / total) * 100).toFixed(1);
+                                        return label + ': ' + value + '만원 (' + percentage + '%)';
                                     }
                                 }
                             }
@@ -1284,5 +1501,4 @@
     </script>
 </body>
 </html>
-
 
