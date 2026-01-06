@@ -31,6 +31,8 @@ export default function NewPostPage() {
   const [showPreview, setShowPreview] = useState(false);
   const [hasChanges, setHasChanges] = useState(false);
   const thumbnailInputRef = useRef(null);
+  const htmlInputRef = useRef(null);
+  const [isUploadingHtml, setIsUploadingHtml] = useState(false);
 
   useEffect(() => {
     checkAuth();
@@ -258,6 +260,75 @@ export default function NewPostPage() {
     console.log('thumbnailInputRef:', thumbnailInputRef.current);
     if (thumbnailInputRef.current) {
       thumbnailInputRef.current.click();
+    }
+  };
+
+  const handleHtmlUpload = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) {
+      return;
+    }
+
+    // 파일 타입 확인
+    if (!file.type.includes('html') && !file.name.endsWith('.html')) {
+      alert('HTML 파일만 업로드 가능합니다.');
+      return;
+    }
+
+    // 파일 크기 확인 (10MB)
+    const maxSize = 10 * 1024 * 1024;
+    if (file.size > maxSize) {
+      alert('파일 크기는 10MB 이하여야 합니다.');
+      return;
+    }
+
+    setIsUploadingHtml(true);
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    try {
+      const response = await fetch('/api/upload-html', {
+        method: 'POST',
+        headers: getAuthHeaders(),
+        body: formData,
+      });
+
+      if (response.status === 401) {
+        alert('인증이 만료되었습니다. 다시 로그인해주세요.');
+        router.push('/admin/login');
+        return;
+      }
+
+      if (!response.ok) {
+        const result = await response.json();
+        throw new Error(result.error || 'Upload failed');
+      }
+
+      const result = await response.json();
+      
+      if (result.post) {
+        // 자동 생성된 포스트로 이동
+        alert('HTML 파일이 업로드되고 블로그 포스트가 생성되었습니다.');
+        router.push(`/admin/editor/${result.post.id}`);
+      } else {
+        alert('HTML 파일 업로드에 실패했습니다.');
+      }
+      
+      if (htmlInputRef.current) {
+        htmlInputRef.current.value = '';
+      }
+    } catch (error) {
+      console.error('HTML upload error:', error);
+      alert('HTML 파일 업로드에 실패했습니다: ' + error.message);
+    } finally {
+      setIsUploadingHtml(false);
+    }
+  };
+
+  const handleHtmlButtonClick = () => {
+    if (htmlInputRef.current) {
+      htmlInputRef.current.click();
     }
   };
 
@@ -508,6 +579,31 @@ export default function NewPostPage() {
                       onChange={handleThumbnailUpload}
                       style={{ display: 'none' }}
                     />
+                  </div>
+                </div>
+
+                {/* HTML 파일 업로드 */}
+                <div className="meta-field md:col-span-2">
+                  <label className="meta-label">HTML 파일 (iframe 블로그 포스트용)</label>
+                  <div className="flex flex-col gap-2">
+                    <button
+                      type="button"
+                      onClick={handleHtmlButtonClick}
+                      disabled={isUploadingHtml}
+                      className="upload-button"
+                    >
+                      {isUploadingHtml ? '업로드 중...' : 'HTML 파일 업로드 (자동 생성)'}
+                    </button>
+                    <input
+                      ref={htmlInputRef}
+                      type="file"
+                      accept=".html,text/html"
+                      onChange={handleHtmlUpload}
+                      style={{ display: 'none' }}
+                    />
+                    <p className="text-xs text-[var(--color-text-secondary)]">
+                      HTML 파일을 업로드하면 새 블로그 포스트가 자동으로 생성되고 편집 페이지로 이동합니다.
+                    </p>
                   </div>
                 </div>
 

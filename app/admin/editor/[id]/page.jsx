@@ -33,6 +33,9 @@ export default function EditPostPage({ params }) {
   const [showPreview, setShowPreview] = useState(false);
   const [hasChanges, setHasChanges] = useState(false);
   const thumbnailInputRef = useRef(null);
+  const htmlInputRef = useRef(null);
+  const [htmlFile, setHtmlFile] = useState('');
+  const [isUploadingHtml, setIsUploadingHtml] = useState(false);
 
   useEffect(() => {
     checkAuth();
@@ -102,6 +105,7 @@ export default function EditPostPage({ params }) {
       setSelectedTags(data.tags?.map(t => t.id) || []);
       setThumbnailUrl(data.thumbnail_url || '');
       setStatus(data.status || 'draft');
+      setHtmlFile(data.html_file || '');
       
     } catch (error) {
       console.error('Fetch post error:', error);
@@ -234,6 +238,71 @@ export default function EditPostPage({ params }) {
     }
   };
 
+  const handleHtmlUpload = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) {
+      return;
+    }
+
+    // 파일 타입 확인
+    if (!file.type.includes('html') && !file.name.endsWith('.html')) {
+      alert('HTML 파일만 업로드 가능합니다.');
+      return;
+    }
+
+    // 파일 크기 확인 (10MB)
+    const maxSize = 10 * 1024 * 1024;
+    if (file.size > maxSize) {
+      alert('파일 크기는 10MB 이하여야 합니다.');
+      return;
+    }
+
+    setIsUploadingHtml(true);
+
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('postId', postId);
+
+    try {
+      const response = await fetch('/api/upload-html', {
+        method: 'PUT',
+        headers: getAuthHeaders(),
+        body: formData,
+      });
+
+      if (response.status === 401) {
+        alert('인증이 만료되었습니다. 다시 로그인해주세요.');
+        router.push('/admin/login');
+        return;
+      }
+
+      if (!response.ok) {
+        const result = await response.json();
+        throw new Error(result.error || 'Upload failed');
+      }
+
+      const result = await response.json();
+      setHtmlFile(result.publicUrl || result.post?.html_file || '');
+      setHasChanges(true);
+      alert('HTML 파일이 업로드되었습니다.');
+      
+      if (htmlInputRef.current) {
+        htmlInputRef.current.value = '';
+      }
+    } catch (error) {
+      console.error('HTML upload error:', error);
+      alert('HTML 파일 업로드에 실패했습니다: ' + error.message);
+    } finally {
+      setIsUploadingHtml(false);
+    }
+  };
+
+  const handleHtmlButtonClick = () => {
+    if (htmlInputRef.current) {
+      htmlInputRef.current.click();
+    }
+  };
+
   const handleSave = async (newStatus = null) => {
     if (!title.trim()) {
       alert('제목을 입력하세요.');
@@ -262,6 +331,7 @@ export default function EditPostPage({ params }) {
           content_html: contentHtml,
           summary,
           thumbnail_url: thumbnailUrl,
+          html_file: htmlFile || null,
           category_id: categoryId || null,
           tags: selectedTags,
           status: finalStatus
@@ -487,6 +557,48 @@ export default function EditPostPage({ params }) {
                       onChange={handleThumbnailUpload}
                       style={{ display: 'none' }}
                     />
+                  </div>
+                </div>
+
+                {/* HTML 파일 업로드 */}
+                <div className="meta-field md:col-span-2">
+                  <label className="meta-label">HTML 파일 (iframe 블로그 포스트용)</label>
+                  <div className="flex flex-col gap-2">
+                    {htmlFile && (
+                      <div className="text-sm text-[var(--color-text-secondary)] break-all">
+                        현재 파일: {htmlFile.split('/').pop()}
+                      </div>
+                    )}
+                    <button
+                      type="button"
+                      onClick={handleHtmlButtonClick}
+                      disabled={isUploadingHtml}
+                      className="upload-button"
+                    >
+                      {isUploadingHtml ? '업로드 중...' : htmlFile ? 'HTML 파일 교체' : 'HTML 파일 업로드'}
+                    </button>
+                    {htmlFile && (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setHtmlFile('');
+                          setHasChanges(true);
+                        }}
+                        className="text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-error)]"
+                      >
+                        HTML 파일 제거
+                      </button>
+                    )}
+                    <input
+                      ref={htmlInputRef}
+                      type="file"
+                      accept=".html,text/html"
+                      onChange={handleHtmlUpload}
+                      style={{ display: 'none' }}
+                    />
+                    <p className="text-xs text-[var(--color-text-secondary)]">
+                      HTML 파일을 업로드하면 iframe으로 표시됩니다. 기존 에디터 내용은 무시됩니다.
+                    </p>
                   </div>
                 </div>
 
