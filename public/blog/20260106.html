@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10년차 디자이너, 왜 플랫폼을 만들었나? | 아티링</title>
+    
+    <!-- CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/countup.js@2.8.0/dist/countUp.umd.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <style>
+        /* ===== Reset & Base ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Pretendard', -apple-system, sans-serif;
+            color: var(--black);
+            background: var(--bg-light);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        /* ===== Color Variables ===== */
+        :root {
+            --blue: #4169E1;
+            --gray: #5A5A5A;
+            --green: #2ECC71;
+            --beige: #F5DEB3;
+            --purple: #9B59B6;
+            --sky: #87CEEB;
+            --pink: #FF69B4;
+            --yellow: #FFD700;
+            --black: #2C2C2C;
+            --white: #FFFFFF;
+            --bg-light: #FAFAFA;
+        }
+
+        /* ===== Container ===== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .container-narrow {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ===== Hero Section ===== */
+        .hero-section {
+            background: white;
+            padding: 80px 0 60px;
+            text-align: center;
+        }
+
+        .breadcrumb {
+            font-size: 14px;
+            color: var(--gray);
+            margin-bottom: 24px;
+        }
+
+        .breadcrumb span:last-child {
+            color: var(--blue);
+            font-weight: 600;
+        }
+
+        .hero-title {
+            font-size: clamp(32px, 5vw, 56px);
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+            color: var(--black);
+        }
+
+        .hero-subtitle {
+            font-size: clamp(18px, 2.5vw, 24px);
+            color: var(--gray);
+            margin-bottom: 32px;
+            line-height: 1.5;
+        }
+
+        .meta-info {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            color: var(--gray);
+            flex-wrap: wrap;
+        }
+
+        .meta-info .divider {
+            color: #D1D5DB;
+        }
+
+        /* ===== Key Stats ===== */
+        .key-stats-section {
+            padding: 60px 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 40px 32px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+        }
+
+        .stat-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .stat-number {
+            font-size: 56px;
+            font-weight: 900;
+            color: var(--blue);
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .stat-unit {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--blue);
+            margin-bottom: 12px;
+        }
+
+        .stat-label {
+            font-size: 16px;
+            color: var(--gray);
+            font-weight: 500;
+        }
+
+        /* ===== Content Section ===== */
+        .content-section {
+            padding: 80px 0;
+            width: 100%;
+        }
+        
+        .content-section .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .section-tag {
+            display: inline-block;
+            padding: 6px 16px;
+            background: var(--blue);
+            color: white;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border-radius: 20px;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: clamp(28px, 4vw, 40px);
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.3;
+            color: var(--black);
+        }
+
+        /* ===== Content Card ===== */
+        .content-card {
+            background: white;
+            border-radius: 16px;
+            padding: 48px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .text-block {
+            max-width: 680px;
+            margin: 0 auto;
+        }
+
+        .text-block p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+
+        .lead-text {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--black);
+            margin-bottom: 20px;
+            line-height: 1.6;
+            padding-top: 32px;
+            margin-top: 32px;
+            border-top: 2px solid #E5E7EB;
+        }
+
+        .lead-text:first-child {
+            padding-top: 0;
+            margin-top: 0;
+            border-top: none;
+        }
+
+        .text-block ul {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        .text-block ul li {
+            padding: 12px 0 12px 32px;
+            position: relative;
+            font-size: 17px;
+            color: var(--gray);
+            line-height: 1.7;
+        }
+
+        .text-block ul li::before {
+            content: '→';
+            position: absolute;
+            left: 8px;
+            color: var(--blue);
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .text-block ul li.icon-money::before {
+            content: '💰';
+        }
+
+        .text-block ul li.icon-time::before {
+            content: '⏰';
+        }
+
+        .text-block ul li.icon-problem::before {
+            content: '⚠️';
+        }
+
+        .text-block ul li.icon-check::before {
+            content: '✓';
+        }
+
+        .text-block ul li.icon-arrow::before {
+            content: '→';
+        }
+
+        /* ===== Chart ===== */
+        .chart-wrapper {
+            background: var(--bg-light);
+            padding: 32px;
+            border-radius: 12px;
+        }
+
+        .chart-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            text-align: center;
+            color: var(--black);
+        }
+
+        .chart-caption {
+            margin-top: 16px;
+            font-size: 14px;
+            color: var(--gray);
+            text-align: center;
+        }
+
+        /* ===== Quote ===== */
+        .quote-section {
+            padding: 80px 0;
+            background: var(--blue);
+            color: white;
+        }
+
+        .big-quote {
+            text-align: center;
+            padding: 0;
+            border: none;
+        }
+
+        .big-quote p {
+            font-size: clamp(24px, 3vw, 36px);
+            font-weight: 700;
+            line-height: 1.4;
+            margin-bottom: 24px;
+        }
+
+        .big-quote cite {
+            font-size: 16px;
+            font-style: normal;
+            opacity: 0.8;
+        }
+
+        /* ===== Comparison Grid ===== */
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+            width: 100%;
+            justify-items: stretch;
+        }
+
+        .compare-card {
+            background: white;
+            border-radius: 16px;
+            padding: 40px 32px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .compare-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+        }
+
+        .compare-card.before {
+            border-top: 4px solid var(--gray);
+        }
+
+        .compare-card.after {
+            border-top: 4px solid var(--blue);
+        }
+
+        .card-header {
+            margin-bottom: 24px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-radius: 12px;
+            margin-bottom: 12px;
+        }
+
+        .badge-gray {
+            background: #F3F4F6;
+            color: var(--gray);
+        }
+
+        .badge-blue {
+            background: #DBEAFE;
+            color: var(--blue);
+        }
+
+        .card-header h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0;
+            color: var(--black);
+        }
+
+        .big-number {
+            font-size: 64px;
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 16px;
+        }
+
+        .big-number.text {
+            font-size: 48px;
+        }
+
+        .big-number.color-gray {
+            color: var(--gray);
+        }
+
+        .big-number.color-blue {
+            color: var(--blue);
+        }
+
+        .big-number.color-green {
+            color: var(--green);
+        }
+
+        .compare-card p {
+            font-size: 18px;
+            color: var(--gray);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .sub-value {
+            font-size: 16px;
+            color: var(--gray);
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 24px;
+        }
+
+        .feature-list li {
+            padding: 12px 0 12px 32px;
+            position: relative;
+            font-size: 17px;
+            color: var(--gray);
+            line-height: 1.7;
+        }
+
+        .feature-list li::before {
+            content: '•';
+            position: absolute;
+            left: 12px;
+            color: var(--gray);
+        }
+
+        /* ===== Data Table ===== */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 15px;
+            margin-top: 24px;
+        }
+
+        .data-table thead {
+            background: var(--bg-light);
+        }
+
+        .data-table th {
+            padding: 16px;
+            text-align: left;
+            font-weight: 700;
+            color: var(--black);
+            border-bottom: 2px solid #E5E7EB;
+        }
+
+        .data-table td {
+            padding: 16px;
+            border-bottom: 1px solid #E5E7EB;
+        }
+
+        .data-table tbody tr:hover {
+            background: var(--bg-light);
+        }
+
+        .data-table tbody tr:last-child {
+            font-weight: 700;
+            background: var(--bg-light);
+        }
+
+        .data-table tbody tr:last-child td {
+            border-top: 2px solid #E5E7EB;
+        }
+
+        /* ===== Source Section ===== */
+        .source-section {
+            padding: 40px 0;
+            background: var(--bg-light);
+        }
+        
+        .source-text {
+            text-align: center;
+            font-size: 14px;
+            color: var(--gray);
+            opacity: 0.7;
+        }
+        
+        /* ===== CTA Section ===== */
+        .cta-section {
+            padding: 80px 0;
+            background: var(--black);
+            color: white;
+        }
+
+        .cta-card {
+            text-align: center;
+            padding: 60px 40px;
+            background: var(--black);
+            border-radius: 20px;
+        }
+
+        .cta-title {
+            font-size: clamp(28px, 4vw, 40px);
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+
+        .cta-description {
+            font-size: 18px;
+            opacity: 0.8;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 16px 40px;
+            font-size: 16px;
+            font-weight: 700;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+        }
+
+        .btn-primary {
+            background: var(--yellow);
+            color: var(--black);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--black);
+        }
+
+        .btn-secondary:hover {
+            box-shadow: 0 8px 20px rgba(255, 255, 255, 0.3);
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 60px 0 40px;
+            }
+            
+            .content-card {
+                padding: 32px 24px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+
+            .data-table {
+                font-size: 13px;
+            }
+
+            .data-table th,
+            .data-table td {
+                padding: 12px 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container-narrow">
+            <div class="breadcrumb">
+                <span>블로그</span> > <span>창업 일기</span>
+            </div>
+            
+            <h1 class="hero-title" data-aos="fade-up">
+                10년차 디자이너, 왜 플랫폼을 만들었나?
+            </h1>
+            
+            <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="100">
+                그래픽 디자이너에서 창업자가 되기까지, 10년의 기록
+            </p>
+            
+            <div class="meta-info" data-aos="fade-up" data-aos-delay="200">
+                <span class="author">임수연</span>
+                <span class="divider">•</span>
+                <span class="date">2026.01.06</span>
+                <span class="divider">•</span>
+                <span class="read-time">15분 읽기</span>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Key Stats -->
+    <section class="key-stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card" data-aos="fade-up">
+                    <div class="stat-icon">🎨</div>
+                    <div class="stat-number" data-count="10">0</div>
+                    <div class="stat-unit">년</div>
+                    <div class="stat-label">디자인 업계 경력</div>
+                </div>
+                
+                <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="stat-icon">📞</div>
+                    <div class="stat-number" data-count="70">0</div>
+                    <div class="stat-unit">%</div>
+                    <div class="stat-label">상담에 쓴 시간 (작업 30% vs 상담 70%)</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Section 1: Intro -->
+    <section class="content-section" id="intro">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Intro</span>
+                <h2 class="section-title">그래픽 디자이너가 아니라 상담사였던 프리랜서 기간</h2>
+            </div>
+            
+            <div class="content-card" data-aos="fade-up">
+                <div class="card-body">
+                    <div class="text-block">
+                        <p>"오늘도 작업보다 상담이 더 많네."</p>
+                        
+                        <p>모니터 앞에 앉아 시계를 보니 오후 3시. 오전 9시부터 지금까지 6시간 동안 실제로 디자인 작업을 한 시간은 고작 2시간. 나머지 4시간은 카톡 답장, 견적서 작성, 수정 요청 협의, 새로운 문의 응대에 쓰였습니다.</p>
+                        
+                        <p class="lead-text"><strong>저는 10년차 그래픽 디자이너입니다.</strong></p>
+                        <p>정확히는 "그래픽 디자이너였습니다." 지금은 프리랜서 플랫폼 '아티링'을 만들고 있습니다.</p>
+                        
+                        <p>10년 동안 회사 재직 5년, 그리고 프리랜서로 5년을 일했습니다. 로고부터 웹디자인, 영상 썸네일, 캐릭터까지 안 해본 작업이 없습니다.</p>
+                        
+                        <p>하지만 프리랜서를 하다가 어느 순간부터 깨달았습니다.</p>
+                        
+                        <p class="lead-text"><strong>"나는 디자이너가 아니라 서비스 상담직이구나."</strong></p>
+                        
+                        <p>실제로 측정해보니 제 시간의 70%가 "상담"이었습니다. 클라이언트 문의 응대, 견적서 작성, 수정 요청 조율, 중간 보고... 정작 "디자인"에 쓰는 시간은 30%에 불과했습니다.</p>
+                        
+                        <p>이게 정상일까요?</p>
+                    </div>
+                    
+                    <div class="chart-wrapper">
+                        <h3 class="chart-title">프리랜서 디자이너의 하루 (10시간 기준)</h3>
+                        <canvas id="chart1"></canvas>
+                        <p class="chart-caption">실제 디자인 작업 시간은 전체의 30%에 불과합니다</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Section 2: 첫 번째 깨달음 -->
+    <section class="content-section" id="realization1">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Realization 1</span>
+                <h2 class="section-title">"500만원 프로젝트인데 왜 150만원만 주시나요?"</h2>
+            </div>
+            
+            <div class="content-card" data-aos="fade-up">
+                <div class="card-body">
+                    <div class="text-block">
+                        <p>프리랜서 3년차, 어느 날 우연히 알게 되었습니다.</p>
+                        
+                        <p>제가 3개월간 작업한 정부 홍보물 프로젝트. 광고 대행사로부터 받은 금액은 150만원이었는데, 나중에 알고 보니 원래 발주 금액은 500만원이었습니다.</p>
+                        
+                        <p class="lead-text">"...제가 받은 건 30%였네요?"</p>
+                        
+                        <p>그날 밤, 계산기를 두드렸습니다.</p>
+                        <ul>
+                            <li class="icon-money">정부 발주: 500만원</li>
+                            <li class="icon-money">1차 대행사: 150만원 가져감 (30%)</li>
+                            <li class="icon-money">2차 스튜디오: 100만원 가져감 (20%)</li>
+                            <li class="icon-money">3차 에이전시: 100만원 가져감 (20%)</li>
+                            <li class="icon-money">저한테 온 금액: 150만원 (30%)</li>
+                        </ul>
+                        
+                        <p>실제 작업은 제가 100% 했는데, 수령액은 30%였습니다. 나머지 70%는 "관리비", "중개비", "기획비"라는 이름으로 증발했습니다.</p>
+                        
+                        <p>더 기가 막힌 건, 이게 "당연한 구조"로 여겨진다는 것이었습니다.</p>
+                        
+                        <p class="lead-text"><strong>숫자로 보는 하청 구조:</strong></p>
+                    </div>
+                    
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>단계</th>
+                                <th>업체</th>
+                                <th>마진</th>
+                                <th>누적 착취</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>발주</td>
+                                <td>정부</td>
+                                <td>500만원</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>1차</td>
+                                <td>광고 대행사</td>
+                                <td>150만원</td>
+                                <td>30%</td>
+                            </tr>
+                            <tr>
+                                <td>2차</td>
+                                <td>디자인 스튜디오</td>
+                                <td>100만원</td>
+                                <td>50%</td>
+                            </tr>
+                            <tr>
+                                <td>3차</td>
+                                <td>소규모 에이전시</td>
+                                <td>100만원</td>
+                                <td>70%</td>
+                            </tr>
+                            <tr>
+                                <td>최종</td>
+                                <td>프리랜서 (나)</td>
+                                <td>150만원</td>
+                                <td>-</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <div class="text-block" style="margin-top: 24px;">
+                        <p>이 구조는 비단 저만의 문제가 아니었습니다. 프리랜서 400만명이 같은 상황에 놓여 있었습니다.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Section 3: 두 번째 깨달음 -->
+    <section class="content-section" id="realization2">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Realization 2</span>
+                <h2 class="section-title">"프라임 면접? 3년 전에 하고 안하던 서비스인데요?"</h2>
+            </div>
+            
+            <div class="content-card" data-aos="fade-up">
+                <div class="card-body">
+                    <div class="text-block">
+                        <p>하청 구조가 싫어서 플랫폼으로 눈을 돌렸습니다. 타 플랫폼들... 당시만 해도 "중간 착취 없이 직거래할 수 있겠구나" 싶었습니다.</p>
+                        
+                        <p>하지만 현실은 달랐습니다.</p>
+                        
+                        <p class="lead-text"><strong>에피소드 1: 외부 결제 감시</strong></p>
+                        
+                        <p>어느 날, 플랫폼을 통해 연락 온 대기업 담당자가 연락처를 묻더니 개인연락으로 말했습니다.</p>
+                        <p>"장기 프로젝트라 직접 계약하면 안 될까요?"</p>
+                        
+                        <p>저도 플랫폼 수수료(22%)가 부담스러웠기에 흔쾌히 수락했습니다. 그런데 다음 날, 플랫폼 측에서 연락이 왔습니다.</p>
+                        
+                        <p>"그 프로젝트 진행됐나요? 상담하다가 채팅 내역이 더 없으시던데 외부 결제는 이용약관 위반이라 클라이언트가 원한다고 하셔도 플랫폼 결제 이용해주셔야돼요."</p>
+                        
+                        <p>어떻게 알았을까요? 메시지를 모니터링하고 있었던 겁니다. "물론 소액은 조금 봐주셨어요^^"</p>
+                        
+                        <p class="lead-text"><strong>에피소드 2: 관리안되는 프라임 서비스의 아이러니</strong></p>
+                        
+                        <p>프라임은 플랫폼이 직접 검증한 전문가에게 주는 배지로, 노출도 더 높아진다고 했습니다.</p>
+                        
+                        <p>프라임이 되는 방법을 몰라 일단 일반 회원으로 활동했습니다. 리뷰도 50개 넘게 쌓이고, 별점도 4.9를 유지했습니다.</p>
+                        
+                        <p>그런데 최근, 플랫폼에서 연락이 왔습니다.</p>
+                        <p>"프라임 서비스 면접 보시겠어요?"</p>
+                        
+                        <p>3년 전 서비스고 안한지 3년됐는데, 지금 면접을 보자고? 웃긴 건, 면접 일정을 잡자마자 "현재 정지된 서비스"는 이유로 일방적으로 취소되었다는 점입니다. 믿고 쓰는 배찌를 달아주는데 관리가 이렇게 안되는점에서 신뢰도가 확 떨어졌었네요.</p>
+                        
+                        <p>(뭐, 이런 플랫폼 정책은 자주 바뀌는 거니까 깊게 파고들진 않겠습니다.)</p>
+                        
+                        <p class="lead-text"><strong>플랫폼의 현실:</strong></p>
+                        <ul>
+                            <li class="icon-problem">수수료: 20-30% (건당 수수료인곳 제외)</li>
+                            <li class="icon-problem">외부 결제 감시 및 제재</li>
+                            <li class="icon-problem">불투명한 알고리즘 (누가, 왜 상위 노출되는지 모름)</li>
+                            <li class="icon-problem">일방적 정책 변경 (2025년 6월, 타 플랫폼 의뢰인 수수료 신설)</li>
+                        </ul>
+                        
+                        <p>플랫폼이 중간 착취를 없앴나요? 아니요. 중간 업체가 플랫폼으로 바뀌었을 뿐입니다.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Section 4: 세 번째 깨달음 -->
+    <section class="content-section" id="realization3">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Realization 3</span>
+                <h2 class="section-title">"나이 들면 어떻게 살지?"</h2>
+            </div>
+            
+            <div class="content-card" data-aos="fade-up">
+                <div class="card-body">
+                    <div class="text-block">
+                        <p>직장을 그만두고 프리랜서 1년차일때, 어머니가 물으셨습니다.</p>
+                        <p>"너 국민연금은 넣고 있니?"</p>
+                        
+                        <p>순간 멈칫했습니다. 국민연금? 건강보험도 3개월씩 밀리는데?</p>
+                        
+                        <p>계산해보니 충격적이었습니다.</p>
+                        <ul>
+                            <li class="icon-money">월 소득: 200만원 (평균)</li>
+                            <li class="icon-money">4대보험료: 36만원 (18%)</li>
+                            <li class="icon-money">남는 돈: 164만원</li>
+                        </ul>
+                        
+                        <p>여기서 월세 50만원, 식비 30만원, 통신비 10만원... 빼면 70만원 남습니다. 저축? 노후 준비? 그런 건 사치였습니다.</p>
+                        <p>(지금은 국민연금 필수가입이지만 그때는 아니였어요.)</p>
+                        
+                        <p>저만의 문제가 아니었습니다. 개인사업자들 대부분이 저처럼 노후 준비를 못하고 있었습니다.</p>
+                        
+                        <p>그리고 20-30년 뒤에는?</p>
+                        <ul>
+                            <li class="icon-problem">현재 노인빈곤율: 40.4% (OECD 1위)</li>
+                            <li class="icon-problem">20년 뒤 예상: 50% 이상</li>
+                        </ul>
+                        
+                        <p>지금 프리랜서 그대로 노인이 되면, 절반은 빈곤층으로 전락합니다.</p>
+                        <p>(300만원 이상 버는 프리랜서들은 고작 19.10%뿐입니다. 100만원 미만이 33%로 더 많습니다.)</p>
+                    </div>
+                    
+                    <div class="chart-wrapper">
+                        <h3 class="chart-title">월 소득 200만원 프리랜서의 현실</h3>
+                        <canvas id="chart2"></canvas>
+                        <p class="chart-caption">4대보험료와 생활비를 제외하면 저축 여력이 거의 없습니다</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Section 5: 전환점 -->
+    <section class="content-section" id="turning-point">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Turning Point</span>
+                <h2 class="section-title">"디자이너가 플랫폼을 만들 수 있을까?"</h2>
+            </div>
+            
+            <div class="content-card" data-aos="fade-up">
+                <div class="card-body">
+                    <div class="text-block">
+                        <p>2025년 어느 날, 저는 결심했습니다.</p>
+                        
+                        <p class="lead-text"><strong>"내가 만들면 안 될까?"</strong></p>
+                        
+                        <p>디자이너가 플랫폼을 만든다? 말도 안 되는 소리처럼 들렸습니다. 저는 코딩을 할 줄 몰랐고, 개발자도 없었고, 돈도 없었습니다.</p>
+                        
+                        <p>하지만 10년간 쌓인 문제들이 너무 명확했습니다.</p>
+                        
+                        <p class="lead-text"><strong>제가 겪은 문제 = 400만명이 겪는 문제</strong></p>
+                        <ul>
+                            <li class="icon-problem">하청 구조로 실수령 30%</li>
+                            <li class="icon-problem">플랫폼 수수료 20-30%</li>
+                            <li class="icon-problem">개인사업자 고용보험 가입률 0.9%(2024)</li>
+                            <li class="icon-time">상담에 시간 70%, 작업 30%</li>
+                            <li class="icon-problem">소득 불안정 (월 0-500만원)</li>
+                        </ul>
+                        
+                        <p>그리고 저는 운이 좋게도 그때쯤 인공지능이 시작되고 있었습니다.</p>
+                        
+                        <p>코딩을 못해도, 클로드에게 물어가며 웹사이트를 만들 수 있었습니다. Next.js, Supabase, Framer... 생전 처음 듣는 단어들이었지만, 하나씩 배워가며 www.artiring.com을 만들었습니다.</p>
+                        
+                        <p class="lead-text"><strong>1년간의 여정:</strong></p>
+                        <ul>
+                            <li class="icon-arrow">2025년 8월: 아이디어 구상</li>
+                            <li class="icon-arrow">2025년 9월: 인공지능으로 웹 개발 연습</li>
+                            <li class="icon-arrow">2025년 11월: MVP 1차 완성</li>
+                            <li class="icon-arrow">2025년 12월: 특허 출원 (AI 매칭 알고리즘)</li>
+                            <li class="icon-arrow">2025년 12월: 상표 출원 (아티링)</li>
+                            <li class="icon-arrow">2026년: 정식 출시 예정</li>
+                        </ul>
+                        
+                        <p class="lead-text"><strong>아티링이 다른 이유:</strong></p>
+                        <ul>
+                            <li class="icon-check">수수료 5% (경쟁사 1/4 수준)</li>
+                            <li class="icon-check">소속사 모델 (K-Pop 에이전시처럼)</li>
+                            <li class="icon-check">4대보험 100% 가입</li>
+                            <li class="icon-check">AI 자동 매칭 (상담 시간 90% 절감)</li>
+                            <li class="icon-check">백업 시스템 (중도 포기 0%)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Section 6: Data Section -->
+    <section class="content-section" id="data">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Data</span>
+                <h2 class="section-title">Before & After - 아티링이 바꾸려는 것들</h2>
+            </div>
+            
+            <div class="comparison-grid">
+                <div class="compare-card before" data-aos="fade-up">
+                    <div class="card-header">
+                        <span class="badge badge-gray">Before</span>
+                        <h3>수수료</h3>
+                    </div>
+                    <div class="big-number color-gray">20-30%</div>
+                    <div class="sub-value">기존 플랫폼</div>
+                    <p><strong>아티링:</strong> 5%</p>
+                    <p><strong>변화:</strong> 프리랜서 실수령 2배 증가</p>
+                    <p><strong>예시:</strong> 500만원 프로젝트</p>
+                    <ul class="feature-list">
+                        <li>기존: 실수령 350-400만원</li>
+                        <li>아티링: 실수령 475만원</li>
+                    </ul>
+                </div>
+                
+                <div class="compare-card after" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card-header">
+                        <span class="badge badge-blue">After</span>
+                        <h3>4대보험</h3>
+                    </div>
+                    <div class="big-number color-blue text">가입</div>
+                    <div class="sub-value">(아티링)</div>
+                    <p><strong>기존:</strong> 가입대상 아님 (가입률 저조)</p>
+                    <p><strong>변화:</strong> 노후 보장 + 국민연금 수급권</p>
+                    <p><strong>예시:</strong> 40년 납부 시</p>
+                    <ul class="feature-list">
+                        <li>기존: 기초연금 30만원</li>
+                        <li>아티링: 국민연금 80만원</li>
+                    </ul>
+                </div>
+                
+                <div class="compare-card after" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card-header">
+                        <span class="badge badge-blue">After</span>
+                        <h3>시간 배분</h3>
+                    </div>
+                    <div class="big-number color-green">90%</div>
+                    <div class="sub-value">작업 (아티링)</div>
+                    <p><strong>기존:</strong> 상담 70%, 작업 30%</p>
+                    <p><strong>변화:</strong> AI 자동 매칭으로 상담 시간 1/7 감소</p>
+                    <p><strong>예시:</strong> 하루 10시간 기준</p>
+                    <ul class="feature-list">
+                        <li>기존: 작업 3시간, 상담 7시간</li>
+                        <li>아티링: 작업 9시간, 상담 1시간</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Section 8: Quote -->
+    <section class="quote-section">
+        <div class="container-narrow">
+            <blockquote class="big-quote" data-aos="fade-up">
+                <p>"10년간 문제를 겪었습니다. 이제는 해결할 차례입니다. 완벽하진 않겠지만,
+                     적어도 지금보다는 나은 플랫폼을 만들고 싶습니다."</p>
+                <cite>아티링 창업자, 임수연</cite>
+            </blockquote>
+        </div>
+    </section>
+    
+    <!-- Section 9: Conclusion -->
+    <section class="content-section" id="conclusion">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Conclusion</span>
+                <h2 class="section-title">10년차 디자이너에서 창업자로</h2>
+            </div>
+            
+            <div class="content-card" data-aos="fade-up">
+                <div class="card-body">
+                    <div class="text-block">
+                        <p class="lead-text"><strong>왜 하필 제가 만드나요?</strong></p>
+                        
+                        <p>사람들이 묻습니다. "디자이너가 왜 플랫폼을 만들어?"</p>
+                        
+                        <p>답은 간단합니다. <strong>"제가 겪었으니까요."</strong></p>
+                        
+                        <p>10년 동안 저는:</p>
+                        <ul>
+                            <li class="icon-problem">500만원 프로젝트에서 150만원만 받았고</li>
+                            <li class="icon-time">작업보다 상담에 시간을 더 썼고</li>
+                            <li class="icon-problem">4대보험 없이 불안한 미래를 걱정했고</li>
+                            <li class="icon-problem">플랫폼 수수료 22%를 "당연하게" 냈습니다</li>
+                        </ul>
+                        
+                        <p>이게 프리랜서의 현실입니다.</p>
+                        
+                        <p class="lead-text"><strong>완벽하진 않을 겁니다</strong></p>
+                        
+                        <p>저는 개발자가 아니고, 경영학을 전공하지도 않았습니다. 아티링은 틀릴 수도 있고, 실패할 수도 있습니다.</p>
+                        
+                        <p>하지만 적어도:</p>
+                        <ul>
+                            <li class="icon-check">하청 구조는 없을 겁니다 (수수료 5%)</li>
+                            <li class="icon-check">4대보험은 있을 겁니다</li>
+                            <li class="icon-check">상담보다 작업에 집중할 수 있을 겁니다 (AI 매칭)</li>
+                        </ul>
+                        
+                        <p class="lead-text"><strong>당신도 겪고 있나요?</strong></p>
+                        
+                        <p>만약 당신도:</p>
+                        <ul>
+                            <li class="icon-problem">실수령 30%에 좌절했거나</li>
+                            <li class="icon-problem">플랫폼 수수료에 화가 났거나</li>
+                            <li class="icon-problem">4대보험 없이 불안했거나</li>
+                            <li class="icon-time">상담사가 된 기분을 느꼈다면</li>
+                        </ul>
+                        
+                        <p>아티링은 당신을 위한 플랫폼입니다.</p>
+                        
+                        <p class="lead-text"><strong>2026년에 만나요</strong></p>
+                        
+                        <p>10년차 디자이너가 만드는 플랫폼.<br>
+                        완벽하진 않지만, 진심은 담았습니다.</p>
+                        
+                        <p style="margin-top: 40px; text-align: right; font-size: 18px; font-weight: 600;">
+                            <strong>— 아티링 창업자, 임수연</strong>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container-narrow">
+            <div class="cta-card" data-aos="zoom-in">
+                <h3 class="cta-title">함께 만들어가고 싶습니다</h3>
+                <p class="cta-description">아티링은 2026년 하반기 정식 출시됩니다. 프리랜서로서 겪은 문제들을 함께 해결해나가고 싶습니다. 사전 등록하시면 출시 소식을 가장 먼저 전해드립니다.</p>
+                
+                <div class="cta-buttons">
+                    <a href="https://www.artiring.com/structure" class="btn btn-primary">사전 등록하기</a>
+                    <a href="https://www.artiring.com/records" class="btn btn-secondary">창업 스토리 더 보기</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <script>
+        // iframe 높이 자동 전달 (부모 창에 메시지 전송)
+        function sendHeightToParent() {
+            if (window.parent !== window) {
+                const height = Math.max(
+                    document.body.scrollHeight,
+                    document.body.offsetHeight,
+                    document.documentElement.clientHeight,
+                    document.documentElement.scrollHeight,
+                    document.documentElement.offsetHeight
+                );
+                window.parent.postMessage({
+                    type: 'iframe-resize',
+                    height: height
+                }, '*');
+            }
+        }
+
+        // 초기 높이 전달
+        window.addEventListener('load', () => {
+            sendHeightToParent();
+            setTimeout(sendHeightToParent, 2000);
+        });
+
+        // 리사이즈 이벤트 감지
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(sendHeightToParent, 300);
+        });
+
+        // MutationObserver로 DOM 변경 감지
+        const observer = new MutationObserver(() => {
+            sendHeightToParent();
+        });
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true,
+            attributes: true
+        });
+
+        // AOS 초기화
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+        
+        // 카운터 애니메이션
+        function initCounters() {
+            if (typeof CountUp === 'undefined' && typeof countUp === 'undefined') {
+                document.querySelectorAll('.stat-number').forEach(el => {
+                    const target = parseFloat(el.dataset.count);
+                    if (target && !isNaN(target)) {
+                        const hasDecimal = target % 1 !== 0;
+                        const decimals = hasDecimal ? 1 : 0;
+                        el.textContent = target.toFixed(decimals);
+                    }
+                });
+                setTimeout(initCounters, 500);
+                return;
+            }
+            
+            const CountUpClass = typeof CountUp !== 'undefined' ? CountUp : countUp;
+            
+            document.querySelectorAll('.stat-number').forEach(el => {
+                const target = parseFloat(el.dataset.count);
+                if (target && !isNaN(target)) {
+                    const hasDecimal = target % 1 !== 0;
+                    const decimals = hasDecimal ? 1 : 0;
+                    
+                    const options = {
+                        duration: 2,
+                        useEasing: true,
+                        separator: ',',
+                        decimal: '.',
+                        decimals: decimals
+                    };
+                    
+                    try {
+                        const counter = new CountUpClass(el, target, options);
+                        
+                        if (counter.error) {
+                            el.textContent = target.toFixed(decimals);
+                            return;
+                        }
+                        
+                        const observer = new IntersectionObserver(entries => {
+                            entries.forEach(entry => {
+                                if (entry.isIntersecting) {
+                                    counter.start();
+                                    observer.unobserve(entry.target);
+                                }
+                            });
+                        }, { threshold: 0.5 });
+                        
+                        observer.observe(el);
+                    } catch (e) {
+                        el.textContent = target.toFixed(decimals);
+                    }
+                }
+            });
+        }
+        
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initCounters);
+        } else {
+            setTimeout(initCounters, 100);
+        }
+        
+        // 차트 초기화 함수
+        function initCharts() {
+            if (typeof Chart === 'undefined') {
+                setTimeout(initCharts, 500);
+                return;
+            }
+            
+            // 차트 1: 프리랜서 디자이너의 하루 (파이 차트)
+            const ctx1 = document.getElementById('chart1');
+            if (ctx1) {
+                new Chart(ctx1.getContext('2d'), {
+                    type: 'pie',
+                    data: {
+                        labels: ['클라이언트 상담', '견적·계약 업무', '수정 협의', '실제 디자인 작업'],
+                        datasets: [{
+                            data: [35, 20, 15, 30],
+                            backgroundColor: [
+                                'rgba(90, 90, 90, 0.8)',
+                                'rgba(135, 206, 235, 0.8)',
+                                'rgba(176, 196, 222, 0.8)',
+                                'rgba(65, 105, 225, 0.8)'
+                            ],
+                            borderWidth: 0
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    padding: 20,
+                                    font: { size: 14 }
+                                }
+                            },
+                            tooltip: {
+                                backgroundColor: 'rgba(0,0,0,0.8)',
+                                padding: 12,
+                                titleFont: { size: 14, weight: 'bold' },
+                                bodyFont: { size: 13 },
+                                cornerRadius: 8,
+                                callbacks: {
+                                    label: function(context) {
+                                        const label = context.label || '';
+                                        const value = context.parsed || 0;
+                                        const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                        const percentage = ((value / total) * 100).toFixed(0);
+                                        const hours = ((value / 100) * 10).toFixed(1);
+                                        return label + ': ' + percentage + '% (' + hours + '시간)';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            // 차트 2: 월 소득 200만원 프리랜서의 현실 (바 차트)
+            const ctx2 = document.getElementById('chart2');
+            if (ctx2) {
+                new Chart(ctx2.getContext('2d'), {
+                    type: 'bar',
+                    data: {
+                        labels: ['총 소득', '4대보험료', '생활비', '저축 가능액'],
+                        datasets: [{
+                            label: '금액 (만원)',
+                            data: [200, -36, -134, 30],
+                            backgroundColor: [
+                                'rgba(65, 105, 225, 0.8)',
+                                'rgba(255, 107, 107, 0.8)',
+                                'rgba(90, 90, 90, 0.8)',
+                                'rgba(46, 204, 113, 0.8)'
+                            ],
+                            borderWidth: 0,
+                            borderRadius: 8
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                backgroundColor: 'rgba(0,0,0,0.8)',
+                                padding: 12,
+                                titleFont: { size: 14, weight: 'bold' },
+                                bodyFont: { size: 13 },
+                                cornerRadius: 8,
+                                callbacks: {
+                                    label: function(context) {
+                                        const value = context.parsed.y;
+                                        return Math.abs(value) + '만원';
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: false,
+                                title: {
+                                    display: true,
+                                    text: '금액 (만원)'
+                                },
+                                grid: {
+                                    color: '#F3F4F6'
+                                },
+                                ticks: {
+                                    callback: function(value) {
+                                        return value + '만원';
+                                    }
+                                }
+                            },
+                            x: {
+                                grid: {
+                                    display: false
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+        
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', function() {
+                setTimeout(initCharts, 100);
+            });
+        } else {
+            setTimeout(initCharts, 100);
+        }
+    </script>
+</body>
+</html>
+

@@ -14,7 +14,6 @@ import { common, createLowlight } from 'lowlight';
 import { useCallback, useEffect, useRef } from 'react';
 import EditorToolbar from './EditorToolbar';
 import { getAuthHeaders } from '@/lib/authUtils';
-import Iframe from './Iframe';
 
 const lowlight = createLowlight(common);
 
@@ -35,36 +34,6 @@ export default function TipTapEditor({ content, onChange, placeholder = '내용�
         allowBase64: false,
         HTMLAttributes: {
           class: 'editor-image',
-        },
-        addAttributes() {
-          return {
-            ...this.parent?.(),
-            loading: {
-              default: 'lazy',
-            },
-          };
-        },
-        parseHTML() {
-          return [
-            {
-              tag: 'img[src]',
-              getAttrs: (element) => {
-                const src = element.getAttribute('src') || '';
-                // 외부 이미지 URL 차단
-                const blockedDomains = [
-                  'postfiles.pstatic.net',
-                  'dthumb-phinf.pstatic.net',
-                  'cdninstagram.com',
-                  'scontent-icn2-1.cdninstagram.com'
-                ];
-                const isBlocked = blockedDomains.some(domain => src.includes(domain));
-                if (isBlocked) {
-                  return false; // 파싱하지 않음 (이미지 제거)
-                }
-                return {};
-              },
-            },
-          ];
         },
       }),
       Link.configure({
@@ -88,7 +57,6 @@ export default function TipTapEditor({ content, onChange, placeholder = '내용�
       CodeBlockLowlight.configure({
         lowlight,
       }),
-      Iframe,
     ],
     content,
     // SSR 하이드레이션 오류 방지
@@ -130,51 +98,6 @@ export default function TipTapEditor({ content, onChange, placeholder = '내용�
             }
           }
         }
-        
-        // HTML 텍스트에서 iframe 태그 감지 및 파싱
-        const html = event.clipboardData?.getData('text/html') || event.clipboardData?.getData('text/plain');
-        if (html && html.includes('<iframe')) {
-          // iframe 태그 추출
-          const iframeMatch = html.match(/<iframe([^>]*)>/i);
-          if (iframeMatch) {
-            event.preventDefault();
-            
-            // 속성 파싱
-            const attrsString = iframeMatch[1];
-            const attrs = {};
-            
-            // src 추출
-            const srcMatch = attrsString.match(/src=["']([^"']+)["']/i);
-            if (srcMatch) attrs.src = srcMatch[1];
-            
-            // width 추출
-            const widthMatch = attrsString.match(/width=["']([^"']+)["']/i);
-            if (widthMatch) attrs.width = widthMatch[1];
-            else attrs.width = '100%';
-            
-            // height 추출
-            const heightMatch = attrsString.match(/height=["']([^"']+)["']/i);
-            if (heightMatch) attrs.height = heightMatch[1];
-            else attrs.height = '2000px';
-            
-            // style 추출
-            const styleMatch = attrsString.match(/style=["']([^"']+)["']/i);
-            if (styleMatch) attrs.style = styleMatch[1];
-            else attrs.style = 'border: none;';
-            
-            // frameborder 추출
-            const frameborderMatch = attrsString.match(/frameborder=["']?([^"'\s]+)["']?/i);
-            if (frameborderMatch) attrs.frameborder = frameborderMatch[1];
-            else attrs.frameborder = '0';
-            
-            // iframe 삽입
-            if (editor) {
-              editor.chain().focus().setIframe(attrs).run();
-            }
-            return true;
-          }
-        }
-        
         return false;
       },
     },

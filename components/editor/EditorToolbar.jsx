@@ -275,31 +275,6 @@ export default function EditorToolbar({ editor, onImageUpload }) {
         </svg>
       </ToolbarButton>
 
-      {/* iframe 삽입 */}
-      <ToolbarButton
-        onClick={() => {
-          const src = window.prompt('iframe src를 입력하세요 (예: /blog/blog-post-5060.html)', '/blog/');
-          if (!src || src === '/blog/') return;
-
-          const width = window.prompt('너비를 입력하세요 (기본값: 100%)', '100%') || '100%';
-          const height = window.prompt('높이를 입력하세요 (기본값: 2000px)', '2000px') || '2000px';
-
-          editor.chain().focus().setIframe({
-            src,
-            width,
-            height,
-            style: 'border: none;',
-            frameborder: '0',
-            loading: 'lazy',
-          }).run();
-        }}
-        title="iframe 삽입"
-      >
-        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-        </svg>
-      </ToolbarButton>
-
       <input
         ref={fileInputRef}
         type="file"

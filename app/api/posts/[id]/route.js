@@ -1,5 +1,4 @@
 export const runtime = 'nodejs';
-export const dynamic = 'force-dynamic';
 
 import { createServerClient, createServerComponentClient } from '@/lib/supabase';
 import { getAuthenticatedAdmin } from '@/lib/auth';
@@ -149,7 +148,6 @@ export async function PUT(request, { params }) {
     if (body.slug !== undefined) updateData.slug = body.slug;
     if (body.content !== undefined) updateData.content = body.content;
     if (body.content_html !== undefined) updateData.content_html = body.content_html;
-    if (body.html_file !== undefined) updateData.html_file = body.html_file; // iframe HTML 파일명
     if (body.summary !== undefined) updateData.summary = body.summary;
     if (body.thumbnail_url !== undefined) updateData.thumbnail_url = thumbnailUrl;
     if (body.category_id !== undefined) updateData.category_id = body.category_id;
