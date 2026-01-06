@@ -298,7 +298,11 @@ export async function POST(request) {
       'scontent-icn2-1.cdninstagram.com',
       'scontent-',
       '.cdninstagram.com',
-      'pstatic.net'
+      'pstatic.net',
+      'scontent.cdninstagram.com',
+      'instagram.com',
+      'fbcdn.net',
+      'naver.com'
     ];
 
     let hasExternalImages = false;
@@ -317,7 +321,7 @@ export async function POST(request) {
       
       // <img> 태그에서 외부 URL 제거 (더 강력한 패턴 매칭)
       externalDomains.forEach(domain => {
-        const escapedDomain = domain.replace(/\./g, '\\.');
+        const escapedDomain = domain.replace(/\./g, '\\.').replace(/\-/g, '\\-');
         
         // 패턴 1: <img src="https://domain..." ...> (일반적인 형태)
         fileContent = fileContent.replace(
@@ -365,6 +369,22 @@ export async function POST(request) {
             ''
           );
         }
+      });
+      
+      // 추가: 모든 외부 도메인을 포함하는 URL 패턴 제거 (더 포괄적)
+      // https:// 또는 http://로 시작하고 외부 도메인을 포함하는 모든 URL
+      externalDomains.forEach(domain => {
+        const escapedDomain = domain.replace(/\./g, '\\.').replace(/\-/g, '\\-');
+        // src="https://..." 또는 src='https://...' 패턴
+        fileContent = fileContent.replace(
+          new RegExp(`src=["']https?://[^"']*${escapedDomain}[^"']*["']`, 'gi'),
+          'src=""'
+        );
+        // url(https://...) 패턴
+        fileContent = fileContent.replace(
+          new RegExp(`url\\(["']?https?://[^"')]*${escapedDomain}[^"')]*["']?\\)`, 'gi'),
+          'url("")'
+        );
       });
       
       console.log('✅ 외부 이미지 URL 제거 완료');

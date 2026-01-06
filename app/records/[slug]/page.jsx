@@ -4,6 +4,11 @@ import { notFound } from 'next/navigation';
 import { formatDate, calculateReadingTime, extractTextFromHtml } from '@/lib/utils';
 import TableOfContents from '@/components/records/TableOfContents';
 import CopyLinkButton from '@/components/records/CopyLinkButton';
+import dynamic from 'next/dynamic';
+
+const BlogIframe = dynamic(() => import('@/components/records/BlogIframe'), {
+  ssr: false,
+});
 
 export async function generateMetadata({ params }) {
   const post = await getPost(params.slug);
@@ -148,15 +153,21 @@ export default async function RecordDetailPage({ params }) {
         <hr className="article-divider" />
 
         {/* 목차 (H2가 3개 이상일 때만 표시) */}
-        {showToc && (
+        {showToc && !post.html_file && (
           <TableOfContents content={post.content_html} />
         )}
 
         {/* 본문 */}
-        <div 
-          className="article-body"
-          dangerouslySetInnerHTML={{ __html: post.content_html }}
-        />
+        {post.html_file ? (
+          /* HTML 파일이 있는 경우 iframe으로 표시 */
+          <BlogIframe htmlFileName={post.html_file} />
+        ) : (
+          /* 일반 HTML 콘텐츠 */
+          <div 
+            className="article-body"
+            dangerouslySetInnerHTML={{ __html: post.content_html }}
+          />
+        )}
 
         {/* 자동 마무리 배너 */}
         <div className="mt-12 mb-8">

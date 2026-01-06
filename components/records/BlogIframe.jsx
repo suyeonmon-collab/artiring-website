@@ -75,19 +75,29 @@ export default function BlogIframe({ htmlFileName }) {
   // htmlFileName이 URL인지 확인 (http:// 또는 https://로 시작)
   const isUrl = htmlFileName?.startsWith('http://') || htmlFileName?.startsWith('https://');
   
-  // 파일명인 경우 Supabase Storage URL로 변환
-  // 클라이언트 컴포넌트에서는 환경 변수를 직접 사용할 수 있음 (NEXT_PUBLIC_ 접두사)
-  const supabaseUrl = typeof window !== 'undefined' 
-    ? (process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://nxyjcawijvzhdvoxdpbv.supabase.co')
-    : 'https://nxyjcawijvzhdvoxdpbv.supabase.co';
-  const bucketName = 'blog-html';
+  // Supabase Storage URL에서 파일명 추출
+  // 예: https://nxyjcawijvzhdvoxdpbv.supabase.co/storage/v1/object/public/blog-html/1767443802071_20260106.html
+  // → 1767443802071_20260106.html
+  let fileName = htmlFileName;
+  if (isUrl && htmlFileName.includes('/blog-html/')) {
+    const match = htmlFileName.match(/\/blog-html\/([^\/\?]+)/);
+    if (match && match[1]) {
+      fileName = match[1];
+    }
+  }
   
   let iframeSrc;
   if (isUrl) {
     // URL인 경우 Next.js API route를 통해 프록시 (CSP 문제 해결)
-    // URL을 query parameter로 전달
-    const encodedUrl = encodeURIComponent(htmlFileName);
-    iframeSrc = `/blog/proxy?url=${encodedUrl}`;
+    // 파일명이 추출된 경우 파일명 사용, 아니면 URL 사용
+    if (fileName && fileName !== htmlFileName && fileName.match(/^\d+_[^\/]+\.html$/)) {
+      // Supabase Storage 파일명 형식인 경우
+      iframeSrc = `/blog/${fileName}`;
+    } else {
+      // 전체 URL인 경우 query parameter로 전달
+      const encodedUrl = encodeURIComponent(htmlFileName);
+      iframeSrc = `/blog/proxy?url=${encodedUrl}`;
+    }
   } else if (htmlFileName) {
     // 파일명인 경우 직접 파일명 사용 (Next.js API route가 Supabase Storage에서 가져옴)
     // 파일명 형식: 타임스탬프_파일명.html (예: 1767443802071_20260110-ai-designer-future.html)
@@ -102,11 +112,11 @@ export default function BlogIframe({ htmlFileName }) {
     console.log('🔍 BlogIframe Debug:', { 
       htmlFileName, 
       isUrl, 
+      fileName,
       iframeSrc,
-      supabaseUrl,
       hasHtmlFileName: !!htmlFileName
     });
-  }, [htmlFileName, isUrl, iframeSrc, supabaseUrl]);
+  }, [htmlFileName, isUrl, fileName, iframeSrc]);
 
   return (
     <div className="blog-iframe-wrapper my-8">
