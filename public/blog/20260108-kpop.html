@@ -610,9 +610,9 @@
                 
                 <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
                     <div class="stat-icon">💰</div>
-                    <div class="stat-number" data-count="95">0</div>
-                    <div class="stat-unit">%</div>
-                    <div class="stat-label">프리랜서 실수령액 (수수료 5%만)</div>
+                    <div class="stat-number" data-count="2">0</div>
+                    <div class="stat-unit">배</div>
+                    <div class="stat-label">프리랜서 실수령액 </div>
                 </div>
             </div>
         </div>
@@ -686,7 +686,7 @@
                         </tr>
                         <tr>
                             <td><strong>사회안전망</strong></td>
-                            <td>4대보험 100% 가입</td>
+                            <td>4대보험 가입 가능</td>
                             <td>4대보험 미가입 대상</td>
                             <td>😢 노후 준비 불가</td>
                         </tr>
@@ -786,7 +786,7 @@
                         
                         <!-- 원칙 3 -->
                         <hr style="margin: 40px 0;">
-                        <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 24px; color: var(--black);">💡 원칙 3. Type별 맞춤 복지 (4대보험 100%)</h3>
+                        <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 24px; color: var(--black);">💡 원칙 3. Type별 맞춤 복지</h3>
                         <p>아티링 소속사는 4가지 Type으로 운영됩니다. K-Pop에서 솔로·유닛·정규 앨범이 다르듯, 디자이너도 라이프스타일에 맞춘 선택이 가능합니다.</p>
                         
                         <div style="margin-top: 32px;">
@@ -833,24 +833,6 @@
                             </ul>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Section 4: 구조 비교 (차트) -->
-    <section class="content-section" id="comparison">
-        <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <span class="section-tag">Data</span>
-                <h2 class="section-title">정부 발주 500만원, 누가 얼마나 가져갈까?</h2>
-            </div>
-            
-            <div class="content-card" data-aos="fade-up">
-                <div class="chart-wrapper">
-                    <h3 class="chart-title">발주 금액 흐름 비교 (단위: 만원)</h3>
-                    <canvas id="chart1"></canvas>
-                    <p class="chart-caption">기존 하청 구조는 70%가 중간 업체에 착취되지만, 아티링 소속사 모델은 프리랜서가 대부분을 받습니다.</p>
                 </div>
             </div>
         </div>
@@ -1143,7 +1125,7 @@
                             <li class="highlight">📋 <strong>소속사가 행정 처리</strong> → 디자이너는 창작에만 집중</li>
                             <li class="highlight">🤖 <strong>AI가 자동 매칭</strong> → 상담 시간 90% 절감</li>
                             <li class="highlight">🔄 <strong>팀 백업 시스템</strong> → 중도 포기 0%, 신뢰도 2배</li>
-                            <li class="highlight">🛡️ <strong>4대보험 100%</strong> → 노후 보장 확보</li>
+                            <li class="highlight">🛡️ <strong>4대보험 가입 </strong> → 노후 보장 확보</li>
                             <li class="highlight">💰 <strong>수수료 5%</strong> (경쟁사 1/4 수준)</li>
                         </ul>
                         
@@ -1254,90 +1236,6 @@
             setTimeout(initCounters, 100);
         }
         
-        // 차트 초기화
-        function initCharts() {
-            if (typeof Chart === 'undefined') {
-                setTimeout(initCharts, 500);
-                return;
-            }
-            
-            // 차트 1: 발주 금액 흐름 비교 (수평 바 차트)
-            const ctx1 = document.getElementById('chart1');
-            if (ctx1) {
-                const chart1 = new Chart(ctx1.getContext('2d'), {
-                    type: 'bar',
-                    data: {
-                        labels: ['정부 발주', '1차 업체', '2차 업체', '3차 업체', '프리랜서 실수령'],
-                        datasets: [
-                            {
-                                label: '기존 하청 구조',
-                                data: [500, 150, 100, 100, 150],
-                                backgroundColor: ['#FF6B6B', '#FF8E8E', '#FFB1B1', '#FFD4D4', '#5A5A5A'],
-                                borderWidth: 0,
-                                borderRadius: 8
-                            },
-                            {
-                                label: '아티링 소속사 모델',
-                                data: [500, 0, 0, 0, 475],
-                                backgroundColor: ['#2ECC71', '#58D68D', '#58D68D', '#58D68D', '#A9DFBF'],
-                                borderWidth: 0,
-                                borderRadius: 8
-                            }
-                        ]
-                    },
-                    options: {
-                        indexAxis: 'y',
-                        responsive: true,
-                        maintainAspectRatio: true,
-                        plugins: {
-                            legend: {
-                                display: true,
-                                position: 'top'
-                            },
-                            tooltip: {
-                                backgroundColor: 'rgba(0,0,0,0.8)',
-                                padding: 12,
-                                titleFont: { size: 14, weight: 'bold' },
-                                bodyFont: { size: 13 },
-                                cornerRadius: 8,
-                                callbacks: {
-                                    label: function(context) {
-                                        return context.dataset.label + ': ' + context.parsed.x + '만원';
-                                    }
-                                }
-                            }
-                        },
-                        scales: {
-                            x: {
-                                beginAtZero: true,
-                                max: 500,
-                                grid: {
-                                    color: '#F3F4F6'
-                                },
-                                ticks: {
-                                    callback: function(value) {
-                                        return value + '만원';
-                                    }
-                                }
-                            },
-                            y: {
-                                grid: {
-                                    display: false
-                                }
-                            }
-                        }
-                    }
-                });
-            }
-        }
-        
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', function() {
-                setTimeout(initCharts, 100);
-            });
-        } else {
-            setTimeout(initCharts, 100);
-        }
         
         // iframe 높이 자동 전달
         function sendHeightToParent() {
