@@ -1,0 +1,1381 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K-Pop 소속사 모델을 디자인에 적용하면? | 아티링</title>
+    
+    <!-- CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/countup.js@2.8.0/dist/countUp.umd.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <style>
+        /* ===== Reset & Base ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Pretendard', -apple-system, sans-serif;
+            color: var(--black);
+            background: var(--bg-light);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        /* ===== Color Variables ===== */
+        :root {
+            --blue: #4169E1;
+            --gray: #5A5A5A;
+            --green: #2ECC71;
+            --beige: #F5DEB3;
+            --purple: #9B59B6;
+            --sky: #87CEEB;
+            --pink: #FF69B4;
+            --yellow: #FFD700;
+            --black: #2C2C2C;
+            --white: #FFFFFF;
+            --bg-light: #FAFAFA;
+        }
+
+        /* ===== Container ===== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .container-narrow {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ===== Hero Section ===== */
+        .hero-section {
+            background: white;
+            padding: 80px 0 60px;
+            text-align: center;
+        }
+
+        .breadcrumb {
+            font-size: 14px;
+            color: var(--gray);
+            margin-bottom: 24px;
+        }
+
+        .breadcrumb span:last-child {
+            color: var(--blue);
+            font-weight: 600;
+        }
+
+        .hero-title {
+            font-size: clamp(32px, 5vw, 56px);
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+            color: var(--black);
+        }
+
+        .hero-subtitle {
+            font-size: clamp(18px, 2.5vw, 24px);
+            color: var(--gray);
+            margin-bottom: 32px;
+            line-height: 1.5;
+        }
+
+        .meta-info {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            color: var(--gray);
+            flex-wrap: wrap;
+        }
+
+        .meta-info .divider {
+            color: #D1D5DB;
+        }
+
+        /* ===== Key Stats ===== */
+        .key-stats-section {
+            padding: 60px 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 40px 32px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+        }
+
+        .stat-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .stat-number {
+            font-size: 56px;
+            font-weight: 900;
+            color: var(--blue);
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .stat-unit {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--blue);
+            margin-bottom: 12px;
+        }
+
+        .stat-label {
+            font-size: 16px;
+            color: var(--gray);
+            font-weight: 500;
+        }
+
+        /* ===== Content Section ===== */
+        .content-section {
+            padding: 80px 0;
+            width: 100%;
+        }
+        
+        .content-section .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .section-tag {
+            display: inline-block;
+            padding: 6px 16px;
+            background: var(--blue);
+            color: white;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border-radius: 20px;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: clamp(28px, 4vw, 40px);
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.3;
+            color: var(--black);
+        }
+
+        .section-title.center {
+            text-align: center;
+        }
+
+        /* ===== Content Card ===== */
+        .content-card {
+            background: white;
+            border-radius: 16px;
+            padding: 48px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .text-block {
+            max-width: 680px;
+            margin: 0 auto;
+        }
+
+        .text-block p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+
+        .lead-text {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--black);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        /* ===== Chart ===== */
+        .chart-wrapper {
+            background: var(--bg-light);
+            padding: 32px;
+            border-radius: 12px;
+        }
+
+        .chart-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            text-align: center;
+            color: var(--black);
+        }
+
+        .chart-caption {
+            margin-top: 16px;
+            font-size: 14px;
+            color: var(--gray);
+            text-align: center;
+        }
+
+        /* ===== Quote ===== */
+        .quote-section {
+            padding: 80px 0;
+            background: var(--blue);
+            color: white;
+        }
+
+        .big-quote {
+            text-align: center;
+            padding: 0;
+            border: none;
+        }
+
+        .big-quote p {
+            font-size: clamp(24px, 3vw, 36px);
+            font-weight: 700;
+            line-height: 1.4;
+            margin-bottom: 24px;
+        }
+
+        .big-quote cite {
+            font-size: 16px;
+            font-style: normal;
+            opacity: 0.8;
+        }
+
+        /* ===== Comparison Grid ===== */
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+            width: 100%;
+            justify-items: stretch;
+        }
+
+        .compare-card {
+            background: white;
+            border-radius: 16px;
+            padding: 40px 32px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .compare-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+        }
+
+        .compare-card.before {
+            border-top: 4px solid var(--gray);
+        }
+
+        .compare-card.after {
+            border-top: 4px solid var(--green);
+        }
+
+        .card-header {
+            margin-bottom: 24px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-radius: 12px;
+            margin-bottom: 12px;
+        }
+
+        .badge-gray {
+            background: #F3F4F6;
+            color: var(--gray);
+        }
+
+        .badge-blue {
+            background: #DBEAFE;
+            color: var(--blue);
+        }
+
+        .card-header h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0;
+            color: var(--black);
+        }
+
+        .big-number {
+            font-size: 64px;
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 16px;
+        }
+
+        .big-number.color-gray {
+            color: var(--gray);
+        }
+
+        .big-number.color-blue {
+            color: var(--blue);
+        }
+
+        .big-number.color-green {
+            color: var(--green);
+        }
+
+        .compare-card p {
+            font-size: 18px;
+            color: var(--gray);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 24px;
+        }
+
+        .feature-list li {
+            padding: 12px 0;
+            position: relative;
+            font-size: 17px;
+            color: var(--gray);
+            line-height: 1.7;
+        }
+
+        .feature-list li.highlight {
+            color: var(--green);
+            font-weight: 600;
+        }
+
+        /* ===== Data Table ===== */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 15px;
+        }
+
+        .data-table thead {
+            background: var(--bg-light);
+        }
+
+        .data-table th {
+            padding: 16px;
+            text-align: left;
+            font-weight: 700;
+            color: var(--black);
+            border-bottom: 2px solid #E5E7EB;
+        }
+
+        .data-table td {
+            padding: 16px;
+            border-bottom: 1px solid #E5E7EB;
+        }
+
+        .data-table tbody tr:hover {
+            background: var(--bg-light);
+        }
+
+        /* ===== Timeline ===== */
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--blue);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 48px;
+        }
+
+        .timeline-marker {
+            position: absolute;
+            left: -40px;
+            top: 0;
+            width: 32px;
+            height: 32px;
+            background: var(--blue);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .timeline-content h4 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--black);
+        }
+
+        .timeline-content p {
+            font-size: 18px;
+            color: var(--gray);
+            line-height: 1.7;
+        }
+
+        /* ===== CTA Section ===== */
+        .cta-section {
+            padding: 80px 0;
+            background: var(--black);
+            color: white;
+        }
+
+        .cta-card {
+            text-align: center;
+            padding: 60px 40px;
+            background: var(--black);
+            border-radius: 20px;
+        }
+
+        .cta-title {
+            font-size: clamp(28px, 4vw, 40px);
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+
+        .cta-description {
+            font-size: 18px;
+            opacity: 0.8;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 16px 40px;
+            font-size: 16px;
+            font-weight: 700;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+        }
+
+        .btn-primary {
+            background: var(--yellow);
+            color: var(--black);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--black);
+        }
+
+        .btn-secondary:hover {
+            box-shadow: 0 8px 20px rgba(255, 255, 255, 0.3);
+        }
+
+        /* ===== Divider ===== */
+        hr {
+            border: none;
+            border-top: 2px solid #E5E7EB;
+            margin: 48px 0;
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 60px 0 40px;
+            }
+            
+            .content-card {
+                padding: 32px 24px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container-narrow">
+            <div class="breadcrumb">
+                <span>블로그</span> > <span>플랫폼 구조 설계</span>
+            </div>
+            
+            <h1 class="hero-title" data-aos="fade-up">
+                K-Pop 소속사 모델을 디자인에 적용하면?
+            </h1>
+            
+            <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="100">
+                SM·JYP처럼 디자이너도 '소속사' 시스템이 필요하다
+            </p>
+            
+            <div class="meta-info" data-aos="fade-up" data-aos-delay="200">
+                <span class="author">아티링 창업자, 임수연</span>
+                <span class="divider">•</span>
+                <span class="date">2026.01.08</span>
+                <span class="divider">•</span>
+                <span class="read-time">10분 읽기</span>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Key Stats -->
+    <section class="key-stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card" data-aos="fade-up">
+                    <div class="stat-icon">👥</div>
+                    <div class="stat-number" data-count="5">0</div>
+                    <div class="stat-unit">명</div>
+                    <div class="stat-label">소속사 최소 인원 (K-Pop처럼 팀 단위)</div>
+                </div>
+                
+                <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="stat-icon">💰</div>
+                    <div class="stat-number" data-count="95">0</div>
+                    <div class="stat-unit">%</div>
+                    <div class="stat-label">프리랜서 실수령액 (수수료 5%만)</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Section 1: Intro (에세이) -->
+    <section class="content-section" id="intro">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Intro</span>
+                <h2 class="section-title">BTS는 소속사가 있는데, 디자이너는 왜 혼자일까?</h2>
+            </div>
+            
+            <div class="content-card" data-aos="fade-up">
+                <div class="card-body">
+                    <div class="text-block">
+                        <p>어느 날 문득 이런 생각이 들었습니다.</p>
+                        <p class="lead-text">"방탄소년단은 하이브, 블랙핑크는 YG가 있는데... 왜 디자이너는 혼자 싸워야 하지?"</p>
+                        <p>저는 10년차 그래픽 디자이너입니다. 프리랜서로 5년을 일하며 매일 반복되는 패턴이 있었습니다.</p>
+                        <p><strong>오전 9시:</strong> 견적 문의 3건 답장<br>
+                        <strong>오전 10시:</strong> 수정 요청 협의 2건<br>
+                        <strong>오전 11시:</strong> 새 프로젝트 상담 1건<br>
+                        <strong>오후 2시:</strong> 겨우 작업 시작<br>
+                        <strong>오후 6시:</strong> 또 다른 문의에 답장</p>
+                        <p>실제 디자인 작업? 하루 8시간 중 고작 <strong>3시간(30%)</strong>이었습니다.</p>
+                        <p>그러다 K-Pop 아이돌 다큐멘터리를 보게 되었습니다. 방탄소년단이 연습에만 집중할 수 있었던 이유는 하이브가 스케줄 관리, 계약 협상, 법률 문제, 재정 관리를 모두 처리해줬기 때문이었습니다.</p>
+                        <p class="lead-text">"디자이너에게도 이런 시스템이 필요하지 않을까?"</p>
+                        <p>그렇게 아티링의 '소속사 모델'이 탄생했습니다.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Section 2: 문제 인식 (K-Pop vs 디자이너 비교) -->
+    <section class="content-section" id="problem">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Problem</span>
+                <h2 class="section-title">K-Pop 아이돌 vs 프리랜서 디자이너</h2>
+            </div>
+            
+            <div class="content-card" data-aos="fade-up">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>구분</th>
+                            <th>K-Pop 아이돌</th>
+                            <th>프리랜서 디자이너</th>
+                            <th>결과</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>소속</strong></td>
+                            <td>하이브, SM, JYP 등 소속사</td>
+                            <td>개인</td>
+                            <td>😢 혼자 모든 걸 처리</td>
+                        </tr>
+                        <tr>
+                            <td><strong>업무 집중도</strong></td>
+                            <td>공연·음악에 90% 집중</td>
+                            <td>작업 30%, 상담 70%</td>
+                            <td>😢 작업 시간 부족</td>
+                        </tr>
+                        <tr>
+                            <td><strong>수입 구조</strong></td>
+                            <td>소속사가 70% 가져감 → 하지만 4대보험·훈련·마케팅 제공</td>
+                            <td>100% 받음 → 하지만 하청 구조로 실제 30%만 수령</td>
+                            <td>😢 실수령 30%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>사회안전망</strong></td>
+                            <td>4대보험 100% 가입</td>
+                            <td>4대보험 미가입 대상</td>
+                            <td>😢 노후 준비 불가</td>
+                        </tr>
+                        <tr>
+                            <td><strong>백업 시스템</strong></td>
+                            <td>멤버 한 명 아파도 팀이 커버</td>
+                            <td>프리랜서 아프면 프로젝트 중단</td>
+                            <td>😢 신뢰도 하락</td>
+                        </tr>
+                        <tr>
+                            <td><strong>글로벌 진출</strong></td>
+                            <td>소속사가 해외 시장 개척</td>
+                            <td>개인이 혼자 영업</td>
+                            <td>😢 확장 불가능</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="text-block" style="margin-top: 40px;">
+                    <p class="lead-text">핵심 문제:</p>
+                    <p>▶ K-Pop은 "팀 시스템"으로 세계 정복<br>
+                    ▶ 디자이너는 "개인 시스템"으로 생존 투쟁</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Section 3: 해결책 - 아티링의 소속사 모델 -->
+    <section class="content-section" id="solution">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Solution</span>
+                <h2 class="section-title">디자인계의 하이브, 아티링 소속사 구조</h2>
+            </div>
+            
+            <div class="content-card" data-aos="fade-up">
+                <div class="card-body">
+                    <div class="text-block">
+                        <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 24px; color: var(--black);">소속사 모델 핵심 3원칙</h3>
+                        
+                        <!-- 원칙 1 -->
+                        <hr style="margin: 32px 0;">
+                        <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 24px; color: var(--black);">💡 원칙 1. 개인 → 조직 책임 전환</h3>
+                        
+                        <div style="margin-bottom: 32px;">
+                            <hr style="margin: 24px 0;">
+                            <h4 style="font-size: 18px; font-weight: 600; margin-bottom: 16px; color: var(--gray);">Before (개인 프리랜서)</h4>
+                            <ul class="feature-list">
+                                <li>📝 클라이언트가 "개인"과 계약</li>
+                                <li>⚠️ 중도 포기 리스크 100% 클라이언트 부담</li>
+                                <li>👤 개인 신뢰도에만 의존</li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <hr style="margin: 24px 0;">
+                            <h4 style="font-size: 18px; font-weight: 600; margin-bottom: 16px; color: var(--green);">After (소속사 조직)</h4>
+                            <ul class="feature-list">
+                                <li class="highlight">🏢 클라이언트가 "법인·사업자"와 계약</li>
+                                <li class="highlight">🔄 백업 시스템 (소속 디자이너 5-20명)</li>
+                                <li class="highlight">✅ 중도 포기 0% (다른 팀원이 즉시 투입)</li>
+                                <li class="highlight">⭐ 조직 신뢰도 = 대형 프로젝트 수주 가능</li>
+                            </ul>
+                        </div>
+                        
+                        <!-- 원칙 2 -->
+                        <hr style="margin: 40px 0;">
+                        <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 24px; color: var(--black);">💡 원칙 2. AI 자동 매칭으로 상담 시간 90% 절감</h3>
+                        
+                        <div style="margin-bottom: 32px;">
+                            <hr style="margin: 24px 0;">
+                            <h4 style="font-size: 18px; font-weight: 600; margin-bottom: 16px; color: var(--gray);">Before (개인 프리랜서)</h4>
+                            <ul class="feature-list">
+                                <li>🔍 일감 찾기: 하루 2-3시간 소요</li>
+                                <li>📄 견적 작성: 프로젝트당 30분</li>
+                                <li>💬 수정 협의: 왕복 2-3시간</li>
+                                <li>⏰ <strong>총 상담 시간: 하루 7시간 (70%)</strong></li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <hr style="margin: 24px 0;">
+                            <h4 style="font-size: 18px; font-weight: 600; margin-bottom: 16px; color: var(--green);">After (소속사 AI 매칭)</h4>
+                            <ul class="feature-list">
+                                <li class="highlight">🤖 나라장터 자동 크롤링 (일 120건)</li>
+                                <li class="highlight">🧠 GPT-4 적합도 분석 (1-2분)</li>
+                                <li class="highlight">🎯 상위 5개 소속사 자동 추천</li>
+                                <li class="highlight">⚡ <strong>총 상담 시간: 하루 1시간 (10%)</strong></li>
+                            </ul>
+                        </div>
+                        
+                        <div style="margin-top: 32px; padding: 24px; background: var(--bg-light); border-radius: 12px;">
+                            <p style="font-size: 18px; font-weight: 600; color: var(--black); margin-bottom: 8px;">결과:</p>
+                            <p>★ 작업 시간 30% → 90%로 3배 증가<br>
+                            ★ 의사결정 시간 1-2일 → 1시간으로 단축</p>
+                        </div>
+                        
+                        <!-- 원칙 3 -->
+                        <hr style="margin: 40px 0;">
+                        <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 24px; color: var(--black);">💡 원칙 3. Type별 맞춤 복지 (4대보험 100%)</h3>
+                        <p>아티링 소속사는 4가지 Type으로 운영됩니다. K-Pop에서 솔로·유닛·정규 앨범이 다르듯, 디자이너도 라이프스타일에 맞춘 선택이 가능합니다.</p>
+                        
+                        <div style="margin-top: 32px;">
+                            <hr style="margin: 24px 0;">
+                            <h4 style="font-size: 18px; font-weight: 600; margin-bottom: 16px;">Type A (프리미엄-유연형)</h4>
+                            <ul class="feature-list">
+                                <li>👔 베테랑 전문가 (경력 10년 이상)</li>
+                                <li>🛡️ 4대 보험, 퇴직금</li>
+                                <li>🌍 글로벌 진출 지원</li>
+                                <li>⏱️ 유연근무 100%</li>
+                            </ul>
+                        </div>
+                        
+                        <div style="margin-top: 32px;">
+                            <hr style="margin: 24px 0;">
+                            <h4 style="font-size: 18px; font-weight: 600; margin-bottom: 16px;">Type B (중급-균형형)</h4>
+                            <ul class="feature-list">
+                                <li>💼 중급 경력자 (경력 3-10년)</li>
+                                <li>🛡️ 4대 보험, 퇴직금, 교육비 지원</li>
+                                <li>👶 육아 리스크 최소화</li>
+                                <li>⚖️ 투자자 수익 중립</li>
+                            </ul>
+                        </div>
+                        
+                        <div style="margin-top: 32px;">
+                            <hr style="margin: 24px 0;">
+                            <h4 style="font-size: 18px; font-weight: 600; margin-bottom: 16px;">Type C (재원급-안정형)</h4>
+                            <ul class="feature-list">
+                                <li>🎓 신입, 경력단절 여성, 노인 (만 55세 이상)</li>
+                                <li>🛡️ 4대 보험 100%, 정부 지원 70%</li>
+                                <li>📚 3개월 무료 교육 (140시간)</li>
+                                <li>♿ 장애인 12개월 재시작 지원</li>
+                            </ul>
+                        </div>
+                        
+                        <div style="margin-top: 32px;">
+                            <hr style="margin: 24px 0;">
+                            <h4 style="font-size: 18px; font-weight: 600; margin-bottom: 16px;">Type F (근로자형)</h4>
+                            <ul class="feature-list">
+                                <li>🏢 안정성 최우선 직장인형</li>
+                                <li>🛡️ 4대 보험 의무, 퇴직금</li>
+                                <li>👶 <strong>육아휴직 1년</strong> (K-Pop도 없는 혜택!)</li>
+                                <li>⚖️ 투자자 수익 중립</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Section 4: 구조 비교 (차트) -->
+    <section class="content-section" id="comparison">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Data</span>
+                <h2 class="section-title">정부 발주 500만원, 누가 얼마나 가져갈까?</h2>
+            </div>
+            
+            <div class="content-card" data-aos="fade-up">
+                <div class="chart-wrapper">
+                    <h3 class="chart-title">발주 금액 흐름 비교 (단위: 만원)</h3>
+                    <canvas id="chart1"></canvas>
+                    <p class="chart-caption">기존 하청 구조는 70%가 중간 업체에 착취되지만, 아티링 소속사 모델은 프리랜서가 대부분을 받습니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Section 5: Data Analysis (비교 카드 3개) -->
+    <section class="content-section" id="analysis">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Analysis</span>
+                <h2 class="section-title">숫자로 보는 소속사 모델의 위력</h2>
+            </div>
+            
+            <div class="comparison-grid">
+                <div class="compare-card before" data-aos="fade-up">
+                    <div class="card-header">
+                        <span class="badge badge-gray">Before</span>
+                        <h3>프리랜서 소득</h3>
+                    </div>
+                    <div class="big-number color-gray">150만원</div>
+                    <p>하청 구조로 중간 업체가 70%를 가져갑니다.</p>
+                </div>
+                
+                <div class="compare-card after" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card-header">
+                        <span class="badge badge-blue">After</span>
+                        <h3>프리랜서 소득</h3>
+                    </div>
+                    <div class="big-number color-green">475만원</div>
+                    <p>소속사 수수료 5%만 차감, <strong>3배 증가</strong> (325만원 ↑)</p>
+                    <ul class="feature-list" style="margin-top: 16px;">
+                        <li class="highlight">🚫 하청 구조 제거로 중간 착취 0%</li>
+                        <li class="highlight">💰 소속사 수수료 5%만 (경쟁사 1/4 수준)</li>
+                        <li class="highlight">📈 연간 3,900만원 추가 수입</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="comparison-grid" style="margin-top: 32px;">
+                <div class="compare-card before" data-aos="fade-up">
+                    <div class="card-header">
+                        <span class="badge badge-gray">Before</span>
+                        <h3>작업 시간</h3>
+                    </div>
+                    <div class="big-number color-gray">3시간/일</div>
+                    <p style="font-size: 16px; color: var(--gray); margin-bottom: 16px;">실제 디자인 작업 (30%)</p>
+                    <p>상담·협의에 대부분의 시간을 소비합니다.</p>
+                </div>
+                
+                <div class="compare-card after" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card-header">
+                        <span class="badge badge-blue">After</span>
+                        <h3>작업 시간</h3>
+                    </div>
+                    <div class="big-number color-green">9시간/일</div>
+                    <p style="font-size: 16px; color: var(--gray); margin-bottom: 16px;">실제 디자인 작업 (90%)</p>
+                    <p><strong>3배 증가</strong> (6시간 ↑)</p>
+                    <ul class="feature-list" style="margin-top: 16px;">
+                        <li class="highlight">🤖 AI 자동 매칭으로 상담 1시간으로 단축</li>
+                        <li class="highlight">📋 소속사가 견적·계약·정산 처리</li>
+                        <li class="highlight">🎨 창작에만 집중 가능</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="comparison-grid" style="margin-top: 32px;">
+                <div class="compare-card before" data-aos="fade-up">
+                    <div class="card-header">
+                        <span class="badge badge-gray">Before</span>
+                        <h3>사회안전망</h3>
+                    </div>
+                    <div class="big-number color-gray">미가입</div>
+                    <p style="font-size: 16px; color: var(--gray); margin-bottom: 16px;">4대보험 미가입 70% (280만명)</p>
+                    <p>노후 준비가 불가능한 상태입니다.</p>
+                </div>
+                
+                <div class="compare-card after" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card-header">
+                        <span class="badge badge-blue">After</span>
+                        <h3>사회안전망</h3>
+                    </div>
+                    <div class="big-number color-green">가입</div>
+                    <p style="font-size: 16px; color: var(--gray); margin-bottom: 16px;">4대보험 가입 100% (전 타입)</p>
+                    <p><strong>노후 보장 확보</strong></p>
+                    <ul class="feature-list" style="margin-top: 16px;">
+                        <li class="highlight">💵 국민연금 수급권 확보 (40년 납부 시 1억 9,200만원)</li>
+                        <li class="highlight">🏥 건강보험 의료비 200만원 절감</li>
+                        <li class="highlight">💼 실업급여 900만원 (Type F)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Section 6: Timeline -->
+    <section class="content-section" id="timeline">
+        <div class="container-narrow">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Process</span>
+                <h2 class="section-title">K-Pop 아이돌 데뷔처럼, 단계별 성장 전략</h2>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item" data-aos="fade-up">
+                    <div class="timeline-marker">1</div>
+                    <div class="timeline-content">
+                        <h4>연습생 기간 (3개월 무료 교육)</h4>
+                        <p>📚 140시간 커리큘럼 (Ai, Ps, Figma, 포트폴리오)<br>
+                        🎓 자격증 취득 (GTQ, 컴퓨터그래픽스운용기능사)<br>
+                        ✅ AI + 전문가 품질 검증<br>
+                        🎯 <strong>입사 성공률 80%</strong> (K-Pop 연습생보다 높음!)</p>
+                    </div>
+                </div>
+                <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
+                    <div class="timeline-marker">2</div>
+                    <div class="timeline-content">
+                        <h4>데뷔 (소속사 선택)</h4>
+                        <p>🎯 Type A/B/C/F 중 선택<br>
+                        📊 포트폴리오 자동 분석 (적합도 95%)<br>
+                        🏢 적합 소속사 5개 추천<br>
+                        ⚡ 1시간 내 매칭 완료</p>
+                    </div>
+                </div>
+                <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
+                    <div class="timeline-marker">3</div>
+                    <div class="timeline-content">
+                        <h4>활동 시작 (프로젝트 수주)</h4>
+                        <p>🤖 나라장터 자동 크롤링 (일 120건)<br>
+                        ⭐ 소속사 단위 수주 (신뢰도 2배 ↑)<br>
+                        🔄 백업 시스템 (중도 포기 0%)<br>
+                        👥 팀 협업으로 대형 프로젝트 가능</p>
+                    </div>
+                </div>
+                <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
+                    <div class="timeline-marker">4</div>
+                    <div class="timeline-content">
+                        <h4>월드 투어 (글로벌 진출)</h4>
+                        <p>🇯🇵 일본 진출 (2027년, 도쿄 법인)<br>
+                        🇹🇭 동남아 진출 (2028년, 호치민·방콕)<br>
+                        🇩🇪 유럽 진출 (2029년, 베를린)<br>
+                        🌏 아시아 1위 플랫폼 (2030년 목표)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Section 7: 인용구 -->
+    <section class="quote-section">
+        <div class="container-narrow">
+            <blockquote class="big-quote" data-aos="fade-up">
+                <p>"BTS가 세계를 정복한 비결은 '팀워크'였습니다. 디자이너도 혼자가 아닌 '소속사 시스템'으로 더 큰 무대에 설 수 있습니다."</p>
+                <cite>아티링 창업자, 임수연</cite>
+            </blockquote>
+        </div>
+    </section>
+    
+    <!-- Section 8: 구조 설계 (인포그래픽) -->
+    <section class="content-section" id="structure">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Structure</span>
+                <h2 class="section-title">아티링 소속사 생태계 구조도</h2>
+            </div>
+            
+            <div class="content-card" data-aos="fade-up">
+                <div class="card-body">
+                    <div class="text-block">
+                        <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 24px; color: var(--black);">3자 구조 (이해관계자)</h3>
+                        <div style="background: var(--bg-light); padding: 32px; border-radius: 12px; font-family: monospace; line-height: 2;">
+                            <p style="text-align: center; margin-bottom: 16px;">[정부/지자체 발주]</p>
+                            <p style="text-align: center; margin-bottom: 16px;">↓</p>
+                            <p style="text-align: center; margin-bottom: 16px;">나라장터 API</p>
+                            <p style="text-align: center; margin-bottom: 16px;">↓</p>
+                            <p style="text-align: center; margin-bottom: 16px;">AI 자동 매칭 (GPT-4)</p>
+                            <p style="text-align: center; margin-bottom: 16px;">↓</p>
+                            <p style="text-align: center; margin-bottom: 16px;">[아티링 플랫폼]</p>
+                            <p style="text-align: center; margin-bottom: 16px;">↙ &nbsp; &nbsp; &nbsp; ↓ &nbsp; &nbsp; &nbsp; ↘</p>
+                            <p style="text-align: center; margin-bottom: 16px;">[소속사 A] &nbsp; [소속사 B] &nbsp; [소속사 C]</p>
+                            <p style="text-align: center; margin-bottom: 16px;">(5-20명) &nbsp; (5-20명) &nbsp; (5-20명)</p>
+                            <p style="text-align: center; margin-bottom: 16px;">↓ &nbsp; &nbsp; &nbsp; ↓ &nbsp; &nbsp; &nbsp; ↓</p>
+                            <p style="text-align: center;">디자이너 &nbsp; 디자이너 &nbsp; 디자이너</p>
+                            <p style="text-align: center;">(Type A~F 선택)</p>
+                        </div>
+                        
+                        <div style="margin-top: 32px;">
+                            <p class="lead-text">핵심 역할:</p>
+                            <ul class="feature-list">
+                                <li>🏛️ <strong>정부/지자체:</strong> 투명한 발주 (나라장터 공개)</li>
+                                <li>🤖 <strong>아티링 플랫폼:</strong> AI 자동 매칭, 백오피스 자동화, 4대보험 API 연동</li>
+                                <li>🏢 <strong>소속사:</strong> 법인 책임, 팀 관리, 백업 시스템, 교육 제공</li>
+                                <li>🎨 <strong>디자이너:</strong> 창작에만 집중, 4대보험 가입가능</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Section 9: Data Table (소속사 타입별 비교) -->
+    <section class="content-section" id="types">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Types</span>
+                <h2 class="section-title">내 라이프스타일에 맞는 소속사 Type 찾기</h2>
+            </div>
+            
+            <div class="content-card" data-aos="fade-up">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>대상</th>
+                            <th>월급</th>
+                            <th>4대보험</th>
+                            <th>육아휴직</th>
+                            <th>글로벌 진출</th>
+                            <th>추천 대상</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>A (프리미엄)</strong></td>
+                            <td>경력 10년↑</td>
+                            <td>고액</td>
+                            <td>✓</td>
+                            <td>-</td>
+                            <td>✓</td>
+                            <td>베테랑 전문가</td>
+                        </tr>
+                        <tr>
+                            <td><strong>B (균형)</strong></td>
+                            <td>경력 3-10년</td>
+                            <td>중간</td>
+                            <td>✓</td>
+                            <td>협의</td>
+                            <td>-</td>
+                            <td>중급 경력자</td>
+                        </tr>
+                        <tr>
+                            <td><strong>C (안정)</strong></td>
+                            <td>신입, 경단녀, 55세↑</td>
+                            <td>최저</td>
+                            <td>✓</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>재시작, 은퇴 준비</td>
+                        </tr>
+                        <tr>
+                            <td><strong>F (근로자)</strong></td>
+                            <td>안정 최우선</td>
+                            <td>저,중간</td>
+                            <td>✓</td>
+                            <td><strong>1년</strong></td>
+                            <td>-</td>
+                            <td>직장인형</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="text-block" style="margin-top: 32px;">
+                    <p class="lead-text">특이사항:</p>
+                    <p>★ Type F만 육아휴직 1년 제공 (K-Pop 아이돌도 없는 혜택!)<br>
+                    ★ 모든 Type 4대보험 가입가능<br>
+                    ★ 정부 지원 활용 (Type C는 정부 지원 70%)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Section 10: 결론 (에세이) -->
+    <section class="content-section" id="conclusion">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Conclusion</span>
+                <h2 class="section-title">디자이너도 '팀'으로 일할 때입니다</h2>
+            </div>
+            
+            <div class="content-card" data-aos="fade-up">
+                <div class="card-body">
+                    <div class="text-block">
+                        <p class="lead-text">10년간 혼자 싸웠습니다</p>
+                        <p>저는 10년간 프리랜서로 일하며 매일 이런 생각을 했습니다.</p>
+                        <p>"BTS는 7명이서 세계를 정복했는데, 나는 왜 혼자 견적서와 싸우고 있지?"</p>
+                        <p>K-Pop 아이돌은 소속사가 스케줄 관리, 법률 문제, 재정 관리를 처리해줘서 공연에만 집중할 수 있었습니다. 그 결과 빌보드 1위, 그래미 후보, 월드 투어를 달성했습니다.</p>
+                        
+                        <p class="lead-text">디자이너에게도 '소속사'가 필요합니다</p>
+                        <p>아티링의 소속사 모델은 이렇게 작동합니다:</p>
+                        <ul class="feature-list">
+                            <li class="highlight">📋 <strong>소속사가 행정 처리</strong> → 디자이너는 창작에만 집중</li>
+                            <li class="highlight">🤖 <strong>AI가 자동 매칭</strong> → 상담 시간 90% 절감</li>
+                            <li class="highlight">🔄 <strong>팀 백업 시스템</strong> → 중도 포기 0%, 신뢰도 2배</li>
+                            <li class="highlight">🛡️ <strong>4대보험 100%</strong> → 노후 보장 확보</li>
+                            <li class="highlight">💰 <strong>수수료 5%</strong> (경쟁사 1/4 수준)</li>
+                        </ul>
+                        
+                        <p class="lead-text">완벽하진 않을 겁니다</p>
+                        <p>하지만 적어도:</p>
+                        <ul class="feature-list">
+                            <li>⏰ 하루 7시간 상담하는 '상담사'가 아닌<br>
+                            &nbsp; &nbsp; 하루 9시간 작업하는 '디자이너'로 살 수 있습니다</li>
+                            <li>💰 500만원 중 150만원 받는 '하청 인력'이 아닌<br>
+                            &nbsp; &nbsp; 500만원 중 475만원 받는 '전문가'로 대우받을 수 있습니다</li>
+                            <li>🛡️ 4대보험 없이 불안한 '임시직'이 아닌<br>
+                            &nbsp; &nbsp; 국민연금 수급권이 있는 '정규직'처럼 일할 수 있습니다</li>
+                        </ul>
+                        
+                        <p class="lead-text">BTS처럼, 팀으로 세계를 정복하고 싶습니다</p>
+                        <p>2026년 하반기, 아티링이 출시됩니다.<br>
+                        디자인계의 하이브가 되고 싶습니다.</p>
+                        <p>함께 만들어갈 디자이너, 기다리고 있습니다.</p>
+                        <p style="text-align: right; margin-top: 32px; font-style: italic;">— 아티링 창업자, 임수연</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container-narrow">
+            <div class="cta-card" data-aos="zoom-in">
+                <h3 class="cta-title">디자인계의 BTS가 되고 싶다면</h3>
+                <p class="cta-description">2026년 하반기 정식 출시. K-Pop처럼 '소속사 시스템'으로 일하고 싶은 디자이너를 기다립니다. 오픈전 사전 등록하시면 3개월 무료 교육 우선 신청 기회를 드립니다.</p>
+                
+                <div class="cta-buttons">
+                    <a href="https://www.artiring.com/structure" class="btn btn-primary">소속사 사전 등록 (무료 교육)</a>
+                    <a href="https://www.artiring.com/records" class="btn btn-secondary">다른 기록 더 보기</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <script>
+        // AOS 초기화
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+        
+        // 카운터 애니메이션
+        function initCounters() {
+            if (typeof CountUp === 'undefined' && typeof countUp === 'undefined') {
+                document.querySelectorAll('.stat-number').forEach(el => {
+                    const target = parseFloat(el.dataset.count);
+                    if (target && !isNaN(target)) {
+                        const hasDecimal = target % 1 !== 0;
+                        const decimals = hasDecimal ? 1 : 0;
+                        el.textContent = target.toFixed(decimals);
+                    }
+                });
+                setTimeout(initCounters, 500);
+                return;
+            }
+            
+            const CountUpClass = typeof CountUp !== 'undefined' ? CountUp : countUp;
+            
+            document.querySelectorAll('.stat-number').forEach(el => {
+                const target = parseFloat(el.dataset.count);
+                if (target && !isNaN(target)) {
+                    const hasDecimal = target % 1 !== 0;
+                    const decimals = hasDecimal ? 1 : 0;
+                    
+                    const options = {
+                        duration: 2,
+                        useEasing: true,
+                        separator: ',',
+                        decimal: '.',
+                        decimals: decimals
+                    };
+                    
+                    try {
+                        const counter = new CountUpClass(el, target, options);
+                        
+                        if (counter.error) {
+                            el.textContent = target.toFixed(decimals);
+                            return;
+                        }
+                        
+                        const observer = new IntersectionObserver(entries => {
+                            entries.forEach(entry => {
+                                if (entry.isIntersecting) {
+                                    counter.start();
+                                    observer.unobserve(entry.target);
+                                }
+                            });
+                        }, { threshold: 0.5 });
+                        
+                        observer.observe(el);
+                    } catch (e) {
+                        el.textContent = target.toFixed(decimals);
+                    }
+                }
+            });
+        }
+        
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initCounters);
+        } else {
+            setTimeout(initCounters, 100);
+        }
+        
+        // 차트 초기화
+        function initCharts() {
+            if (typeof Chart === 'undefined') {
+                setTimeout(initCharts, 500);
+                return;
+            }
+            
+            // 차트 1: 발주 금액 흐름 비교 (수평 바 차트)
+            const ctx1 = document.getElementById('chart1');
+            if (ctx1) {
+                const chart1 = new Chart(ctx1.getContext('2d'), {
+                    type: 'bar',
+                    data: {
+                        labels: ['정부 발주', '1차 업체', '2차 업체', '3차 업체', '프리랜서 실수령'],
+                        datasets: [
+                            {
+                                label: '기존 하청 구조',
+                                data: [500, 150, 100, 100, 150],
+                                backgroundColor: ['#FF6B6B', '#FF8E8E', '#FFB1B1', '#FFD4D4', '#5A5A5A'],
+                                borderWidth: 0,
+                                borderRadius: 8
+                            },
+                            {
+                                label: '아티링 소속사 모델',
+                                data: [500, 0, 0, 0, 475],
+                                backgroundColor: ['#2ECC71', '#58D68D', '#58D68D', '#58D68D', '#A9DFBF'],
+                                borderWidth: 0,
+                                borderRadius: 8
+                            }
+                        ]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        plugins: {
+                            legend: {
+                                display: true,
+                                position: 'top'
+                            },
+                            tooltip: {
+                                backgroundColor: 'rgba(0,0,0,0.8)',
+                                padding: 12,
+                                titleFont: { size: 14, weight: 'bold' },
+                                bodyFont: { size: 13 },
+                                cornerRadius: 8,
+                                callbacks: {
+                                    label: function(context) {
+                                        return context.dataset.label + ': ' + context.parsed.x + '만원';
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                beginAtZero: true,
+                                max: 500,
+                                grid: {
+                                    color: '#F3F4F6'
+                                },
+                                ticks: {
+                                    callback: function(value) {
+                                        return value + '만원';
+                                    }
+                                }
+                            },
+                            y: {
+                                grid: {
+                                    display: false
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+        
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', function() {
+                setTimeout(initCharts, 100);
+            });
+        } else {
+            setTimeout(initCharts, 100);
+        }
+        
+        // iframe 높이 자동 전달
+        function sendHeightToParent() {
+            if (window.parent !== window) {
+                const height = Math.max(
+                    document.body.scrollHeight,
+                    document.body.offsetHeight,
+                    document.documentElement.clientHeight,
+                    document.documentElement.scrollHeight,
+                    document.documentElement.offsetHeight
+                );
+                window.parent.postMessage({
+                    type: 'iframe-resize',
+                    height: height
+                }, '*');
+            }
+        }
+
+        window.addEventListener('load', () => {
+            sendHeightToParent();
+            setTimeout(sendHeightToParent, 2000);
+        });
+
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(sendHeightToParent, 300);
+        });
+
+        const observer = new MutationObserver(() => {
+            sendHeightToParent();
+        });
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true,
+            attributes: true
+        });
+    </script>
+</body>
+</html>
+
