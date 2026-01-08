@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { headers } from 'next/headers';
 import { notFound } from 'next/navigation';
-import { formatDate, calculateReadingTime, extractTextFromHtml } from '@/lib/utils';
+import { formatDate, extractTextFromHtml } from '@/lib/utils';
 import TableOfContents from '@/components/records/TableOfContents';
 import CopyLinkButton from '@/components/records/CopyLinkButton';
 import dynamic from 'next/dynamic';
@@ -94,8 +94,6 @@ export default async function RecordDetailPage({ params }) {
   // 조회수 증가 (백그라운드에서)
   incrementViewCount(params.slug);
 
-  const plainText = extractTextFromHtml(post.content_html);
-  const readingTime = calculateReadingTime(plainText);
   const h2Count = countH2Tags(post.content_html);
   const showToc = h2Count >= 3;
 
@@ -127,8 +125,6 @@ export default async function RecordDetailPage({ params }) {
             <time dateTime={post.published_at}>
               {formatDate(post.published_at)}
             </time>
-            <span>·</span>
-            <span>{readingTime}분 읽기</span>
             <span>·</span>
             <span>조회 {(post.view_count || 0).toLocaleString()}</span>
           </div>
