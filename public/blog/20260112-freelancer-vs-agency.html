@@ -1,0 +1,1485 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>프리랜서 vs 에이전시, 뭐가 유리할까? | 아티링</title>
+    
+    <!-- CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/countup.js@2.8.0/dist/countUp.umd.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <style>
+        /* ===== Reset & Base ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Pretendard', -apple-system, sans-serif;
+            color: var(--black);
+            background: var(--bg-light);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        /* ===== Color Variables ===== */
+        :root {
+            --blue: #4169E1;
+            --gray: #5A5A5A;
+            --green: #2ECC71;
+            --beige: #F5DEB3;
+            --purple: #9B59B6;
+            --sky: #87CEEB;
+            --pink: #FF69B4;
+            --yellow: #FFD700;
+            --black: #2C2C2C;
+            --white: #FFFFFF;
+            --bg-light: #FAFAFA;
+        }
+
+        /* ===== Container ===== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .container-narrow {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ===== Hero Section ===== */
+        .hero-section {
+            background: white;
+            padding: 80px 0 60px;
+            text-align: center;
+        }
+
+        .breadcrumb {
+            font-size: 14px;
+            color: var(--gray);
+            margin-bottom: 24px;
+        }
+
+        .breadcrumb span:last-child {
+            color: var(--blue);
+            font-weight: 600;
+        }
+
+        .hero-title {
+            font-size: clamp(32px, 5vw, 56px);
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+            color: var(--black);
+        }
+
+        .hero-subtitle {
+            font-size: clamp(18px, 2.5vw, 24px);
+            color: var(--gray);
+            margin-bottom: 32px;
+            line-height: 1.5;
+        }
+
+        .meta-info {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            color: var(--gray);
+            flex-wrap: wrap;
+        }
+
+        .meta-info .divider {
+            color: #D1D5DB;
+        }
+
+        /* ===== Key Stats ===== */
+        .key-stats-section {
+            padding: 60px 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 40px 32px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+        }
+
+        .stat-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .stat-number {
+            font-size: 56px;
+            font-weight: 900;
+            color: var(--blue);
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .stat-unit {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--blue);
+            margin-bottom: 12px;
+        }
+
+        .stat-label {
+            font-size: 16px;
+            color: var(--gray);
+            font-weight: 500;
+        }
+
+        /* ===== Content Section ===== */
+        .content-section {
+            padding: 80px 0;
+            width: 100%;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .section-tag {
+            display: inline-block;
+            padding: 6px 16px;
+            background: var(--blue);
+            color: white;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-radius: 20px;
+            margin-bottom: 16px;
+            letter-spacing: 0.5px;
+        }
+
+        .section-title {
+            font-size: clamp(28px, 4vw, 40px);
+            font-weight: 800;
+            line-height: 1.3;
+            color: var(--black);
+            margin: 0;
+        }
+
+        /* ===== Content Card ===== */
+        .content-card {
+            background: white;
+            border-radius: 16px;
+            padding: 48px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .text-block {
+            max-width: 680px;
+            margin: 0 auto;
+        }
+
+        .text-block p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+
+        .lead-text {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--black);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        /* ===== Chart ===== */
+        .chart-wrapper {
+            background: var(--bg-light);
+            padding: 32px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+        }
+
+        .chart-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+            margin-top: 24px;
+        }
+
+        .chart-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            text-align: center;
+            color: var(--black);
+        }
+
+        .chart-caption {
+            margin-top: 16px;
+            font-size: 14px;
+            color: var(--gray);
+            text-align: center;
+        }
+
+        /* ===== Comparison Grid ===== */
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+            width: 100%;
+            justify-items: stretch;
+        }
+
+        .compare-card {
+            background: white;
+            border-radius: 16px;
+            padding: 40px 32px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .compare-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+        }
+
+        .compare-card.before {
+            border-top: 4px solid var(--gray);
+        }
+
+        .compare-card.after {
+            border-top: 4px solid var(--green);
+        }
+
+        .card-header {
+            margin-bottom: 24px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-radius: 12px;
+            margin-bottom: 12px;
+        }
+
+        .badge-gray {
+            background: #F3F4F6;
+            color: var(--gray);
+        }
+
+        .badge-blue {
+            background: #DBEAFE;
+            color: var(--blue);
+        }
+
+        .card-header h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0;
+            color: var(--black);
+        }
+
+        .big-number {
+            font-size: 64px;
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 16px;
+        }
+
+        .big-number.color-gray {
+            color: var(--gray);
+        }
+
+        .big-number.color-green {
+            color: var(--green);
+        }
+
+        .compare-card p {
+            font-size: 18px;
+            color: var(--gray);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 24px;
+        }
+
+        .feature-list li {
+            padding: 12px 0;
+            position: relative;
+            font-size: 17px;
+            color: var(--gray);
+            line-height: 1.7;
+            padding-left: 0;
+        }
+
+        .feature-list li.highlight {
+            color: var(--green);
+            font-weight: 600;
+        }
+
+        /* ===== Data Table ===== */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 15px;
+        }
+
+        .data-table thead {
+            background: var(--bg-light);
+        }
+
+        .data-table th {
+            padding: 16px;
+            text-align: left;
+            font-weight: 700;
+            color: var(--black);
+            border-bottom: 2px solid #E5E7EB;
+        }
+
+        .data-table td {
+            padding: 16px;
+            border-bottom: 1px solid #E5E7EB;
+        }
+
+        .data-table tbody tr:hover {
+            background: var(--bg-light);
+        }
+
+        .star-rating {
+            color: var(--yellow);
+            font-size: 18px;
+        }
+
+        /* ===== CTA Section ===== */
+        .cta-section {
+            padding: 80px 0;
+            background: var(--black);
+            color: white;
+        }
+
+        .cta-card {
+            text-align: center;
+            padding: 60px 40px;
+            background: var(--black);
+            border-radius: 20px;
+        }
+
+        .cta-title {
+            font-size: clamp(28px, 4vw, 40px);
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+
+        .cta-description {
+            font-size: 18px;
+            opacity: 0.8;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 16px 40px;
+            font-size: 16px;
+            font-weight: 700;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+        }
+
+        .btn-primary {
+            background: var(--yellow);
+            color: var(--black);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--black);
+        }
+
+        .btn-secondary:hover {
+            box-shadow: 0 8px 20px rgba(255, 255, 255, 0.3);
+        }
+
+        /* ===== Divider ===== */
+        hr {
+            border: none;
+            border-top: 2px solid #E5E7EB;
+            margin: 48px 0;
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 60px 0 40px;
+            }
+            
+            .content-card {
+                padding: 32px 24px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .chart-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container-narrow">
+            <div class="breadcrumb">
+                <span>블로그</span> > <span>프리랜서 생존 가이드</span>
+            </div>
+            
+            <h1 class="hero-title" data-aos="fade-up">
+                프리랜서 vs 에이전시, 뭐가 유리할까?
+            </h1>
+            
+            <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="100">
+                개인 활동 vs 조직 소속, 10년차 디자이너의 솔직한 비교
+            </p>
+            
+            <div class="meta-info" data-aos="fade-up" data-aos-delay="200">
+                <span class="author">아티링 창업자, 임수연</span>
+                <span class="divider">•</span>
+                <span class="date">2026.01.12</span>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Key Stats -->
+    <section class="key-stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card" data-aos="fade-up">
+                    <div class="stat-icon">📞</div>
+                    <div class="stat-number" data-count="70">0</div>
+                    <div class="stat-unit">%</div>
+                    <div class="stat-label">개인 프리랜서 상담 시간 비율</div>
+                </div>
+                
+                <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="stat-icon">🎨</div>
+                    <div class="stat-number" data-count="90">0</div>
+                    <div class="stat-unit">%</div>
+                    <div class="stat-label">에이전시 작업 시간 비율 (AI 자동화)</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Section 1: Intro (개인 경험담) -->
+    <section class="content-section" id="intro">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Intro</span>
+                <h2 class="section-title">5년간 개인 프리랜서로 일하며 느낀 것들</h2>
+            </div>
+            
+            <div class="content-card" data-aos="fade-up">
+                <div class="card-body">
+                    <div class="text-block">
+                        <p>프리랜서 5년차, 저는 매일 아침 똑같은 루틴으로 하루를 시작했습니다.</p>
+                        
+                        <p><strong>오전 9시:</strong> 카톡 확인 (새 문의 3건)<br>
+                        <strong>오전 10시:</strong> 견적서 작성 (프로젝트당 30분씩)<br>
+                        <strong>오전 11시:</strong> 수정 요청 협의 (클라이언트 2명)<br>
+                        <strong>오후 2시:</strong> 겨우 디자인 작업 시작<br>
+                        <strong>오후 6시:</strong> 또 다른 문의에 답장</p>
+                        
+                        <p>하루 10시간 중 <strong>실제 디자인 작업 시간은 3시간(30%)</strong>에 불과했습니다.</p>
+                        
+                        <p class="lead-text">"나는 디자이너가 아니라 상담사구나."</p>
+                        
+                        <p>그러던 어느 날, 에이전시 소속으로 일하는 친구를 만났습니다.</p>
+                        
+                        <p><strong>"너는 하루에 작업 몇 시간 해?"</strong><br>
+                        <strong>"9시간? 상담은 에이전시에서 다 해주거든. 그리고 매달 고정 월급 나와."</strong></p>
+                        
+                        <p>그 순간 깨달았습니다. 개인 프리랜서와 에이전시 소속, 같은 '프리랜서'라는 이름이지만 <strong>완전히 다른 세계</strong>였습니다.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <hr>
+    
+    <!-- Section 2: 핵심 차이점 5가지 -->
+    <section class="content-section" id="differences">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Comparison</span>
+                <h2 class="section-title">개인 프리랜서 vs 에이전시 소속, 5가지 결정적 차이</h2>
+            </div>
+            
+            <!-- 차이점 1: 시간 배분 -->
+            <div class="content-card" data-aos="fade-up">
+                <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 24px; color: var(--black);">⏰ 차이점 1. 시간 배분</h3>
+                
+                <hr style="margin: 32px 0;">
+                
+                <div class="comparison-grid">
+                    <div class="compare-card before">
+                        <div class="card-header">
+                            <span class="badge badge-gray">개인 프리랜서</span>
+                            <h3>하루 10시간 기준</h3>
+                        </div>
+                        <ul class="feature-list">
+                            <li>● 상담·견적: 7시간 (70%)</li>
+                            <li style="padding-left: 20px; font-size: 15px; color: var(--gray);">- 문의 응대: 2시간</li>
+                            <li style="padding-left: 20px; font-size: 15px; color: var(--gray);">- 견적서 작성: 1.5시간</li>
+                            <li style="padding-left: 20px; font-size: 15px; color: var(--gray);">- 수정 협의: 2시간</li>
+                            <li style="padding-left: 20px; font-size: 15px; color: var(--gray);">- 계약서 검토: 1시간</li>
+                            <li style="padding-left: 20px; font-size: 15px; color: var(--gray);">- 정산 확인: 0.5시간</li>
+                            <li>● 실제 작업: 3시간 (30%)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="compare-card after">
+                        <div class="card-header">
+                            <span class="badge badge-blue">에이전시 소속</span>
+                            <h3>하루 10시간 기준</h3>
+                        </div>
+                        <ul class="feature-list">
+                            <li class="highlight">✓ 상담·견적: 1시간 (10%) - AI 자동 매칭</li>
+                            <li class="highlight">✓ 실제 작업: 9시간 (90%)</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <p style="margin-top: 24px; font-size: 17px; color: var(--gray);"><strong>차이의 핵심:</strong> 에이전시는 AI가 나라장터 자동 크롤링 (일 120건)하고, GPT-4로 적합도 분석 (1-2분)해서 자동 매칭합니다. 프리랜서는 상담 1시간만 하면 바로 작업 시작.</p>
+            </div>
+            
+            <hr>
+            
+            <!-- 차이점 2: 소득 안정성 -->
+            <div class="content-card" data-aos="fade-up">
+                <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 24px; color: var(--black);">💰 차이점 2. 소득 안정성</h3>
+                
+                <hr style="margin: 32px 0;">
+                
+                <div class="comparison-grid">
+                    <div class="compare-card before">
+                        <div class="card-header">
+                            <span class="badge badge-gray">개인 프리랜서</span>
+                        </div>
+                        <ul class="feature-list">
+                            <li>● 월 소득: 0-500만원 (극심한 변동)</li>
+                            <li style="padding-left: 20px; font-size: 15px; color: var(--gray);">- 일감 있는 달: 500만원</li>
+                            <li style="padding-left: 20px; font-size: 15px; color: var(--gray);">- 일감 없는 달: 0원</li>
+                            <li>● 소득 불안정: 100만원 미만 33.6% (134만명)</li>
+                            <li>● 계획 불가능: 다음 달 소득 예측 불가</li>
+                            <li>● 건당 비용만 수령: 프로젝트 끝나면 소득 0</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="compare-card after">
+                        <div class="card-header">
+                            <span class="badge badge-blue">에이전시 소속</span>
+                        </div>
+                        <ul class="feature-list">
+                            <li class="highlight">✓ 정기 월급: Type별 매월 고정 지급</li>
+                            <li style="padding-left: 20px; font-size: 15px; color: var(--green);">- Type A (베테랑): 월 400-800만원</li>
+                            <li style="padding-left: 20px; font-size: 15px; color: var(--green);">- Type B (중급): 월 300-600만원</li>
+                            <li style="padding-left: 20px; font-size: 15px; color: var(--green);">- Type C (신입): 월 100-200만원</li>
+                            <li style="padding-left: 20px; font-size: 15px; color: var(--green);">- Type F (근로자형): 월 200-300만원</li>
+                            <li class="highlight">✓ 매월 고정 월급: 일감 없어도 월급 보장</li>
+                            <li class="highlight">✓ 생활 계획 가능: 월세, 저축, 여행 등</li>
+                            <li class="highlight">✓ 4대보험 포함: 국민연금 수급권 확보</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <p style="margin-top: 24px; font-size: 17px; color: var(--gray);"><strong>차이의 핵심:</strong> 개인 프리랜서는 "이번 달 월세 낼 수 있을까?" 불안하지만, 에이전시 소속은 "다음 달 여행 갈까?" 계획할 수 있습니다. <strong>매월 고정 월급이 가장 큰 차이점</strong>입니다.</p>
+            </div>
+            
+            <hr>
+            
+            <!-- 차이점 3: 하청 착취 vs 정기 월급 -->
+            <div class="content-card" data-aos="fade-up">
+                <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 24px; color: var(--black);">💸 차이점 3. 하청 착취 vs 정기 월급</h3>
+                
+                <hr style="margin: 32px 0;">
+                
+                <div class="comparison-grid">
+                    <div class="compare-card before">
+                        <div class="card-header">
+                            <span class="badge badge-gray">개인 프리랜서</span>
+                        </div>
+                        <ul class="feature-list">
+                            <li>● 다단계 하청 구조:</li>
+                            <li style="padding-left: 20px; font-size: 15px; color: var(--gray);">- 정부 발주: 500만원 (100%)</li>
+                            <li style="padding-left: 20px; font-size: 15px; color: var(--gray);">- 1차 업체: -150만원 (30% 착취)</li>
+                            <li style="padding-left: 20px; font-size: 15px; color: var(--gray);">- 2차 업체: -100만원 (20% 착취)</li>
+                            <li style="padding-left: 20px; font-size: 15px; color: var(--gray);">- 3차 업체: -100만원 (20% 착취)</li>
+                            <li>● <strong>실수령: 150만원 (30%)</strong></li>
+                            <li>● 착취율: <strong>70%</strong> (350만원 증발)</li>
+                            <li>● 건당 받음: 불안정</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="compare-card after">
+                        <div class="card-header">
+                            <span class="badge badge-blue">에이전시 소속</span>
+                        </div>
+                        <ul class="feature-list">
+                            <li class="highlight">✓ 정기 월급 구조:</li>
+                            <li style="padding-left: 20px; font-size: 15px; color: var(--green);">- 에이전시가 정부 직접 수주</li>
+                            <li style="padding-left: 20px; font-size: 15px; color: var(--green);">- 수수료 5%로 투명 운영</li>
+                            <li style="padding-left: 20px; font-size: 15px; color: var(--green);">- <strong>프리랜서는 매월 고정 월급 수령</strong></li>
+                            <li style="padding-left: 20px; font-size: 15px; color: var(--green);">- Type별 월급:</li>
+                            <li style="padding-left: 40px; font-size: 14px; color: var(--green);">* Type A: 월 400-800만원</li>
+                            <li style="padding-left: 40px; font-size: 14px; color: var(--green);">* Type B: 월 300-600만원</li>
+                            <li style="padding-left: 40px; font-size: 14px; color: var(--green);">* Type C: 월 100-200만원</li>
+                            <li style="padding-left: 40px; font-size: 14px; color: var(--green);">* Type F: 월 200-300만원</li>
+                            <li class="highlight">✓ 중간 착취 0%: 에이전시 직접 발주</li>
+                            <li class="highlight">✓ 매월 안정: 일감 없어도 월급 보장</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <p style="margin-top: 24px; font-size: 17px; color: var(--gray);"><strong>차이의 핵심:</strong> 개인 프리랜서는 건당 30%만 받고 불안정. 에이전시 소속은 <strong>매월 고정 월급으로 안정적</strong>.</p>
+            </div>
+            
+            <hr>
+            
+            <!-- 차이점 4: 4대보험 가입 -->
+            <div class="content-card" data-aos="fade-up">
+                <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 24px; color: var(--black);">🛡️ 차이점 4. 4대보험 가입</h3>
+                
+                <hr style="margin: 32px 0;">
+                
+                <div class="comparison-grid">
+                    <div class="compare-card before">
+                        <div class="card-header">
+                            <span class="badge badge-gray">개인 프리랜서</span>
+                        </div>
+                        <ul class="feature-list">
+                            <li>● 4대보험 미가입: <strong>70%</strong> (280만명)</li>
+                            <li>● 월 보험료 부담: 36만원 (18%)</li>
+                            <li style="padding-left: 20px; font-size: 15px; color: var(--gray);">- 국민연금: 20만원 (전액 본인 부담)</li>
+                            <li style="padding-left: 20px; font-size: 15px; color: var(--gray);">- 건강보험: 16만원 (전액 본인 부담)</li>
+                            <li style="padding-left: 20px; font-size: 15px; color: var(--gray);">- 고용보험: 적용 제외</li>
+                            <li style="padding-left: 20px; font-size: 15px; color: var(--gray);">- 산재보험: 적용 제외</li>
+                            <li>● 노후 준비: 불가능</li>
+                            <li style="padding-left: 20px; font-size: 15px; color: var(--gray);">- 65세 이상 빈곤율: 40.4% (OECD 1위)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="compare-card after">
+                        <div class="card-header">
+                            <span class="badge badge-blue">에이전시 소속</span>
+                        </div>
+                        <ul class="feature-list">
+                            <li class="highlight">✓ 4대보험 100% 가입</li>
+                            <li class="highlight">✓ 월 보험료 부담: 18만원 (9%, 절반)</li>
+                            <li style="padding-left: 20px; font-size: 15px; color: var(--green);">- 국민연금: 10만원 (에이전시 50% 부담)</li>
+                            <li style="padding-left: 20px; font-size: 15px; color: var(--green);">- 건강보험: 8만원 (에이전시 50% 부담)</li>
+                            <li style="padding-left: 20px; font-size: 15px; color: var(--green);">- 고용보험: 가입 ✓</li>
+                            <li style="padding-left: 20px; font-size: 15px; color: var(--green);">- 산재보험: 가입 ✓</li>
+                            <li class="highlight">✓ 월급에서 자동 공제: 복잡한 절차 없음</li>
+                            <li class="highlight">✓ 노후 보장:</li>
+                            <li style="padding-left: 20px; font-size: 15px; color: var(--green);">- 40년 납부 시 월 80만원 수령</li>
+                            <li style="padding-left: 20px; font-size: 15px; color: var(--green);">- Type F는 육아휴직 1년 가능</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <p style="margin-top: 24px; font-size: 17px; color: var(--gray);"><strong>차이의 핵심:</strong> 개인 프리랜서는 전액 본인 부담 + 고용·산재 제외. 에이전시 소속은 회사가 50% 부담 + 전부 가입.</p>
+            </div>
+            
+            <hr>
+            
+            <!-- 차이점 5: 법적 분쟁 대응 -->
+            <div class="content-card" data-aos="fade-up">
+                <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 24px; color: var(--black);">⚖️ 차이점 5. 법적 분쟁 대응</h3>
+                
+                <hr style="margin: 32px 0;">
+                
+                <div class="comparison-grid">
+                    <div class="compare-card before">
+                        <div class="card-header">
+                            <span class="badge badge-gray">개인 프리랜서</span>
+                        </div>
+                        <ul class="feature-list">
+                            <li>● 계약서 미작성: 44.2%</li>
+                            <li>● 임금 체불 경험: 23.9%</li>
+                            <li>● 분쟁 시 대응:</li>
+                            <li style="padding-left: 20px; font-size: 15px; color: var(--gray);">- 변호사 비용: 300-500만원 (본인 부담)</li>
+                            <li style="padding-left: 20px; font-size: 15px; color: var(--gray);">- 소송 기간: 6-12개월</li>
+                            <li style="padding-left: 20px; font-size: 15px; color: var(--gray);">- 승소해도 금액 회수 어려움</li>
+                            <li>● 클라이언트 갑질:</li>
+                            <li style="padding-left: 20px; font-size: 15px; color: var(--gray);">- 무한 수정 요청</li>
+                            <li style="padding-left: 20px; font-size: 15px; color: var(--gray);">- 추가 금액 요구</li>
+                            <li style="padding-left: 20px; font-size: 15px; color: var(--gray);">- 일방적 계약 취소</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="compare-card after">
+                        <div class="card-header">
+                            <span class="badge badge-blue">에이전시 소속</span>
+                        </div>
+                        <ul class="feature-list">
+                            <li class="highlight">✓ 계약서 100% 작성 (에이전시 표준 양식)</li>
+                            <li class="highlight">✓ 분쟁 시 대응:</li>
+                            <li style="padding-left: 20px; font-size: 15px; color: var(--green);">- 에이전시가 법률 대응</li>
+                            <li style="padding-left: 20px; font-size: 15px; color: var(--green);">- 프리랜서 보호</li>
+                            <li style="padding-left: 20px; font-size: 15px; color: var(--green);">- 비용 에이전시 부담</li>
+                            <li class="highlight">✓ 리뷰·평가 시스템:</li>
+                            <li style="padding-left: 20px; font-size: 15px; color: var(--green);">- 악덕 클라이언트 필터링</li>
+                            <li style="padding-left: 20px; font-size: 15px; color: var(--green);">- 에이전시 성과·신뢰도 공개</li>
+                            <li style="padding-left: 20px; font-size: 15px; color: var(--green);">- 수정 횟수 계약서 명시</li>
+                            <li class="highlight">✓ 월급은 보장: 분쟁과 상관없이 월급 지급</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <p style="margin-top: 24px; font-size: 17px; color: var(--gray);"><strong>차이의 핵심:</strong> 개인 프리랜서는 혼자 싸우지만, 에이전시 소속은 <strong>법인이 방패막이</strong> 역할. 게다가 월급은 계속 나옵니다.</p>
+            </div>
+        </div>
+    </section>
+    
+    <hr>
+    
+    <!-- Section 3: 비교 표 -->
+    <section class="content-section" id="comparison-table">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Data</span>
+                <h2 class="section-title">개인 프리랜서 vs 에이전시 소속 완벽 비교</h2>
+            </div>
+            
+            <div class="content-card" data-aos="fade-up">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>항목</th>
+                            <th>개인 프리랜서</th>
+                            <th>에이전시 소속</th>
+                            <th>승자</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>상담 시간</strong></td>
+                            <td>7시간/일 (70%)</td>
+                            <td>1시간/일 (10%)</td>
+                            <td>에이전시 ✓</td>
+                        </tr>
+                        <tr>
+                            <td><strong>작업 시간</strong></td>
+                            <td>3시간/일 (30%)</td>
+                            <td>9시간/일 (90%)</td>
+                            <td>에이전시 ✓</td>
+                        </tr>
+                        <tr>
+                            <td><strong>소득 형태</strong></td>
+                            <td>건당 받음 (불안정)</td>
+                            <td>매월 고정 월급</td>
+                            <td>에이전시 ✓</td>
+                        </tr>
+                        <tr>
+                            <td><strong>월 소득</strong></td>
+                            <td>0-500만원</td>
+                            <td>100-800만원 (Type별)</td>
+                            <td>에이전시 ✓</td>
+                        </tr>
+                        <tr>
+                            <td><strong>하청 착취</strong></td>
+                            <td>70% 착취 (30%만 수령)</td>
+                            <td>0% (에이전시 직접 수주)</td>
+                            <td>에이전시 ✓</td>
+                        </tr>
+                        <tr>
+                            <td><strong>4대보험</strong></td>
+                            <td>미가입 70%</td>
+                            <td>가입 100%</td>
+                            <td>에이전시 ✓</td>
+                        </tr>
+                        <tr>
+                            <td><strong>보험료 부담</strong></td>
+                            <td>36만원 (전액)</td>
+                            <td>18만원 (절반)</td>
+                            <td>에이전시 ✓</td>
+                        </tr>
+                        <tr>
+                            <td><strong>법적 분쟁</strong></td>
+                            <td>혼자 대응</td>
+                            <td>에이전시 보호</td>
+                            <td>에이전시 ✓</td>
+                        </tr>
+                        <tr>
+                            <td><strong>일감 찾기</strong></td>
+                            <td>하루 2-3시간</td>
+                            <td>AI 자동 매칭</td>
+                            <td>에이전시 ✓</td>
+                        </tr>
+                        <tr>
+                            <td><strong>자유도</strong></td>
+                            <td>100% 자유</td>
+                            <td>Type별 차등</td>
+                            <td>개인 ✓</td>
+                        </tr>
+                        <tr>
+                            <td><strong>책임</strong></td>
+                            <td>개인 부담</td>
+                            <td>조직 책임</td>
+                            <td>에이전시 ✓</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <p style="margin-top: 32px; font-size: 18px; font-weight: 600; color: var(--black); text-align: center;"><strong>결론:</strong> 자유도를 제외한 모든 항목에서 <strong>에이전시 소속이 압도적 우위</strong>입니다.</p>
+            </div>
+        </div>
+    </section>
+    
+    <hr>
+    
+    <!-- Section 4: 차트 -->
+    <section class="content-section" id="charts">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Visual</span>
+                <h2 class="section-title">하루 10시간, 어떻게 쓰는가?</h2>
+            </div>
+            
+            <!-- 파이 차트 2개 나란히 -->
+            <div class="content-card" data-aos="fade-up">
+                <div class="chart-container">
+                    <div class="chart-wrapper">
+                        <h3 class="chart-title">개인 프리랜서 (하루 10시간)</h3>
+                        <canvas id="pieChart1"></canvas>
+                        <p class="chart-caption">상담·견적에 70%의 시간을 소비</p>
+                    </div>
+                    
+                    <div class="chart-wrapper">
+                        <h3 class="chart-title">에이전시 소속 (하루 10시간)</h3>
+                        <canvas id="pieChart2"></canvas>
+                        <p class="chart-caption">작업에 90%의 시간을 집중</p>
+                    </div>
+                </div>
+            </div>
+            
+            <hr>
+            
+            <!-- 바 차트 (수평) -->
+            <div class="content-card" data-aos="fade-up">
+                <div class="chart-wrapper">
+                    <h3 class="chart-title">소득 구조 비교</h3>
+                    <canvas id="barChart"></canvas>
+                    <p class="chart-caption">개인 프리랜서는 건당 받음으로 불안정, 에이전시 소속은 매월 고정 월급으로 안정적</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <hr>
+    
+    <!-- Section 5: 실제 사례 -->
+    <section class="content-section" id="real-cases">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Experience</span>
+                <h2 class="section-title">제가 겪은 개인 프리랜서의 불편함 5가지</h2>
+            </div>
+            
+            <!-- 불편함 1 -->
+            <div class="content-card" data-aos="fade-up">
+                <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 24px; color: var(--black);">😫 불편함 1. 끝없는 견적 문의</h3>
+                
+                <p>매일 아침 카톡을 열면 10-15개의 문의가 쌓여 있었습니다.</p>
+                
+                <p><strong>"로고 디자인 얼마예요?"</strong><br>
+                <strong>"명함 100장 가격이요?"</strong><br>
+                <strong>"급해요, 오늘 안에 가능해요?"</strong></p>
+                
+                <p>문제는 <strong>90%가 견적만 받고 사라진다</strong>는 것이었습니다. 하루 3시간을 견적 답장에 쓰고, 실제 계약은 1-2건. 효율 <strong>10%</strong>.</p>
+                
+                <p class="lead-text">에이전시라면?</p>
+                <p>AI가 자동으로 견적을 제시하고, 진지한 클라이언트만 에이전시에 연결됩니다. 프리랜서는 <strong>확정된 프로젝트만</strong> 받습니다. 그리고 일감 없어도 <strong>매월 월급은 나옵니다</strong>.</p>
+            </div>
+            
+            <hr>
+            
+            <!-- 불편함 2 -->
+            <div class="content-card" data-aos="fade-up">
+                <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 24px; color: var(--black);">💸 불편함 2. 일감 없으면 소득 0</h3>
+                
+                <p>어떤 달은 프로젝트 5건으로 500만원.<br>
+                어떤 달은 프로젝트 0건으로 0원.</p>
+                
+                <p class="lead-text">"이번 달 월세 어떻게 내지?"</p>
+                
+                <p>건당 받는 구조라 일감이 없으면 소득이 0원입니다. 저축은커녕 생활비도 빠듯했습니다.</p>
+                
+                <p class="lead-text">에이전시라면?</p>
+                <p>에이전시가 프로젝트를 관리하고, 프리랜서에게 <strong>매월 고정 월급</strong>을 지급합니다. 일감이 없는 달에도 <strong>월급은 보장</strong>됩니다.</p>
+            </div>
+            
+            <hr>
+            
+            <!-- 불편함 3 -->
+            <div class="content-card" data-aos="fade-up">
+                <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 24px; color: var(--black);">💳 불편함 3. 4대보험 전액 부담</h3>
+                
+                <p>월 200만원 받으면:<br>
+                - 국민연금: -20만원<br>
+                - 건강보험: -16만원<br>
+                - <strong>총 36만원 (18%) 날아감</strong></p>
+                
+                <p>실수령: <strong>164만원</strong></p>
+                
+                <p>여기서 월세 50만원, 식비 30만원, 통신비 10만원 빼면... <strong>74만원 남음</strong>. 저축? 노후 준비? 그런 건 사치였습니다.</p>
+                
+                <p class="lead-text">에이전시라면?</p>
+                <p>에이전시가 50% 부담해서 본인 부담은 <strong>18만원 (9%)</strong>. 연 216만원 절약. 그리고 <strong>월급에서 자동 공제</strong>되니 복잡한 절차도 없습니다.</p>
+            </div>
+            
+            <hr>
+            
+            <!-- 불편함 4 -->
+            <div class="content-card" data-aos="fade-up">
+                <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 24px; color: var(--black);">🏥 불편함 4. 중도 포기하면 끝</h3>
+                
+                <p>프리랜서 3년차, 할아버지가 돌아가셨습니다.<br>
+                진행 중이던 프로젝트 3건, 어떻게 해야 할까요?</p>
+                
+                <p><strong>"죄송합니다. 개인 사정으로 중단하겠습니다."</strong></p>
+                
+                <p>클라이언트는 화를 냈고, 리뷰에 악플이 달렸습니다. 제 탓이 맞습니다. 하지만... <strong>개인 프리랜서는 백업이 없습니다</strong>.</p>
+                
+                <p class="lead-text">에이전시라면?</p>
+                <p>에이전시 내 다른 팀원이 즉시 투입됩니다. <strong>중도 포기 0%</strong>. 클라이언트는 피해 없고, 저는 안심하고 휴식 가능. 그리고 휴식 중에도 <strong>월급은 나옵니다</strong> (Type별 차등).</p>
+            </div>
+            
+            <hr>
+            
+            <!-- 불편함 5 -->
+            <div class="content-card" data-aos="fade-up">
+                <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 24px; color: var(--black);">⚖️ 불편함 5. 임금 체불 시 혼자 싸움</h3>
+                
+                <p>클라이언트: <strong>"퀄리티가 마음에 안 들어요. 돈 안 줄게요."</strong><br>
+                저: <strong>"계약서에 명시된 조건은 다 지켰는데요..."</strong><br>
+                클라이언트: <strong>"그럼 소송하세요."</strong></p>
+                
+                <p>변호사 상담 비용: 30만원<br>
+                소송 비용: 300-500만원<br>
+                소송 기간: 6-12개월</p>
+                
+                <p><strong>결국 포기</strong>했습니다. 150만원 받으려고 500만원 쓸 수는 없었으니까요.</p>
+                
+                <p class="lead-text">에이전시라면?</p>
+                <p>계약서는 에이전시 표준 양식. 분쟁 시 <strong>에이전시가 법률 대응</strong>. 프리랜서는 보호받습니다. 그리고 분쟁 중에도 <strong>월급은 계속 나옵니다</strong>.</p>
+            </div>
+        </div>
+    </section>
+    
+    <hr>
+    
+    <!-- Section 6: 그래도 개인 프리랜서가 좋다면? -->
+    <section class="content-section" id="freelancer-pros">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Fair</span>
+                <h2 class="section-title">그래도 개인 프리랜서가 좋다면?</h2>
+            </div>
+            
+            <div class="content-card" data-aos="fade-up">
+                <div class="text-block">
+                    <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 24px; color: var(--black);">✨ 장점 1. 100% 자유</h3>
+                    <p>출퇴근 없음. 마감만 지키면 언제 어디서든 작업 가능. 새벽에 작업해도, 여행 가서 작업해도 OK.</p>
+                    <p><strong>에이전시 소속은?</strong> Type A/B는 유연근무 가능하지만, Type C/F는 일정 조율 필요.</p>
+                    
+                    <hr style="margin: 32px 0;">
+                    
+                    <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 24px; color: var(--black);">🎯 장점 2. 클라이언트 직접 선택</h3>
+                    <p>마음에 안 드는 프로젝트는 거절 가능. 하고 싶은 작업만 선택.</p>
+                    <p><strong>에이전시 소속은?</strong> AI 매칭으로 적합한 프로젝트만 오지만, 가끔 원하지 않는 작업도 있을 수 있음.</p>
+                    
+                    <hr style="margin: 32px 0;">
+                    
+                    <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 24px; color: var(--black);">💰 장점 3. 대박 나면 높은 수입</h3>
+                    <p>운 좋게 월 1,000만원짜리 프로젝트를 따면 (하청 없이 직거래 가정) 1,000만원 전액.</p>
+                    <p><strong>에이전시 소속은?</strong> Type A도 최대 월 800만원. 대박 프로젝트를 따도 월급은 정해진 범위 내.</p>
+                    <p><strong>하지만 현실은?</strong></p>
+                    <ul class="feature-list">
+                        <li>● 직거래 확률: 5% 미만</li>
+                        <li>● 대부분 하청 구조로 30%만 수령</li>
+                        <li>● 1,000만원 → 실수령 300만원</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <hr>
+    
+    <!-- Section 7: 결론 -->
+    <section class="content-section" id="conclusion">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Conclusion</span>
+                <h2 class="section-title">저의 선택은 에이전시 소속입니다</h2>
+            </div>
+            
+            <div class="content-card" data-aos="fade-up">
+                <div class="text-block">
+                    <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 24px; color: var(--black);">10년간 개인 프리랜서로 일한 결론</h3>
+                    
+                    <p>저는 5년간 개인 프리랜서로 일하며 이런 생각을 매일 했습니다.</p>
+                    
+                    <p><strong>"왜 나는 디자이너가 아니라 상담사처럼 일하지?"</strong><br>
+                    <strong>"이번 달은 일감이 없는데 어떻게 하지?"</strong><br>
+                    <strong>"아프면 어떻게 하지? 백업이 없는데..."</strong><br>
+                    <strong>"65세 되면 어떻게 살지? 트렌드에 뒤쳐졌는데 경력은 단절됐고..."</strong></p>
+                    
+                    <p>그래서 아티링을 만들었습니다.</p>
+                    
+                    <hr style="margin: 32px 0;">
+                    
+                    <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 24px; color: var(--black);">에이전시 소속, 이렇게 달라집니다</h3>
+                    
+                    <ul class="feature-list">
+                        <li class="highlight">✓ 상담 시간 70% → 10% (AI 자동 매칭)</li>
+                        <li class="highlight">✓ 작업 시간 30% → 90% (창작에만 집중)</li>
+                        <li class="highlight">✓ 소득 형태: 건당 받음 → <strong>매월 고정 월급</strong></li>
+                        <li class="highlight">✓ 소득 안정: 0-500만원 변동 → <strong>100-800만원 고정</strong></li>
+                        <li class="highlight">✓ 4대보험 미가입 → 100% 가입 (노후 보장)</li>
+                        <li class="highlight">✓ 법적 분쟁 혼자 → 에이전시 보호</li>
+                        <li class="highlight">✓ 중도 포기 불가 → 백업 시스템 (0%)</li>
+                    </ul>
+                    
+                    <hr style="margin: 32px 0;">
+                    
+                    <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 24px; color: var(--black);">개인 프리랜서 vs 에이전시 소속</h3>
+                    
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>항목</th>
+                                <th>개인</th>
+                                <th>에이전시</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>자유도</strong></td>
+                                <td><span class="star-rating">★★★★★</span></td>
+                                <td><span class="star-rating">★★★☆☆</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>소득 안정</strong></td>
+                                <td><span class="star-rating">★☆☆☆☆</span></td>
+                                <td><span class="star-rating">★★★★★</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>작업 시간</strong></td>
+                                <td><span class="star-rating">★★☆☆☆</span></td>
+                                <td><span class="star-rating">★★★★★</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>소득 형태</strong></td>
+                                <td>건당 (불안정)</td>
+                                <td>월급 (안정)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>4대보험</strong></td>
+                                <td><span class="star-rating">☆☆☆☆☆</span></td>
+                                <td><span class="star-rating">★★★★★</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>법적 보호</strong></td>
+                                <td><span class="star-rating">☆☆☆☆☆</span></td>
+                                <td><span class="star-rating">★★★★★</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <hr style="margin: 32px 0;">
+                    
+                    <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 24px; color: var(--black);">만약 당신이...</h3>
+                    
+                    <ul class="feature-list">
+                        <li>▶ <strong>자유가 최우선이라면</strong> → 개인 프리랜서</li>
+                        <li>▶ <strong>안정이 중요하다면</strong> → 에이전시 소속</li>
+                    </ul>
+                    
+                    <p>저는 10년 고민한 끝에 <strong>안정</strong>을 선택했습니다.</p>
+                    
+                    <hr style="margin: 32px 0;">
+                    
+                    <p class="lead-text">가장 큰 차이: 매월 고정 월급</p>
+                    
+                    <p>개인 프리랜서는 일감 없으면 소득 0원.<br>
+                    에이전시 소속은 일감 없어도 <strong>매월 월급 보장</strong>.</p>
+                    
+                    <p>이게 가장 큰 차이입니다.</p>
+                    
+                    <hr style="margin: 32px 0;">
+                    
+                    <p class="lead-text">2025년 5월, 함께하시겠습니까?</p>
+                    
+                    <p>아티링은 프리랜서를 위한 에이전시 플랫폼입니다.</p>
+                    <ul class="feature-list">
+                        <li>✓ 매월 고정 월급 (Type별 100-800만원)</li>
+                        <li>✓ 4대보험 100%</li>
+                        <li>✓ AI 자동 매칭</li>
+                        <li>✓ 백업 시스템</li>
+                        <li>✓ 법적 보호</li>
+                    </ul>
+                    
+                    <p>개인 프리랜서의 <strong>자유</strong>와 에이전시 소속의 <strong>안정</strong>, 둘 다 가져가고 싶은 분들을 기다립니다.</p>
+                    
+                    <p style="text-align: right; margin-top: 32px; font-style: italic;">— 아티링 창업자, 임수연</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container-narrow">
+            <div class="cta-card" data-aos="zoom-in">
+                <h3 class="cta-title">매월 고정 월급 받고 싶다면</h3>
+                <p class="cta-description">2026년 하반기 정식 출시. 사전 등록하시면 '다양한 혜택'을 드립니다.</p>
+                
+                <div class="cta-buttons">
+                    <a href="https://www.artiring.com/structure" class="btn btn-primary">에이전시 사전예약 신청</a>
+                    <a href="https://www.artiring.com/records" class="btn btn-secondary">더 자세히 보기</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <script>
+        // AOS 초기화
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+        
+        // 카운터 애니메이션
+        function initCounters() {
+            if (typeof CountUp === 'undefined' && typeof countUp === 'undefined') {
+                document.querySelectorAll('.stat-number').forEach(el => {
+                    const target = parseFloat(el.dataset.count);
+                    if (target && !isNaN(target)) {
+                        const hasDecimal = target % 1 !== 0;
+                        const decimals = hasDecimal ? 1 : 0;
+                        el.textContent = target.toFixed(decimals);
+                    }
+                });
+                setTimeout(initCounters, 500);
+                return;
+            }
+            
+            const CountUpClass = typeof CountUp !== 'undefined' ? CountUp : countUp;
+            
+            document.querySelectorAll('.stat-number').forEach(el => {
+                const target = parseFloat(el.dataset.count);
+                if (target && !isNaN(target)) {
+                    const hasDecimal = target % 1 !== 0;
+                    const decimals = hasDecimal ? 1 : 0;
+                    
+                    const options = {
+                        duration: 2,
+                        useEasing: true,
+                        separator: ',',
+                        decimal: '.',
+                        decimals: decimals
+                    };
+                    
+                    try {
+                        const counter = new CountUpClass(el, target, options);
+                        
+                        if (counter.error) {
+                            el.textContent = target.toFixed(decimals);
+                            return;
+                        }
+                        
+                        const observer = new IntersectionObserver(entries => {
+                            entries.forEach(entry => {
+                                if (entry.isIntersecting) {
+                                    counter.start();
+                                    observer.unobserve(entry.target);
+                                }
+                            });
+                        }, { threshold: 0.5 });
+                        
+                        observer.observe(el);
+                    } catch (e) {
+                        el.textContent = target.toFixed(decimals);
+                    }
+                }
+            });
+        }
+        
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initCounters);
+        } else {
+            setTimeout(initCounters, 100);
+        }
+        
+        // 차트 초기화
+        function initCharts() {
+            if (typeof Chart === 'undefined') {
+                setTimeout(initCharts, 500);
+                return;
+            }
+            
+            // 파이 차트 1: 개인 프리랜서
+            const ctx1 = document.getElementById('pieChart1');
+            if (ctx1) {
+                new Chart(ctx1.getContext('2d'), {
+                    type: 'pie',
+                    data: {
+                        labels: ['상담·견적', '실제 작업'],
+                        datasets: [{
+                            data: [70, 30],
+                            backgroundColor: ['#FF6B6B', '#4169E1'],
+                            borderWidth: 0
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        plugins: {
+                            legend: {
+                                position: 'bottom'
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return context.label + ': ' + context.parsed + '%';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            // 파이 차트 2: 에이전시 소속
+            const ctx2 = document.getElementById('pieChart2');
+            if (ctx2) {
+                new Chart(ctx2.getContext('2d'), {
+                    type: 'pie',
+                    data: {
+                        labels: ['상담·견적', '실제 작업'],
+                        datasets: [{
+                            data: [10, 90],
+                            backgroundColor: ['#FFB1B1', '#2ECC71'],
+                            borderWidth: 0
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        plugins: {
+                            legend: {
+                                position: 'bottom'
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return context.label + ': ' + context.parsed + '%';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            // 바 차트: 소득 구조 비교
+            const ctx3 = document.getElementById('barChart');
+            if (ctx3) {
+                new Chart(ctx3.getContext('2d'), {
+                    type: 'bar',
+                    data: {
+                        labels: ['개인 프리랜서', '에이전시 소속'],
+                        datasets: [
+                            {
+                                label: '개인 프리랜서 (건당)',
+                                data: [150],
+                                backgroundColor: '#FF6B6B',
+                                borderWidth: 0,
+                                borderRadius: 8
+                            },
+                            {
+                                label: '에이전시 소속 (월급)',
+                                data: [450],
+                                backgroundColor: '#2ECC71',
+                                borderWidth: 0,
+                                borderRadius: 8
+                            }
+                        ]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        plugins: {
+                            legend: {
+                                display: true,
+                                position: 'top'
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        if (context.datasetIndex === 0) {
+                                            return '건당 실수령: 150만원 (불안정)';
+                                        } else {
+                                            return '매월 고정 월급: 300-600만원 (Type B 기준, 안정)';
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                beginAtZero: true,
+                                max: 500,
+                                ticks: {
+                                    callback: function(value) {
+                                        return value + '만원';
+                                    }
+                                }
+                            },
+                            y: {
+                                grid: {
+                                    display: false
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+        
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', function() {
+                setTimeout(initCharts, 100);
+            });
+        } else {
+            setTimeout(initCharts, 100);
+        }
+        
+        // iframe 높이 자동 전달
+        function sendHeightToParent() {
+            if (window.parent !== window) {
+                const height = Math.max(
+                    document.body.scrollHeight,
+                    document.body.offsetHeight,
+                    document.documentElement.clientHeight,
+                    document.documentElement.scrollHeight,
+                    document.documentElement.offsetHeight
+                );
+                window.parent.postMessage({
+                    type: 'iframe-resize',
+                    height: height
+                }, '*');
+            }
+        }
+
+        window.addEventListener('load', () => {
+            sendHeightToParent();
+            setTimeout(sendHeightToParent, 2000);
+        });
+
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(sendHeightToParent, 300);
+        });
+
+        const observer = new MutationObserver(() => {
+            sendHeightToParent();
+        });
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true,
+            attributes: true
+        });
+    </script>
+</body>
+</html>
+
