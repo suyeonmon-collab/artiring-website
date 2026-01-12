@@ -936,17 +936,6 @@
                     </div>
                 </div>
             </div>
-            
-            <hr>
-            
-            <!-- 바 차트 (수평) -->
-            <div class="content-card" data-aos="fade-up">
-                <div class="chart-wrapper">
-                    <h3 class="chart-title">소득 구조 비교</h3>
-                    <canvas id="barChart"></canvas>
-                    <p class="chart-caption">개인 프리랜서는 건당 받음으로 불안정, 에이전시 소속은 매월 고정 월급으로 안정적</p>
-                </div>
-            </div>
         </div>
     </section>
     
@@ -1362,71 +1351,6 @@
                                     label: function(context) {
                                         return context.label + ': ' + context.parsed + '%';
                                     }
-                                }
-                            }
-                        }
-                    }
-                });
-            }
-            
-            // 바 차트: 소득 구조 비교
-            const ctx3 = document.getElementById('barChart');
-            if (ctx3) {
-                new Chart(ctx3.getContext('2d'), {
-                    type: 'bar',
-                    data: {
-                        labels: ['개인 프리랜서', '에이전시 소속'],
-                        datasets: [
-                            {
-                                label: '개인 프리랜서 (건당)',
-                                data: [150],
-                                backgroundColor: '#FF6B6B',
-                                borderWidth: 0,
-                                borderRadius: 8
-                            },
-                            {
-                                label: '에이전시 소속 (월급)',
-                                data: [450],
-                                backgroundColor: '#2ECC71',
-                                borderWidth: 0,
-                                borderRadius: 8
-                            }
-                        ]
-                    },
-                    options: {
-                        indexAxis: 'y',
-                        responsive: true,
-                        maintainAspectRatio: true,
-                        plugins: {
-                            legend: {
-                                display: true,
-                                position: 'top'
-                            },
-                            tooltip: {
-                                callbacks: {
-                                    label: function(context) {
-                                        if (context.datasetIndex === 0) {
-                                            return '건당 실수령: 150만원 (불안정)';
-                                        } else {
-                                            return '매월 고정 월급: 300-600만원 (Type B 기준, 안정)';
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                        scales: {
-                            x: {
-                                beginAtZero: true,
-                                max: 500,
-                                ticks: {
-                                    callback: function(value) {
-                                        return value + '만원';
-                                    }
-                                }
-                            },
-                            y: {
-                                grid: {
-                                    display: false
                                 }
                             }
                         }
