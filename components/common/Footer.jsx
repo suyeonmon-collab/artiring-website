@@ -60,7 +60,7 @@ export default function Footer() {
               />
             </Link>
             <p className="mt-3 text-sm text-[var(--color-text-secondary)] leading-relaxed">
-              프리랜서 소속사 기반 인력 관리 플랫폼
+              프리랜서 에이전시 기반 인력 관리 플랫폼
               <br />
               새로운 프리랜서 생태계를 만들어갑니다.
             </p>

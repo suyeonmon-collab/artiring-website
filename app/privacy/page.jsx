@@ -31,7 +31,7 @@ export default function PrivacyPage() {
           <section className="mb-8">
             <h2 className="text-xl font-semibold mb-4">1. 수집하는 개인정보</h2>
             <ul className="space-y-2 text-[var(--color-text-secondary)]">
-              <li>• 회원가입: 이름, 이메일, 전화번호, 유형(클라이언트/소속사/프리랜서)</li>
+              <li>• 회원가입: 이름, 이메일, 전화번호, 유형(클라이언트/에이전시/프리랜서)</li>
               <li>• 서비스 이용: 프로젝트 정보, 포트폴리오, 계약 내역</li>
               <li>• 자동 수집: 접속 IP, 쿠키, 이용 기록</li>
             </ul>

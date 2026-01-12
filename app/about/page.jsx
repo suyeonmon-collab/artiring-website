@@ -16,12 +16,12 @@ const timeline = [
   {
     date: '2025.11',
     title: '사업 구조 설계 완료',
-    description: '3자 구조(클라이언트-플랫폼-소속사-프리랜서) 기반 백업 시스템 및 통합 관리 시스템 설계를 완료했습니다.'
+    description: '3자 구조(클라이언트-플랫폼-에이전시-프리랜서) 기반 백업 시스템 및 통합 관리 시스템 설계를 완료했습니다.'
   },
   {
     date: '2025.12',
     title: '특허 출원',
-    description: '프리랜서 소속사 기반 인력 관리 시스템 및 방법에 대한 특허 출원을 완료했습니다.'
+    description: '프리랜서 에이전시 기반 인력 관리 시스템 및 방법에 대한 특허 출원을 완료했습니다.'
   },
   {
     date: '2026.01',
@@ -133,8 +133,8 @@ const problems = [
 const directions = [
   {
     icon: directionIcons.agency,
-    title: '소속사 단위 운영',
-    description: '프리랜서를 개인이 아닌 소속사 구조 안에서 관리합니다.'
+    title: '에이전시 단위 운영',
+    description: '프리랜서를 개인이 아닌 에이전시 구조 안에서 관리합니다.'
   },
   {
     icon: directionIcons.backup,
@@ -154,7 +154,7 @@ const missions = [
     title: '프로젝트 안정성 확보',
     description: [
       '프리랜서 이탈로 인한 프로젝트 실패를 구조적으로 방지합니다.',
-      '소속사 단위 백업 시스템을 통해 업무 연속성을 보장합니다.'
+      '에이전시 단위 백업 시스템을 통해 업무 연속성을 보장합니다.'
     ]
   },
   {
@@ -170,7 +170,7 @@ const missions = [
     title: '관리 효율성 극대화',
     description: [
       '근태, 급여, 계약, 행정 처리를 통합 자동화합니다.',
-      '소속사와 클라이언트가 프로젝트 본질에 집중할 수 있도록 합니다.'
+      '에이전시와 클라이언트가 프로젝트 본질에 집중할 수 있도록 합니다.'
     ]
   },
 ];
@@ -220,7 +220,7 @@ export default function AboutPage() {
               />
             </div>
             <p className="mt-4 text-lg md:text-xl text-[var(--color-text-secondary)]">
-              디자이너·아티스트를 소속사로 연결하는 플랫폼
+              디자이너·아티스트를 에이전시로 연결하는 플랫폼
             </p>
           </MotionWrapper>
         </div>

@@ -69,7 +69,7 @@ const coreIcons = {
 
 export const metadata = {
   title: '아티링 - 프리랜서를 구조로 연결합니다',
-  description: '아티링은 프리랜서를 소속사 단위로 조직화하고, 백업 인력 구조와 통합 관리 시스템을 통해 프로젝트의 안정성을 높이는 인력 관리 플랫폼입니다.',
+  description: '아티링은 프리랜서를 에이전시 단위로 조직화하고, 백업 인력 구조와 통합 관리 시스템을 통해 프로젝트의 안정성을 높이는 인력 관리 플랫폼입니다.',
   openGraph: {
     title: '아티링 - 프리랜서를 구조로 연결합니다',
     description: '프로젝트는 지속 가능한 구조 위에서 완성되어야 합니다.',
@@ -100,7 +100,7 @@ export default async function HomePage() {
             transition={{ duration: 0.6, delay: 0.3 }}
           >
             <p className="mt-6 text-lg md:text-xl text-[var(--color-text-secondary)] leading-relaxed max-w-2xl">
-              디자이너·아티스트를 위한 소속사 플랫폼
+              디자이너·아티스트를 위한 에이전시 플랫폼
               <br />
               AI가 일감을 매칭하고, 구조가 창작자를 보호합니다
             </p>
@@ -215,7 +215,7 @@ export default async function HomePage() {
                 <div className="w-24 h-24 mx-auto flex items-center justify-center bg-[var(--color-point)] rounded-full">
                   <span className="text-white font-semibold text-lg">ARTIRING</span>
                 </div>
-                <p className="mt-3 font-medium">소속사 (플랫폼)</p>
+                <p className="mt-3 font-medium">에이전시 (플랫폼)</p>
               </div>
 
               {/* Arrow */}
@@ -245,7 +245,7 @@ export default async function HomePage() {
           <p className="mt-8 text-[var(--color-text-secondary)] leading-relaxed text-center max-w-xl mx-auto">
             이 구조를 통해 프로젝트는 개인에게 종속되지 않고,
             <br className="hidden md:block" />
-            소속사 단위로 안정적으로 운영됩니다.
+            에이전시 단위로 안정적으로 운영됩니다.
           </p>
 
           <div className="mt-8 text-center">
@@ -274,10 +274,10 @@ export default async function HomePage() {
               </div>
               <div>
                 <h3 className="text-lg font-semibold tracking-tight">
-                  소속사 단위 운영
+                  에이전시 단위 운영
                 </h3>
                 <p className="mt-2 text-[var(--color-text-secondary)] leading-relaxed">
-                  프리랜서는 개인이 아닌 사업자가 개설한 소속사 단위로 관리됩니다.
+                  프리랜서는 개인이 아닌 사업자가 개설한 에이전시 단위로 관리됩니다.
                   계약 정보, 프로젝트 책임, 인력 교체 시 연속성이 구조적으로 유지됩니다.
                 </p>
               </div>
@@ -293,7 +293,7 @@ export default async function HomePage() {
                   백업 인력 시스템
                 </h3>
                 <p className="mt-2 text-[var(--color-text-secondary)] leading-relaxed">
-                  프로젝트 진행 중 비활성 상태가 감지되면 동일 소속사 내 백업 인력을 탐색합니다.
+                  프로젝트 진행 중 비활성 상태가 감지되면 동일 에이전시 내 백업 인력을 탐색합니다.
                   작업 파일, 이력, 진행 정보가 자동으로 이관되어 업무 연속성이 유지됩니다.
                 </p>
               </div>
@@ -310,7 +310,7 @@ export default async function HomePage() {
                 </h3>
                 <p className="mt-2 text-[var(--color-text-secondary)] leading-relaxed">
                   프로젝트 상태, 근태, 계약, 행정 처리가 하나의 시스템으로 통합됩니다.
-                  소속사와 클라이언트의 관리 부담을 최소화합니다.
+                  에이전시와 클라이언트의 관리 부담을 최소화합니다.
                 </p>
               </div>
             </div>
@@ -459,7 +459,7 @@ export default async function HomePage() {
               
               <div>
                 <h3 className="text-lg font-medium text-[var(--color-text-secondary)] mb-2">
-                  소속사를 운영한다면
+                  에이전시를 운영한다면
                 </h3>
                 <Link href="/contact" className="text-link text-lg inline-flex items-center gap-2 hover:gap-3 transition-all">
                   파트너 문의

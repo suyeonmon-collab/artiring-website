@@ -4,15 +4,15 @@ import PreReservationForm from '@/components/structure/PreReservationForm';
 
 export const metadata = {
   title: '서비스',
-  description: '아티링의 3자 구조(클라이언트-플랫폼-소속사-프리랜서), 백업 시스템, AI 매칭 시스템, 통합 관리 시스템을 소개합니다.',
+  description: '아티링의 3자 구조(클라이언트-플랫폼-에이전시-프리랜서), 백업 시스템, AI 매칭 시스템, 통합 관리 시스템을 소개합니다.',
 };
 
 const structures = [
   {
     id: 'three-party',
     title: '3자 구조',
-    subtitle: '클라이언트 - 플랫폼(소속사) - 프리랜서',
-    description: '기존의 양자 구조(클라이언트-프리랜서)에서 벗어나, 소속사가 중간에서 양측을 관리하고 보호하는 새로운 구조입니다.',
+    subtitle: '클라이언트 - 플랫폼(에이전시) - 프리랜서',
+    description: '기존의 양자 구조(클라이언트-프리랜서)에서 벗어나, 에이전시가 중간에서 양측을 관리하고 보호하는 새로운 구조입니다.',
     details: [
       {
         role: '클라이언트',
@@ -24,7 +24,7 @@ const structures = [
         ]
       },
       {
-        role: '소속사 (플랫폼)',
+        role: '에이전시 (플랫폼)',
         benefits: [
           '프리랜서 검증 및 포트폴리오 관리',
           '클라이언트 매칭 및 영업 대행',
@@ -38,7 +38,7 @@ const structures = [
           '안정적인 프로젝트 확보',
           '행정 업무 부담 제거',
           '체계적인 커리어 관리',
-          '소속사 네트워크 활용'
+          '에이전시 네트워크 활용'
         ]
       }
     ]
@@ -62,7 +62,7 @@ const systems = [
       },
       {
         name: '3단계: 백업 탐색',
-        detail: '동일 소속사 내 유사 역량 디자이너/아티스트 검색 (AI가 포트폴리오·경력·작업 스타일 분석)'
+        detail: '동일 에이전시 내 유사 역량 디자이너/아티스트 검색 (AI가 포트폴리오·경력·작업 스타일 분석)'
       },
       {
         name: '즉시 투입 프로토콜',
@@ -184,8 +184,8 @@ export default function StructurePage() {
             3자 구조
           </h2>
           <p className="mt-4 text-[var(--color-text-secondary)] leading-relaxed max-w-2xl">
-            클라이언트 - 소속사(플랫폼) - 프리랜서. 
-            소속사가 중간에서 양측을 관리하고 보호하는 새로운 협업 구조입니다.
+            클라이언트 - 에이전시(플랫폼) - 프리랜서. 
+            에이전시가 중간에서 양측을 관리하고 보호하는 새로운 협업 구조입니다.
           </p>
 
           {/* Structure Diagram */}
@@ -213,7 +213,7 @@ export default function StructurePage() {
                 <div className="w-24 h-24 mx-auto flex items-center justify-center bg-[var(--color-point)] rounded-full">
                   <span className="text-white font-semibold text-lg">ARTIRING</span>
                 </div>
-                <p className="mt-3 font-medium">소속사 (플랫폼)</p>
+                <p className="mt-3 font-medium">에이전시 (플랫폼)</p>
               </div>
 
               {/* Arrow */}

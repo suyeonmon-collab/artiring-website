@@ -6,7 +6,7 @@ CREATE TABLE pre_reservations (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   name TEXT NOT NULL,
   phone TEXT NOT NULL,
-  type TEXT NOT NULL CHECK (type IN ('클라이언트', '소속사', '프리랜서')),
+  type TEXT NOT NULL CHECK (type IN ('클라이언트', '에이전시', '프리랜서')),
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 

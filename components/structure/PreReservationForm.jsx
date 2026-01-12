@@ -88,7 +88,7 @@ export default function PreReservationForm() {
               className="w-full px-4 py-2 border border-[var(--color-border)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--color-point)]"
             >
               <option value="클라이언트">클라이언트</option>
-              <option value="소속사">소속사</option>
+              <option value="에이전시">에이전시</option>
               <option value="프리랜서">프리랜서</option>
             </select>
           </div>

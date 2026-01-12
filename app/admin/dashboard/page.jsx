@@ -705,7 +705,7 @@ export default function AdminDashboardPage() {
                 {[
                   { key: 'all', label: '전체' },
                   { key: '클라이언트', label: '클라이언트' },
-                  { key: '소속사', label: '소속사' },
+                  { key: '에이전시', label: '에이전시' },
                   { key: '프리랜서', label: '프리랜서' },
                 ].map((tab) => (
                   <button

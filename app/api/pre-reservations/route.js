@@ -64,7 +64,7 @@ export async function POST(request) {
       return Response.json({ error: '이름, 전화번호, 유형은 필수입니다.' }, { status: 400 });
     }
 
-    if (!['클라이언트', '소속사', '프리랜서'].includes(type)) {
+    if (!['클라이언트', '에이전시', '프리랜서'].includes(type)) {
       return Response.json({ error: '유효하지 않은 유형입니다.' }, { status: 400 });
     }
 

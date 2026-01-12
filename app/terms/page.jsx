@@ -31,7 +31,7 @@ export default function TermsPage() {
           <section className="mb-8">
             <h2 className="text-xl font-semibold mb-4">1. 서비스 내용</h2>
             <p className="text-[var(--color-text-secondary)]">
-              아티링은 디자이너·아티스트와 클라이언트를 연결하는 소속사 기반 플랫폼입니다.
+              아티링은 디자이너·아티스트와 클라이언트를 연결하는 에이전시 기반 플랫폼입니다.
             </p>
           </section>
 
