@@ -8,7 +8,7 @@ import { usePathname } from 'next/navigation';
 const navigation = [
   { name: '소개', href: '/about' },
   { name: '서비스', href: '/structure' },
-  { name: '기록', href: '/records' },
+  { name: '블로그', href: '/records' },
   { name: '문의', href: '/contact' },
 ];
 
@@ -46,7 +46,7 @@ export default function Header() {
               <Link
                 key={item.name}
                 href={item.href}
-                className={`text-sm font-medium transition-colors ${
+                className={`text-sm font-semibold transition-colors ${
                   isActive(item.href)
                     ? 'text-[var(--color-point)]'
                     : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]'
@@ -97,7 +97,7 @@ export default function Header() {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
+                  className={`px-3 py-2 text-sm font-semibold rounded-lg transition-colors ${
                     isActive(item.href)
                       ? 'text-[var(--color-point)] bg-[var(--color-bg-sub)]'
                       : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-sub)]'

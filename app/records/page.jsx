@@ -6,7 +6,7 @@ import RecordToolbar from '@/components/records/RecordToolbar';
 import Pagination from '@/components/common/Pagination';
 
 export const metadata = {
-  title: '기록 - 아티링 | ARTIRING',
+  title: '블로그 - 아티링 | ARTIRING',
   description: '아티링이 문제를 정의하고, 실험하고, 설계한 과정을 기록합니다. 문제정의, 실험과정, 구조설계, 특허·법률, 창업준비의 모든 여정을 공유합니다.',
 };
 
@@ -95,7 +95,7 @@ export default async function RecordsPage({ searchParams }) {
         {/* 페이지 헤더 */}
         <header className="mb-12">
           <h1 className="text-5xl md:text-[48px] font-semibold tracking-tight">
-            기록
+            블로그
           </h1>
           <p className="mt-4 text-base text-[var(--color-text-secondary)]">
             아티링이 문제를 정의하고, 실험하고, 설계한 과정

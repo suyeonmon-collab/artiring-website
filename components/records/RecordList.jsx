@@ -14,20 +14,28 @@ export default function RecordList({ posts }) {
           href={`/records/${post.slug}`}
           className={`record-list-item ${!post.thumbnail_url ? 'no-thumbnail' : ''}`}
         >
-          {/* 썸네일 (선택적) */}
+          {/* 썸네일 (1:1 비율, 앨범 형식) */}
           {post.thumbnail_url && (
-            <img
-              src={post.thumbnail_url}
-              alt=""
-              className="record-thumbnail"
-              loading="lazy"
-            />
+            <div className="record-thumbnail-wrapper">
+              {/* 카테고리 (이미지 상단) */}
+              {post.blog_categories && (
+                <div className="record-category-overlay">
+                  {post.blog_categories.name}
+                </div>
+              )}
+              <img
+                src={post.thumbnail_url}
+                alt={post.title}
+                className="record-thumbnail"
+                loading="lazy"
+              />
+            </div>
           )}
 
           {/* 콘텐츠 */}
           <div className="record-content">
-            {/* 카테고리 */}
-            {post.blog_categories && (
+            {/* 카테고리 (썸네일이 없을 때만 표시) */}
+            {!post.thumbnail_url && post.blog_categories && (
               <div className="record-category">
                 {post.blog_categories.name}
               </div>

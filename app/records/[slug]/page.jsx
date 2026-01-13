@@ -15,22 +15,53 @@ export async function generateMetadata({ params }) {
   
   if (!post) {
     return {
-      title: '기록을 찾을 수 없습니다 - 아티링',
+      title: '블로그 글을 찾을 수 없습니다 - 아티링',
     };
   }
 
+  const baseUrl = await getBaseUrl();
   const description = post.summary || extractTextFromHtml(post.content_html).slice(0, 160);
+  const url = `${baseUrl}/records/${post.slug}`;
+  const images = post.thumbnail_url ? [post.thumbnail_url] : [];
 
   return {
-    title: `${post.title} - 아티링 기록`,
+    title: `${post.title} - 아티링 블로그`,
     description,
+    keywords: post.tags?.map(tag => tag.name).join(', ') || '프리랜서, 에이전시, 디자인, 아티링',
+    authors: [{ name: post.author?.name || 'ARTIRING' }],
+    creator: 'ARTIRING',
+    publisher: 'ARTIRING',
     openGraph: {
       title: post.title,
       description,
       type: 'article',
+      url,
+      siteName: 'ARTIRING',
+      locale: 'ko_KR',
       publishedTime: post.published_at,
+      modifiedTime: post.updated_at || post.published_at,
       authors: [post.author?.name || 'ARTIRING'],
-      images: post.thumbnail_url ? [post.thumbnail_url] : [],
+      images: images,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description,
+      images: images,
+    },
+    alternates: {
+      canonical: url,
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
     },
   };
 }
@@ -96,9 +127,44 @@ export default async function RecordDetailPage({ params }) {
 
   const h2Count = countH2Tags(post.content_html);
   const showToc = h2Count >= 3;
+  const baseUrl = await getBaseUrl();
+  const url = `${baseUrl}/records/${post.slug}`;
+
+  // Structured Data (JSON-LD) for SEO
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.title,
+    description: post.summary || extractTextFromHtml(post.content_html).slice(0, 200),
+    image: post.thumbnail_url ? [post.thumbnail_url] : [],
+    datePublished: post.published_at,
+    dateModified: post.updated_at || post.published_at,
+    author: {
+      '@type': 'Organization',
+      name: post.author?.name || 'ARTIRING',
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'ARTIRING',
+      logo: {
+        '@type': 'ImageObject',
+        url: `${baseUrl}/images/logo.png`,
+      },
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': url,
+    },
+    articleSection: post.blog_categories?.name || '블로그',
+    keywords: post.tags?.map(tag => tag.name).join(', ') || '프리랜서, 에이전시, 디자인',
+  };
 
   return (
     <article className="section">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
       <div className="container-narrow">
         {/* 아티클 헤더 */}
         <header className="article-header">
