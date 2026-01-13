@@ -38,6 +38,8 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://artiring.com';
+  
   return (
     <html lang="ko">
       <head>
@@ -47,6 +49,17 @@ export default function RootLayout({ children }) {
           crossOrigin="anonymous"
           href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css"
         />
+        {/* Favicon for Google Search */}
+        <link rel="icon" type="image/png" href="/images/pavicon.png" />
+        <link rel="shortcut icon" type="image/png" href="/images/pavicon.png" />
+        <link rel="apple-touch-icon" href="/images/pavicon.png" />
+        {/* Additional sizes for better compatibility */}
+        <link rel="icon" type="image/png" sizes="16x16" href="/images/pavicon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/images/pavicon.png" />
+        <link rel="icon" type="image/png" sizes="192x192" href="/images/pavicon.png" />
+        <link rel="icon" type="image/png" sizes="512x512" href="/images/pavicon.png" />
+        {/* Manifest for PWA support */}
+        <link rel="manifest" href="/manifest.json" />
       </head>
       <body className="min-h-screen flex flex-col">
         <Header />

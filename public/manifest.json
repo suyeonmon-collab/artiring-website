@@ -1,0 +1,23 @@
+{
+  "name": "ARTIRING - 프리랜서 에이전시 기반 인력 관리 플랫폼",
+  "short_name": "ARTIRING",
+  "description": "아티링은 프리랜서와 클라이언트를 연결하는 새로운 에이전시 모델을 제안합니다.",
+  "icons": [
+    {
+      "src": "/images/pavicon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/pavicon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#007AFF",
+  "background_color": "#FFFFFF",
+  "display": "standalone",
+  "start_url": "/",
+  "scope": "/"
+}
+
