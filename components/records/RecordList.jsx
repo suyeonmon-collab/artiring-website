@@ -7,22 +7,16 @@ export default function RecordList({ posts }) {
   }
 
   return (
-    <div className="records-list">
+    <div className="records-grid">
       {posts.map((post) => (
         <Link
           key={post.id}
           href={`/records/${post.slug}`}
-          className={`record-list-item ${!post.thumbnail_url ? 'no-thumbnail' : ''}`}
+          className="record-grid-item"
         >
-          {/* 썸네일 (1:1 비율, 앨범 형식) */}
-          {post.thumbnail_url && (
+          {/* 썸네일 */}
+          {post.thumbnail_url ? (
             <div className="record-thumbnail-wrapper">
-              {/* 카테고리 (이미지 상단) */}
-              {post.blog_categories && (
-                <div className="record-category-overlay">
-                  {post.blog_categories.name}
-                </div>
-              )}
               <img
                 src={post.thumbnail_url}
                 alt={post.title}
@@ -30,38 +24,24 @@ export default function RecordList({ posts }) {
                 loading="lazy"
               />
             </div>
+          ) : (
+            <div className="record-thumbnail-wrapper record-thumbnail-placeholder">
+              <div className="record-thumbnail-placeholder-content">
+                {post.title.charAt(0)}
+              </div>
+            </div>
           )}
 
-          {/* 콘텐츠 */}
-          <div className="record-content">
-            {/* 카테고리 (썸네일이 없을 때만 표시) */}
-            {!post.thumbnail_url && post.blog_categories && (
-              <div className="record-category">
-                {post.blog_categories.name}
-              </div>
-            )}
-            
-            {/* 제목 */}
-            <h3 className="record-title">
+          {/* 제목과 조회수 (이미지 하단) */}
+          <div className="record-grid-content">
+            <h3 className="record-grid-title">
               {post.title}
             </h3>
-            
-            {/* 요약 */}
-            {post.summary && (
-              <p className="record-summary">
-                {post.summary}
-              </p>
+            {post.view_count > 0 && (
+              <div className="record-grid-views">
+                조회 {post.view_count.toLocaleString()}
+              </div>
             )}
-            
-            {/* 메타 정보 */}
-            <div className="record-meta">
-              <time dateTime={post.published_at}>
-                {formatDate(post.published_at)}
-              </time>
-              {post.view_count > 0 && (
-                <span>조회 {post.view_count.toLocaleString()}</span>
-              )}
-            </div>
           </div>
         </Link>
       ))}
