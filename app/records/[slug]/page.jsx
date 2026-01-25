@@ -21,16 +21,29 @@ export async function generateMetadata({ params }) {
   }
 
   const baseUrl = await getBaseUrl();
-  const description = post.summary || extractTextFromHtml(post.content_html).slice(0, 160);
+  
+  // HTML 파일이 있으면 그 텍스트를, 없으면 content_html에서 텍스트 추출
+  const contentText = post.html_file_text 
+    ? post.html_file_text 
+    : extractTextFromHtml(post.content_html);
+  
+  const description = post.summary || contentText.slice(0, 160);
   const url = `${baseUrl}/records/${post.slug}`;
   const images = post.thumbnail_url ? [post.thumbnail_url] : [`${baseUrl}/images/logo.png`];
   const keywords = post.tags?.map(tag => tag.name).join(', ') || '프리랜서, 에이전시, 디자인, 아티링';
+  
+  // HTML 파일의 텍스트에서 주요 키워드 추출 (SEO용)
+  const textKeywords = contentText
+    .split(/\s+/)
+    .filter(word => word.length > 2)
+    .slice(0, 10)
+    .join(', ');
   
   // 검색 엔진 최적화를 위한 더 풍부한 메타데이터
   return {
     title: `${post.title} | 아티링 블로그`,
     description: description || `${post.title} - 아티링 블로그에서 프리랜서와 에이전시에 대한 인사이트를 확인하세요.`,
-    keywords: `${keywords}, 아티링, ARTIRING, 프리랜서 플랫폼, 에이전시 모델`,
+    keywords: `${keywords}, ${textKeywords}, 아티링, ARTIRING, 프리랜서 플랫폼, 에이전시 모델`,
     authors: [{ name: post.author?.name || 'ARTIRING' }],
     creator: 'ARTIRING',
     publisher: 'ARTIRING',
@@ -143,10 +156,10 @@ async function getPost(slug) {
           }
         }
         
-        // 파일 존재 여부 확인 (간단한 HEAD 요청)
+        // 파일 존재 여부 확인 및 HTML 텍스트 추출 (SEO를 위해)
         const fileCheckUrl = `${baseUrl}/blog/${fileName}`;
         const fileCheckResponse = await fetch(fileCheckUrl, { 
-          method: 'HEAD',
+          method: 'GET',
           cache: 'no-store'
         });
         
@@ -154,6 +167,13 @@ async function getPost(slug) {
         if (!fileCheckResponse.ok) {
           console.warn(`HTML file not found for post ${slug}: ${fileName}, using content_html instead`);
           post.html_file = null;
+        } else {
+          // HTML 파일에서 텍스트 추출하여 SEO에 활용
+          const htmlContent = await fileCheckResponse.text();
+          const htmlText = extractTextFromHtml(htmlContent);
+          
+          // HTML 파일의 텍스트를 post 객체에 추가 (SEO용)
+          post.html_file_text = htmlText;
         }
       } catch (error) {
         // 파일 확인 중 에러 발생 시 안전하게 content_html 사용
@@ -208,7 +228,12 @@ export default async function RecordDetailPage({ params }) {
   const url = `${baseUrl}/records/${post.slug}`;
 
   // Structured Data (JSON-LD) for SEO - 개별 블로그 글 검색 최적화
-  const description = post.summary || extractTextFromHtml(post.content_html).slice(0, 200);
+  // HTML 파일이 있으면 그 텍스트를, 없으면 content_html에서 텍스트 추출
+  const contentText = post.html_file_text 
+    ? post.html_file_text 
+    : extractTextFromHtml(post.content_html);
+  
+  const description = post.summary || contentText.slice(0, 200);
   const keywords = post.tags?.map(tag => tag.name).join(', ') || '프리랜서, 에이전시, 디자인, 아티링';
   
   const structuredData = {
@@ -216,6 +241,8 @@ export default async function RecordDetailPage({ params }) {
     '@type': 'BlogPosting',
     headline: post.title,
     description: description,
+    // HTML 파일의 텍스트 내용을 articleBody에 포함 (검색 엔진이 텍스트 내용을 인덱싱할 수 있도록)
+    articleBody: contentText.slice(0, 5000), // 처음 5000자만 포함 (너무 길면 제한)
     image: post.thumbnail_url ? [post.thumbnail_url] : [`${baseUrl}/images/logo.png`],
     datePublished: post.published_at,
     dateModified: post.updated_at || post.published_at,
@@ -347,6 +374,16 @@ export default async function RecordDetailPage({ params }) {
                 id="fallback-content"
                 dangerouslySetInnerHTML={{ __html: post.content_html }}
               />
+            )}
+            {/* SEO를 위해 HTML 파일의 텍스트 내용을 숨겨진 형태로 포함 (검색 엔진이 인덱싱할 수 있도록) */}
+            {post.html_file_text && (
+              <div 
+                className="sr-only"
+                aria-hidden="true"
+                style={{ position: 'absolute', left: '-9999px', width: '1px', height: '1px', overflow: 'hidden' }}
+              >
+                {post.html_file_text}
+              </div>
             )}
           </div>
         ) : (

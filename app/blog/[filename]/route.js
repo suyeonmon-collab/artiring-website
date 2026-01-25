@@ -92,6 +92,31 @@ function removeExternalImageUrls(htmlContent) {
     ''
   );
   
+  // 추가: JavaScript나 다른 스크립트에서 동적으로 로드되는 이미지 URL도 제거
+  // 예: dthumb-phinf.pstatic.net/?src=%22https%3A%2F%2F...
+  cleanedContent = cleanedContent.replace(
+    /dthumb-phinf\.pstatic\.net\/\?src=[^"'>\s]*/gi,
+    ''
+  );
+  
+  // 추가: 모든 형태의 pstatic.net URL 제거 (더 강력하게)
+  cleanedContent = cleanedContent.replace(
+    /[^"'>\s]*pstatic\.net[^"'>\s]*/gi,
+    ''
+  );
+  
+  // 추가: 모든 형태의 cdninstagram.com URL 제거 (더 강력하게)
+  cleanedContent = cleanedContent.replace(
+    /[^"'>\s]*cdninstagram\.com[^"'>\s]*/gi,
+    ''
+  );
+  
+  // 추가: postfiles.pstatic.net URL 제거 (더 강력하게)
+  cleanedContent = cleanedContent.replace(
+    /[^"'>\s]*postfiles\.pstatic\.net[^"'>\s]*/gi,
+    ''
+  );
+  
   return cleanedContent;
 }
 
