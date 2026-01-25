@@ -11,7 +11,8 @@ const BlogIframe = dynamic(() => import('@/components/records/BlogIframe'), {
 });
 
 export async function generateMetadata({ params }) {
-  const post = await getPost(params.slug);
+  const { slug } = await params;
+  const post = await getPost(slug);
   
   if (!post) {
     return {
@@ -94,14 +95,27 @@ async function getPost(slug) {
     });
     
     if (!response.ok) {
-      if (response.status === 404) return null;
-      throw new Error('Failed to fetch post');
+      if (response.status === 404) {
+        console.warn(`Post not found with slug: ${slug}`);
+        return null;
+      }
+      const errorText = await response.text();
+      console.error(`Failed to fetch post (${response.status}):`, errorText);
+      throw new Error(`Failed to fetch post: ${response.status}`);
     }
     
-    const { data } = await response.json();
-    return data;
+    const result = await response.json();
+    
+    if (!result.data) {
+      console.warn(`Post data is null for slug: ${slug}`);
+      return null;
+    }
+    
+    return result.data;
   } catch (error) {
     console.error('Error fetching post:', error);
+    console.error('Slug:', slug);
+    console.error('Base URL:', baseUrl);
     return null;
   }
 }
@@ -127,14 +141,15 @@ function countH2Tags(html) {
 }
 
 export default async function RecordDetailPage({ params }) {
-  const post = await getPost(params.slug);
+  const { slug } = await params;
+  const post = await getPost(slug);
 
   if (!post) {
     notFound();
   }
 
   // 조회수 증가 (백그라운드에서)
-  incrementViewCount(params.slug);
+  incrementViewCount(slug);
 
   const h2Count = countH2Tags(post.content_html);
   const showToc = h2Count >= 3;

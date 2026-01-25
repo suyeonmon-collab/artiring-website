@@ -34,14 +34,25 @@ export async function GET(request, { params }) {
     } else {
       query = query.eq('slug', id);
     }
+    
+    // 발행된 글만 조회 (관리자 페이지가 아닌 경우)
+    // 주의: 관리자 페이지에서는 draft도 볼 수 있어야 하므로, 여기서는 published만 필터링
+    query = query.eq('status', 'published');
 
     const { data: post, error } = await query.single();
 
     if (error) {
       if (error.code === 'PGRST116') {
+        console.warn(`Post not found: ${id} (slug or id)`);
         return Response.json({ error: 'Post not found' }, { status: 404 });
       }
+      console.error('Database error:', error);
       throw error;
+    }
+    
+    if (!post) {
+      console.warn(`Post is null for: ${id}`);
+      return Response.json({ error: 'Post not found' }, { status: 404 });
     }
 
     // 태그 조회
