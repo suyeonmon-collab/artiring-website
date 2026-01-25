@@ -111,7 +111,42 @@ async function getPost(slug) {
       return null;
     }
     
-    return result.data;
+    const post = result.data;
+    
+    // html_file이 있지만 파일이 실제로 존재하지 않을 수 있으므로 확인
+    if (post.html_file) {
+      try {
+        // 파일명 추출
+        let fileName = post.html_file;
+        const isUrl = fileName.startsWith('http://') || fileName.startsWith('https://');
+        
+        if (isUrl && fileName.includes('/blog-html/')) {
+          const match = fileName.match(/\/blog-html\/([^\/\?]+)/);
+          if (match && match[1]) {
+            fileName = match[1];
+          }
+        }
+        
+        // 파일 존재 여부 확인 (간단한 HEAD 요청)
+        const fileCheckUrl = `${baseUrl}/blog/${fileName}`;
+        const fileCheckResponse = await fetch(fileCheckUrl, { 
+          method: 'HEAD',
+          cache: 'no-store'
+        });
+        
+        // 파일이 없으면 html_file을 null로 설정하여 content_html 사용
+        if (!fileCheckResponse.ok) {
+          console.warn(`HTML file not found for post ${slug}: ${fileName}, using content_html instead`);
+          post.html_file = null;
+        }
+      } catch (error) {
+        // 파일 확인 중 에러 발생 시 안전하게 content_html 사용
+        console.warn(`Error checking HTML file for post ${slug}:`, error);
+        post.html_file = null;
+      }
+    }
+    
+    return post;
   } catch (error) {
     console.error('Error fetching post:', error);
     console.error('Slug:', slug);
