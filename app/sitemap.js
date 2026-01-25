@@ -1,7 +1,7 @@
 import { createServerComponentClient } from '@/lib/supabase';
 
 export default async function sitemap() {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://artiring.com';
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.artiring.com';
   
   // 블로그 포스트 목록 가져오기 (직접 데이터베이스에서)
   let posts = [];
