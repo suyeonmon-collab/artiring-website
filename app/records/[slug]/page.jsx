@@ -221,8 +221,18 @@ export default async function RecordDetailPage({ params }) {
 
         {/* 본문 */}
         {post.html_file ? (
-          /* HTML 파일이 있는 경우 iframe으로 표시 */
-          <BlogIframe htmlFileName={post.html_file} />
+          /* HTML 파일이 있는 경우 iframe으로 표시, 실패 시 content_html fallback */
+          <div>
+            <BlogIframe htmlFileName={post.html_file} />
+            {/* html_file이 있지만 content_html도 있는 경우, iframe 로드 실패 시 대체용으로 숨김 */}
+            {post.content_html && (
+              <div 
+                className="article-body hidden"
+                id="fallback-content"
+                dangerouslySetInnerHTML={{ __html: post.content_html }}
+              />
+            )}
+          </div>
         ) : (
           /* 일반 HTML 콘텐츠 */
           <div 

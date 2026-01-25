@@ -1,13 +1,29 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export default function BlogIframe({ htmlFileName }) {
   const iframeRef = useRef(null);
+  const [loadError, setLoadError] = useState(false);
+  const [loadTimeout, setLoadTimeout] = useState(false);
 
   useEffect(() => {
     const iframe = iframeRef.current;
     if (!iframe) return;
+
+    // 로드 타임아웃 설정 (10초 후 실패로 간주)
+    const timeoutId = setTimeout(() => {
+      // iframe이 로드되지 않았거나 내용이 없는 경우
+      try {
+        const iframeDocument = iframe.contentDocument || iframe.contentWindow?.document;
+        if (!iframeDocument || !iframeDocument.body || iframeDocument.body.innerHTML.trim() === '') {
+          setLoadTimeout(true);
+        }
+      } catch (e) {
+        // CORS 오류로 접근 불가능한 경우, 타임아웃으로 간주
+        setLoadTimeout(true);
+      }
+    }, 10000);
 
     // iframe 로드 완료 후 높이 조절
     const adjustHeight = () => {
@@ -22,6 +38,11 @@ export default function BlogIframe({ htmlFileName }) {
             iframeDocument.documentElement.offsetHeight
           );
           iframe.style.height = height + 'px';
+          
+          // 로드 성공 시 타임아웃 취소
+          clearTimeout(timeoutId);
+          setLoadTimeout(false);
+          setLoadError(false);
         }
       } catch (e) {
         // CORS 오류 시 대체 방법 (postMessage 사용)
@@ -63,6 +84,7 @@ export default function BlogIframe({ htmlFileName }) {
 
     // Cleanup
     return () => {
+      clearTimeout(timeoutId);
       clearInterval(interval);
       window.removeEventListener('message', handleMessage);
       // iframe onload 핸들러 제거
@@ -118,6 +140,24 @@ export default function BlogIframe({ htmlFileName }) {
     });
   }, [htmlFileName, isUrl, fileName, iframeSrc]);
 
+  // 로드 실패 시 fallback 콘텐츠 표시
+  useEffect(() => {
+    if (loadError || loadTimeout) {
+      const fallbackContent = document.getElementById('fallback-content');
+      const iframeWrapper = document.querySelector('.blog-iframe-wrapper');
+      
+      if (fallbackContent && iframeWrapper) {
+        fallbackContent.classList.remove('hidden');
+        iframeWrapper.style.display = 'none';
+      }
+    }
+  }, [loadError, loadTimeout]);
+
+  if (loadError || loadTimeout) {
+    // 에러 발생 시 fallback 콘텐츠가 표시되도록 빈 div 반환
+    return null;
+  }
+
   return (
     <div className="blog-iframe-wrapper my-8">
       <iframe
@@ -136,9 +176,12 @@ export default function BlogIframe({ htmlFileName }) {
         loading="lazy"
         onError={(e) => {
           console.error('Iframe load error:', e);
+          setLoadError(true);
         }}
         onLoad={() => {
           console.log('Iframe loaded successfully:', iframeSrc);
+          setLoadError(false);
+          setLoadTimeout(false);
         }}
       />
     </div>

@@ -7,7 +7,7 @@ export const dynamic = 'force-dynamic';
 
 export async function GET(request, { params }) {
   try {
-    const { filename } = params;
+    const { filename } = await params;
     const requestUrl = new URL(request.url);
     const urlParam = requestUrl.searchParams.get('url');
     
