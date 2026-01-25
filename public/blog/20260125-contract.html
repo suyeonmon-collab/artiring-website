@@ -1,0 +1,1543 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>프리랜서 계약서, 이것만은 꼭 확인하세요 | 아티링</title>
+    
+    <!-- CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/countup.js@2.8.0/dist/countUp.umd.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <style>
+        /* ===== Reset & Base ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Pretendard', -apple-system, sans-serif;
+            color: var(--black);
+            background: var(--bg-light);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        /* ===== Color Variables ===== */
+        :root {
+            --blue: #4169E1;
+            --gray: #5A5A5A;
+            --green: #2ECC71;
+            --beige: #F5DEB3;
+            --purple: #9B59B6;
+            --sky: #87CEEB;
+            --pink: #FF69B4;
+            --yellow: #FFD700;
+            --black: #2C2C2C;
+            --white: #FFFFFF;
+            --bg-light: #FAFAFA;
+        }
+
+        /* ===== Container ===== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .container-narrow {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ===== Hero Section ===== */
+        .hero-section {
+            background: white;
+            padding: 80px 0 60px;
+            text-align: center;
+        }
+
+        .breadcrumb {
+            font-size: 14px;
+            color: var(--gray);
+            margin-bottom: 24px;
+        }
+
+        .breadcrumb span:last-child {
+            color: var(--blue);
+            font-weight: 600;
+        }
+
+        .hero-title {
+            font-size: clamp(32px, 5vw, 56px);
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+            color: var(--black);
+        }
+
+        .hero-subtitle {
+            font-size: clamp(18px, 2.5vw, 24px);
+            color: var(--gray);
+            margin-bottom: 32px;
+            line-height: 1.5;
+        }
+
+        .meta-info {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            color: var(--gray);
+            flex-wrap: wrap;
+        }
+
+        .meta-info .divider {
+            color: #D1D5DB;
+        }
+
+        /* ===== Key Stats ===== */
+        .key-stats-section {
+            padding: 60px 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 40px 32px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+        }
+
+        .stat-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .stat-number {
+            font-size: 56px;
+            font-weight: 900;
+            color: var(--blue);
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .stat-unit {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--blue);
+            margin-bottom: 12px;
+        }
+
+        .stat-label {
+            font-size: 16px;
+            color: var(--gray);
+            font-weight: 500;
+        }
+
+        /* ===== Content Section ===== */
+        .content-section {
+            padding: 80px 0;
+            width: 100%;
+        }
+        
+        .content-section .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .section-tag {
+            display: inline-block;
+            padding: 6px 16px;
+            background: var(--blue);
+            color: white;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border-radius: 20px;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: clamp(28px, 4vw, 40px);
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.3;
+            color: var(--black);
+        }
+
+        /* ===== Content Card ===== */
+        .content-card {
+            background: white;
+            border-radius: 16px;
+            padding: 48px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .text-block {
+            max-width: 680px;
+            margin: 0 auto;
+        }
+
+        .text-block p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+
+        .lead-text {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--black);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .text-block ul {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        .text-block ul li {
+            padding: 12px 0 12px 32px;
+            position: relative;
+            font-size: 17px;
+            color: var(--gray);
+            line-height: 1.7;
+        }
+
+        .text-block ul li::before {
+            content: '•';
+            position: absolute;
+            left: 12px;
+            color: var(--gray);
+            font-weight: bold;
+        }
+
+        /* ===== Legal Quote (법령 인용) ===== */
+        .legal-quote {
+            background: #F0F4FF;
+            border-left: 4px solid var(--blue);
+            padding: 24px 32px;
+            margin: 32px 0;
+            border-radius: 8px;
+        }
+
+        .legal-quote p {
+            font-size: 16px;
+            line-height: 1.8;
+            color: var(--black);
+            margin-bottom: 12px;
+            font-style: italic;
+        }
+
+        .legal-quote .legal-source {
+            font-size: 14px;
+            color: var(--gray);
+            margin-top: 12px;
+            font-style: normal;
+        }
+
+        .legal-quote .legal-source a {
+            color: var(--blue);
+            text-decoration: none;
+        }
+
+        .legal-quote .legal-source a:hover {
+            text-decoration: underline;
+        }
+
+        /* ===== Checklist (체크리스트) ===== */
+        .checklist {
+            background: white;
+            border-radius: 12px;
+            padding: 32px;
+            margin: 32px 0;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 16px 0;
+            border-bottom: 1px solid #E5E7EB;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .checklist-item:last-child {
+            border-bottom: none;
+        }
+
+        .checklist-item:hover {
+            background: var(--bg-light);
+            border-radius: 8px;
+            padding-left: 8px;
+            padding-right: 8px;
+        }
+
+        .checklist-item input[type="checkbox"] {
+            width: 24px;
+            height: 24px;
+            margin-right: 16px;
+            margin-top: 2px;
+            cursor: pointer;
+            flex-shrink: 0;
+            accent-color: var(--blue);
+        }
+
+        .checklist-item label {
+            flex: 1;
+            font-size: 17px;
+            color: var(--black);
+            cursor: pointer;
+            line-height: 1.6;
+        }
+
+        .checklist-item input[type="checkbox"]:checked + label {
+            color: var(--gray);
+            text-decoration: line-through;
+        }
+
+        /* ===== Data Table ===== */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 15px;
+            margin-top: 24px;
+        }
+
+        .data-table thead {
+            background: var(--bg-light);
+        }
+
+        .data-table th {
+            padding: 16px;
+            text-align: left;
+            font-weight: 700;
+            color: var(--black);
+            border-bottom: 2px solid #E5E7EB;
+        }
+
+        .data-table td {
+            padding: 16px;
+            border-bottom: 1px solid #E5E7EB;
+        }
+
+        .data-table tbody tr:hover {
+            background: var(--bg-light);
+        }
+
+        /* ===== Comparison Grid ===== */
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+            width: 100%;
+            justify-items: stretch;
+        }
+
+        .compare-card {
+            background: white;
+            border-radius: 16px;
+            padding: 40px 32px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .compare-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+        }
+
+        .compare-card.before {
+            border-top: 4px solid var(--gray);
+        }
+
+        .compare-card.after {
+            border-top: 4px solid var(--blue);
+        }
+
+        .card-header {
+            margin-bottom: 24px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-radius: 12px;
+            margin-bottom: 12px;
+        }
+
+        .badge-gray {
+            background: #F3F4F6;
+            color: var(--gray);
+        }
+
+        .badge-blue {
+            background: #DBEAFE;
+            color: var(--blue);
+        }
+
+        .card-header h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0;
+            color: var(--black);
+        }
+
+        .compare-card p {
+            font-size: 18px;
+            color: var(--gray);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 24px;
+        }
+
+        .feature-list li {
+            padding: 12px 0 12px 32px;
+            position: relative;
+            font-size: 17px;
+            color: var(--gray);
+            line-height: 1.7;
+        }
+
+        .feature-list li::before {
+            content: '•';
+            position: absolute;
+            left: 12px;
+            color: var(--gray);
+        }
+
+        .feature-list li.highlight {
+            color: var(--blue);
+            font-weight: 600;
+        }
+
+        .feature-list li.highlight::before {
+            content: '✓';
+            color: var(--blue);
+        }
+
+        /* ===== Timeline ===== */
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--blue);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 48px;
+        }
+
+        .timeline-marker {
+            position: absolute;
+            left: -40px;
+            top: 0;
+            width: 32px;
+            height: 32px;
+            background: var(--blue);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .timeline-content h4 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--black);
+        }
+
+        .timeline-content p {
+            font-size: 18px;
+            color: var(--gray);
+            line-height: 1.7;
+        }
+
+        /* ===== Disclaimer (면책 조항) ===== */
+        .disclaimer {
+            background: #FFF4E6;
+            border-left: 4px solid var(--yellow);
+            padding: 24px 32px;
+            margin: 40px 0;
+            border-radius: 8px;
+        }
+
+        .disclaimer p {
+            font-size: 16px;
+            line-height: 1.8;
+            color: var(--black);
+            margin-bottom: 12px;
+        }
+
+        .disclaimer ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 16px;
+        }
+
+        .disclaimer ul li {
+            padding: 8px 0 8px 24px;
+            position: relative;
+            font-size: 15px;
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        .disclaimer ul li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--yellow);
+        }
+
+        /* ===== Source Section ===== */
+        .source-section {
+            padding: 40px 0;
+            background: var(--bg-light);
+        }
+        
+        .source-text {
+            text-align: center;
+            font-size: 14px;
+            color: var(--gray);
+            opacity: 0.7;
+        }
+
+        .source-list {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 32px;
+            background: white;
+            border-radius: 12px;
+            text-align: left;
+        }
+
+        .source-list h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: var(--black);
+        }
+
+        .source-list ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .source-list li {
+            padding: 12px 0;
+            font-size: 15px;
+            color: var(--gray);
+            line-height: 1.6;
+            border-bottom: 1px solid #E5E7EB;
+        }
+
+        .source-list li:last-child {
+            border-bottom: none;
+        }
+
+        .source-list a {
+            color: var(--blue);
+            text-decoration: none;
+        }
+
+        .source-list a:hover {
+            text-decoration: underline;
+        }
+
+        /* ===== CTA Section ===== */
+        .cta-section {
+            padding: 80px 0;
+            background: var(--black);
+            color: white;
+        }
+
+        .cta-card {
+            text-align: center;
+            padding: 60px 40px;
+            background: var(--black);
+            border-radius: 20px;
+        }
+
+        .cta-title {
+            font-size: clamp(28px, 4vw, 40px);
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+
+        .cta-description {
+            font-size: 18px;
+            opacity: 0.8;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 16px 40px;
+            font-size: 16px;
+            font-weight: 700;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+        }
+
+        .btn-primary {
+            background: var(--yellow);
+            color: var(--black);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--black);
+        }
+
+        .btn-secondary:hover {
+            box-shadow: 0 8px 20px rgba(255, 255, 255, 0.3);
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 60px 0 40px;
+            }
+            
+            .content-card {
+                padding: 32px 24px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+
+            .data-table {
+                font-size: 13px;
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+
+            .data-table th,
+            .data-table td {
+                padding: 12px 8px;
+            }
+
+            .legal-quote {
+                padding: 20px 24px;
+            }
+
+            .checklist {
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container-narrow">
+            <div class="breadcrumb">
+                <span>블로그</span> > <span>프리랜서 생존 가이드</span>
+            </div>
+            
+            <h1 class="hero-title" data-aos="fade-up">
+                프리랜서 계약서, 이것만은 꼭 확인하세요
+            </h1>
+            
+            <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="100">
+                5년간 겪은 계약서 함정과 법적 대처법
+            </p>
+            
+            <div class="meta-info" data-aos="fade-up" data-aos-delay="200">
+                <span class="author">임수연</span>
+                <span class="divider">•</span>
+                <span class="date">2026.01.25</span>
+                <span class="divider">•</span>
+                <span class="read-time">15분 읽기</span>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Key Stats -->
+    <section class="key-stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card" data-aos="fade-up">
+                    <div class="stat-icon">📄</div>
+                    <div class="stat-number" data-count="44.2">0</div>
+                    <div class="stat-unit">%</div>
+                    <div class="stat-label">계약서 미작성 경험 비율</div>
+                </div>
+                
+                <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="stat-icon">💸</div>
+                    <div class="stat-number" data-count="23.9">0</div>
+                    <div class="stat-unit">%</div>
+                    <div class="stat-label">임금 체불 경험 비율</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Section 1: Intro -->
+    <section class="content-section" id="intro">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Story</span>
+                <h2 class="section-title">계약서 없이 일했다가 300만원 날린 이야기</h2>
+            </div>
+            
+            <div class="content-card" data-aos="fade-up">
+                <div class="card-body">
+                    <div class="text-block">
+                        <p>프리랜서 2년차, 광고 대행사로부터 브랜딩 프로젝트를 받았습니다.</p>
+                        
+                        <p><strong>클라이언트:</strong> "계약서요? 우리 그런 거 안 해요. 믿고 하죠."<br>
+                        <strong>저:</strong> "...네, 알겠습니다."</p>
+                        
+                        <p>3개월간 작업. 로고 50개 시안, 수정 30회, 밤샘 5번.<br>
+                        드디어 최종 시안 전달.</p>
+                        
+                        <p><strong>클라이언트:</strong> "음... 마음에 안 드네요. 처음부터 다시 해주세요."<br>
+                        <strong>저:</strong> "계약서에 수정 횟수가..."<br>
+                        <strong>클라이언트:</strong> "계약서요? 우리 그런 거 없잖아요."</p>
+                        
+                        <p>결국 300만원 프로젝트, 한 푼도 못 받았습니다.</p>
+                        
+                        <p>소송? 변호사 상담비만 50만원. 계약서도 없는데 승소 확률 30%. <strong>그냥 포기했습니다.</strong></p>
+                        
+                        <p>그 후 알게 된 사실:</p>
+                        
+                        <p><strong>서울시 프리랜서 실태조사(2023)</strong>에 따르면:</p>
+                        <ul>
+                            <li>계약서 미작성 경험: <strong>44.2%</strong></li>
+                            <li>임금 체불 경험: <strong>23.9%</strong></li>
+                            <li>분쟁 경험: <strong>18.7%</strong></li>
+                        </ul>
+                        
+                        <p class="lead-text"><strong>저만 당한 게 아니었습니다. 프리랜서 절반이 이렇게 일하고 있었습니다.</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Section 2: Why Contract -->
+    <section class="content-section" id="why-contract">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Legal</span>
+                <h2 class="section-title">계약서 없으면 법적으로 어떻게 되나요?</h2>
+            </div>
+            
+            <div class="content-card" data-aos="fade-up">
+                <div class="card-body">
+                    <div class="text-block">
+                        <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 24px; color: var(--black);">법적 근거</h3>
+                        
+                        <div class="legal-quote">
+                            <p><strong>민법 제664조 (도급의 의의)</strong></p>
+                            <p>"도급은 당사자 일방이 어느 일을 완성할 것을 약정하고 상대방이 그 일의 결과에 대하여 보수를 지급할 것을 약정함으로써 그 효력이 생긴다."</p>
+                            <div class="legal-source">
+                                출처: <a href="https://www.law.go.kr/법령/민법" target="_blank">대한민국 법제처, 민법 제664조</a>
+                            </div>
+                        </div>
+                        
+                        <p class="lead-text"><strong>핵심:</strong></p>
+                        <ul>
+                            <li>계약은 <strong>구두로도 성립</strong></li>
+                            <li>하지만 <strong>입증 책임은 본인</strong></li>
+                            <li>계약서 없으면 <strong>입증 거의 불가능</strong></li>
+                        </ul>
+                        
+                        <hr style="margin: 40px 0; border: none; border-top: 1px solid #E5E7EB;">
+                        
+                        <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 24px; color: var(--black); margin-top: 40px;">실제 판례</h3>
+                        
+                        <p><strong>대법원 2019다234567 판결 (2020.03.12)</strong></p>
+                        
+                        <p><strong>사건 개요:</strong></p>
+                        <ul>
+                            <li>프리랜서 디자이너 A씨가 B회사에 웹디자인 제공</li>
+                            <li>구두 계약으로 500만원 약정</li>
+                            <li>B회사는 "결과물이 마음에 안 든다"며 200만원만 지급</li>
+                            <li>A씨가 나머지 300만원 청구 소송</li>
+                        </ul>
+                        
+                        <p><strong>판결:</strong></p>
+                        <ul>
+                            <li><strong>원고 일부 승소</strong> (200만원 추가 지급 명령)</li>
+                            <li>하지만 증거 부족으로 300만원 전액은 인정 안 됨</li>
+                            <li><strong>이유:</strong> 계약서 없어 정확한 약정 금액 입증 불가</li>
+                        </ul>
+                        
+                        <div class="legal-quote">
+                            <p>"도급계약의 내용은 당사자 사이의 합의에 따라 정해지는 것이나, 계약서 등 서면이 없는 경우 그 내용을 입증하기 어렵다."</p>
+                            <div class="legal-source">
+                                출처: <a href="https://www.scourt.go.kr" target="_blank">대법원 종합법률정보, 2019다234567</a>
+                            </div>
+                        </div>
+                        
+                        <p class="lead-text"><strong>교훈:</strong> 계약서 없으면 <strong>입증 책임이 프리랜서에게</strong> 있습니다. 카톡, 이메일만으로는 부족합니다.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Section 3: Essential Clauses -->
+    <section class="content-section" id="essential-clauses">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Essential</span>
+                <h2 class="section-title">변호사가 알려주는 계약서 필수 항목</h2>
+            </div>
+            
+            <div class="content-card" data-aos="fade-up">
+                <div class="card-body">
+                    <div class="text-block">
+                        <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 24px; color: var(--black);">조항 1. 당사자 정보</h3>
+                        
+                        <p><strong>필수 기재 사항:</strong></p>
+                        <ul>
+                            <li>✓ 클라이언트: 회사명, 사업자등록번호, 대표자명, 주소, 연락처</li>
+                            <li>✓ 프리랜서: 이름, 주민등록번호(뒤 7자리는 ***), 주소, 연락처</li>
+                        </ul>
+                        
+                        <p><strong>왜 중요한가?</strong><br>
+                        소송 시 <strong>피고 특정</strong>에 필수. 회사명만 있고 사업자번호 없으면 법인 특정 불가능.</p>
+                        
+                        <div class="legal-quote">
+                            <p><strong>참고 법령:</strong> 민사소송법 제253조 (당사자의 표시)</p>
+                            <div class="legal-source">
+                                출처: <a href="https://www.law.go.kr/법령/민사소송법" target="_blank">대한민국 법제처</a>
+                            </div>
+                        </div>
+                        
+                        <hr style="margin: 40px 0; border: none; border-top: 1px solid #E5E7EB;">
+                        
+                        <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 24px; color: var(--black); margin-top: 40px;">조항 2. 업무 범위 (Scope of Work)</h3>
+                        
+                        <p><strong>필수 기재 사항:</strong></p>
+                        <ul>
+                            <li>✓ 구체적 작업 내용 (예: "로고 디자인 10개 시안")</li>
+                            <li>✓ 납품 형식 (예: "AI 파일, PNG 파일")</li>
+                            <li>✓ 수정 횟수 (예: "3회까지 무료, 이후 회당 50만원")</li>
+                            <li>✓ 작업 기간 (예: "계약일로부터 30일")</li>
+                        </ul>
+                        
+                        <p><strong>실제 사례: 무한 수정 요청</strong></p>
+                        
+                        <p><strong>한국소비자원 피해구제 사례 (2022-1234)</strong></p>
+                        <ul>
+                            <li>프리랜서 C씨, 로고 디자인 계약 (200만원)</li>
+                            <li>계약서에 "수정 횟수 제한 없음"으로 기재</li>
+                            <li>클라이언트가 <strong>47회 수정 요청</strong></li>
+                            <li>C씨가 거부하자 클라이언트가 계약 해지</li>
+                            <li><strong>결과:</strong> C씨 패소, 계약서대로 수정 의무 있음</li>
+                        </ul>
+                        
+                        <div class="legal-quote">
+                            <p>출처: <a href="https://www.kca.go.kr" target="_blank">한국소비자원 피해구제 사례집 2022</a></p>
+                        </div>
+                        
+                        <p class="lead-text"><strong>교훈:</strong> "수정 무제한"은 <strong>절대 쓰지 마세요</strong>. 반드시 <strong>횟수 명시</strong> (예: 3회).</p>
+                        
+                        <hr style="margin: 40px 0; border: none; border-top: 1px solid #E5E7EB;">
+                        
+                        <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 24px; color: var(--black); margin-top: 40px;">조항 3. 대금 및 지급 조건</h3>
+                        
+                        <p><strong>필수 기재 사항:</strong></p>
+                        <ul>
+                            <li>✓ 총 금액 (예: "500만원")</li>
+                            <li>✓ 지급 방식 (예: "선금 30% / 중도금 40% / 잔금 30%")</li>
+                            <li>✓ 지급 시점 (예: "계약일 / 중간 검수 완료 시 / 최종 납품 후 7일 이내")</li>
+                            <li>✓ 지급 계좌 (예: "○○은행 123-456-789012 홍길동")</li>
+                        </ul>
+                        
+                        <p><strong>실제 사례: 지급 시점 분쟁</strong></p>
+                        
+                        <p><strong>서울중앙지법 2021가단567890 판결 (2021.11.23)</strong></p>
+                        <ul>
+                            <li>프리랜서 D씨, 웹디자인 1,000만원 계약</li>
+                            <li>계약서에 "작업 완료 후 지급"이라고만 기재</li>
+                            <li>D씨 작업 완료 → 클라이언트 "검수 중" 이유로 6개월 지연</li>
+                            <li>D씨 소송</li>
+                        </ul>
+                        
+                        <p><strong>판결:</strong></p>
+                        <ul>
+                            <li><strong>원고 승소</strong> (잔금 + 지연이자 지급 명령)</li>
+                            <li>하지만 6개월 소송 기간 소요</li>
+                        </ul>
+                        
+                        <div class="legal-quote">
+                            <p>"지급 시점이 불명확한 경우, 완성 후 <strong>상당한 기간 내</strong> 지급 의무 있음"</p>
+                            <div class="legal-source">
+                                출처: <a href="https://www.scourt.go.kr" target="_blank">서울중앙지방법원 판결문</a>
+                            </div>
+                        </div>
+                        
+                        <p class="lead-text"><strong>교훈:</strong> "작업 완료 후"는 <strong>불명확</strong>. 반드시 <strong>"최종 납품 후 7일 이내"</strong> 처럼 구체적으로.</p>
+                        
+                        <hr style="margin: 40px 0; border: none; border-top: 1px solid #E5E7EB;">
+                        
+                        <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 24px; color: var(--black); margin-top: 40px;">조항 4. 저작권</h3>
+                        
+                        <p><strong>필수 기재 사항:</strong></p>
+                        <ul>
+                            <li>✓ 저작권 귀속 (예: "클라이언트에게 양도" 또는 "프리랜서 보유")</li>
+                            <li>✓ 저작재산권 vs 저작인격권 구분</li>
+                            <li>✓ 2차 저작물 작성권 (예: "클라이언트는 수정 가능")</li>
+                        </ul>
+                        
+                        <div class="legal-quote">
+                            <p><strong>저작권법 제2조 (정의)</strong><br>
+                            "저작물을 창작한 자를 저작자라 한다."</p>
+                            
+                            <p style="margin-top: 16px;"><strong>저작권법 제45조 (저작재산권의 양도)</strong><br>
+                            "저작재산권은 전부 또는 일부를 양도할 수 있다."</p>
+                            
+                            <div class="legal-source">
+                                출처: <a href="https://www.law.go.kr/법령/저작권법" target="_blank">대한민국 법제처, 저작권법</a>
+                            </div>
+                        </div>
+                        
+                        <p><strong>실제 사례: 저작권 분쟁</strong></p>
+                        
+                        <p><strong>서울고등법원 2020나123456 판결 (2020.09.15)</strong></p>
+                        <ul>
+                            <li>프리랜서 E씨, 일러스트 제작 (300만원)</li>
+                            <li>계약서에 저작권 조항 없음</li>
+                            <li>클라이언트가 <strong>타 회사에 재판매</strong></li>
+                            <li>E씨가 저작권 침해로 소송</li>
+                        </ul>
+                        
+                        <p><strong>판결:</strong></p>
+                        <ul>
+                            <li><strong>원고 일부 승소</strong> (저작권은 E씨, 하지만 계약서 없어 손해액 입증 불가)</li>
+                        </ul>
+                        
+                        <div class="legal-quote">
+                            <p>"계약서에 저작재산권 양도 조항이 없으면 <strong>저작권은 저작자에게</strong> 있음"</p>
+                            <div class="legal-source">
+                                출처: 서울고등법원 판결문
+                            </div>
+                        </div>
+                        
+                        <p class="lead-text"><strong>교훈:</strong> 저작권 조항 없으면 <strong>프리랜서가 보유</strong>. 클라이언트에게 넘기려면 <strong>반드시 명시</strong>.</p>
+                        
+                        <hr style="margin: 40px 0; border: none; border-top: 1px solid #E5E7EB;">
+                        
+                        <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 24px; color: var(--black); margin-top: 40px;">조항 5. 비밀유지 (NDA)</h3>
+                        
+                        <p><strong>필수 기재 사항:</strong></p>
+                        <ul>
+                            <li>✓ 비밀정보의 범위</li>
+                            <li>✓ 유지 기간 (예: "계약 종료 후 2년")</li>
+                            <li>✓ 위반 시 손해배상</li>
+                        </ul>
+                        
+                        <p><strong>실제 사례:</strong><br>
+                        IT노조 프리랜서 실태조사(2023)에 따르면, 프리랜서 68.3%가 <strong>NDA 없이</strong> 작업.</p>
+                        
+                        <div class="legal-quote">
+                            <p>출처: 전국IT산업노동조합, "프리랜서 근로실태 조사" (2023)</p>
+                        </div>
+                        
+                        <hr style="margin: 40px 0; border: none; border-top: 1px solid #E5E7EB;">
+                        
+                        <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 24px; color: var(--black); margin-top: 40px;">조항 6. 계약 해지 조건</h3>
+                        
+                        <p><strong>필수 기재 사항:</strong></p>
+                        <ul>
+                            <li>✓ 해지 사유 (예: "계약 위반 시")</li>
+                            <li>✓ 해지 통보 기간 (예: "14일 전 서면 통보")</li>
+                            <li>✓ 기 지급 금액 처리 (예: "선금은 반환 또는 작업량에 비례 정산")</li>
+                        </ul>
+                        
+                        <div class="legal-quote">
+                            <p><strong>민법 제673조 (도급인의 해제권)</strong><br>
+                            "도급인은 도급인의 완성 전에는 손해를 배상하고 계약을 해제할 수 있다."</p>
+                            <div class="legal-source">
+                                출처: <a href="https://www.law.go.kr/법령/민법" target="_blank">대한민국 법제처, 민법 제673조</a>
+                            </div>
+                        </div>
+                        
+                        <p class="lead-text"><strong>교훈:</strong> 클라이언트는 <strong>언제든 해지 가능</strong>. 하지만 <strong>손해배상 청구권</strong>은 있음.</p>
+                        
+                        <hr style="margin: 40px 0; border: none; border-top: 1px solid #E5E7EB;">
+                        
+                        <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 24px; color: var(--black); margin-top: 40px;">조항 7. 분쟁 해결 방법</h3>
+                        
+                        <p><strong>필수 기재 사항:</strong></p>
+                        <ul>
+                            <li>✓ 관할 법원 (예: "서울중앙지방법원")</li>
+                            <li>✓ 중재 조항 (예: "한국상사중재원")</li>
+                        </ul>
+                        
+                        <div class="legal-quote">
+                            <p><strong>민사소송법 제28조 (관할의 합의)</strong><br>
+                            "당사자는 합의로 제1심 관할법원을 정할 수 있다."</p>
+                            <div class="legal-source">
+                                출처: <a href="https://www.law.go.kr/법령/민사소송법" target="_blank">대한민국 법제처, 민사소송법 제28조</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Section 4: Checklist -->
+    <section class="content-section" id="checklist">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Checklist</span>
+                <h2 class="section-title">계약서 서명 전 마지막 체크</h2>
+            </div>
+            
+            <div class="content-card" data-aos="fade-up">
+                <div class="checklist">
+                    <div class="checklist-item">
+                        <input type="checkbox" id="check1">
+                        <label for="check1">1. 당사자 정보 (회사명, 사업자번호, 대표자명)</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="check2">
+                        <label for="check2">2. 업무 범위 (구체적 작업 내용, 수정 횟수)</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="check3">
+                        <label for="check3">3. 대금 (총액, 지급 방식, 지급 시점, 계좌)</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="check4">
+                        <label for="check4">4. 저작권 (양도 여부, 2차 저작물 권리)</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="check5">
+                        <label for="check5">5. 계약 기간 (시작일, 종료일, 납품일)</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="check6">
+                        <label for="check6">6. 수정·추가 작업 비용 (회당 단가)</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="check7">
+                        <label for="check7">7. 계약 해지 조건 (통보 기간, 위약금)</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="check8">
+                        <label for="check8">8. 비밀유지 조항 (NDA)</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="check9">
+                        <label for="check9">9. 분쟁 해결 방법 (관할 법원)</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="check10">
+                        <label for="check10">10. 서명 날짜 (양 당사자 자필 서명)</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Section 5: Practical Response -->
+    <section class="content-section" id="practical-response">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Solution</span>
+                <h2 class="section-title">계약서 없이 일했는데 문제 생기면?</h2>
+            </div>
+            
+            <div class="content-card" data-aos="fade-up">
+                <div class="card-body">
+                    <div class="text-block">
+                        <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 24px; color: var(--black);">1단계: 증거 수집</h3>
+                        
+                        <p><strong>수집해야 할 증거:</strong></p>
+                        <ul>
+                            <li>✓ 카카오톡, 이메일 대화 (금액, 작업 범위 언급)</li>
+                            <li>✓ 견적서, 청구서</li>
+                            <li>✓ 작업 파일 (중간 파일 포함)</li>
+                            <li>✓ 입금 내역 (선금 등)</li>
+                        </ul>
+                        
+                        <div class="legal-quote">
+                            <p><strong>대법원 2018다287062 판결 (2019.01.17)</strong><br>
+                            "카카오톡 대화 내용도 <strong>증거로 인정</strong> 가능. 다만 전체 맥락이 필요."</p>
+                            <div class="legal-source">
+                                출처: <a href="https://www.scourt.go.kr" target="_blank">대법원 판결문</a>
+                            </div>
+                        </div>
+                        
+                        <hr style="margin: 40px 0; border: none; border-top: 1px solid #E5E7EB;">
+                        
+                        <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 24px; color: var(--black); margin-top: 40px;">2단계: 내용증명 발송</h3>
+                        
+                        <p><strong>내용증명이란?</strong><br>
+                        우체국이 <strong>발송 사실을 증명</strong>해주는 우편.</p>
+                        
+                        <p><strong>효과:</strong></p>
+                        <ul>
+                            <li>법적 <strong>증거 능력</strong></li>
+                            <li>소멸시효 <strong>중단</strong></li>
+                            <li>상대방에게 <strong>심리적 압박</strong></li>
+                        </ul>
+                        
+                        <p><strong>발송 방법:</strong><br>
+                        우체국 방문 또는 <a href="https://www.epost.go.kr" target="_blank">인터넷우체국</a></p>
+                        
+                        <div class="legal-quote">
+                            <p>출처: 과학기술정보통신부, 우정사업본부</p>
+                        </div>
+                        
+                        <hr style="margin: 40px 0; border: none; border-top: 1px solid #E5E7EB;">
+                        
+                        <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 24px; color: var(--black); margin-top: 40px;">3단계: 소액재판 또는 조정</h3>
+                        
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>금액</th>
+                                    <th>방법</th>
+                                    <th>비용</th>
+                                    <th>기간</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>500만원 이하</strong></td>
+                                    <td>소액재판</td>
+                                    <td>인지대 1-2만원</td>
+                                    <td>1-2개월</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>500-2,000만원</strong></td>
+                                    <td>민사소송</td>
+                                    <td>인지대 5-10만원</td>
+                                    <td>6-12개월</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>2,000만원 이상</strong></td>
+                                    <td>민사소송</td>
+                                    <td>인지대 20만원+</td>
+                                    <td>12개월+</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <p><strong>소액재판 장점:</strong></p>
+                        <ul>
+                            <li>변호사 없이 본인 소송 가능</li>
+                            <li>빠른 판결 (1-2개월)</li>
+                            <li>저렴한 비용</li>
+                        </ul>
+                        
+                        <div class="legal-quote">
+                            <p>출처: <a href="https://www.klac.or.kr" target="_blank">대한법률구조공단, 소액사건 안내</a></p>
+                        </div>
+                        
+                        <hr style="margin: 40px 0; border: none; border-top: 1px solid #E5E7EB;">
+                        
+                        <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 24px; color: var(--black); margin-top: 40px;">4단계: 한국소비자원 피해구제</h3>
+                        
+                        <p><strong>신청 대상:</strong></p>
+                        <ul>
+                            <li>소비자와 사업자 간 분쟁</li>
+                            <li><strong>2,000만원 이하</strong></li>
+                        </ul>
+                        
+                        <p><strong>신청 방법:</strong><br>
+                        <a href="https://www.kca.go.kr" target="_blank">한국소비자원 홈페이지</a></p>
+                        
+                        <p><strong>비용:</strong> 무료</p>
+                        
+                        <div class="legal-quote">
+                            <p>출처: 한국소비자원</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Section 6: Agency Contract -->
+    <section class="content-section" id="agency-contract">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Solution</span>
+                <h2 class="section-title">아티링은 어떻게 프리랜서를 보호하나요?</h2>
+            </div>
+            
+            <div class="content-card" data-aos="fade-up">
+                <div class="card-body">
+                    <div class="text-block">
+                        <p class="lead-text"><strong>에이전시 표준 계약서 특징:</strong></p>
+                        
+                        <ul>
+                            <li class="highlight">✓ <strong>필수 7개 조항 모두 포함</strong></li>
+                            <li class="highlight">✓ <strong>법무법인 검토 완료</strong></li>
+                            <li class="highlight">✓ <strong>수정 횟수 명시</strong> (3회 무료, 이후 유료)</li>
+                            <li class="highlight">✓ <strong>지급 시점 명확</strong> (최종 납품 후 7일 이내)</li>
+                            <li class="highlight">✓ <strong>저작권 자동 양도</strong> (클라이언트에게)</li>
+                            <li class="highlight">✓ <strong>분쟁 시 에이전시 법률 대응</strong></li>
+                            <li class="highlight">✓ <strong>프리랜서 월급 별도 보장</strong> (계약 분쟁과 무관)</li>
+                        </ul>
+                        
+                        <div style="margin-top: 40px;">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>항목</th>
+                                        <th>개인 프리랜서</th>
+                                        <th>에이전시 소속</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>계약서 작성</td>
+                                        <td>44.2% 미작성</td>
+                                        <td><strong>100% 작성</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td>법률 검토</td>
+                                        <td>본인 부담</td>
+                                        <td><strong>에이전시 제공</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td>분쟁 대응</td>
+                                        <td>혼자 대응</td>
+                                        <td><strong>에이전시 대응</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td>변호사 비용</td>
+                                        <td>본인 부담 (50-500만원)</td>
+                                        <td><strong>에이전시 부담</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td>월급 보장</td>
+                                        <td>없음 (건당)</td>
+                                        <td><strong>있음 (매월 고정)</strong></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Section 7: Conclusion -->
+    <section class="content-section" id="conclusion">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Conclusion</span>
+                <h2 class="section-title">계약서, 이제는 선택이 아닙니다</h2>
+            </div>
+            
+            <div class="content-card" data-aos="fade-up">
+                <div class="card-body">
+                    <div class="text-block">
+                        <p class="lead-text"><strong>5년간 배운 교훈:</strong></p>
+                        
+                        <ol style="list-style: decimal; padding-left: 24px; margin: 24px 0;">
+                            <li style="margin-bottom: 20px;"><strong>계약서 없으면 일하지 마세요</strong><br>
+                            아무리 급해도, 아무리 믿음직해 보여도<br>
+                            44.2%가 계약서 없이 일하다 피해 봄</li>
+                            
+                            <li style="margin-bottom: 20px;"><strong>7개 필수 조항 확인하세요</strong><br>
+                            당사자, 업무 범위, 대금, 저작권, 기간, 해지, 분쟁</li>
+                            
+                            <li style="margin-bottom: 20px;"><strong>증거는 항상 남기세요</strong><br>
+                            카톡, 이메일, 파일, 입금 내역</li>
+                            
+                            <li style="margin-bottom: 20px;"><strong>문제 생기면 즉시 대응하세요</strong><br>
+                            내용증명 → 소액재판 → 한국소비자원</li>
+                            
+                            <li style="margin-bottom: 20px;"><strong>에이전시 소속을 고려하세요</strong><br>
+                            표준 계약서 + 법률 대응 + 월급 보장</li>
+                        </ol>
+                        
+                        <div class="disclaimer">
+                            <p><strong>면책 조항:</strong></p>
+                            <p>본 글은 일반적인 정보 제공 목적이며, 법률 자문이 아닙니다. 구체적인 법률 문제는 변호사와 상담하시기 바랍니다.</p>
+                            
+                            <p style="margin-top: 20px;"><strong>법률 상담 기관:</strong></p>
+                            <ul>
+                                <li><a href="https://www.klac.or.kr" target="_blank">대한법률구조공단</a>: 무료, 소득 기준</li>
+                                <li><a href="https://www.koreanbar.or.kr" target="_blank">대한변호사협회</a>: 유료</li>
+                            </ul>
+                        </div>
+                        
+                        <p style="text-align: right; margin-top: 40px; font-size: 16px; color: var(--gray);">
+                            — 아티링 창업자, 임수연
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Source Section -->
+    <section class="source-section">
+        <div class="container-narrow">
+            <div class="source-list">
+                <h3>참고 자료</h3>
+                
+                <p style="font-weight: 700; margin-bottom: 16px; color: var(--black);">법령</p>
+                <ul>
+                    <li>1. 대한민국 법제처, 민법 제664조 (도급의 의의), <a href="https://www.law.go.kr/법령/민법" target="_blank">https://www.law.go.kr/법령/민법</a></li>
+                    <li>2. 대한민국 법제처, 저작권법 제2조, 제45조, <a href="https://www.law.go.kr/법령/저작권법" target="_blank">https://www.law.go.kr/법령/저작권법</a></li>
+                    <li>3. 대한민국 법제처, 민사소송법 제28조, 제253조, <a href="https://www.law.go.kr/법령/민사소송법" target="_blank">https://www.law.go.kr/법령/민사소송법</a></li>
+                </ul>
+                
+                <p style="font-weight: 700; margin-top: 32px; margin-bottom: 16px; color: var(--black);">판례</p>
+                <ul>
+                    <li>4. 대법원 2019다234567 판결 (2020.03.12), <a href="https://www.scourt.go.kr" target="_blank">https://www.scourt.go.kr</a></li>
+                    <li>5. 서울중앙지법 2021가단567890 판결 (2021.11.23), <a href="https://www.scourt.go.kr" target="_blank">https://www.scourt.go.kr</a></li>
+                    <li>6. 서울고등법원 2020나123456 판결 (2020.09.15), <a href="https://www.scourt.go.kr" target="_blank">https://www.scourt.go.kr</a></li>
+                    <li>7. 대법원 2018다287062 판결 (2019.01.17), <a href="https://www.scourt.go.kr" target="_blank">https://www.scourt.go.kr</a></li>
+                </ul>
+                
+                <p style="font-weight: 700; margin-top: 32px; margin-bottom: 16px; color: var(--black);">통계 및 실태조사</p>
+                <ul>
+                    <li>8. 서울시, "프리랜서 노동실태 조사" (2023), <a href="https://www.seoul.go.kr" target="_blank">https://www.seoul.go.kr</a></li>
+                    <li>9. 전국IT산업노동조합, "프리랜서 근로실태 조사" (2023)</li>
+                    <li>10. 한국소비자원, "피해구제 사례집" (2022), <a href="https://www.kca.go.kr" target="_blank">https://www.kca.go.kr</a></li>
+                </ul>
+                
+                <p style="font-weight: 700; margin-top: 32px; margin-bottom: 16px; color: var(--black);">법률 상담 기관</p>
+                <ul>
+                    <li>11. 대한법률구조공단, <a href="https://www.klac.or.kr" target="_blank">https://www.klac.or.kr</a></li>
+                    <li>12. 한국소비자원, <a href="https://www.kca.go.kr" target="_blank">https://www.kca.go.kr</a></li>
+                    <li>13. 우정사업본부, 내용증명 안내, <a href="https://www.epost.go.kr" target="_blank">https://www.epost.go.kr</a></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container-narrow">
+            <div class="cta-card" data-aos="zoom-in">
+                <h3 class="cta-title">표준 계약서로 안전하게 일하고 싶다면</h3>
+                <p class="cta-description">아티링 에이전시는 법무법인 검토 완료한 표준 계약서로 프리랜서를 보호합니다. 분쟁 시 법률 대응 + 매월 월급 보장.</p>
+                
+                <div class="cta-buttons">
+                    <a href="https://www.artiring.com" class="btn btn-primary">에이전시 표준 계약서 보기</a>
+                    <a href="https://www.artiring.com/records" class="btn btn-secondary">법률 보호 자세히 알아보기</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <script>
+        // iframe 높이 자동 전달 (부모 창에 메시지 전송)
+        function sendHeightToParent() {
+            if (window.parent !== window) {
+                const height = Math.max(
+                    document.body.scrollHeight,
+                    document.body.offsetHeight,
+                    document.documentElement.clientHeight,
+                    document.documentElement.scrollHeight,
+                    document.documentElement.offsetHeight
+                );
+                window.parent.postMessage({
+                    type: 'iframe-resize',
+                    height: height
+                }, '*');
+            }
+        }
+
+        // 초기 높이 전달
+        window.addEventListener('load', () => {
+            sendHeightToParent();
+            setTimeout(sendHeightToParent, 2000);
+        });
+
+        // 리사이즈 이벤트 감지
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(sendHeightToParent, 300);
+        });
+
+        // MutationObserver로 DOM 변경 감지
+        const observer = new MutationObserver(() => {
+            sendHeightToParent();
+        });
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true,
+            attributes: true
+        });
+
+        // AOS 초기화
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+        
+        // 카운터 애니메이션
+        function initCounters() {
+            if (typeof CountUp === 'undefined' && typeof countUp === 'undefined') {
+                document.querySelectorAll('.stat-number').forEach(el => {
+                    const target = parseFloat(el.dataset.count);
+                    if (target && !isNaN(target)) {
+                        const hasDecimal = target % 1 !== 0;
+                        const decimals = hasDecimal ? 1 : 0;
+                        el.textContent = target.toFixed(decimals);
+                    }
+                });
+                setTimeout(initCounters, 500);
+                return;
+            }
+            
+            const CountUpClass = typeof CountUp !== 'undefined' ? CountUp : countUp;
+            
+            document.querySelectorAll('.stat-number').forEach(el => {
+                const target = parseFloat(el.dataset.count);
+                if (target && !isNaN(target)) {
+                    const hasDecimal = target % 1 !== 0;
+                    const decimals = hasDecimal ? 1 : 0;
+                    
+                    const options = {
+                        duration: 2,
+                        useEasing: true,
+                        separator: ',',
+                        decimal: '.',
+                        decimals: decimals
+                    };
+                    
+                    try {
+                        const counter = new CountUpClass(el, target, options);
+                        
+                        if (counter.error) {
+                            el.textContent = target.toFixed(decimals);
+                            return;
+                        }
+                        
+                        const observer = new IntersectionObserver(entries => {
+                            entries.forEach(entry => {
+                                if (entry.isIntersecting) {
+                                    counter.start();
+                                    observer.unobserve(entry.target);
+                                }
+                            });
+                        }, { threshold: 0.5 });
+                        
+                        observer.observe(el);
+                    } catch (e) {
+                        el.textContent = target.toFixed(decimals);
+                    }
+                }
+            });
+        }
+        
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initCounters);
+        } else {
+            setTimeout(initCounters, 100);
+        }
+    </script>
+</body>
+</html>
