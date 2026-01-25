@@ -96,7 +96,10 @@ export async function GET(request, { params }) {
           return new NextResponse('File not found', { status: 404 });
         }
         
-        const fileContent = await response.text();
+        let fileContent = await response.text();
+        
+        // 외부 이미지 URL 제거 (403 오류 방지)
+        fileContent = removeExternalImageUrls(fileContent);
         
         // HTML 파일로 응답 (CSP 헤더 제거 및 수정)
         return new NextResponse(fileContent, {
@@ -139,7 +142,10 @@ export async function GET(request, { params }) {
           return new NextResponse('File not found in Supabase Storage', { status: 404 });
         }
         
-        const fileContent = await response.text();
+        let fileContent = await response.text();
+        
+        // 외부 이미지 URL 제거 (403 오류 방지)
+        fileContent = removeExternalImageUrls(fileContent);
         
         // HTML 파일로 응답 (CSP 헤더 제거 및 수정)
         return new NextResponse(fileContent, {
