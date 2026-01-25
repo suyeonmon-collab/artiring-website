@@ -22,32 +22,40 @@ export async function generateMetadata({ params }) {
   const baseUrl = await getBaseUrl();
   const description = post.summary || extractTextFromHtml(post.content_html).slice(0, 160);
   const url = `${baseUrl}/records/${post.slug}`;
-  const images = post.thumbnail_url ? [post.thumbnail_url] : [];
-
+  const images = post.thumbnail_url ? [post.thumbnail_url] : [`${baseUrl}/images/logo.png`];
+  const keywords = post.tags?.map(tag => tag.name).join(', ') || '프리랜서, 에이전시, 디자인, 아티링';
+  
+  // 검색 엔진 최적화를 위한 더 풍부한 메타데이터
   return {
-    title: `${post.title} - 아티링 블로그`,
-    description,
-    keywords: post.tags?.map(tag => tag.name).join(', ') || '프리랜서, 에이전시, 디자인, 아티링',
+    title: `${post.title} | 아티링 블로그`,
+    description: description || `${post.title} - 아티링 블로그에서 프리랜서와 에이전시에 대한 인사이트를 확인하세요.`,
+    keywords: `${keywords}, 아티링, ARTIRING, 프리랜서 플랫폼, 에이전시 모델`,
     authors: [{ name: post.author?.name || 'ARTIRING' }],
     creator: 'ARTIRING',
     publisher: 'ARTIRING',
+    // 검색 엔진 최적화를 위한 추가 메타데이터
+    metadataBase: new URL(baseUrl),
     openGraph: {
       title: post.title,
-      description,
+      description: description || `${post.title} - 아티링 블로그`,
       type: 'article',
-      url,
+      url: url,
       siteName: 'ARTIRING',
       locale: 'ko_KR',
       publishedTime: post.published_at,
       modifiedTime: post.updated_at || post.published_at,
       authors: [post.author?.name || 'ARTIRING'],
       images: images,
+      // OpenGraph 추가 필드
+      section: post.blog_categories?.name || '블로그',
+      tags: post.tags?.map(tag => tag.name) || [],
     },
     twitter: {
       card: 'summary_large_image',
       title: post.title,
-      description,
+      description: description || `${post.title} - 아티링 블로그`,
       images: images,
+      creator: '@artiring',
     },
     alternates: {
       canonical: url,
@@ -63,6 +71,9 @@ export async function generateMetadata({ params }) {
         'max-snippet': -1,
       },
     },
+    // 추가 SEO 메타데이터
+    category: post.blog_categories?.name || '블로그',
+    classification: 'Blog Post',
   };
 }
 
@@ -130,18 +141,22 @@ export default async function RecordDetailPage({ params }) {
   const baseUrl = await getBaseUrl();
   const url = `${baseUrl}/records/${post.slug}`;
 
-  // Structured Data (JSON-LD) for SEO
+  // Structured Data (JSON-LD) for SEO - 개별 블로그 글 검색 최적화
+  const description = post.summary || extractTextFromHtml(post.content_html).slice(0, 200);
+  const keywords = post.tags?.map(tag => tag.name).join(', ') || '프리랜서, 에이전시, 디자인, 아티링';
+  
   const structuredData = {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
     headline: post.title,
-    description: post.summary || extractTextFromHtml(post.content_html).slice(0, 200),
-    image: post.thumbnail_url ? [post.thumbnail_url] : [],
+    description: description,
+    image: post.thumbnail_url ? [post.thumbnail_url] : [`${baseUrl}/images/logo.png`],
     datePublished: post.published_at,
     dateModified: post.updated_at || post.published_at,
     author: {
       '@type': 'Organization',
       name: post.author?.name || 'ARTIRING',
+      url: baseUrl,
     },
     publisher: {
       '@type': 'Organization',
@@ -156,14 +171,49 @@ export default async function RecordDetailPage({ params }) {
       '@id': url,
     },
     articleSection: post.blog_categories?.name || '블로그',
-    keywords: post.tags?.map(tag => tag.name).join(', ') || '프리랜서, 에이전시, 디자인',
+    keywords: keywords,
+    // 검색 엔진 최적화를 위한 추가 필드
+    inLanguage: 'ko-KR',
+    url: url,
+  };
+
+  // Breadcrumb 구조화된 데이터 (별도로 추가)
+  const breadcrumbData = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: '홈',
+        item: baseUrl,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: '블로그',
+        item: `${baseUrl}/records`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: post.title,
+        item: url,
+      },
+    ],
   };
 
   return (
     <article className="section">
+      {/* 구조화된 데이터 (JSON-LD) - BlogPosting */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+      {/* Breadcrumb 구조화된 데이터 (별도로 추가) */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbData) }}
       />
       <div className="container-narrow">
         {/* 아티클 헤더 */}

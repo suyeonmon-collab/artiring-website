@@ -51,14 +51,14 @@ export default async function sitemap() {
     },
   ];
 
-  // 블로그 포스트 페이지
+  // 블로그 포스트 페이지 (검색 엔진 최적화를 위해 priority 높임)
   const blogPages = posts
     .filter(post => post.slug)
     .map(post => ({
       url: `${baseUrl}/records/${post.slug}`,
       lastModified: post.updated_at ? new Date(post.updated_at) : new Date(post.published_at),
       changeFrequency: 'weekly',
-      priority: 0.7,
+      priority: 0.9, // 블로그 글의 검색 노출을 위해 priority 높임
     }));
 
   return [...staticPages, ...blogPages];
