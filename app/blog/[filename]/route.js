@@ -91,6 +91,8 @@ export async function GET(request, { params }) {
     try {
       const fileContent = await readFile(filePath, 'utf-8');
       
+      console.log(`✅ File found in public/blog: ${filename}`);
+      
       // HTML 파일로 응답 (CSP 헤더 추가)
       return new NextResponse(fileContent, {
         headers: {
@@ -102,19 +104,20 @@ export async function GET(request, { params }) {
       });
     } catch (error) {
       if (error.code === 'ENOENT') {
-        console.error(`File not found: ${filename} in public/blog folder`);
+        console.error(`❌ File not found: ${filename} in public/blog folder`);
+        console.error(`   File path: ${filePath}`);
+        console.error(`   Current working directory: ${process.cwd()}`);
+        
         // Supabase Storage에도 확인해보기 (파일명이 다를 수 있음)
         const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://nxyjcawijvzhdvoxdpbv.supabase.co';
         const bucketName = 'blog-html';
         
-        // 파일명에서 확장자 제거 후 검색
-        const baseName = filename.replace('.html', '');
-        
         // Supabase Storage에서 파일명 패턴으로 검색 시도
-        // 예: blog-post-5060.html -> 타임스탬프_blog-post-5060.html 형식일 수 있음
         try {
           // 먼저 원본 파일명으로 시도
           const storageUrl = `${supabaseUrl}/storage/v1/object/public/${bucketName}/${filename}`;
+          console.log(`🔍 Checking Supabase Storage: ${storageUrl}`);
+          
           const response = await fetch(storageUrl, {
             headers: {
               'User-Agent': 'Mozilla/5.0',
@@ -122,6 +125,7 @@ export async function GET(request, { params }) {
           });
           
           if (response.ok) {
+            console.log(`✅ File found in Supabase Storage: ${filename}`);
             const fileContent = await response.text();
             return new NextResponse(fileContent, {
               headers: {
@@ -130,13 +134,16 @@ export async function GET(request, { params }) {
                 'Content-Security-Policy': "default-src 'self' 'unsafe-inline' 'unsafe-eval' https: data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://unpkg.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; img-src 'self' data: https:; font-src 'self' data: https://cdn.jsdelivr.net;",
               },
             });
+          } else {
+            console.error(`❌ File not found in Supabase Storage: ${filename} (${response.status})`);
           }
         } catch (storageError) {
-          console.error('Error checking Supabase Storage:', storageError);
+          console.error('❌ Error checking Supabase Storage:', storageError);
         }
         
-        return new NextResponse('File not found', { status: 404 });
+        return new NextResponse(`File not found: ${filename}`, { status: 404 });
       }
+      console.error('❌ Error reading file:', error);
       throw error;
     }
   } catch (error) {
