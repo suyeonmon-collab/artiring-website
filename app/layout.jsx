@@ -17,7 +17,10 @@ export const metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://www.artiring.com'),
+  alternates: {
+    canonical: '/',
+  },
   openGraph: {
     title: 'ARTIRING - 프리랜서 에이전시 기반 인력 관리 플랫폼',
     description: '아티링은 프리랜서와 클라이언트를 연결하는 새로운 에이전시 모델을 제안합니다.',

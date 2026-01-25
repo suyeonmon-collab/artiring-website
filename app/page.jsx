@@ -70,10 +70,19 @@ const coreIcons = {
 export const metadata = {
   title: '아티링 - 프리랜서를 구조로 연결합니다',
   description: '아티링은 프리랜서를 에이전시 단위로 조직화하고, 백업 인력 구조와 통합 관리 시스템을 통해 프로젝트의 안정성을 높이는 인력 관리 플랫폼입니다.',
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://www.artiring.com'),
+  alternates: {
+    canonical: '/',
+  },
   openGraph: {
     title: '아티링 - 프리랜서를 구조로 연결합니다',
     description: '프로젝트는 지속 가능한 구조 위에서 완성되어야 합니다.',
     type: 'website',
+    url: '/',
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 
