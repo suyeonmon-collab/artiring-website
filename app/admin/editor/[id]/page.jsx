@@ -319,6 +319,9 @@ export default function EditPostPage({ params }) {
     setIsSaving(true);
 
     try {
+      // html_file이 빈 문자열이거나 없으면 null로 설정
+      const htmlFileValue = htmlFile && htmlFile.trim() ? htmlFile.trim() : null;
+      
       const response = await fetch(`/api/posts/${postId}`, {
         method: 'PUT',
         headers: {
@@ -331,7 +334,7 @@ export default function EditPostPage({ params }) {
           content_html: contentHtml,
           summary,
           thumbnail_url: thumbnailUrl,
-          html_file: htmlFile || null,
+          html_file: htmlFileValue, // 빈 문자열이면 null로 저장
           category_id: categoryId || null,
           tags: selectedTags,
           status: finalStatus

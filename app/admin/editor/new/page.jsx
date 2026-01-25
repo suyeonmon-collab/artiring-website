@@ -346,6 +346,7 @@ export default function NewPostPage() {
     setIsSaving(true);
 
     try {
+      // 직접 작성한 글은 html_file을 명시적으로 null로 설정
       const response = await fetch('/api/posts', {
         method: 'POST',
         headers: {
@@ -358,6 +359,7 @@ export default function NewPostPage() {
           content_html: contentHtml,
           summary,
           thumbnail_url: thumbnailUrl,
+          html_file: null, // 직접 작성한 글은 항상 null
           category_id: categoryId || null,
           tags: selectedTags,
           status: publish ? 'published' : 'draft',
