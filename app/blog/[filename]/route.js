@@ -16,62 +16,81 @@ function removeExternalImageUrls(htmlContent) {
     'pstatic.net',
     'blogpfthumb.pstatic.net',
     'blogfiles.naver.net',
+    'naver.com',
   ];
   
-  let hasExternalImages = false;
   let cleanedContent = htmlContent;
   
-  // 외부 이미지 URL 감지
+  // 외부 이미지 URL 제거 (더 강력한 패턴 매칭)
   externalDomains.forEach(domain => {
     const escapedDomain = domain.replace(/\./g, '\\.').replace(/\-/g, '\\-');
-    const regex = new RegExp(escapedDomain, 'i');
     
-    if (regex.test(cleanedContent)) {
-      hasExternalImages = true;
-    }
+    // 패턴 1: <img src="https://domain..." ...> (일반적인 형태)
+    cleanedContent = cleanedContent.replace(
+      new RegExp(`<img[^>]*src=["'][^"']*${escapedDomain}[^"']*["'][^>]*>`, 'gi'),
+      '<!-- 외부 이미지 제거됨 (403 오류 방지) -->'
+    );
+    
+    // 패턴 2: <img src='https://domain...' ...> (작은따옴표)
+    cleanedContent = cleanedContent.replace(
+      new RegExp(`<img[^>]*src=['"][^'"]*${escapedDomain}[^'"]*['"][^>]*>`, 'gi'),
+      '<!-- 외부 이미지 제거됨 (403 오류 방지) -->'
+    );
+    
+    // 패턴 3: background-image나 style 속성에 포함된 경우
+    cleanedContent = cleanedContent.replace(
+      new RegExp(`background-image[^;]*url\\(["']?[^"')]*${escapedDomain}[^"')]*["']?\\)`, 'gi'),
+      'background-image: none; /* 외부 이미지 제거됨 */'
+    );
+    
+    // 패턴 4: style 속성 전체에서 제거
+    cleanedContent = cleanedContent.replace(
+      new RegExp(`style=["'][^"']*${escapedDomain}[^"']*["']`, 'gi'),
+      (match) => {
+        return match.replace(
+          new RegExp(`[^;]*url\\(["']?[^"')]*${escapedDomain}[^"')]*["']?\\)[^;]*;?`, 'gi'),
+          ''
+        );
+      }
+    );
+    
+    // 패턴 5: URL 인코딩된 형태도 제거 (예: %22https%3A%2F%2F...)
+    // dthumb-phinf.pstatic.net/?src=%22https%3A%2F%2F... 형태
+    cleanedContent = cleanedContent.replace(
+      new RegExp(`https?://[^"'>\\s]*${escapedDomain}[^"'>\\s]*`, 'gi'),
+      ''
+    );
+    
+    // 패턴 6: URL 인코딩된 전체 URL 제거
+    cleanedContent = cleanedContent.replace(
+      new RegExp(`%22https%3A%2F%2F[^%]*${escapedDomain}[^%]*%22`, 'gi'),
+      ''
+    );
+    
+    // 패턴 7: src 속성에 직접 포함된 경우 (따옴표 없이)
+    cleanedContent = cleanedContent.replace(
+      new RegExp(`src=["']?https?://[^"'>\\s]*${escapedDomain}[^"'>\\s]*["']?`, 'gi'),
+      'src=""'
+    );
   });
   
-  // 외부 이미지 URL 제거
-  if (hasExternalImages) {
-    externalDomains.forEach(domain => {
-      const escapedDomain = domain.replace(/\./g, '\\.').replace(/\-/g, '\\-');
-      
-      // 패턴 1: <img src="https://domain..." ...> (일반적인 형태)
-      cleanedContent = cleanedContent.replace(
-        new RegExp(`<img[^>]*src=["'][^"']*${escapedDomain}[^"']*["'][^>]*>`, 'gi'),
-        '<!-- 외부 이미지 제거됨 (403 오류 방지) -->'
-      );
-      
-      // 패턴 2: <img src='https://domain...' ...> (작은따옴표)
-      cleanedContent = cleanedContent.replace(
-        new RegExp(`<img[^>]*src=['"][^'"]*${escapedDomain}[^'"]*['"][^>]*>`, 'gi'),
-        '<!-- 외부 이미지 제거됨 (403 오류 방지) -->'
-      );
-      
-      // 패턴 3: background-image나 style 속성에 포함된 경우
-      cleanedContent = cleanedContent.replace(
-        new RegExp(`background-image[^;]*url\\(["']?[^"')]*${escapedDomain}[^"')]*["']?\\)`, 'gi'),
-        'background-image: none; /* 외부 이미지 제거됨 */'
-      );
-      
-      // 패턴 4: style 속성 전체에서 제거
-      cleanedContent = cleanedContent.replace(
-        new RegExp(`style=["'][^"']*${escapedDomain}[^"']*["']`, 'gi'),
-        (match) => {
-          return match.replace(
-            new RegExp(`[^;]*url\\(["']?[^"')]*${escapedDomain}[^"')]*["']?\\)[^;]*;?`, 'gi'),
-            ''
-          );
-        }
-      );
-      
-      // 패턴 5: URL 인코딩된 형태도 제거 (예: %22https%3A%2F%2F...)
-      cleanedContent = cleanedContent.replace(
-        new RegExp(`%22https%3A%2F%2F[^%]*${escapedDomain}[^%]*%22`, 'gi'),
-        ''
-      );
-    });
-  }
+  // 추가: pstatic.net 도메인의 모든 변형 제거
+  cleanedContent = cleanedContent.replace(
+    /https?:\/\/[^"'>\s]*pstatic\.net[^"'>\s]*/gi,
+    ''
+  );
+  
+  // 추가: cdninstagram.com 도메인의 모든 변형 제거
+  cleanedContent = cleanedContent.replace(
+    /https?:\/\/[^"'>\s]*cdninstagram\.com[^"'>\s]*/gi,
+    ''
+  );
+  
+  // 추가: naver.com 이미지 URL 제거
+  cleanedContent = cleanedContent.replace(
+    /https?:\/\/[^"'>\s]*naver\.com[^"'>\s]*\.(png|jpg|jpeg|gif|webp)[^"'>\s]*/gi,
+    ''
+  );
   
   return cleanedContent;
 }
