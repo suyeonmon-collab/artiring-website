@@ -176,9 +176,26 @@ export default function BlogIframe({ htmlFileName }) {
         loading="lazy"
         onError={(e) => {
           console.error('Iframe load error:', e);
+          console.error('Failed to load:', iframeSrc);
           setLoadError(true);
         }}
         onLoad={() => {
+          // iframe이 로드되었지만 404 페이지일 수 있으므로 내용 확인
+          try {
+            const iframe = iframeRef.current;
+            if (iframe && iframe.contentDocument) {
+              const body = iframe.contentDocument.body;
+              // 404 페이지인지 확인 (일반적으로 "not found" 또는 "404" 텍스트 포함)
+              const bodyText = body?.innerText?.toLowerCase() || '';
+              if (bodyText.includes('not found') || bodyText.includes('404') || bodyText.trim() === '') {
+                console.warn('Iframe loaded but appears to be 404 or empty:', iframeSrc);
+                setLoadError(true);
+                return;
+              }
+            }
+          } catch (e) {
+            // CORS로 인해 접근 불가능한 경우, 정상 로드로 간주
+          }
           console.log('Iframe loaded successfully:', iframeSrc);
           setLoadError(false);
           setLoadTimeout(false);
