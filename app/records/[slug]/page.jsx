@@ -127,6 +127,22 @@ async function getPost(slug) {
           }
         }
         
+        // 파일명이 다른 포스트의 파일명과 일치하는지 확인 (잘못된 연결 방지)
+        // 예: slug가 "2"인 포스트에 "blog-post-5060.html"이 연결된 경우
+        // 이는 명백히 잘못된 연결이므로 null로 설정
+        if (fileName && !fileName.match(/^\d+_[^\/]+\.html$/)) {
+          // Supabase Storage 형식이 아닌 일반 파일명인 경우
+          // slug와 파일명이 일치하지 않으면 잘못된 연결로 간주
+          const slugNumber = slug.match(/^\d+$/);
+          const fileNameNumber = fileName.match(/blog-post-(\d+)\.html/);
+          
+          if (slugNumber && fileNameNumber && slugNumber[0] !== fileNameNumber[1]) {
+            console.warn(`Mismatched HTML file for post ${slug}: ${fileName} (post slug doesn't match file number), using content_html instead`);
+            post.html_file = null;
+            return post;
+          }
+        }
+        
         // 파일 존재 여부 확인 (간단한 HEAD 요청)
         const fileCheckUrl = `${baseUrl}/blog/${fileName}`;
         const fileCheckResponse = await fetch(fileCheckUrl, { 
