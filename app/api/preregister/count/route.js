@@ -1,16 +1,14 @@
 import { NextResponse } from 'next/server';
-import { createServiceRoleClient } from '@/lib/supabase';
+import { createServerSupabaseClient } from '@/lib/supabase';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
   try {
-    const supabase = createServiceRoleClient();
+    const supabase = createServerSupabaseClient();
 
-    const { count, error } = await supabase
-      .from('pre_reservations')
-      .select('*', { count: 'exact', head: true });
+    const { data: count, error } = await supabase.rpc('pre_reservations_count');
 
     if (error) {
       console.error('[preregister/count] failed:', error);

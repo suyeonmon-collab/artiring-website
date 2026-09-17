@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { createServerSupabaseClient, createServiceRoleClient, hasServiceRoleKey } from '@/lib/supabase';
+import { createServerSupabaseClient } from '@/lib/supabase';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -65,17 +65,12 @@ export async function POST(request) {
     }
 
     let count = null;
-    if (hasServiceRoleKey()) {
-      const countClient = createServiceRoleClient();
-      const { count: total, error: countError } = await countClient
-        .from('pre_reservations')
-        .select('*', { count: 'exact', head: true });
+    const { data: total, error: countError } = await supabase.rpc('pre_reservations_count');
 
-      if (countError) {
-        console.error('[preregister] count failed:', countError);
-      } else {
-        count = total ?? 0;
-      }
+    if (countError) {
+      console.error('[preregister] count failed:', countError);
+    } else if (typeof total === 'number') {
+      count = total;
     }
 
     return NextResponse.json({
