@@ -3,10 +3,10 @@ import Image from 'next/image';
 
 const footerLinks = [
   { name: '소개', href: '/about' },
-  { name: '서비스', href: '/structure' },
-  { name: '기록', href: '/records' },
-  { name: '문의', href: '/contact' },
+  { name: '뮤모 앱', href: '/#app' },
 ];
+
+const CONTACT_EMAIL = 'sy@artiring.com';
 
 const socialLinks = [
   {
@@ -27,30 +27,17 @@ const socialLinks = [
       </svg>
     ),
   },
-  {
-    name: '유튜브',
-    href: 'https://www.youtube.com/@artiring',
-    icon: (
-      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-      </svg>
-    ),
-  },
 ];
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-[var(--color-bg-sub)] border-t border-[var(--color-border)]">
-      <div className="container-narrow py-12 md:py-16">
+    <footer className="bg-[var(--color-gray-100)] border-t border-[var(--color-gray-300)]">
+      <div className="max-w-content mx-auto px-5 md:px-20 py-12 md:py-16">
         <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-8">
-          {/* Brand & Description */}
           <div className="max-w-sm">
-            <Link 
-              href="/" 
-              className="inline-block hover:opacity-70 transition-opacity"
-            >
+            <Link href="/" className="inline-block hover:opacity-70 transition-opacity">
               <Image
                 src="/images/logo.png"
                 alt="ARTIRING"
@@ -59,24 +46,20 @@ export default function Footer() {
                 className="h-8 w-auto"
               />
             </Link>
-            <p className="mt-3 text-sm text-[var(--color-text-secondary)] leading-relaxed">
-              프리랜서 에이전시 기반 인력 관리 플랫폼
-              <br />
-              새로운 프리랜서 생태계를 만들어갑니다.
+            <p className="mt-3 text-sm text-[var(--color-gray-700)] leading-relaxed">
+              아티링이 만든 뮤모
             </p>
           </div>
 
-          {/* Links */}
           <div className="flex flex-col sm:flex-row gap-8 sm:gap-16">
-            {/* Navigation */}
             <div>
-              <h4 className="text-sm font-medium mb-4">페이지</h4>
+              <h4 className="text-sm font-medium mb-4 text-[var(--color-gray-900)]">페이지</h4>
               <ul className="space-y-2">
                 {footerLinks.map((link) => (
                   <li key={link.name}>
                     <Link
                       href={link.href}
-                      className="text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors"
+                      className="text-sm text-[var(--color-gray-700)] hover:text-[var(--color-gray-900)] transition-colors"
                     >
                       {link.name}
                     </Link>
@@ -85,9 +68,18 @@ export default function Footer() {
               </ul>
             </div>
 
-            {/* Social */}
             <div>
-              <h4 className="text-sm font-medium mb-4">채널</h4>
+              <h4 className="text-sm font-medium mb-4 text-[var(--color-gray-900)]">이메일</h4>
+              <a
+                href={`mailto:${CONTACT_EMAIL}`}
+                className="text-sm text-[var(--color-gray-700)] hover:text-[var(--color-gray-900)] transition-colors"
+              >
+                제휴·문의 {CONTACT_EMAIL}
+              </a>
+            </div>
+
+            <div>
+              <h4 className="text-sm font-medium mb-4 text-[var(--color-gray-900)]">채널</h4>
               <div className="flex gap-3">
                 {socialLinks.map((link) => (
                   <a
@@ -95,7 +87,7 @@ export default function Footer() {
                     href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2 text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors"
+                    className="p-2 text-[var(--color-gray-700)] hover:text-[var(--color-blue)] transition-colors"
                     aria-label={link.name}
                   >
                     {link.icon}
@@ -106,22 +98,21 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Bottom */}
-        <div className="mt-12 pt-6 border-t border-[var(--color-border)]">
+        <div className="mt-12 pt-6 border-t border-[var(--color-gray-300)]">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-            <p className="text-xs text-[var(--color-text-secondary)]">
+            <p className="text-xs text-[var(--color-gray-500)]">
               © {currentYear} ARTIRING. All rights reserved.
             </p>
             <div className="flex gap-4">
               <Link
                 href="/privacy"
-                className="text-xs text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors"
+                className="text-xs text-[var(--color-gray-500)] hover:text-[var(--color-gray-900)] transition-colors"
               >
                 개인정보처리방침
               </Link>
               <Link
                 href="/terms"
-                className="text-xs text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors"
+                className="text-xs text-[var(--color-gray-500)] hover:text-[var(--color-gray-900)] transition-colors"
               >
                 이용약관
               </Link>
@@ -132,5 +123,3 @@ export default function Footer() {
     </footer>
   );
 }
-
-

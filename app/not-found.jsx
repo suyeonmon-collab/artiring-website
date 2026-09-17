@@ -13,9 +13,9 @@ export default function NotFound() {
           <Link href="/" className="btn btn-primary">
             홈으로 돌아가기
           </Link>
-          <Link href="/records" className="btn btn-secondary">
-            기록 보기
-          </Link>
+          <a href="mailto:sy@artiring.com" className="btn btn-secondary">
+            문의하기
+          </a>
         </div>
       </div>
     </div>

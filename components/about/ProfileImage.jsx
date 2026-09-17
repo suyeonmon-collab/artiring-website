@@ -2,12 +2,11 @@
 
 import { useState, useEffect, useRef } from 'react';
 
-export default function ProfileImage() {
-  const [imageStatus, setImageStatus] = useState('loading'); // 'loading' | 'loaded' | 'error'
+export default function ProfileImage({ src, alt, fit = 'cover' }) {
+  const [imageStatus, setImageStatus] = useState('loading');
   const imgRef = useRef(null);
 
   useEffect(() => {
-    // 이미 로드된 이미지인지 확인 (캐시된 경우)
     if (imgRef.current && imgRef.current.complete) {
       if (imgRef.current.naturalWidth > 0) {
         setImageStatus('loaded');
@@ -15,15 +14,23 @@ export default function ProfileImage() {
         setImageStatus('error');
       }
     }
-  }, []);
+  }, [src]);
+
+  const isContain = fit === 'contain';
 
   return (
-    <div className="flex-shrink-0 w-24 h-24 md:w-28 md:h-28 rounded-full overflow-hidden bg-[var(--color-bg-sub)] border border-[var(--color-border)]">
-      <img 
+    <div
+      className={`flex-shrink-0 w-24 h-24 md:w-28 md:h-28 rounded-full overflow-hidden border border-[var(--color-border)] ${
+        isContain ? 'bg-white' : 'bg-[var(--color-bg-sub)]'
+      }`}
+    >
+      <img
         ref={imgRef}
-        src="/images/ceo.jpg" 
-        alt="임수연 대표"
-        className={`w-full h-full object-cover object-top ${imageStatus === 'loaded' ? '' : 'hidden'}`}
+        src={src}
+        alt={alt}
+        className={`w-full h-full ${
+          isContain ? 'object-contain object-center' : 'object-cover object-top'
+        } ${imageStatus === 'loaded' ? '' : 'hidden'}`}
         onLoad={() => setImageStatus('loaded')}
         onError={() => setImageStatus('error')}
       />
@@ -37,4 +44,3 @@ export default function ProfileImage() {
     </div>
   );
 }
-

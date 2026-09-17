@@ -2,16 +2,58 @@
 @tailwind components;
 @tailwind utilities;
 
-/* CSS Variables - Apple Style */
+/* CSS Variables - 뮤모 Design System */
 :root {
-  --color-bg: #FFFFFF;
-  --color-bg-sub: #F5F5F7;
-  --color-text-primary: #1D1D1F;
-  --color-text-secondary: #6E6E73;
-  --color-point: #007AFF;
-  --color-border: #E5E5E7;
-  --color-error: #FF3B30;
+  --color-primary: #E8341A;
+  --color-primary-light: #FEF0EC;
+  --color-secondary-yellow: #FFD43B;
+  --color-secondary-yellow-light: #FFFBEB;
+  --color-secondary-blue: #3B82F6;
+  --color-secondary-blue-light: #EFF6FF;
+
+  --color-gray-900: #1A1A1A;
+  --color-gray-700: #4A4A4A;
+  --color-gray-500: #888888;
+  --color-gray-300: #CCCCCC;
+  --color-gray-100: #F5F5F5;
+  --color-white: #FFFFFF;
+
+  --font-base: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-accent: 'Cafe24Ssurround', var(--font-base);
+
+  /* aliases */
+  --color-yellow: var(--color-secondary-yellow);
+  --color-yellow-light: var(--color-secondary-yellow-light);
+  --color-blue: var(--color-secondary-blue);
+  --color-blue-light: var(--color-secondary-blue-light);
+  --color-bg: var(--color-white);
+  --color-bg-sub: var(--color-gray-100);
+  --color-text-primary: var(--color-gray-900);
+  --color-text-secondary: var(--color-gray-700);
+  --color-point: var(--color-primary);
+  --color-border: var(--color-gray-300);
+  --color-error: var(--color-primary);
   --color-success: #34C759;
+
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 64px;
+  --space-xxl: 120px;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-cta: 14px;
+}
+
+@font-face {
+  font-family: 'Cafe24Ssurround';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24Ssurround.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
 }
 
 /* Base Styles */
@@ -20,13 +62,162 @@ html {
 }
 
 body {
-  font-family: 'Pretendard', '나눔고딕', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-  color: var(--color-text-primary);
-  background-color: var(--color-bg);
+  font-family: var(--font-base);
+  color: var(--color-gray-900);
+  background-color: var(--color-white);
   letter-spacing: -0.01em;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.font-accent {
+  font-family: var(--font-accent);
+}
+
+/* Landing page section spacing */
+.landing-section {
+  padding: 64px 0;
+}
+
+@media (min-width: 768px) {
+  .landing-section {
+    padding: 120px 0;
+  }
+}
+
+/* Scroll reveal animations (framer-motion 대체) */
+.motion-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.motion-reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.motion-stagger-item {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+  transition-delay: calc(var(--stagger-index, 0) * var(--stagger-delay, 0.08s));
+}
+
+.motion-stagger-visible .motion-stagger-item {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .motion-reveal,
+  .motion-stagger-item {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* 뮤모 UI 컴포넌트 */
+.page-section {
+  padding: 64px 0;
+}
+
+@media (min-width: 768px) {
+  .page-section {
+    padding: 120px 0;
+  }
+}
+
+.btn-download {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 0 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-white);
+  background-color: var(--color-primary);
+  border-radius: var(--radius-cta);
+  transition: opacity 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+  box-shadow: 0 4px 16px rgba(232, 52, 26, 0.2);
+}
+
+.btn-download:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+.btn-download:active {
+  transform: scale(0.97);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 0 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-gray-900);
+  background-color: var(--color-white);
+  border: 1px solid var(--color-gray-300);
+  border-radius: var(--radius-cta);
+  transition: background-color 0.15s ease, transform 0.15s ease;
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-gray-100);
+  transform: translateY(-2px);
+}
+
+.card {
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.badge-yellow {
+  display: inline-block;
+  padding: 0.25rem 0.625rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: var(--color-secondary-yellow-light);
+  color: var(--color-gray-900);
+  border-radius: 9999px;
+}
+
+.link-channel {
+  color: var(--color-secondary-blue);
+  font-weight: 500;
+  transition: opacity 0.15s ease;
+}
+
+.link-channel:hover {
+  text-decoration: underline;
+}
+
+.container-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+@media (min-width: 768px) {
+  .container-content {
+    padding-left: 80px;
+    padding-right: 80px;
+  }
 }
 
 /* Typography - Korean */
@@ -131,12 +322,14 @@ a {
 }
 
 .btn-primary {
-  background-color: var(--color-point);
+  background-color: var(--color-primary);
   color: white;
+  min-height: 52px;
+  border-radius: var(--radius-cta);
 }
 
 .btn-primary:hover {
-  background-color: #0066d6;
+  opacity: 0.9;
   color: white;
 }
 
@@ -1427,25 +1620,49 @@ a {
   margin: 48px 0;
 }
 
-/* 토스트 메시지 */
+/* 토스트 메시지 — HOMEPAGE_DESIGN_GUIDE 3-5 */
 .toast {
   position: fixed;
-  bottom: 24px;
   left: 50%;
   transform: translateX(-50%);
-  padding: 12px 24px;
-  background: var(--color-text-primary);
-  color: white;
-  border-radius: 8px;
+  padding: 12px 20px;
+  max-width: calc(100vw - 32px);
+  color: var(--color-white);
+  border-radius: 12px;
   font-size: 14px;
+  font-weight: 600;
   z-index: 1000;
-  animation: slideUp 0.3s ease;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
 }
 
-@keyframes slideUp {
+.toast-success {
+  bottom: 24px;
+  background: var(--color-secondary-blue);
+  animation: toastSlideUp 0.3s ease;
+}
+
+.toast-error {
+  top: 24px;
+  background: var(--color-primary);
+  animation: toastSlideDown 0.3s ease;
+}
+
+@keyframes toastSlideUp {
   from {
     opacity: 0;
     transform: translate(-50%, 20px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+@keyframes toastSlideDown {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -20px);
   }
   to {
     opacity: 1;

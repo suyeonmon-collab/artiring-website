@@ -1,30 +1,9 @@
-import { createServerComponentClient } from '@/lib/supabase';
+import { getSiteUrl } from '@/lib/siteUrl';
 
 export default async function sitemap() {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.artiring.com';
-  
-  // 블로그 포스트 목록 가져오기 (직접 데이터베이스에서)
-  let posts = [];
-  try {
-    const supabase = createServerComponentClient();
-    const { data, error } = await supabase
-      .from('blog_posts')
-      .select('slug, published_at, updated_at')
-      .eq('status', 'published')
-      .order('published_at', { ascending: false })
-      .limit(1000);
-    
-    if (error) {
-      console.error('Error fetching posts for sitemap:', error);
-    } else {
-      posts = data || [];
-    }
-  } catch (error) {
-    console.error('Error fetching posts for sitemap:', error);
-  }
+  const baseUrl = getSiteUrl();
 
-  // 정적 페이지
-  const staticPages = [
+  return [
     {
       url: baseUrl,
       lastModified: new Date(),
@@ -44,23 +23,16 @@ export default async function sitemap() {
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/records`,
+      url: `${baseUrl}/privacy`,
       lastModified: new Date(),
-      changeFrequency: 'daily',
-      priority: 0.9,
+      changeFrequency: 'yearly',
+      priority: 0.3,
+    },
+    {
+      url: `${baseUrl}/terms`,
+      lastModified: new Date(),
+      changeFrequency: 'yearly',
+      priority: 0.3,
     },
   ];
-
-  // 블로그 포스트 페이지 (검색 엔진 최적화를 위해 priority 높임)
-  const blogPages = posts
-    .filter(post => post.slug)
-    .map(post => ({
-      url: `${baseUrl}/records/${post.slug}`,
-      lastModified: post.updated_at ? new Date(post.updated_at) : new Date(post.published_at),
-      changeFrequency: 'weekly',
-      priority: 0.9, // 블로그 글의 검색 노출을 위해 priority 높임
-    }));
-
-  return [...staticPages, ...blogPages];
 }
-

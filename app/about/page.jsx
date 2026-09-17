@@ -1,613 +1,249 @@
-import Link from 'next/link';
-import Image from 'next/image';
+import ProfileImage from '@/components/about/ProfileImage';
+import AboutCtaActions from '@/components/about/AboutCtaActions';
 import { MotionWrapper, StaggerContainer, StaggerItem } from '@/components/common/MotionWrapper';
 
 export const metadata = {
-  title: 'About - 아티링',
-  description: '아티링은 프리랜서가 구조 안에서 일할 수 있도록 설계된 인력 관리 시스템을 만들고 있습니다. 우리는 프리랜서 시장의 구조적 문제를 시스템 설계로 해결합니다.',
+  title: '소개 - 아티링이 만드는 뮤모',
+  description: '아티링은 여행지마다 캐릭터를 심고, 작가와 함께 여행의 추억을 수집하는 뮤모 앱을 만들고 있어요.',
 };
 
-const timeline = [
+const creatorFlow = [
   {
-    date: '2025.11',
-    title: '프로젝트 시작',
-    description: '프리랜서 시장의 구조적 문제 해결을 목표로 아티링 프로젝트를 시작했습니다.'
+    step: '01',
+    title: '캐릭터 등록 신청',
+    desc: '내가 그린 캐릭터와 이야기를 신청해요. 지역과 컨셉을 함께 적어주시면 돼요.',
   },
   {
-    date: '2025.11',
-    title: '사업 구조 설계 완료',
-    description: '3자 구조(클라이언트-플랫폼-에이전시-프리랜서) 기반 백업 시스템 및 통합 관리 시스템 설계를 완료했습니다.'
+    step: '02',
+    title: '승인 & 스팟 배치',
+    desc: '검토 후 승인되면, 캐릭터가 실제 여행지 GPS 스팟에 배치돼요.',
   },
   {
-    date: '2025.12',
-    title: '특허 출원',
-    description: '프리랜서 에이전시 기반 인력 관리 시스템 및 방법에 대한 특허 출원을 완료했습니다.'
-  },
-  {
-    date: '2026.01',
-    title: '문제 정의 및 시장 조사',
-    description: '프리랜서 시장의 구조적 문제를 분석하고, 해결 방안 연구를 시작했습니다.'
+    step: '03',
+    title: '수집 & 정산',
+    desc: '여행자가 캐릭터를 수집할수록 도감이 채워지고, 수집률에 따라 수익이 정산돼요.',
   },
 ];
 
-// 문제 정의 아이콘
-const problemIcons = {
-  dropout: (
-    <svg className="w-full h-full" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
-    </svg>
-  ),
-  matching: (
-    <svg className="w-full h-full" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-    </svg>
-  ),
-  management: (
-    <svg className="w-full h-full" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-    </svg>
-  ),
-};
-
-// 방향성 아이콘
-const directionIcons = {
-  agency: (
-    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-    </svg>
-  ),
-  backup: (
-    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-    </svg>
-  ),
-  automation: (
-    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
-    </svg>
-  ),
-};
-
-// 미션 아이콘
-const missionIcons = {
-  stability: (
-    <svg className="w-full h-full" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-    </svg>
-  ),
-  matching: (
-    <svg className="w-full h-full" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-    </svg>
-  ),
-  efficiency: (
-    <svg className="w-full h-full" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
-    </svg>
-  ),
-};
-
-// 접근 방식 아이콘
-const approachIcons = {
-  observe: (
-    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-    </svg>
-  ),
-  hypothesis: (
-    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-    </svg>
-  ),
-  structure: (
-    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
-    </svg>
-  ),
-  transparent: (
-    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-    </svg>
-  ),
-};
-
-const problems = [
+const team = [
   {
-    icon: problemIcons.dropout,
-    title: '프리랜서 중도 이탈 시 프로젝트 전체 중단',
-    description: '개인 단위 활동 구조에서는 한 명의 이탈이 전체 프로젝트를 멈춥니다. 이는 시스템이 아닌 개인에게 모든 책임을 집중시킨 결과입니다.'
+    name: '임수연',
+    role: '대표',
+    desc: '2019년부터 신디야라는 고양이 캐릭터 브랜드를 직접 운영하며 캐릭터 기획부터 굿즈 제작·판매까지 전 과정을 경험했고, 그 경험이 뮤모로 이어졌어요. 뮤모는 "여행의 순간을 캐릭터로 남기자"는 생각에서 시작했습니다.',
+    image: '/images/ceo.png',
+    imageFit: 'contain',
   },
   {
-    icon: problemIcons.matching,
-    title: '역량 중심 매칭의 한계',
-    description: '포트폴리오와 평점만으로는 프로젝트 안정성을 보장할 수 없습니다. 백업 가능성과 관리 구조가 함께 고려되어야 합니다.'
-  },
-  {
-    icon: problemIcons.management,
-    title: '과도한 관리 부담',
-    description: '근태, 급여, 계약, 행정 처리를 개별적으로 수행하는 구조는 프로젝트 본질에 집중하기 어렵게 만듭니다.'
+    name: '김도형',
+    role: '운영매니저',
+    desc: '관광 경로 기획, 홍보기획, 관광 파트너 업체 협의를 담당하며, 뮤모의 일상을 함께 만들어가고 있어요.',
+    image: '/images/manager.png',
   },
 ];
 
-const directions = [
-  {
-    icon: directionIcons.agency,
-    title: '에이전시 단위 운영',
-    description: '프리랜서를 개인이 아닌 에이전시 구조 안에서 관리합니다.'
-  },
-  {
-    icon: directionIcons.backup,
-    title: '백업 전제 설계',
-    description: '이탈은 예외가 아닌 전제입니다. 언제든 백업이 가능한 구조를 설계합니다.'
-  },
-  {
-    icon: directionIcons.automation,
-    title: '통합 자동화',
-    description: '관리 부담을 최소화하는 통합 시스템을 구축합니다.'
-  },
+const partners = [
+  { name: '요일스튜디오', desc: '캐릭터 제작·일러스트 협업' },
+  { name: 'EO인터네셔널', desc: '글로벌 IP·콘텐츠 확장' },
+  { name: '아트샘', desc: 'K-Art 크리에이터 네트워크' },
 ];
 
-const missions = [
+const journey = [
   {
-    icon: missionIcons.stability,
-    title: '프로젝트 안정성 확보',
-    description: [
-      '프리랜서 이탈로 인한 프로젝트 실패를 구조적으로 방지합니다.',
-      '에이전시 단위 백업 시스템을 통해 업무 연속성을 보장합니다.'
-    ]
+    year: '2019~2025',
+    title: '신디야 브랜드 운영',
+    desc: '캐릭터 기획·제작·판매 전 과정을 경험하며, "캐릭터와 함께하는 경험"을 쌓아왔어요.',
   },
   {
-    icon: missionIcons.matching,
-    title: '신뢰 가능한 매칭 제공',
-    description: [
-      '개인 역량뿐 아니라 백업 가능성을 고려한 매칭을 제공합니다.',
-      '클라이언트는 더 안정적인 프로젝트 환경을 얻습니다.'
-    ]
+    year: '2025',
+    title: '뮤모 기획 시작',
+    desc: '여행지마다 캐릭터를 두고, GPS로 수집하는 앱 아이디어를 구체화했어요.',
   },
   {
-    icon: missionIcons.efficiency,
-    title: '관리 효율성 극대화',
-    description: [
-      '근태, 급여, 계약, 행정 처리를 통합 자동화합니다.',
-      '에이전시와 클라이언트가 프로젝트 본질에 집중할 수 있도록 합니다.'
-    ]
-  },
-];
-
-const approaches = [
-  {
-    icon: approachIcons.observe,
-    title: '문제를 관찰하고 기록합니다',
-    description: '시장에서 반복되는 문제를 구조적으로 분석하고, 왜 이런 문제가 발생하는지 근본 원인을 찾습니다.'
+    year: '2026',
+    title: 'K-Art 청년창작자 지원사업 선정',
+    desc: '충남문화관광재단 K-Art 청년창작자 지원사업에 「뮤모: 캐릭터 수집 관광 플랫폼」으로 선정되어 본격 개발에 들어갔어요.',
   },
   {
-    icon: approachIcons.hypothesis,
-    title: '가설을 세우고 검증합니다',
-    description: '작은 단위의 실험을 통해 가설을 검증하고, 실패와 성공을 투명하게 기록합니다.'
+    year: '2026',
+    title: '충남 공공데이터·AI 창업경진대회 우수상',
+    desc: '제14회 충남 공공데이터·AI 활용 창업경진대회 아이디어 기획부문에서 우수상을 수상하며, 뮤모의 가능성을 인정받았어요.',
   },
   {
-    icon: approachIcons.structure,
-    title: '구조를 먼저 설계합니다',
-    description: '기능보다 구조를 먼저 설계하고, 지속 가능한 시스템을 만드는 데 집중합니다.'
-  },
-  {
-    icon: approachIcons.transparent,
-    title: '과정을 투명하게 공개합니다',
-    description: '특허 출원, 사업 준비, 시스템 설계 과정을 기록으로 남기고 공유합니다.'
+    year: '2026',
+    title: '지역성장 예비창업지원사업 선정',
+    desc: '지역성장 예비창업지원사업에 선정되어, 뮤모를 더 많은 지역으로 확장할 준비를 하고 있어요.',
   },
 ];
 
 export default function AboutPage() {
   return (
-    <div>
-      {/* Section 1: 페이지 헤더 */}
-      <section className="section border-b border-[var(--color-border)]">
-        <div className="container-narrow">
-          <MotionWrapper
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <div className="flex items-center">
-              <Image
-                src="/images/logo.png"
-                alt="ARTIRING"
-                width={200}
-                height={67}
-                className="h-12 md:h-16 w-auto"
-                priority
-              />
-            </div>
-            <p className="mt-4 text-lg md:text-xl text-[var(--color-text-secondary)]">
-              디자이너·아티스트를 에이전시로 연결하는 플랫폼
+    <div className="overflow-x-hidden">
+      {/* 소개 */}
+      <section className="page-section border-b border-[var(--color-gray-300)]">
+        <div className="max-w-content mx-auto px-5 md:px-20">
+          <MotionWrapper animate={{ opacity: 1, y: 0 }}>
+            <p className="text-sm font-medium text-[var(--color-primary)] mb-3">About</p>
+            <h1 className="font-accent text-[32px] md:text-[48px] font-bold leading-snug text-[var(--color-gray-900)] max-w-2xl">
+              아티링이 만드는 뮤모
+            </h1>
+            <p className="mt-6 text-lg text-[var(--color-gray-700)] leading-relaxed max-w-2xl">
+              우리는 여행을 &ldquo;사진 몇 장&rdquo;으로 끝내지 않으려고 해요.
+              가야만 만날 수 있는 캐릭터, 그 순간을 도감에 남기는 앱 — 그게 뮤모예요.
+            </p>
+            <p className="mt-4 text-base text-[var(--color-gray-700)] leading-relaxed max-w-2xl">
+              1인 창작자로 시작한 아티링이, 이제 작가·파트너·지자체와 함께
+              지역마다 다른 캐릭터 세계를 만들어가고 있습니다.
             </p>
           </MotionWrapper>
         </div>
       </section>
 
-      {/* Section 2: 브랜드 정의 */}
-      <section className="section">
-        <div className="container-narrow">
-          <MotionWrapper
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.6 }}
-          >
-            <p className="text-lg md:text-xl leading-relaxed font-medium">
-              아티링은 프리랜서를 묶는 회사가 아닙니다
+      {/* 작가 참여 방식 */}
+      <section className="page-section bg-[var(--color-gray-100)]">
+        <div className="max-w-content mx-auto px-5 md:px-20">
+          <MotionWrapper whileInView={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 24 }} viewport={{ once: true }}>
+            <h2 className="font-accent text-2xl md:text-[32px] font-bold text-[var(--color-gray-900)]">
+              작가로 함께하는 방법
+            </h2>
+            <p className="mt-4 text-[var(--color-gray-700)] max-w-2xl leading-relaxed">
+              캐릭터 하나가 새로운 여행지의 주인공이 되는 과정이에요.
+              복잡한 계약서보다, 흐름을 따라오시면 됩니다.
             </p>
-            <p className="mt-6 text-lg md:text-xl leading-relaxed">
-              대신 사람과 일, 책임과 보호 사이에
-              <br className="hidden md:block" />
-              <strong className="text-[var(--color-text-primary)]">'보이지 않는 고리'</strong>를 만듭니다.
-            </p>
-            <div className="mt-8 space-y-4 text-[var(--color-text-secondary)] leading-relaxed">
-              <p className="font-medium text-[var(--color-text-primary)]">
-                그 고리는:
-              </p>
-              <ul className="space-y-4 list-none">
-                <li className="flex items-start gap-3">
-                  <div className="flex-shrink-0 w-6 h-6 mt-0.5 text-[var(--color-point)]">
-                    <svg className="w-full h-full" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                    </svg>
-                  </div>
-                  <span>AI로 작동합니다 (자동 매칭)</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="flex-shrink-0 w-6 h-6 mt-0.5 text-[var(--color-point)]">
-                    <svg className="w-full h-full" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                    </svg>
-                  </div>
-                  <span>기록으로 증명됩니다 (투명성)</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="flex-shrink-0 w-6 h-6 mt-0.5 text-[var(--color-point)]">
-                    <svg className="w-full h-full" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
-                    </svg>
-                  </div>
-                  <span>구조가 책임집니다</span>
-                </li>
-              </ul>
-            </div>
           </MotionWrapper>
+
+          <StaggerContainer className="mt-12 grid md:grid-cols-3 gap-6" staggerDelay={0.1}>
+            {creatorFlow.map((item) => (
+              <StaggerItem key={item.step}>
+                <div className="card p-6 h-full">
+                  <span className="badge-yellow">{item.step}</span>
+                  <h3 className="mt-4 font-semibold text-lg text-[var(--color-gray-900)]">{item.title}</h3>
+                  <p className="mt-3 text-sm text-[var(--color-gray-700)] leading-relaxed">{item.desc}</p>
+                </div>
+              </StaggerItem>
+            ))}
+          </StaggerContainer>
         </div>
       </section>
 
-      {/* Section 3: 우리가 해결하려는 문제 */}
-      <section className="section bg-[var(--color-bg-sub)]">
-        <div className="container-narrow">
-          <h2 className="text-2xl md:text-3xl font-semibold tracking-tight">
-            왜 이 문제를 선택했는가
-          </h2>
-          <div className="mt-6 text-[var(--color-text-secondary)] leading-relaxed max-w-3xl">
-            <p>
-              프리랜서 시장은 빠르게 성장했지만, 프로젝트 실패와 중도 포기는 여전히 반복되고 있습니다.
-              이는 개인의 성실함이나 실력의 문제가 아니라, 프리랜서를 항상 혼자 일하게 만드는 구조에서 비롯된 문제라고 판단했습니다.
-            </p>
-            <p className="mt-4 text-[var(--color-text-primary)] font-medium">
-              아티링은 이 구조 자체를 바꾸는 것을 목표로 합니다.
-            </p>
+      {/* 팀 & 파트너 */}
+      <section className="page-section">
+        <div className="max-w-content mx-auto px-5 md:px-20">
+          <MotionWrapper whileInView={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 24 }} viewport={{ once: true }}>
+            <h2 className="font-accent text-2xl md:text-[32px] font-bold text-[var(--color-gray-900)]">
+              함께하는 사람들
+            </h2>
+          </MotionWrapper>
+
+          <div className="mt-10 grid md:grid-cols-2 gap-6">
+            {team.map((member) => (
+              <MotionWrapper
+                key={member.name}
+                className="card p-6 flex gap-5"
+                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: 24 }}
+                viewport={{ once: true }}
+              >
+                <ProfileImage
+                  src={member.image}
+                  alt={`${member.name} ${member.role}`}
+                  fit={member.imageFit}
+                />
+                <div>
+                  <p className="text-xs font-semibold text-[var(--color-primary)]">{member.role}</p>
+                  <h3 className="mt-1 font-accent text-xl font-bold">{member.name}</h3>
+                  <p className="mt-2 text-sm text-[var(--color-gray-700)] leading-relaxed">{member.desc}</p>
+                </div>
+              </MotionWrapper>
+            ))}
           </div>
 
-          {/* 핵심 문제 리스트 - 가로 레이아웃 */}
-          <StaggerContainer className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch" staggerDelay={0.15}>
-            {problems.map((problem, index) => (
-              <StaggerItem key={index} className="h-full">
-                <div className="bg-white rounded-xl p-6 border border-[var(--color-border)] shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 text-center h-full flex flex-col">
-                  <div className="flex items-center justify-center w-24 h-24 mx-auto rounded-full bg-[var(--color-point)]/10 text-[var(--color-point)] mb-4">
-                    <div className="w-14 h-14">
-                      {problem.icon}
-                    </div>
-                  </div>
-                  <h3 className="text-lg font-semibold tracking-tight mb-3">
-                    {problem.title}
-                  </h3>
-                  <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed">
-                    {problem.description}
-                  </p>
-                </div>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
-        </div>
-      </section>
-
-      {/* Section 4: 비전과 방향성 */}
-      <section className="section">
-        <div className="container-narrow">
-          <MotionWrapper
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.6 }}
-          >
-            <h2 className="text-2xl md:text-3xl font-semibold tracking-tight">
-              아티링의 비전
-            </h2>
-            
-            <p className="mt-12 text-xl md:text-2xl font-semibold leading-snug">
-              프리랜서가 구조 안에서 일하는 시장을 만듭니다.
-            </p>
-
-            <div className="mt-8 space-y-8 text-[var(--color-text-secondary)] leading-relaxed">
-              <p>
-                우리는 프리랜서를 개인으로만 보는 시장 구조가
-                <br className="hidden md:block" />
-                지속 가능하지 않다고 판단합니다.
-              </p>
-              <p>
-                개인의 능력을 존중하되,
-                <br className="hidden md:block" />
-                그들이 안정적인 구조 안에서 일할 수 있는 환경을 만드는 것.
-                <br className="hidden md:block" />
-                이것이 아티링이 추구하는 시장의 모습입니다.
-              </p>
-            </div>
-          </MotionWrapper>
-
-          {/* 3가지 방향성 */}
-          <StaggerContainer className="mt-12 space-y-6" staggerDelay={0.1}>
-            {directions.map((direction, index) => (
-              <StaggerItem key={index}>
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-full bg-[var(--color-bg-sub)] text-[var(--color-point)]">
-                    {direction.icon}
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold tracking-tight">
-                      {index + 1}. {direction.title}
-                    </h3>
-                    <p className="mt-1 text-[var(--color-text-secondary)] leading-relaxed">
-                      {direction.description}
-                    </p>
-                  </div>
-                </div>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
-
-          {/* 아티링의 기술 */}
-          <MotionWrapper
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.6 }}
-            className="mt-16"
-          >
-            <h2 className="text-2xl md:text-3xl font-semibold tracking-tight mb-8">
-              아티링의 기술
-            </h2>
-          </MotionWrapper>
-
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch" staggerDelay={0.15}>
-            {[
-              {
-                title: '특허출원서'
-              },
-              {
-                title: '디자인등록출원서'
-              },
-              {
-                title: '상표등록출원서'
-              }
-            ].map((patent, index) => (
-              <StaggerItem key={index} className="h-full">
-                <div className="bg-white rounded-xl p-6 border border-[var(--color-border)] shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 h-full flex flex-col">
-                  <div className="w-full aspect-[4/3] mb-4 rounded-lg bg-[var(--color-bg-sub)] flex items-center justify-center border border-[var(--color-border)]">
-                    <span className="text-lg font-medium text-[var(--color-text-secondary)]">
-                      출원중
-                    </span>
-                  </div>
-                  <h3 className="text-lg font-semibold tracking-tight text-center">
-                    {patent.title}
-                  </h3>
-                </div>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
-        </div>
-      </section>
-
-      {/* Section 5: 미션 */}
-      <section className="section bg-[var(--color-bg-sub)]">
-        <div className="container-narrow">
-          <MotionWrapper
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.6 }}
-          >
-            <h2 className="text-2xl md:text-3xl font-semibold tracking-tight">
-              아티링의 미션
-            </h2>
-          </MotionWrapper>
-          
-          {/* 미션 카드 - 가로 레이아웃 */}
-          <StaggerContainer className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch" staggerDelay={0.15}>
-            {missions.map((mission, index) => (
-              <StaggerItem key={index} className="h-full">
-                <div className="bg-white rounded-xl p-6 border border-[var(--color-border)] shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 text-center h-full flex flex-col">
-                  <div className="flex items-center justify-center w-24 h-24 mx-auto rounded-full bg-[var(--color-point)]/10 text-[var(--color-point)] mb-4">
-                    <div className="w-14 h-14">
-                      {mission.icon}
-                    </div>
-                  </div>
-                  <h3 className="text-xl font-semibold tracking-tight mb-4">
-                    {mission.title}
-                  </h3>
-                  <div className="space-y-3">
-                    {mission.description.map((desc, i) => (
-                      <p key={i} className="text-sm text-[var(--color-text-secondary)] leading-relaxed">
-                        {desc}
-                      </p>
-                    ))}
-                  </div>
-                </div>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
-        </div>
-      </section>
-
-      {/* Section 6: 접근 방식 */}
-      <section className="section">
-        <div className="container-narrow">
-          <MotionWrapper
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.6 }}
-          >
-            <h2 className="text-2xl md:text-3xl font-semibold tracking-tight">
-              어떻게 접근하는가
-            </h2>
-            
-            <div className="mt-12 text-[var(--color-text-secondary)] leading-relaxed">
-              <p>
-                아티링은 기능을 먼저 만들기보다,
-                <br className="hidden md:block" />
-                문제를 구조적으로 해결하는 방식을 먼저 설계합니다.
-              </p>
-              <p className="mt-4 text-[var(--color-text-primary)]">
-                그래서 우리는:
-              </p>
-            </div>
-          </MotionWrapper>
-
-          <StaggerContainer className="mt-8 space-y-8" staggerDelay={0.1}>
-            {approaches.map((approach, index) => (
-              <StaggerItem key={index}>
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-full bg-[var(--color-bg-sub)] text-[var(--color-point)]">
-                    {approach.icon}
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold tracking-tight">
-                      {index + 1}. {approach.title}
-                    </h3>
-                    <p className="mt-2 text-[var(--color-text-secondary)] leading-relaxed">
-                      {approach.description}
-                    </p>
-                  </div>
-                </div>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
-        </div>
-      </section>
-
-      {/* Section 7: 연혁 타임라인 */}
-      <section className="section bg-[var(--color-bg-sub)]">
-        <div className="container-narrow">
-          <h2 className="text-2xl md:text-3xl font-semibold tracking-tight">
-            아티링의 여정
-          </h2>
-          
-          {/* 가로 타임라인 */}
-          <div className="mt-12">
-            {/* 데스크탑: 가로 타임라인 */}
-            <div className="hidden md:block">
-              {/* 타임라인 라인 + 포인트 + 날짜 */}
-              <div className="relative mb-8">
-                {/* 가로줄 */}
-                <div className="absolute top-5 left-[5%] right-[5%] h-[3px] bg-[var(--color-border)]" />
-                
-                {/* 날짜 포인트들 */}
-                <div className="flex justify-between px-[5%]">
-                  {timeline.map((item, index) => (
-                    <div key={index} className="flex flex-col items-center">
-                      {/* 포인트 */}
-                      <div className="w-10 h-10 rounded-full bg-[var(--color-point)] flex items-center justify-center z-10 shadow-md">
-                        <div className="w-4 h-4 rounded-full bg-white" />
-                      </div>
-                      {/* 날짜 */}
-                      <span className="mt-3 text-sm font-bold text-[var(--color-point)]">
-                        {item.date}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              
-              {/* 타임라인 설명 카드 */}
-              <div className="grid grid-cols-4 gap-4">
-                {timeline.map((item, index) => (
-                  <div 
-                    key={index} 
-                    className="bg-white rounded-xl p-5 border border-[var(--color-border)] text-center shadow-sm"
-                  >
-                    <h3 className="text-base font-semibold tracking-tight">
-                      {item.title}
-                    </h3>
-                    <p className="mt-3 text-sm text-[var(--color-text-secondary)] leading-relaxed">
-                      {item.description}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-            
-            {/* 모바일: 세로 타임라인 */}
-            <div className="md:hidden">
-              <div className="relative pl-8">
-                {/* 세로줄 */}
-                <div className="absolute left-[11px] top-0 bottom-0 w-[3px] bg-[var(--color-border)]" />
-                
-                <div className="space-y-8">
-                  {timeline.map((item, index) => (
-                    <div key={index} className="relative">
-                      {/* 포인트 */}
-                      <div className="absolute -left-8 top-0 w-6 h-6 rounded-full bg-[var(--color-point)] flex items-center justify-center z-10">
-                        <div className="w-2.5 h-2.5 rounded-full bg-white" />
-                      </div>
-                      {/* 날짜 & 내용 */}
-                      <div className="bg-white rounded-xl p-4 border border-[var(--color-border)] shadow-sm">
-                        <span className="text-sm font-bold text-[var(--color-point)]">
-                          {item.date}
-                        </span>
-                        <h3 className="mt-2 text-base font-semibold tracking-tight">
-                          {item.title}
-                        </h3>
-                        <p className="mt-2 text-sm text-[var(--color-text-secondary)] leading-relaxed">
-                          {item.description}
-                        </p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-
-      {/* CTA Section */}
-      <section className="section bg-white">
-        <div className="container-narrow">
-          <h2 className="text-2xl md:text-3xl font-semibold tracking-tight">
-            함께 구조를 만들어갈
-            <br />
-            파트너를 찾고 있습니다.
-          </h2>
-          <p className="mt-6 text-[var(--color-text-secondary)] leading-relaxed">
-            아티링의 여정에 관심이 있으시다면,
-            <br />
-            기록을 통해 우리의 과정을 지켜봐 주세요.
+          <p className="mt-6 text-sm text-[var(--color-gray-700)] text-center leading-relaxed">
+            디자이너, 아티스트, 회계사, 노무사 등 전문 자문단 20명과 함께하고 있어요.
           </p>
-          <div className="mt-8 flex flex-col sm:flex-row gap-4">
-            <Link href="/records" className="text-link text-lg">
-              기록 보기
-            </Link>
-            <Link href="/contact" className="text-link text-lg">
-              문의하기
-            </Link>
+
+          <StaggerContainer className="mt-8 grid sm:grid-cols-3 gap-4" staggerDelay={0.08}>
+            {partners.map((p) => (
+              <StaggerItem key={p.name}>
+                <div className="card p-5 text-center">
+                  <h4 className="font-semibold text-[var(--color-gray-900)]">{p.name}</h4>
+                  <p className="mt-2 text-sm text-[var(--color-gray-500)]">{p.desc}</p>
+                </div>
+              </StaggerItem>
+            ))}
+          </StaggerContainer>
+        </div>
+      </section>
+
+      {/* 여정 타임라인 */}
+      <section className="page-section bg-[var(--color-gray-100)]">
+        <div className="max-w-content mx-auto px-5 md:px-20">
+          <MotionWrapper whileInView={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 24 }} viewport={{ once: true }}>
+            <h2 className="font-accent text-2xl md:text-[32px] font-bold text-[var(--color-gray-900)]">
+              여정
+            </h2>
+          </MotionWrapper>
+
+          <div className="mt-10 space-y-0">
+            {journey.map((item, i) => (
+              <MotionWrapper
+                key={item.title}
+                className={`flex gap-6 py-8 ${i < journey.length - 1 ? 'border-b border-[var(--color-gray-300)]' : ''}`}
+                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: 24 }}
+                viewport={{ once: true }}
+              >
+                <span className="flex-shrink-0 w-24 font-accent font-bold text-[var(--color-primary)]">{item.year}</span>
+                <div>
+                  <h3 className="font-semibold text-lg text-[var(--color-gray-900)]">{item.title}</h3>
+                  <p className="mt-2 text-sm text-[var(--color-gray-700)] leading-relaxed">{item.desc}</p>
+                </div>
+              </MotionWrapper>
+            ))}
           </div>
+        </div>
+      </section>
+
+      {/* 외부 채널 */}
+      <section className="page-section">
+        <div className="max-w-content mx-auto px-5 md:px-20 text-center">
+          <MotionWrapper whileInView={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 24 }} viewport={{ once: true }}>
+            <h2 className="font-accent text-xl md:text-2xl font-bold text-[var(--color-gray-900)]">
+              더 많은 이야기가 궁금하다면
+            </h2>
+            <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+              <a
+                href="https://blog.naver.com/artiring"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="card px-8 py-5 link-channel text-base font-semibold"
+              >
+                📖 네이버 블로그 팔로우하기
+              </a>
+              <a
+                href="https://www.instagram.com/arti_ring"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="card px-8 py-5 link-channel text-base font-semibold"
+              >
+                📸 인스타그램 팔로우하기
+              </a>
+            </div>
+          </MotionWrapper>
+        </div>
+      </section>
+
+      {/* CTA — about에서만 */}
+      <section className="page-section bg-[var(--color-primary-light)]">
+        <div className="max-w-content mx-auto px-5 md:px-20 text-center">
+          <MotionWrapper whileInView={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 24 }} viewport={{ once: true }}>
+            <h2 className="font-accent text-2xl md:text-[32px] font-bold text-[var(--color-gray-900)]">
+              함께 만들어요
+            </h2>
+            <p className="mt-3 text-[var(--color-gray-700)]">
+              작가이든, 지자체·제휴 파트너이든 — 편하게 연락주세요.
+            </p>
+            <AboutCtaActions />
+          </MotionWrapper>
         </div>
       </section>
     </div>

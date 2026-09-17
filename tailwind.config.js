@@ -8,35 +8,34 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        primary: '#E8341A',
+        'primary-light': '#FEF0EC',
+        'secondary-yellow': '#FFD43B',
+        'secondary-yellow-light': '#FFFBEB',
+        'secondary-blue': '#3B82F6',
+        'secondary-blue-light': '#EFF6FF',
+        gray: {
+          900: '#1A1A1A',
+          700: '#4A4A4A',
+          500: '#888888',
+          300: '#CCCCCC',
+          100: '#F5F5F5',
+        },
+        point: 'var(--color-primary)',
         bg: 'var(--color-bg)',
         'bg-sub': 'var(--color-bg-sub)',
-        'text-primary': 'var(--color-text-primary)',
-        'text-secondary': 'var(--color-text-secondary)',
-        point: 'var(--color-point)',
       },
       fontFamily: {
-        sans: ['Pretendard', '나눔고딕', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'sans-serif'],
+        sans: ['Pretendard', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'sans-serif'],
+        accent: ['Cafe24Ssurround', 'Pretendard', 'sans-serif'],
       },
       maxWidth: {
-        'content': '840px',
+        content: '1200px',
       },
-      fontSize: {
-        'body': ['16px', { lineHeight: '1.7', letterSpacing: '-0.01em' }],
+      borderRadius: {
+        cta: '14px',
       },
     },
   },
   plugins: [],
 };
-
-
-
-
-
-
-
-
-
-
-
-
-

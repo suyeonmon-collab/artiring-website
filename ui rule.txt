@@ -1,0 +1,221 @@
+# 🍎 Cursor AI용 UI 설계 풀세트 (ARTIRING)
+
+---
+
+## 1️⃣ 기록 페이지 컴포넌트 트리 설계
+
+### 📚 기록 목록 페이지 (`/records`)
+
+```
+<RecordPage>
+ ├─ <PageHeader title="기록" />
+ ├─ <RecordToolbar>
+ │    ├─ <CategoryFilter />
+ │    ├─ <SortSelector />
+ │    └─ <SearchInput />
+ ├─ <RecordList>
+ │    ├─ <RecordItem />
+ │    ├─ <RecordItem />
+ │    └─ ...
+ └─ <Pagination />
+</RecordPage>
+```
+
+### RecordItem 구성
+
+```
+<RecordItem>
+ ├─ <Thumbnail />  (선택적, 작게)
+ ├─ <Title />
+ ├─ <Summary />
+ └─ <Meta>
+      ├─ <Date />
+      └─ <Category />
+```
+
+#### UI 규칙
+
+```
+RecordItem은 카드형으로 보이지 않도록 한다.
+배경색, 그림자, 테두리를 사용하지 않는다.
+전체 항목이 클릭 가능해야 한다.
+```
+
+---
+
+### 📄 기록 상세 페이지 (`/records/[slug]`)
+
+```
+<RecordDetailPage>
+ ├─ <ArticleHeader>
+ │    ├─ <Title />
+ │    └─ <Meta>
+ │         ├─ <Date />
+ │         ├─ <Category />
+ │         └─ <Tags />
+ ├─ <TableOfContents /> (조건부)
+ ├─ <ArticleBody />
+ ├─ <ArticleFooter>
+ │    ├─ <PrevPost />
+ │    └─ <NextPost />
+</RecordDetailPage>
+```
+
+#### 본문 UI 규칙
+
+```
+ArticleBody는 단일 컬럼 레이아웃을 유지한다.
+배경 박스 없이 텍스트 흐름 중심으로 렌더링한다.
+이미지는 본문 폭을 넘지 않는다.
+```
+
+---
+
+## 2️⃣ 글 작성 에디터 UI 배치 (Admin)
+
+### ✍️ 에디터 전체 구조
+
+```
+<EditorPage>
+ ├─ <EditorHeader>
+ │    ├─ <TitleInput />
+ │    ├─ <PublishControls>
+ │    │    ├─ <VisibilityToggle />
+ │    │    ├─ <TempSaveButton />
+ │    │    └─ <PublishButton />
+ ├─ <EditorMetaPanel>
+ │    ├─ <CategorySelector />
+ │    ├─ <TagInput />
+ │    └─ <ThumbnailUploader />
+ ├─ <EditorToolbar /> (Floating)
+ └─ <EditorBody />
+</EditorPage>
+```
+
+---
+
+### 🧰 EditorToolbar 구성
+
+```
+<EditorToolbar>
+ ├─ TextStyle (Bold, Italic, Underline)
+ ├─ FontSize
+ ├─ FontFamily
+ ├─ LineHeight
+ ├─ LetterSpacing
+ ├─ Align (Left, Center, Right)
+ ├─ ImageInsert
+ ├─ DividerInsert
+ ├─ QuoteBlock
+ ├─ CodeBlock
+ ├─ List (Bullet, Numbered)
+</EditorToolbar>
+```
+
+#### 에디터 UI 규칙
+
+```
+툴바는 플로팅 형태로 제공한다.
+버튼은 아이콘 중심, 최소한의 시각적 강조만 한다.
+작성 중 UI는 기능 중심, 공개 UI는 가독성 중심으로 분리한다.
+```
+
+---
+
+### 🪞 미리보기 규칙
+
+```
+미리보기 화면은 실제 기록 상세 페이지와 동일한 스타일을 사용한다.
+작성 중 스타일과 공개 스타일이 다를 경우, 공개 스타일을 기준으로 한다.
+```
+
+---
+
+## 3️⃣ 서비스 페이지 확장 시 UI 변형 규칙
+
+> “지금은 기록 중심, 나중엔 서비스 중심”을 위한 구조
+
+---
+
+### 🧱 페이지 타입 구분
+
+```
+페이지는 다음 3가지 타입으로 구분한다.
+
+1. Document Page (기록, 소개)
+2. Service Page (향후 기능 소개)
+3. Hybrid Page (기록 + 기능 설명)
+```
+
+---
+
+### 📄 Document Page 규칙 (현재 중심)
+
+```
+Document Page는 단일 컬럼 레이아웃을 유지한다.
+텍스트 가독성과 흐름이 최우선이다.
+CTA 버튼 사용을 최소화한다.
+```
+
+---
+
+### ⚙️ Service Page 규칙 (미래 확장)
+
+```
+Service Page는 섹션 단위 레이아웃을 허용한다.
+하지만 카드형 UI와 과한 강조는 피한다.
+```
+
+허용되는 구조:
+
+```
+<ServicePage>
+ ├─ Hero (텍스트 중심)
+ ├─ FeatureSection (2~3개)
+ ├─ FlowSection (프로세스 설명)
+ └─ CTASection (단일 버튼)
+```
+
+#### Service Page UI 제한
+
+```
+Service Page에서도 포인트 컬러는 하나만 사용한다.
+애니메이션은 진입 시 한 번만 허용한다.
+```
+
+---
+
+### 🔀 Hybrid Page 규칙
+
+```
+Hybrid Page는 상단을 Document 스타일로 시작한다.
+하단에만 Service 요소를 배치한다.
+```
+
+예시:
+
+```
+상단: 문제 정의 / 기록
+하단: 이 기록이 연결되는 서비스 구조 설명
+```
+
+---
+
+## 4️⃣ 공통 UI 금지 리스트 (Cursor에 꼭 넣기)
+
+```
+다음 UI 패턴을 사용하지 않는다.
+- 카드형 박스 디자인
+- 과도한 drop-shadow
+- 그라데이션 배경
+- 강조를 위한 색상 남발
+- 불필요한 아이콘 장식
+```
+## 5️⃣ Cursor에 넣기 좋은 “최종 한 방 문장”
+
+맨 마지막에 이 문장 추가해 👇
+
+```
+이 프로젝트의 UI 목표는
+‘잘 디자인된 서비스’가 아니라
+‘정제된 문서와 기록 플랫폼’이다.

@@ -1,77 +1,88 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { useEffect, useRef, useState, Children, cloneElement, isValidElement } from 'react';
 
-export function MotionWrapper({ 
-  children, 
-  className = '',
-  initial = { opacity: 0, y: 20 },
-  animate = { opacity: 1, y: 0 },
-  transition = { duration: 0.6 },
-  whileInView,
-  viewport = { once: true, amount: 0.2 }
-}) {
-  return (
-    <motion.div
-      className={className}
-      initial={initial}
-      animate={animate}
-      whileInView={whileInView}
-      viewport={viewport}
-      transition={transition}
-    >
-      {children}
-    </motion.div>
-  );
-}
+function useReveal({ immediate = false, once = true, amount = 0.2 }) {
+  const ref = useRef(null);
+  const [visible, setVisible] = useState(immediate);
 
-export function StaggerContainer({ 
-  children, 
-  className = '',
-  staggerDelay = 0.2
-}) {
-  return (
-    <motion.div
-      className={className}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
-      variants={{
-        visible: {
-          transition: {
-            staggerChildren: staggerDelay
-          }
+  useEffect(() => {
+    if (immediate) return;
+
+    const el = ref.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          if (once) observer.disconnect();
         }
-      }}
-    >
-      {children}
-    </motion.div>
-  );
+      },
+      { threshold: amount }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [immediate, once, amount]);
+
+  return { ref, visible };
 }
 
-export function StaggerItem({ 
-  children, 
-  className = ''
+export function MotionWrapper({
+  children,
+  className = '',
+  animate,
+  whileInView,
+  viewport = { once: true, amount: 0.2 },
 }) {
+  const immediate = Boolean(animate && !whileInView);
+  const { ref, visible } = useReveal({
+    immediate,
+    once: viewport?.once !== false,
+    amount: viewport?.amount ?? 0.2,
+  });
+
   return (
-    <motion.div
-      className={className}
-      variants={{
-        hidden: { opacity: 0, y: 30 },
-        visible: { opacity: 1, y: 0 }
-      }}
-      transition={{ duration: 0.6 }}
+    <div
+      ref={ref}
+      className={`motion-reveal ${visible ? 'motion-reveal-visible' : ''} ${className}`.trim()}
     >
       {children}
-    </motion.div>
+    </div>
   );
 }
 
+export function StaggerContainer({
+  children,
+  className = '',
+  staggerDelay = 0.08,
+}) {
+  const { ref, visible } = useReveal({ once: true, amount: 0.2 });
 
+  return (
+    <div
+      ref={ref}
+      className={`motion-stagger ${visible ? 'motion-stagger-visible' : ''} ${className}`.trim()}
+      style={{ '--stagger-delay': `${staggerDelay}s` }}
+    >
+      {Children.map(children, (child, index) => {
+        if (isValidElement(child) && child.type === StaggerItem) {
+          return cloneElement(child, { index });
+        }
+        return child;
+      })}
+    </div>
+  );
+}
 
-
-
-
-
-
-
+export function StaggerItem({ children, className = '', index = 0 }) {
+  return (
+    <div
+      className={`motion-stagger-item ${className}`.trim()}
+      style={{ '--stagger-index': index }}
+    >
+      {children}
+    </div>
+  );
+}
