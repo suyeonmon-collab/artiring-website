@@ -39,8 +39,8 @@ export default function SupportNoticesPage() {
             준비 중
           </h2>
           <p className="text-sm text-[var(--color-gray-700)] mb-4 leading-relaxed">
-            위치정보 고지, 확률형 아이템, 미성년자 환불, 장애 보상, 신고 보상 등은
-            문서 확정 후 업로드합니다.
+            확률 등급표, 장애 보상 기준표, 미성년자 환불, 신고 보상, 계정·QR 양도 금지 조항 등은
+            문서·약관 확정 후 업로드합니다.
           </p>
           <NoticeList items={drafts} />
         </section>

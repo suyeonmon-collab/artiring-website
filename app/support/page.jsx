@@ -44,8 +44,8 @@ export default function SupportPage() {
             고객센터
           </h1>
           <p className="mt-3 text-[15px] md:text-base text-[var(--color-gray-700)] leading-relaxed">
-            작가 협업 정책과 FAQ, 서비스 운영·법무 고지 문서를 미리 확인하세요.
-            아직 준비 중인 항목도 목록에 올려 두었습니다.
+            작가 협업 정책·FAQ와 Meowmo 이용약관·개인정보처리방침(위치정보 포함)을 확인할 수
+            있습니다. 확률표·보상 기준표 등 아직 준비 중인 항목도 목록에 올려 두었습니다.
           </p>
         </header>
 
