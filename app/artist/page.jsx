@@ -76,25 +76,25 @@ const SPOT_FEATURES = [
     title: '행사 목록',
     desc: '페어·팝업·전시 일정을 업로드해요.',
     note: '카드를 모은 사람이, 다음 일정까지 따라와요',
-    icon: 'event',
+    src: '/images/screenshots/spot-events.png',
   },
   {
     title: '구매 예약',
     desc: '접수만 받아요. 결제는 작가가 직접 처리하고, 수수료는 없어요.',
     note: '찾아온 김에, 그 자리에서 바로 다음 만남을 예약해요',
-    icon: 'reserve',
+    src: '/images/screenshots/spot-reserve.png',
   },
   {
     title: '쿠폰',
     desc: '내 스팟에서만 쓸 수 있는 쿠폰을 발급해요. 아티링이 발행하는 쿠폰은 없어요.',
     note: '다시 찾아올 이유가 하나 더 생겨요',
-    icon: 'coupon',
+    src: '/images/screenshots/spot-coupon.png',
   },
   {
     title: '이벤트',
     desc: '기간 한정 이벤트를 작가가 직접 개설해요.',
     note: '오늘만 여는 이벤트로, 카드가 특별해져요',
-    icon: 'party',
+    src: '/images/screenshots/spot-event.png',
   },
 ];
 
@@ -134,50 +134,9 @@ const CONDITIONS = [
 
 function StepIcon({ type, className = 'w-9 h-9 flex-shrink-0 text-[var(--color-primary)]' }) {
   const icons = {
-    event: (
-      <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-      </svg>
-    ),
-    reserve: (
-      <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-      </svg>
-    ),
-    coupon: (
-      <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z" />
-      </svg>
-    ),
-    party: (
-      <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-      </svg>
-    ),
-    draw: (
-      <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-      </svg>
-    ),
     map: (
       <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l5.447 2.724A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
-      </svg>
-    ),
-    visit: (
-      <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-      </svg>
-    ),
-    collect: (
-      <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
-      </svg>
-    ),
-    book: (
-      <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
       </svg>
     ),
     design: (
@@ -466,24 +425,32 @@ export default function ArtistPage() {
             </p>
           </MotionWrapper>
 
-          <ul className="mt-10 space-y-0 divide-y divide-[var(--color-gray-300)] bg-white rounded-[var(--radius-lg)] border border-[var(--color-gray-300)] overflow-hidden">
+          <div className="mt-10 flex gap-5 overflow-x-auto pb-4 snap-x snap-mandatory -mx-5 px-5 md:mx-0 md:px-0 md:grid md:grid-cols-2 lg:grid-cols-4 md:overflow-visible md:pb-0 md:gap-6">
             {SPOT_FEATURES.map((item) => (
-              <li key={item.title} className="flex items-start gap-4 px-5 md:px-6 py-5">
-                <div className="flex-shrink-0 mt-0.5">
-                  <StepIcon type={item.icon} />
+              <div key={item.title} className="flex-shrink-0 w-[260px] md:w-auto snap-center">
+                <div className="rounded-[2rem] border-2 border-[var(--color-gray-900)] bg-[var(--color-gray-900)] p-1.5 shadow-xl">
+                  <div className="relative w-full aspect-[9/19] rounded-[1.5rem] overflow-hidden bg-white">
+                    <Image
+                      src={item.src}
+                      alt={`${item.title} 화면`}
+                      fill
+                      sizes="(min-width: 1024px) 22vw, (min-width: 768px) 40vw, 260px"
+                      className="object-cover object-top"
+                    />
+                  </div>
                 </div>
-                <div>
-                  <h3 className="font-semibold text-[var(--color-gray-900)]">{item.title}</h3>
-                  <p className="mt-1 text-sm text-[var(--color-gray-700)] leading-relaxed">
-                    {item.desc}
-                  </p>
-                  <p className="mt-1.5 text-sm text-[var(--color-gray-700)] leading-relaxed">
-                    {item.note}
-                  </p>
-                </div>
-              </li>
+                <p className="mt-4 text-center font-semibold text-[var(--color-gray-900)]">
+                  {item.title}
+                </p>
+                <p className="mt-1 text-center text-sm text-[var(--color-gray-500)] leading-relaxed">
+                  {item.desc}
+                </p>
+                <p className="mt-1.5 text-center text-sm text-[var(--color-gray-700)] leading-relaxed">
+                  {item.note}
+                </p>
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
       </section>
 
