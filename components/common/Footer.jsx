@@ -4,6 +4,7 @@ import Image from 'next/image';
 const footerLinks = [
   { name: '소개', href: '/about' },
   { name: '뮤모 앱', href: '/#app' },
+  { name: '고객센터', href: '/support' },
 ];
 
 const CONTACT_EMAIL = 'sy@artiring.com';
@@ -103,7 +104,13 @@ export default function Footer() {
             <p className="text-xs text-[var(--color-gray-500)]">
               © {currentYear} ARTIRING. All rights reserved.
             </p>
-            <div className="flex gap-4">
+            <div className="flex flex-wrap gap-4">
+              <Link
+                href="/support"
+                className="text-xs text-[var(--color-gray-500)] hover:text-[var(--color-gray-900)] transition-colors"
+              >
+                고객센터
+              </Link>
               <Link
                 href="/privacy"
                 className="text-xs text-[var(--color-gray-500)] hover:text-[var(--color-gray-900)] transition-colors"
