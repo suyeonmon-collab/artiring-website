@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import SupportNav from '@/components/support/SupportNav';
 import NoticeList from '@/components/support/NoticeList';
+import SupportInquiryForm from '@/components/support/SupportInquiryForm';
 import { getPublishedNotices, getDraftNotices } from '@/lib/support/notices';
 
 export const metadata = {
@@ -96,19 +97,23 @@ export default function SupportPage() {
           <NoticeList items={upcoming} />
         </section>
 
-        <section className="rounded-xl bg-[var(--color-gray-100)] p-6 md:p-8">
-          <h2 className="text-lg font-semibold text-[var(--color-gray-900)] mb-2">
-            문의
+        <section id="inquiry" className="mb-4 scroll-mt-20">
+          <h2 className="font-accent text-xl md:text-2xl text-[var(--color-gray-900)] mb-2">
+            문의하기
           </h2>
-          <p className="text-sm text-[var(--color-gray-700)] leading-relaxed mb-3">
-            공지에 없는 내용은 이메일로 문의해 주세요.
+          <p className="text-sm text-[var(--color-gray-700)] mb-6 leading-relaxed">
+            유저·작가·제휴 등 문의 유형을 고른 뒤 내용을 남겨 주세요. 이메일(
+            <a
+              href={`mailto:${CONTACT_EMAIL}`}
+              className="font-semibold text-[var(--color-secondary-blue)] hover:underline"
+            >
+              {CONTACT_EMAIL}
+            </a>
+            )로도 연락 가능합니다.
           </p>
-          <a
-            href={`mailto:${CONTACT_EMAIL}`}
-            className="text-sm font-semibold text-[var(--color-secondary-blue)] hover:underline"
-          >
-            {CONTACT_EMAIL}
-          </a>
+          <div className="rounded-xl border border-[var(--color-gray-300)] bg-white p-5 md:p-8">
+            <SupportInquiryForm />
+          </div>
         </section>
       </div>
     </div>

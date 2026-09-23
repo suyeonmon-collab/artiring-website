@@ -8,6 +8,7 @@ import { usePathname } from 'next/navigation';
 const navigation = [
   { name: '소개', href: '/about' },
   { name: '뮤모 앱', href: '/#app' },
+  { name: '작가로 참여', href: '/artist' },
   { name: '고객센터', href: '/support' },
   {
     name: '아티링소식',
