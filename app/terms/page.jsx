@@ -7,7 +7,7 @@ export const metadata = {
     'Meowmo(뮤모) 서비스 이용약관. 위치 기반 카드 수집, 안전수칙, 확률형 카드, 장애 보상 기준을 안내합니다.',
 };
 
-const EFFECTIVE_DATE = '2026년 10월 22일';
+const EFFECTIVE_DATE = '2026년 10월 23일';
 
 export default function TermsPage() {
   return (

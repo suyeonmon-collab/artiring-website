@@ -7,7 +7,7 @@ export const metadata = {
     'Meowmo(뮤모) 개인정보처리방침. 수집 항목, 이용 목적, 보유기간, 위치정보 보호, 처리 위탁을 안내합니다.',
 };
 
-const EFFECTIVE_DATE = '2026년 10월 22일';
+const EFFECTIVE_DATE = '2026년 10월 23일';
 
 function BulletList({ items }) {
   return (
