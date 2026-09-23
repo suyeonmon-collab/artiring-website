@@ -22,7 +22,7 @@ export default function AboutCtaActions() {
   return (
     <div className="mt-8 flex flex-col items-center gap-4">
       <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-        <Link href="/structure#preregister" className="btn-download">
+        <Link href="/artist" className="btn-download">
           작가로 참여하기
         </Link>
         <button type="button" onClick={handleInquiry} className="btn-secondary">
