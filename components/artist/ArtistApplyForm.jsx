@@ -306,8 +306,8 @@ export default function ArtistApplyForm() {
               </span>
               <span className="text-[var(--color-primary)]"> (필수)</span>
               <br />
-              수집 항목: 이름·연락처·이메일·포트폴리오 링크 / 목적: 작가 선정 검토 /
-              보관기간: 선정 검토 완료 후 한 달 또는 회원 전환 시까지
+              수집 항목: 이름·연락처·이메일·포트폴리오 링크 / 목적: 베타 참여 안내 및 작가 등록 /
+              보관기간: 6개월
             </span>
           </label>
         </div>
@@ -317,7 +317,7 @@ export default function ArtistApplyForm() {
           disabled={!canSubmit}
           className="w-full btn-download disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:opacity-50"
         >
-          {isSubmitting ? '신청 중...' : '작가로 신청하기'}
+          {isSubmitting ? '신청 중...' : '베타 작가로 신청하기'}
         </button>
       </form>
     </>
