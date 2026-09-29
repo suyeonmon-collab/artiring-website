@@ -21,8 +21,8 @@ export const metadata = {
     images: [
       {
         url: '/images/og/artist-og.png',
-        width: 1200,
-        height: 630,
+        width: 1731,
+        height: 909,
         alt: '뮤모 베타 작가 모집',
       },
     ],
