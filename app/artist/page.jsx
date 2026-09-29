@@ -5,9 +5,34 @@ import ArtistApplyForm from '@/components/artist/ArtistApplyForm';
 import { artistFaqCategories } from '@/lib/artist/faq';
 
 export const metadata = {
-  title: '작가로 참여',
+  title: {
+    absolute: '뮤모 베타 작가 모집 | 아티링',
+  },
   description:
-    '아티링이 만드는 뮤모, 함께할 작가를 찾습니다. 12월 첫 테스트를 앞두고 캐릭터 카드와 스팟을 함께 만들어갈 작가님을 모집해요.',
+    '10월 말 베타 오픈. 지금 합류하는 작가님께 오픈 기념 메인 노출과 SS등급 우선 배정을 드려요. 전국 어디서나, 선별 없이 신청할 수 있어요.',
+  alternates: {
+    canonical: 'https://www.artiring.com/artist',
+  },
+  openGraph: {
+    title: '뮤모 베타, 첫 작가님을 찾아요',
+    description:
+      '10월 말 베타 오픈. 지금 합류하는 작가님께 오픈 기념 메인 노출과 SS등급 우선 배정을 드려요. 전국 어디서나, 선별 없이 신청할 수 있어요.',
+    url: 'https://www.artiring.com/artist',
+    images: [
+      {
+        url: '/images/og/artist-og.png',
+        width: 1731,
+        height: 909,
+        alt: '뮤모 베타 작가 모집',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: '뮤모 베타, 첫 작가님을 찾아요',
+    description:
+      '10월 말 베타 오픈. 지금 합류하는 작가님께 오픈 기념 메인 노출과 SS등급 우선 배정을 드려요. 전국 어디서나, 선별 없이 신청할 수 있어요.',
+  },
 };
 
 const HOW_IT_WORKS = [
@@ -35,6 +60,42 @@ const HOW_IT_WORKS = [
     title: '노출',
     desc: '카드 뒷면 작가 서명, 앱 안 작가 소개 페이지로 이어져요',
     src: '/images/screenshots/artist-expose.png',
+  },
+];
+
+const BETA_PERKS = [
+  {
+    title: '오픈 기념 메인 노출',
+    desc: '정식 오픈 때 앱 메인에 베타 작가님 캐릭터를 먼저 걸어드려요.',
+    note: '처음 앱을 연 사람이 가장 먼저 만나는 캐릭터가 돼요',
+  },
+  {
+    title: 'SS등급 우선 배정',
+    desc: '뮤모 카드는 C부터 SS까지 등급이 있어요. 베타 작가님 캐릭터는 최상위 SS등급에 우선 배정해요.',
+    note: '가장 모으고 싶은 카드가, 작가님 캐릭터예요',
+  },
+];
+
+const BETA_TIMELINE = [
+  {
+    step: '01',
+    title: '신청',
+    desc: '아래 폼으로 신청해요. 선별 없이 모두 참여할 수 있어요',
+  },
+  {
+    step: '02',
+    title: '베타 전달',
+    desc: '10월 말, 베타 앱과 참여 안내를 이메일로 보내드려요',
+  },
+  {
+    step: '03',
+    title: '캐릭터·스팟 등록',
+    desc: '캐릭터를 올리고 스팟을 지정해요. 페어 일정도 이때 입력해요',
+  },
+  {
+    step: '04',
+    title: '첫 공개',
+    desc: '12월 첫 테스트에서 유저들과 만나요',
   },
 ];
 
@@ -76,40 +137,25 @@ const SPOT_FEATURES = [
     title: '행사 목록',
     desc: '페어·팝업·전시 일정을 업로드해요.',
     note: '카드를 모은 사람이, 다음 일정까지 따라와요',
-    icon: 'event',
+    src: '/images/screenshots/spot-events.png',
   },
   {
     title: '구매 예약',
     desc: '접수만 받아요. 결제는 작가가 직접 처리하고, 수수료는 없어요.',
     note: '찾아온 김에, 그 자리에서 바로 다음 만남을 예약해요',
-    icon: 'reserve',
+    src: '/images/screenshots/spot-reserve.png',
   },
   {
     title: '쿠폰',
     desc: '내 스팟에서만 쓸 수 있는 쿠폰을 발급해요. 아티링이 발행하는 쿠폰은 없어요.',
     note: '다시 찾아올 이유가 하나 더 생겨요',
-    icon: 'coupon',
+    src: '/images/screenshots/spot-coupon.png',
   },
   {
     title: '이벤트',
     desc: '기간 한정 이벤트를 작가가 직접 개설해요.',
     note: '오늘만 여는 이벤트로, 카드가 특별해져요',
-    icon: 'party',
-  },
-];
-
-const TRUST_POINTS = [
-  {
-    icon: 'design',
-    text: '10년 넘게 그래픽 디자인을 해온 대표가 직접 만들고 있어요',
-  },
-  {
-    icon: 'calendar',
-    text: '12월, 첫 테스트가 확정됐어요',
-  },
-  {
-    icon: 'map',
-    text: '서울에서 시작해서, 전국으로 넓혀가요',
+    src: '/images/screenshots/spot-event.png',
   },
 ];
 
@@ -130,70 +176,11 @@ const CONDITIONS = [
     title: '본인 창작물만',
     desc: '본인 창작물만 등록할 수 있어요. 도용·타인 작품이 확인되면 정지 절차를 진행해요.',
   },
+  {
+    title: '준비하실 것',
+    desc: '기존 캐릭터를 이용한 카드용 이미지 1장 이상. 새로 그리실 필요 없어요',
+  },
 ];
-
-function StepIcon({ type, className = 'w-9 h-9 flex-shrink-0 text-[var(--color-primary)]' }) {
-  const icons = {
-    event: (
-      <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-      </svg>
-    ),
-    reserve: (
-      <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-      </svg>
-    ),
-    coupon: (
-      <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z" />
-      </svg>
-    ),
-    party: (
-      <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-      </svg>
-    ),
-    draw: (
-      <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-      </svg>
-    ),
-    map: (
-      <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l5.447 2.724A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
-      </svg>
-    ),
-    visit: (
-      <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-      </svg>
-    ),
-    collect: (
-      <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
-      </svg>
-    ),
-    book: (
-      <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-      </svg>
-    ),
-    design: (
-      <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-      </svg>
-    ),
-    calendar: (
-      <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-      </svg>
-    ),
-  };
-
-  return icons[type] || null;
-}
 
 export default function ArtistPage() {
   return (
@@ -207,21 +194,23 @@ export default function ArtistPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <p className="text-sm font-medium text-[var(--color-primary)] mb-3">작가 모집</p>
+              <p className="text-sm font-medium text-[var(--color-primary)] mb-3">베타 작가 모집</p>
               <h1 className="font-accent text-2xl md:text-[36px] font-bold text-[var(--color-gray-900)] leading-snug">
-                아티링이 만드는 뮤모,
-                <br />
-                작가님과 함께 만들어요
+                뮤모 베타, 첫 작가님을 찾아요
               </h1>
               <p className="mt-4 text-base md:text-lg text-[var(--color-gray-700)] leading-relaxed">
-                그림은 계속 쌓이는데, 아무도 찾아오지 않는 곳에만 있으세요?
+                그림은 계속 쌓이는데, 찾아오는 사람은 그대로인가요?
               </p>
               <p className="mt-3 text-base md:text-lg text-[var(--color-gray-700)] leading-relaxed">
-                뮤모와, 발걸음으로, 카드로 나를 알릴 작가님을 찾습니다
+                10월 말 베타부터 함께할 작가님께만 드리는 혜택이 있어요.
               </p>
+              <div className="mt-6 flex flex-wrap gap-2">
+                <span className="badge-yellow whitespace-nowrap">오픈 기념 메인 노출</span>
+                <span className="badge-yellow whitespace-nowrap">SS등급 우선 배정</span>
+              </div>
               <div className="mt-8">
                 <a href="#apply" className="btn-download">
-                  작가로 신청하기
+                  베타 작가로 신청하기
                 </a>
               </div>
             </MotionWrapper>
@@ -242,7 +231,7 @@ export default function ArtistPage() {
                     <div className="relative w-full aspect-[9/19] rounded-[1.5rem] overflow-hidden bg-white">
                       <Image
                         src="/images/screenshots/collect-full.png"
-                        alt=""
+                        alt="뮤모 카드 수집 화면"
                         fill
                         sizes="220px"
                         className="object-cover object-top"
@@ -260,7 +249,7 @@ export default function ArtistPage() {
                     <div className="relative w-full aspect-[9/19] rounded-[1.5rem] overflow-hidden bg-white">
                       <Image
                         src="/images/screenshots/album-full.png"
-                        alt=""
+                        alt="뮤모 도감 화면"
                         fill
                         sizes="230px"
                         className="object-cover object-top"
@@ -302,7 +291,7 @@ export default function ArtistPage() {
               <div className="relative w-64 h-64 md:w-80 md:h-80 mx-auto md:mx-0 flex-shrink-0 rounded-full overflow-hidden shadow-[0_4px_16px_rgba(0,0,0,0.08)]">
                 <Image
                   src="/images/screenshots/empathy-1.png"
-                  alt=""
+                  alt="비 오는 날 바위 밑에서 스케치북을 안고 있는 고양이 캐릭터"
                   fill
                   sizes="(min-width: 768px) 320px, 256px"
                   className="object-cover object-center"
@@ -338,7 +327,7 @@ export default function ArtistPage() {
               <div className="relative w-64 h-64 md:w-80 md:h-80 mx-auto md:mx-0 flex-shrink-0 rounded-full overflow-hidden shadow-[0_4px_16px_rgba(0,0,0,0.08)]">
                 <Image
                   src="/images/screenshots/empathy-2b.png"
-                  alt=""
+                  alt="야외에서 스케치북에 그림을 그리는 고양이 캐릭터"
                   fill
                   sizes="(min-width: 768px) 320px, 256px"
                   className="object-cover object-center"
@@ -346,7 +335,7 @@ export default function ArtistPage() {
               </div>
               <div className="text-center md:text-left">
                 <p className="text-lg md:text-xl text-[var(--color-gray-700)] leading-relaxed">
-                  여모냥은 그림을 &lsquo;찾아오는 이유&rsquo;로 바꿔요.
+                  뮤모는 그림을 &lsquo;찾아오는 이유&rsquo;로 바꿔요.
                 </p>
                 <p className="mt-5 text-lg md:text-xl text-[var(--color-gray-700)] leading-relaxed">
                   유저는 카드를 모으려고 지도를 켜고, GPS로 그 장소까지 직접 이동해요.
@@ -359,6 +348,49 @@ export default function ArtistPage() {
               </div>
             </div>
           </MotionWrapper>
+        </div>
+      </section>
+
+      {/* 베타 작가 특전 */}
+      <section className="landing-section">
+        <div className="max-w-content mx-auto px-5 md:px-20">
+          <MotionWrapper
+            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 24 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="font-accent text-2xl md:text-[32px] font-bold text-[var(--color-gray-900)]">
+              베타 작가님께만 드려요
+            </h2>
+            <p className="mt-3 text-[var(--color-gray-700)]">
+              지금 합류하시는 분들께 먼저 드리는 혜택이에요
+            </p>
+          </MotionWrapper>
+
+          <StaggerContainer
+            className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6"
+            staggerDelay={0.08}
+          >
+            {BETA_PERKS.map((item) => (
+              <StaggerItem key={item.title}>
+                <div className="h-full p-8 md:p-10 bg-[var(--color-primary-light)] rounded-[var(--radius-lg)] shadow-[0_8px_24px_rgba(232,52,26,0.12)] border border-[var(--color-primary)]/20">
+                  <h3 className="font-accent text-xl md:text-2xl font-bold text-[var(--color-primary)]">
+                    {item.title}
+                  </h3>
+                  <p className="mt-4 text-base text-[var(--color-gray-900)] leading-relaxed">
+                    {item.desc}
+                  </p>
+                  <p className="mt-3 text-sm md:text-[15px] font-semibold text-[var(--color-gray-700)] leading-relaxed">
+                    {item.note}
+                  </p>
+                </div>
+              </StaggerItem>
+            ))}
+          </StaggerContainer>
+
+          <p className="mt-6 text-sm text-[var(--color-gray-500)] text-center leading-relaxed">
+            베타 기간에 신청하신 작가님께 적용돼요
+          </p>
         </div>
       </section>
 
@@ -466,28 +498,36 @@ export default function ArtistPage() {
             </p>
           </MotionWrapper>
 
-          <ul className="mt-10 space-y-0 divide-y divide-[var(--color-gray-300)] bg-white rounded-[var(--radius-lg)] border border-[var(--color-gray-300)] overflow-hidden">
+          <div className="mt-10 flex gap-5 overflow-x-auto pb-4 snap-x snap-mandatory -mx-5 px-5 md:mx-0 md:px-0 md:grid md:grid-cols-2 lg:grid-cols-4 md:overflow-visible md:pb-0 md:gap-6">
             {SPOT_FEATURES.map((item) => (
-              <li key={item.title} className="flex items-start gap-4 px-5 md:px-6 py-5">
-                <div className="flex-shrink-0 mt-0.5">
-                  <StepIcon type={item.icon} />
+              <div key={item.title} className="flex-shrink-0 w-[260px] md:w-auto snap-center">
+                <div className="rounded-[2rem] border-2 border-[var(--color-gray-900)] bg-[var(--color-gray-900)] p-1.5 shadow-xl">
+                  <div className="relative w-full aspect-[9/19] rounded-[1.5rem] overflow-hidden bg-white">
+                    <Image
+                      src={item.src}
+                      alt={`${item.title} 화면`}
+                      fill
+                      sizes="(min-width: 1024px) 22vw, (min-width: 768px) 40vw, 260px"
+                      className="object-cover object-top"
+                    />
+                  </div>
                 </div>
-                <div>
-                  <h3 className="font-semibold text-[var(--color-gray-900)]">{item.title}</h3>
-                  <p className="mt-1 text-sm text-[var(--color-gray-700)] leading-relaxed">
-                    {item.desc}
-                  </p>
-                  <p className="mt-1.5 text-sm text-[var(--color-gray-700)] leading-relaxed">
-                    {item.note}
-                  </p>
-                </div>
-              </li>
+                <p className="mt-4 text-center font-semibold text-[var(--color-gray-900)]">
+                  {item.title}
+                </p>
+                <p className="mt-1 text-center text-sm text-[var(--color-gray-500)] leading-relaxed">
+                  {item.desc}
+                </p>
+                <p className="mt-1.5 text-center text-sm text-[var(--color-gray-700)] leading-relaxed">
+                  {item.note}
+                </p>
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
       </section>
 
-      {/* 신뢰 근거 — about/메인 카드·스텝 톤 */}
+      {/* 참여 일정 */}
       <section className="landing-section">
         <div className="max-w-content mx-auto px-5 md:px-20">
           <MotionWrapper
@@ -496,30 +536,32 @@ export default function ArtistPage() {
             viewport={{ once: true }}
           >
             <h2 className="font-accent text-2xl md:text-[32px] font-bold text-[var(--color-gray-900)]">
-              지금, 이 정도까지 왔어요
+              이렇게 진행돼요
             </h2>
           </MotionWrapper>
 
           <StaggerContainer
-            className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6"
+            className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
             staggerDelay={0.08}
           >
-            {TRUST_POINTS.map((item, index) => (
-              <StaggerItem key={item.text}>
+            {BETA_TIMELINE.map((item) => (
+              <StaggerItem key={item.step}>
                 <div className="card p-6 h-full">
-                  <div className="flex items-center justify-center w-14 h-14 rounded-[var(--radius-lg)] bg-[var(--color-gray-100)]">
-                    <StepIcon type={item.icon} />
-                  </div>
-                  <p className="mt-4 text-xs font-semibold text-[var(--color-primary)]">
-                    {String(index + 1).padStart(2, '0')}
-                  </p>
-                  <p className="mt-2 text-sm md:text-[15px] text-[var(--color-gray-700)] leading-relaxed">
-                    {item.text}
+                  <span className="badge-yellow">{item.step}</span>
+                  <h3 className="mt-4 font-semibold text-lg text-[var(--color-gray-900)]">
+                    {item.title}
+                  </h3>
+                  <p className="mt-3 text-sm text-[var(--color-gray-700)] leading-relaxed">
+                    {item.desc}
                   </p>
                 </div>
               </StaggerItem>
             ))}
           </StaggerContainer>
+
+          <p className="mt-8 text-sm md:text-[15px] text-[var(--color-gray-700)] text-center leading-relaxed">
+            전국 어디서 활동하셔도 신청할 수 있어요
+          </p>
         </div>
       </section>
 
@@ -582,13 +624,13 @@ export default function ArtistPage() {
             viewport={{ once: true, amount: 0.2 }}
           >
             <p className="text-sm font-medium text-[var(--color-primary)] mb-3 text-center">
-              작가 모집
+              베타 작가 모집
             </p>
             <h2 className="font-accent text-2xl md:text-[32px] font-bold text-[var(--color-gray-900)] text-center">
-              작가로 신청하기
+              베타 작가로 신청하기
             </h2>
             <p className="mt-4 text-[var(--color-gray-700)] text-center max-w-lg mx-auto leading-relaxed">
-              포트폴리오와 캐릭터 소개를 남겨주시면, 선정 후 개별 연락드려요.
+              포트폴리오와 캐릭터 소개를 남겨주세요. 10월 말 베타 안내를 이메일로 보내드려요.
             </p>
             <div className="mt-10 max-w-md mx-auto">
               <ArtistApplyForm />
