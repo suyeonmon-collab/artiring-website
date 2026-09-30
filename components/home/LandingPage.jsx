@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { MotionWrapper, StaggerContainer, StaggerItem } from '@/components/common/MotionWrapper';
 import AppDownloadSection from '@/components/app/AppDownloadSection';
 import HeroWalkingCharacter from '@/components/home/HeroWalkingCharacter';
+import CartoonIntroCarousel from '@/components/home/CartoonIntroCarousel';
 
 const EXPERIENCE_STEPS = [
   { step: '01', title: '방문', desc: '여행지에 도착하면 앱이 살짝 알려줘요', icon: 'visit' },
@@ -265,6 +266,14 @@ export default function LandingPage() {
             <p className="mt-4 text-base md:text-lg text-[var(--color-gray-700)] leading-relaxed">
               뮤모는 그 순간을 캐릭터로 남겨드려요 🐱
             </p>
+          </MotionWrapper>
+
+          <MotionWrapper
+            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 24 }}
+            viewport={{ once: true }}
+          >
+            <CartoonIntroCarousel />
           </MotionWrapper>
         </div>
       </section>
