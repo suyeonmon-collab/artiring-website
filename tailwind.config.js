@@ -10,8 +10,8 @@ module.exports = {
       colors: {
         primary: '#E8341A',
         'primary-light': '#FEF0EC',
-        'secondary-yellow': '#FFD43B',
-        'secondary-yellow-light': '#FFFBEB',
+        'secondary-yellow': '#EBD3A0',
+        'secondary-yellow-light': '#FCF8EE',
         'secondary-blue': '#3B82F6',
         'secondary-blue-light': '#EFF6FF',
         gray: {

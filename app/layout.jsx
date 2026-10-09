@@ -1,4 +1,5 @@
 import './globals.css';
+import './mumo.css';
 import Header from '@/components/common/Header';
 import Footer from '@/components/common/Footer';
 import { getSiteUrl } from '@/lib/siteUrl';
@@ -50,6 +51,11 @@ export default function RootLayout({ children }) {
           as="style"
           crossOrigin="anonymous"
           href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css"
+        />
+        {/* 손글씨 키커·스티커용 */}
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/@fontsource/nanum-pen-script@5.3.0/index.css"
         />
         {/* Favicon for Google Search */}
         <link rel="icon" type="image/png" href="/images/pavicon.png" />
