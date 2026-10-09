@@ -7,7 +7,7 @@
   --color-primary: #E8341A;
   --color-primary-light: #FEF0EC;
   --color-secondary-yellow: #EBD3A0;
-  --color-secondary-yellow-light: #FCF8EE;
+  --color-secondary-yellow-light: #F2F2F2;
   --color-secondary-blue: #3B82F6;
   --color-secondary-blue-light: #EFF6FF;
 
@@ -18,7 +18,7 @@
   --color-gray-100: #F5F5F5;
   --color-white: #FFFFFF;
 
-  --font-base: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-base: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   --font-accent: 'Cafe24Ssurround', var(--font-base);
 
   /* aliases */
@@ -46,14 +46,6 @@
   --radius-md: 12px;
   --radius-lg: 16px;
   --radius-cta: 14px;
-}
-
-@font-face {
-  font-family: 'Cafe24Ssurround';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24Ssurround.woff2') format('woff2');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
 }
 
 /* Base Styles */

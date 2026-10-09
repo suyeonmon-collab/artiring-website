@@ -11,8 +11,8 @@
 /* ---------- 1. Tokens (값은 주 레퍼런스 Maggie 의 계산된 스타일에서 추출, 색은 브랜드로 치환) ---------- */
 :root{
   /* colour — 바탕(paper)·본문(ink)은 레퍼런스 구조, 강조 자리는 뮤모 브랜드 3색 */
-  --mm-color-paper:      oklch(97.9% 0.005 95.1);   /* Maggie cream #F9F8F4 */
-  --mm-color-paper-2:    oklch(95.2% 0.012 91.5);
+  --mm-color-paper:      #FAFAFA;
+  --mm-color-paper-2:    #F0F0F0;
   --mm-color-surface:    oklch(99.6% 0.003 95);     /* 앱 화면 표면 */
   --mm-color-ink:        oklch(21.8% 0.004 95);          /* 브랜드 Gray 900 #1A1A1A (Maggie 의 단일 잉크 자리) */
   --mm-color-ink-2:      oklch(40.9% 0.004 95);          /* Gray 700 */
@@ -21,10 +21,10 @@
   --mm-color-red:        oklch(60.7% 0.218 31.3);   /* 브랜드 다홍 #E8341A */
   --mm-color-red-ink:    oklch(54.4% 0.198 31.5);   /* 작은 글자용 다홍 (대비 5.2:1) */
   --mm-color-red-tint:   oklch(93.8% 0.029 33.7);
-  --mm-color-sun:        #EBD3A0;   /* 톤다운 버터 옐로우 (A안) — 원래 브랜드 노랑 #FFD43B */
+  --mm-color-sun:        #ECECEC;   /* 페이지 바탕: 연한 회색 (원래 브랜드 노랑 #FFD43B → 버터 옐로우 → 회색) */
   --mm-color-gold:       #E3B667;   /* 한정 카드·배지 강조 */
-  --mm-color-sun-tint:   #FCF8EE;
-  --mm-color-sun-2:      #F6ECD4;
+  --mm-color-sun-tint:   #FFFFFF;
+  --mm-color-sun-2:      #F5F5F5;
   --mm-color-blue:       oklch(62.3% 0.188 259.8);  /* 브랜드 파랑 #3B82F6 */
   --mm-color-blue-ink:   oklch(46% 0.19 263);
   --mm-color-blue-tint:  oklch(94.4% 0.025 261.1);
@@ -396,7 +396,7 @@ body:has(.mm-page){background:var(--mm-color-sun)}
 .mm-final{background:var(--mm-color-red);color:var(--mm-color-on-red);border-radius:var(--mm-radius-panel);margin-inline:var(--mm-panel-inset);padding:var(--mm-section-y) 0;text-align:center;position:relative;overflow:hidden}
 .mm-final__title{font-size:var(--mm-text-display);max-width:16ch;margin-inline:auto;text-wrap:balance}
 .mm-final__lead{margin:var(--mm-space-lg) auto 0;max-width:30rem;font-size:var(--mm-text-lg)}
-.mm-final .mm-btn{--mm-btn-bg:var(--mm-color-sun);--mm-btn-fg:var(--mm-color-ink)}
+.mm-final .mm-btn{--mm-btn-bg:var(--mm-color-surface);--mm-btn-fg:var(--mm-color-ink)}
 .mm-final .mm-btn[aria-disabled="true"]{--mm-btn-bg:var(--mm-color-on-red-a14);--mm-btn-fg:var(--mm-color-on-red);border-color:var(--mm-color-on-red)}
 .mm-final .mm-hero__cta{margin-top:var(--mm-space-xl)}
 .mm-final__cards{position:absolute;inset:0;pointer-events:none}

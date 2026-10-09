@@ -1,3 +1,7 @@
+// 폰트는 npm 패키지로 함께 배포 (외부 CDN 의존 없음)
+import 'pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css';
+import '@noonnu/cafe24-ssurround/index.css';
+import '@fontsource/nanum-pen-script/400.css';
 import './globals.css';
 import './mumo.css';
 import Header from '@/components/common/Header';
@@ -46,17 +50,6 @@ export default function RootLayout({ children }) {
   return (
     <html lang="ko">
       <head>
-        <link
-          rel="stylesheet"
-          as="style"
-          crossOrigin="anonymous"
-          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css"
-        />
-        {/* 손글씨 키커·스티커용 */}
-        <link
-          rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/@fontsource/nanum-pen-script@5.3.0/index.css"
-        />
         {/* Favicon for Google Search */}
         <link rel="icon" type="image/png" href="/images/pavicon.png" />
         <link rel="shortcut icon" type="image/png" href="/images/pavicon.png" />

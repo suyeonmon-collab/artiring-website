@@ -11,7 +11,7 @@ module.exports = {
         primary: '#E8341A',
         'primary-light': '#FEF0EC',
         'secondary-yellow': '#EBD3A0',
-        'secondary-yellow-light': '#FCF8EE',
+        'secondary-yellow-light': '#F2F2F2',
         'secondary-blue': '#3B82F6',
         'secondary-blue-light': '#EFF6FF',
         gray: {
@@ -26,7 +26,7 @@ module.exports = {
         'bg-sub': 'var(--color-bg-sub)',
       },
       fontFamily: {
-        sans: ['Pretendard', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'sans-serif'],
+        sans: ['Pretendard Variable', 'Pretendard', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'sans-serif'],
         accent: ['Cafe24Ssurround', 'Pretendard', 'sans-serif'],
       },
       maxWidth: {
