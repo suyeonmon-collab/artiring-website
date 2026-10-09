@@ -28,7 +28,7 @@ function BulletList({ items }) {
 
 function PolicyTable({ rows }) {
   return (
-    <div className="overflow-hidden rounded-xl border border-[var(--color-gray-300)]">
+    <div className="overflow-hidden rounded-2xl border-2 border-[var(--color-gray-900)]">
       <table className="w-full text-left text-sm md:text-[15px]">
         <tbody>
           {rows.map((row, i) => (
@@ -55,8 +55,8 @@ function PolicyTable({ rows }) {
 
 export default function CreatorPolicyPage() {
   return (
-    <div className="section">
-      <div className="container-narrow">
+    <div className="mm-page mm-doc">
+      <div className="mm-doc__panel">
         <header className="mb-8">
           <h1 className="font-accent text-3xl md:text-4xl tracking-tight text-[var(--color-gray-900)]">
             {creatorPolicyMeta.title}
@@ -115,7 +115,7 @@ export default function CreatorPolicyPage() {
             </section>
           ))}
 
-          <section className="rounded-xl border border-[var(--color-gray-300)] bg-[var(--color-gray-100)]/60 p-5 md:p-6">
+          <section className="rounded-2xl border-2 border-[var(--color-gray-900)] bg-[var(--color-gray-100)]/60 p-5 md:p-6">
             <h2 className="text-lg font-semibold text-[var(--color-gray-900)] mb-2">
               아직 확정 중인 항목
             </h2>

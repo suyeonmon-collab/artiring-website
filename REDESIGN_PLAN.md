@@ -162,7 +162,8 @@
 - [x] P1 기반: `app/mumo.css`(mm- 접두사 토큰·컴포넌트), 손글씨 폰트, 노랑 토큰 톤다운
 - [x] P2 홈: `components/home/mumo/*` 섹션 + `LandingPage` GSAP 모션 + 하단 독
 - [x] P3 공통: 알약 헤더(모바일 전체 화면 메뉴), 문장형 푸터
-- [ ] P4 하위 페이지: `/artist` → `/structure` → `/about` → `/support` → 기타
+- [x] P4 하위 페이지: `/artist`, `/structure`, `/about`, `/support/*`, `/terms`, `/privacy`, 404 (공통 블록은 `app/mumo.css` 15~16장)
+- [x] 정리: 홈 수상 목록에서 네이버 AI BIZ CREATOR SCHOOL 제외(3건), 3D 걷는 캐릭터·모델 뷰어·glb 파일 삭제
 - [ ] P5 마무리: 실기기 점검, Lighthouse, OG 이미지, 디자인 가이드 v2
 
 ## 10. (초기) 결정이 필요했던 것

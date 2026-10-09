@@ -11,8 +11,8 @@ export const metadata = {
 
 export default function SupportFaqPage() {
   return (
-    <div className="section">
-      <div className="container-narrow">
+    <div className="mm-page mm-doc">
+      <div className="mm-doc__panel">
         <header className="mb-8">
           <h1 className="font-accent text-3xl md:text-4xl tracking-tight text-[var(--color-gray-900)]">
             작가용 FAQ
@@ -25,7 +25,7 @@ export default function SupportFaqPage() {
 
         <SupportNav current="/support/faq" />
 
-        <div className="mb-6 rounded-xl border border-[var(--color-gray-300)] bg-[var(--color-secondary-yellow-light)]/50 px-4 py-3 text-sm text-[var(--color-gray-700)] leading-relaxed">
+        <div className="mb-6 rounded-2xl border-2 border-[var(--color-gray-900)] bg-[var(--color-secondary-yellow-light)]/50 px-4 py-3 text-sm text-[var(--color-gray-700)] leading-relaxed">
           핵심만 먼저 보려면 위쪽 &lsquo;핵심 안내&rsquo;(원고료·저작권·카드 수집·스팟 기능·신청 흐름)를
           확인하세요. 전체 정책은{' '}
           <Link

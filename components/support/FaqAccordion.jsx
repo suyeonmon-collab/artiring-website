@@ -16,13 +16,13 @@ export default function FaqAccordion({ categories }) {
           <h2 className="font-accent text-xl md:text-2xl mb-4 text-[var(--color-gray-900)]">
             {category.title}
           </h2>
-          <div className="space-y-2">
+          <div className="space-y-3">
             {category.items.map((item) => {
               const isOpen = openId === item.id;
               return (
                 <div
                   key={item.id}
-                  className="rounded-xl border border-[var(--color-gray-300)] bg-white overflow-hidden"
+                  className="rounded-2xl border-2 border-[var(--color-gray-900)] bg-white overflow-hidden shadow-[-3px_3px_0_0_var(--color-gray-900)]"
                 >
                   <button
                     type="button"
@@ -58,7 +58,7 @@ export default function FaqAccordion({ categories }) {
                     </svg>
                   </button>
                   {isOpen && (
-                    <div className="px-4 md:px-5 pb-4 pt-0 border-t border-[var(--color-gray-300)]/70">
+                    <div className="px-4 md:px-5 pb-4 pt-0 border-t-2 border-[var(--color-gray-900)]/10">
                       <ul className="pt-3 space-y-1.5 text-sm md:text-[15px] text-[var(--color-gray-700)] leading-relaxed">
                         {item.answer.map((line, idx) => (
                           <li key={`${item.id}-${idx}`} className="flex gap-2">

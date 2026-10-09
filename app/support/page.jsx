@@ -35,8 +35,8 @@ export default function SupportPage() {
   const upcoming = getDraftNotices();
 
   return (
-    <div className="section">
-      <div className="container-narrow">
+    <div className="mm-page mm-doc">
+      <div className="mm-doc__panel">
         <header className="mb-8">
           <p className="text-sm font-semibold text-[var(--color-primary)] mb-2">
             Support
@@ -58,7 +58,7 @@ export default function SupportPage() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="rounded-xl border border-[var(--color-gray-300)] bg-white p-5 hover:border-[var(--color-primary)]/40 hover:shadow-md transition-all"
+                className="rounded-2xl border-2 border-[var(--color-gray-900)] bg-white p-5 hover:border-[var(--color-primary)]/40 hover:shadow-md transition-all"
               >
                 <h2 className="text-base font-semibold text-[var(--color-gray-900)]">
                   {link.title}
@@ -111,7 +111,7 @@ export default function SupportPage() {
             </a>
             )로도 연락 가능합니다.
           </p>
-          <div className="rounded-xl border border-[var(--color-gray-300)] bg-white p-5 md:p-8">
+          <div className="rounded-2xl border-2 border-[var(--color-gray-900)] bg-white p-5 md:p-8">
             <SupportInquiryForm />
           </div>
         </section>

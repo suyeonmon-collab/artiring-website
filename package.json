@@ -3,16 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "sync-characters": "node scripts/sync-characters.mjs",
-    "predev": "npm run sync-characters",
-    "prebuild": "npm run sync-characters",
     "dev": "next dev",
     "start": "next start",
     "build": "next build",
     "lint": "next lint"
   },
   "dependencies": {
-    "@google/model-viewer": "^3.5.0",
     "@supabase/supabase-js": "^2.110.0",
     "date-fns": "^3.0.6",
     "gsap": "^3.12.5",

@@ -9,26 +9,12 @@ const tabs = [
 
 export default function SupportNav({ current }) {
   return (
-    <nav
-      className="flex flex-wrap gap-2 mb-10"
-      aria-label="고객센터 메뉴"
-    >
-      {tabs.map((tab) => {
-        const active = current === tab.href;
-        return (
-          <Link
-            key={tab.href}
-            href={tab.href}
-            className={`inline-flex items-center px-3.5 py-2 text-sm font-semibold rounded-lg transition-colors ${
-              active
-                ? 'bg-[var(--color-primary)] text-white'
-                : 'bg-[var(--color-gray-100)] text-[var(--color-gray-700)] hover:bg-[var(--color-gray-300)]/40 hover:text-[var(--color-gray-900)]'
-            }`}
-          >
-            {tab.name}
-          </Link>
-        );
-      })}
+    <nav className="mm-tabs" aria-label="고객센터 메뉴">
+      {tabs.map((tab) => (
+        <Link key={tab.href} href={tab.href} aria-current={current === tab.href ? 'page' : undefined}>
+          {tab.name}
+        </Link>
+      ))}
     </nav>
   );
 }

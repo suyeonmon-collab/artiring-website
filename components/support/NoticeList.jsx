@@ -17,7 +17,7 @@ export default function NoticeList({ items, emptyLabel = '등록된 문서가 �
   }
 
   return (
-    <ul className="divide-y divide-[var(--color-gray-300)] border border-[var(--color-gray-300)] rounded-xl overflow-hidden bg-white">
+    <ul className="divide-y-2 divide-[var(--color-gray-900)]/10 border-2 border-[var(--color-gray-900)] rounded-2xl overflow-hidden bg-white">
       {items.map((item) => {
         const isDraft = item.status === 'draft';
         const content = (

@@ -20,7 +20,7 @@ export default function ProfileImage({ src, alt, fit = 'cover' }) {
 
   return (
     <div
-      className={`flex-shrink-0 w-24 h-24 md:w-28 md:h-28 rounded-full overflow-hidden border border-[var(--color-border)] ${
+      className={`flex-shrink-0 w-24 h-24 md:w-28 md:h-28 rounded-full overflow-hidden border-2 border-[var(--color-gray-900)] ${
         isContain ? 'bg-white' : 'bg-[var(--color-bg-sub)]'
       }`}
     >
