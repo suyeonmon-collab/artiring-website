@@ -153,7 +153,7 @@
 ## 8. 결정 사항 (확정)
 
 - 바탕: A안 버터 옐로우(`#EBD3A0`)로 시작했다가 **연한 회색(`#ECECEC`)으로 변경**, 패널 `#FAFAFA`, 한정 카드 = 금색 `#E3B667`
-- 폰트: Pretendard·Cafe24 써라운드·나눔손글씨를 **npm 패키지로 함께 배포** (외부 CDN 미사용)
+- 폰트: Pretendard·Cafe24 써라운드는 **npm 패키지로 함께 배포** (외부 CDN 미사용), 손글씨는 **나눔손글씨 무궁화**(`public/fonts/nanum-mugunghwa.woff2`, 자주 쓰는 한글 2,350자 + 영문·기호, 447KB)
 - 모션: **GSAP** (`gsap` npm, ScrollTrigger)
 - 기존 홈 후기 캐러셀: **제외**
 - `아티링소식`(인스타그램): **헤더 → 푸터 이동**

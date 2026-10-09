@@ -3,10 +3,13 @@
  * Hallmark · macrostructure: Marquee Hero (studied) · nav: N9 edge-aligned pills · footer: Ft5 Statement
  * theme: studied-DNA (source: https://maggie-app.com/ via Lapa Ninja) · studied: yes · DNA-source: url + 1440px captures
  * observed-fonts: BN Dime Display (display) + Homemade Apple (hand) + Inter/Archivo (body)
- * mapped-fonts: Cafe24Ssurround (display) + Nanum Pen Script (hand) + Pretendard Variable (body)
+ * mapped-fonts: Cafe24Ssurround (display) + 나눔손글씨 무궁화 (hand) + Pretendard Variable (body)
  * observed paper: rgb(249,248,244) · observed ink: rgb(3,89,77) → brand Gray 900 · accent slots → 뮤모 다홍 #E8341A / 노랑 #FFD43B / 파랑 #3B82F6
  * Hallmark · pre-emit critique: P4 H4 E4 S5 R4 V5
  */
+
+/* 손글씨: 나눔손글씨 무궁화 (NAVER, OFL). 자주 쓰는 한글 2,350자 + 영문·기호만 담은 웹용 파일 */
+@font-face{font-family:"Nanum MuGungHwa";src:url(/fonts/nanum-mugunghwa.woff2) format("woff2");font-weight:400;font-style:normal;font-display:swap}
 
 /* ---------- 1. Tokens (값은 주 레퍼런스 Maggie 의 계산된 스타일에서 추출, 색은 브랜드로 치환) ---------- */
 :root{
@@ -45,7 +48,7 @@
 
   /* type — Maggie: display 120/96 · 100/80 · 180/144, h2 32/28.8, hand 25/29 */
   --mm-font-display: "Cafe24Ssurround", "Pretendard Variable", system-ui, sans-serif;
-  --mm-font-hand:    "Nanum Pen Script", "Pretendard Variable", cursive;
+  --mm-font-hand:    "Nanum MuGungHwa", "Pretendard Variable", cursive;
   --mm-font-body:    "Pretendard Variable", Pretendard, -apple-system, system-ui, sans-serif;
   --mm-text-mega:    clamp(2.5rem, 1rem + 8.2vw, 9rem);
   --mm-text-display: clamp(2.5rem, 1.2rem + 5.4vw, 6.25rem);
@@ -56,7 +59,7 @@
   --mm-text-md:      1.0625rem;
   --mm-text-sm:      0.9375rem;
   --mm-text-xs:      0.8125rem;
-  --mm-text-hand:    clamp(1.75rem, 1.4rem + 1vw, 2.35rem);
+  --mm-text-hand:    clamp(2rem, 1.6rem + 1.2vw, 2.7rem);
   --mm-lh-display:   1.06;
   --mm-lh-title:     1.25;
   --mm-lh-body:      1.65;
@@ -222,7 +225,7 @@ body:has(.mm-page){background:var(--mm-color-sun)}
 .mm-dex-cell.mm-is-empty svg{width:16px;height:16px}
 
 /* stickers (Maggie: 'pack the drinks' 손글씨 메모) */
-.mm-sticker{position:absolute;z-index:7;font-family:var(--mm-font-hand);font-size:clamp(1.25rem, 1rem + .8vw, 1.75rem);line-height:1.05;background:var(--mm-color-sun-tint);border:2px solid var(--mm-color-ink);border-radius:16px;padding:var(--mm-space-xs) var(--mm-space-md);box-shadow:var(--mm-shadow-hard-sm);white-space:nowrap}
+.mm-sticker{position:absolute;z-index:7;font-family:var(--mm-font-hand);font-size:clamp(1.4rem, 1.1rem + .9vw, 2rem);line-height:1.05;background:var(--mm-color-sun-tint);border:2px solid var(--mm-color-ink);border-radius:16px;padding:var(--mm-space-xs) var(--mm-space-md);box-shadow:var(--mm-shadow-hard-sm);white-space:nowrap}
 .mm-sticker--1{left:-1%;top:2%;transform:rotate(-8deg)}
 .mm-sticker--2{right:-1%;top:4%;transform:rotate(7deg);background:var(--mm-color-red-tint)}
 .mm-sticker--3{right:12%;bottom:4%;transform:rotate(-5deg);background:var(--mm-color-blue-tint)}

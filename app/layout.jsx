@@ -1,7 +1,6 @@
 // 폰트는 npm 패키지로 함께 배포 (외부 CDN 의존 없음)
 import 'pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css';
 import '@noonnu/cafe24-ssurround/index.css';
-import '@fontsource/nanum-pen-script/400.css';
 import './globals.css';
 import './mumo.css';
 import Header from '@/components/common/Header';
