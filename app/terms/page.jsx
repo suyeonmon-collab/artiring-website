@@ -11,8 +11,8 @@ const EFFECTIVE_DATE = '2026년 10월 23일';
 
 export default function TermsPage() {
   return (
-    <div className="section">
-      <div className="container-narrow">
+    <div className="mm-page mm-doc">
+      <div className="mm-doc__panel">
         <header className="mb-8">
           <Link
             href="/support"

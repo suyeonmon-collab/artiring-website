@@ -1,6 +1,8 @@
 import ProfileImage from '@/components/about/ProfileImage';
 import AboutCtaActions from '@/components/about/AboutCtaActions';
-import { MotionWrapper, StaggerContainer, StaggerItem } from '@/components/common/MotionWrapper';
+import Image from 'next/image';
+import Link from 'next/link';
+import { MotionWrapper } from '@/components/common/MotionWrapper';
 
 export const metadata = {
   title: '소개 - 아티링이 만드는 뮤모',
@@ -77,175 +79,151 @@ const journey = [
 
 export default function AboutPage() {
   return (
-    <div className="overflow-x-hidden">
+    <div className="mm-page">
       {/* 소개 */}
-      <section className="page-section border-b border-[var(--color-gray-300)]">
-        <div className="max-w-content mx-auto px-5 md:px-20">
+      <section className="mm-sub-hero">
+        <div className="mm-wrap mm-sub-hero__grid">
           <MotionWrapper animate={{ opacity: 1, y: 0 }}>
-            <p className="text-sm font-medium text-[var(--color-primary)] mb-3">About</p>
-            <h1 className="font-accent text-[32px] md:text-[48px] font-bold leading-snug text-[var(--color-gray-900)] max-w-2xl">
-              아티링이 만드는 뮤모
+            <p className="mm-hand mm-sub-hero__kicker">아티링을 소개해요</p>
+            <h1 className="mm-sub-hero__title">
+              아티링이 만드는 <span className="mm-mark-red">뮤모</span>
             </h1>
-            <p className="mt-6 text-lg text-[var(--color-gray-700)] leading-relaxed max-w-2xl">
-              우리는 여행을 &ldquo;사진 몇 장&rdquo;으로 끝내지 않으려고 해요.
-              가야만 만날 수 있는 캐릭터, 그 순간을 도감에 남기는 앱 — 그게 뮤모예요.
+            <p className="mm-sub-hero__lead">
+              우리는 여행을 &ldquo;사진 몇 장&rdquo;으로 끝내지 않으려고 해요. 가야만 만날 수 있는 캐릭터, 그 순간을 도감에
+              남기는 앱 — 그게 뮤모예요.
             </p>
-            <p className="mt-4 text-base text-[var(--color-gray-700)] leading-relaxed max-w-2xl">
-              1인 창작자로 시작한 아티링이, 이제 작가·파트너·지자체와 함께
-              지역마다 다른 캐릭터 세계를 만들어가고 있습니다.
-            </p>
-          </MotionWrapper>
-        </div>
-      </section>
-
-      {/* 작가 참여 방식 */}
-      <section className="page-section bg-[var(--color-gray-100)]">
-        <div className="max-w-content mx-auto px-5 md:px-20">
-          <MotionWrapper whileInView={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 24 }} viewport={{ once: true }}>
-            <h2 className="font-accent text-2xl md:text-[32px] font-bold text-[var(--color-gray-900)]">
-              작가로 함께하는 방법
-            </h2>
-            <p className="mt-4 text-[var(--color-gray-700)] max-w-2xl leading-relaxed">
-              캐릭터 하나가 새로운 여행지의 주인공이 되는 과정이에요.
-              복잡한 계약서보다, 흐름을 따라오시면 됩니다.
+            <p className="mm-sub-hero__lead">
+              1인 창작자로 시작한 아티링이, 이제 작가·파트너·지자체와 함께 지역마다 다른 캐릭터 세계를 만들어가고 있습니다.
             </p>
           </MotionWrapper>
-
-          <StaggerContainer className="mt-12 grid md:grid-cols-3 gap-6" staggerDelay={0.1}>
-            {creatorFlow.map((item) => (
-              <StaggerItem key={item.step}>
-                <div className="card p-6 h-full">
-                  <span className="badge-yellow">{item.step}</span>
-                  <h3 className="mt-4 font-semibold text-lg text-[var(--color-gray-900)]">{item.title}</h3>
-                  <p className="mt-3 text-sm text-[var(--color-gray-700)] leading-relaxed">{item.desc}</p>
-                </div>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
-        </div>
-      </section>
-
-      {/* 팀 & 파트너 */}
-      <section className="page-section">
-        <div className="max-w-content mx-auto px-5 md:px-20">
-          <MotionWrapper whileInView={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 24 }} viewport={{ once: true }}>
-            <h2 className="font-accent text-2xl md:text-[32px] font-bold text-[var(--color-gray-900)]">
-              함께하는 사람들
-            </h2>
-          </MotionWrapper>
-
-          <div className="mt-10 grid md:grid-cols-2 gap-6">
-            {team.map((member) => (
-              <MotionWrapper
-                key={member.name}
-                className="card p-6 flex gap-5"
-                whileInView={{ opacity: 1, y: 0 }}
-                initial={{ opacity: 0, y: 24 }}
-                viewport={{ once: true }}
-              >
-                <ProfileImage
-                  src={member.image}
-                  alt={`${member.name} ${member.role}`}
-                  fit={member.imageFit}
+          <MotionWrapper animate={{ opacity: 1, y: 0 }}>
+            <div className="mm-photo-wrap">
+              <p className="mm-hand" aria-hidden="true">골목마다 다른 이야기</p>
+              <figure className="mm-photo" style={{ margin: 0 }}>
+                <Image
+                  src="/images/mumo/travelers.jpg"
+                  alt="한옥 골목을 걷는 여행자들"
+                  width={900}
+                  height={1054}
+                  sizes="(min-width: 960px) 50vw, 100vw"
+                  priority
                 />
-                <div>
-                  <p className="text-xs font-semibold text-[var(--color-primary)]">{member.role}</p>
-                  <h3 className="mt-1 font-accent text-xl font-bold">{member.name}</h3>
-                  <p className="mt-2 text-sm text-[var(--color-gray-700)] leading-relaxed">{member.desc}</p>
-                </div>
-              </MotionWrapper>
-            ))}
-          </div>
-
-          <p className="mt-6 text-sm text-[var(--color-gray-700)] text-center leading-relaxed">
-            디자이너, 아티스트, 회계사, 노무사 등 전문 자문단 20명과 함께하고 있어요.
-          </p>
-
-          <StaggerContainer className="mt-8 grid sm:grid-cols-3 gap-4" staggerDelay={0.08}>
-            {partners.map((p) => (
-              <StaggerItem key={p.name}>
-                <div className="card p-5 text-center">
-                  <h4 className="font-semibold text-[var(--color-gray-900)]">{p.name}</h4>
-                  <p className="mt-2 text-sm text-[var(--color-gray-500)]">{p.desc}</p>
-                </div>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
-        </div>
-      </section>
-
-      {/* 여정 타임라인 */}
-      <section className="page-section bg-[var(--color-gray-100)]">
-        <div className="max-w-content mx-auto px-5 md:px-20">
-          <MotionWrapper whileInView={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 24 }} viewport={{ once: true }}>
-            <h2 className="font-accent text-2xl md:text-[32px] font-bold text-[var(--color-gray-900)]">
-              여정
-            </h2>
-          </MotionWrapper>
-
-          <div className="mt-10 space-y-0">
-            {journey.map((item, i) => (
-              <MotionWrapper
-                key={item.title}
-                className={`flex gap-6 py-8 ${i < journey.length - 1 ? 'border-b border-[var(--color-gray-300)]' : ''}`}
-                whileInView={{ opacity: 1, y: 0 }}
-                initial={{ opacity: 0, y: 24 }}
-                viewport={{ once: true }}
-              >
-                <span className="flex-shrink-0 w-24 font-accent font-bold text-[var(--color-primary)]">{item.year}</span>
-                <div>
-                  <h3 className="font-semibold text-lg text-[var(--color-gray-900)]">{item.title}</h3>
-                  <p className="mt-2 text-sm text-[var(--color-gray-700)] leading-relaxed">{item.desc}</p>
-                </div>
-              </MotionWrapper>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 외부 채널 */}
-      <section className="page-section">
-        <div className="max-w-content mx-auto px-5 md:px-20 text-center">
-          <MotionWrapper whileInView={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 24 }} viewport={{ once: true }}>
-            <h2 className="font-accent text-xl md:text-2xl font-bold text-[var(--color-gray-900)]">
-              더 많은 이야기가 궁금하다면
-            </h2>
-            <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-              <a
-                href="https://blog.naver.com/artiring"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="card px-8 py-5 link-channel text-base font-semibold"
-              >
-                📖 네이버 블로그 팔로우하기
-              </a>
-              <a
-                href="https://www.instagram.com/arti_ring"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="card px-8 py-5 link-channel text-base font-semibold"
-              >
-                📸 인스타그램 팔로우하기
-              </a>
+              </figure>
+              <span
+                className="mm-chip-photo"
+                style={{ '--img': 'url(/images/mumo/card-golden-cheese.jpg)' }}
+                aria-hidden="true"
+              ></span>
             </div>
           </MotionWrapper>
         </div>
       </section>
 
-      {/* CTA — about에서만 */}
-      <section className="page-section bg-[var(--color-primary-light)]">
-        <div className="max-w-content mx-auto px-5 md:px-20 text-center">
-          <MotionWrapper whileInView={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 24 }} viewport={{ once: true }}>
-            <h2 className="font-accent text-2xl md:text-[32px] font-bold text-[var(--color-gray-900)]">
-              함께 만들어요
-            </h2>
-            <p className="mt-3 text-[var(--color-gray-700)]">
-              작가이든, 지자체·제휴 파트너이든 — 편하게 연락주세요.
+      {/* 작가 참여 방식 */}
+      <section className="mm-box mm-box--red">
+        <div className="mm-wrap">
+          <MotionWrapper className="mm-sec-head" whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+            <p className="mm-hand">작가님께</p>
+            <h2 className="mm-sec-title">작가로 함께하는 방법</h2>
+            <p className="mm-sec-lead">
+              캐릭터 하나가 새로운 여행지의 주인공이 되는 과정이에요. 복잡한 계약서보다, 흐름을 따라오시면 됩니다.
             </p>
-            <AboutCtaActions />
           </MotionWrapper>
+          <ol className="mm-grid mm-grid--3" style={{ listStyle: 'none', padding: 0 }}>
+            {creatorFlow.map((item) => (
+              <li key={item.step} className="mm-card mm-card--num mm-card--tilt">
+                <span className="mm-card__num" aria-hidden="true">
+                  {Number(item.step)}
+                </span>
+                <h3 className="mm-card__title">{item.title}</h3>
+                <p className="mm-card__note">{item.desc}</p>
+              </li>
+            ))}
+          </ol>
+          <div className="mm-hero__cta">
+            <Link href="/artist" className="mm-btn mm-btn--red">
+              작가 참여 안내 보기
+            </Link>
+          </div>
         </div>
       </section>
+
+      {/* 팀 & 파트너 */}
+      <section className="mm-section">
+        <div className="mm-wrap">
+          <MotionWrapper className="mm-sec-head" whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+            <h2 className="mm-sec-title">함께하는 사람들</h2>
+          </MotionWrapper>
+          <div className="mm-grid mm-grid--2">
+            {team.map((member) => (
+              <div key={member.name} className="mm-card mm-card--tilt mm-member">
+                <ProfileImage src={member.image} alt={`${member.name} ${member.role}`} fit={member.imageFit} />
+                <div>
+                  <span className="mm-badge mm-badge--red">{member.role}</span>
+                  <h3 className="mm-card__title" style={{ marginTop: 'var(--mm-space-xs)' }}>
+                    {member.name}
+                  </h3>
+                  <p className="mm-card__note">{member.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <p className="mm-note">디자이너, 아티스트, 회계사, 노무사 등 전문 자문단 20명과 함께하고 있어요.</p>
+
+          <ul className="mm-grid mm-grid--3" style={{ listStyle: 'none', padding: 0, marginTop: 'var(--mm-space-xl)' }}>
+            {partners.map((p) => (
+              <li key={p.name} className="mm-card" style={{ textAlign: 'center' }}>
+                <h3 className="mm-card__title">{p.name}</h3>
+                <p className="mm-card__note">{p.desc}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* 여정 타임라인 */}
+      <section className="mm-box mm-box--arch">
+        <div className="mm-wrap mm-narrow">
+          <MotionWrapper className="mm-sec-head mm-sec-head--center" whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+            <p className="mm-hand">여기까지 왔어요</p>
+            <h2 className="mm-sec-title">여정</h2>
+          </MotionWrapper>
+          <ol className="mm-rows mm-rows--split mm-journey">
+            {journey.map((item) => (
+              <li key={item.title}>
+                <b>{item.year}</b>
+                <div>
+                  <h3>{item.title}</h3>
+                  <p>{item.desc}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+
+          <div className="mm-hero__cta" style={{ marginTop: 'var(--mm-space-2xl)' }}>
+            <a className="mm-btn" href="https://blog.naver.com/artiring" target="_blank" rel="noopener noreferrer">
+              네이버 블로그
+            </a>
+            <a className="mm-btn" href="https://www.instagram.com/arti_ring" target="_blank" rel="noopener noreferrer">
+              아티링소식 (인스타그램)
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="mm-final" style={{ marginTop: 'var(--mm-panel-inset)' }}>
+        <div className="mm-wrap">
+          <p className="mm-hand" style={{ color: 'var(--mm-color-on-red)' }}>
+            작가이든, 파트너이든
+          </p>
+          <h2 className="mm-display mm-final__title">함께 만들어요</h2>
+          <p className="mm-final__lead">작가이든, 지자체·제휴 파트너이든 — 편하게 연락주세요.</p>
+          <AboutCtaActions />
+        </div>
+      </section>
+      <div style={{ height: 'var(--mm-section-y)' }} aria-hidden="true" />
     </div>
   );
 }

@@ -1,136 +1,134 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 
-const navigation = [
-  { name: '소개', href: '/about' },
-  { name: '뮤모 앱', href: '/#app' },
-  { name: '작가로 참여', href: '/artist' },
-  { name: '고객센터', href: '/support' },
-  {
-    name: '아티링소식',
-    href: 'https://www.instagram.com/arti_ring',
-    external: true,
-  },
+// 좌측 알약 2개 · 가운데 로고 · 우측 알약 (레퍼런스 N9 edge-aligned pills)
+const leftNav = [
+  { name: '소개', href: '/about', tone: '' },
+  { name: '뮤모 앱', href: '/#app', tone: 'sun' },
 ];
 
+const rightNav = [
+  { name: '작가로 참여', href: '/artist', tone: 'blue' },
+  { name: '고객센터', href: '/support', tone: '' },
+];
+
+const PREREGISTER_HREF = '/structure#preregister';
+
+const allNav = [...leftNav, ...rightNav];
+
 export default function Header() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const scrolledRef = useRef(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const y = window.scrollY;
-      // 높이 변경 없이 스타일만 바꿀 때도 경계에서 깜빡임 방지
-      const next = y > 48 ? true : y < 16 ? false : scrolledRef.current;
-      if (next !== scrolledRef.current) {
-        scrolledRef.current = next;
-        setScrolled(next);
-      }
-    };
-
-    handleScroll();
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   const isActive = (href) => {
-    if (href.startsWith('http')) return false;
     if (href.includes('#')) return pathname === '/';
-    if (href === '/') return pathname === '/';
     return pathname.startsWith(href);
   };
 
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (!menuOpen) return undefined;
+    const onKey = (e) => {
+      if (e.key === 'Escape') setMenuOpen(false);
+    };
+    document.addEventListener('keydown', onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.removeEventListener('keydown', onKey);
+      document.body.style.overflow = prev;
+    };
+  }, [menuOpen]);
+
+  const pillClass = (tone) => `mm-nav__pill${tone ? ` mm-nav__pill--${tone}` : ''}`;
+
   return (
-    <header
-      className={`sticky top-0 z-50 border-b h-16 transition-[background-color,box-shadow,border-color] duration-200 ${
-        scrolled
-          ? 'bg-white/95 backdrop-blur-md border-[var(--color-gray-300)] shadow-sm'
-          : 'bg-white/80 backdrop-blur-md border-[var(--color-gray-300)]/60'
-      }`}
-    >
-      <nav className="max-w-content mx-auto px-5 md:px-20 h-full">
-        <div className="flex items-center justify-between h-full gap-4">
-          <Link href="/" className="flex items-center hover:opacity-70 transition-opacity flex-shrink-0">
-            <Image
-              src="/images/logo.png"
-              alt="ARTIRING"
-              width={120}
-              height={40}
-              className="h-8 w-auto"
-              priority
-            />
+    <header className="mm-nav" aria-label="주요 메뉴">
+      <nav className="mm-nav__group" aria-label="사이트 메뉴">
+        {leftNav.map((item) => (
+          <Link
+            key={item.name}
+            href={item.href}
+            className={`${pillClass(item.tone)} mm-nav__hide-sm`}
+            aria-current={isActive(item.href) ? 'page' : undefined}
+          >
+            {item.name}
           </Link>
+        ))}
+        <button
+          type="button"
+          className="mm-nav__pill mm-nav__pill--menu mm-nav__only-sm"
+          onClick={() => setMenuOpen(true)}
+          aria-expanded={menuOpen}
+          aria-controls="mm-mobile-menu"
+        >
+          메뉴
+        </button>
+      </nav>
 
-          <div className="hidden md:flex items-center gap-8">
-            {navigation.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                {...(item.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                className={`text-sm font-semibold transition-colors ${
-                  isActive(item.href)
-                    ? 'text-[var(--color-primary)]'
-                    : 'text-[var(--color-gray-700)] hover:text-[var(--color-gray-900)]'
-                }`}
-              >
-                {item.name}
-              </Link>
-            ))}
-          </div>
+      <Link className="mm-nav__logo" href="/" aria-label="아티링 홈으로">
+        <Image src="/images/logo.png" alt="" width={74} height={22} priority />
+      </Link>
 
-          <div className="flex items-center gap-2">
-            <a
-              href="/#download"
-              className="inline-flex items-center justify-center px-4 min-h-[40px] text-sm font-semibold text-white bg-[var(--color-primary)] rounded-lg transition-all duration-150 hover:-translate-y-0.5 hover:opacity-90 active:scale-[0.97]"
-            >
-              다운로드
-            </a>
+      <div className="mm-nav__group mm-nav__group--end">
+        {rightNav.map((item) => (
+          <Link
+            key={item.name}
+            href={item.href}
+            className={`${pillClass(item.tone)} mm-nav__hide-sm`}
+            aria-current={isActive(item.href) ? 'page' : undefined}
+          >
+            {item.name}
+          </Link>
+        ))}
+        <Link className="mm-nav__pill mm-nav__pill--red" href={PREREGISTER_HREF}>
+          사전등록
+        </Link>
+      </div>
 
+      {menuOpen && (
+        <div className="mm-menu" id="mm-mobile-menu" role="dialog" aria-modal="true" aria-label="메뉴">
+          <div className="mm-menu__top">
+            <Link className="mm-nav__logo" href="/" aria-label="아티링 홈으로" onClick={() => setMenuOpen(false)}>
+              <Image src="/images/logo.png" alt="" width={74} height={22} />
+            </Link>
             <button
               type="button"
-              className="md:hidden p-2 -mr-2 text-[var(--color-gray-700)]"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label="메뉴 열기"
+              className="mm-nav__pill mm-nav__pill--menu"
+              onClick={() => setMenuOpen(false)}
+              autoFocus
             >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                {mobileMenuOpen ? (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
-                ) : (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M4 12h16M4 18h16" />
-                )}
-              </svg>
+              닫기
             </button>
           </div>
-        </div>
-
-        {mobileMenuOpen && (
-          <div className="md:hidden py-4 border-t border-[var(--color-gray-300)]">
-            <div className="flex flex-col gap-1">
-              {navigation.map((item) => (
+          <ul className="mm-menu__list">
+            {allNav.map((item) => (
+              <li key={item.name}>
                 <Link
-                  key={item.name}
                   href={item.href}
-                  {...(item.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                  className={`px-3 py-2 text-sm font-semibold rounded-lg transition-colors ${
-                    isActive(item.href)
-                      ? 'text-[var(--color-primary)] bg-[var(--color-primary-light)]'
-                      : 'text-[var(--color-gray-700)] hover:text-[var(--color-gray-900)] hover:bg-[var(--color-gray-100)]'
-                  }`}
-                  onClick={() => setMobileMenuOpen(false)}
+                  aria-current={isActive(item.href) ? 'page' : undefined}
+                  onClick={() => setMenuOpen(false)}
                 >
                   {item.name}
+                  <span aria-hidden="true">→</span>
                 </Link>
-              ))}
-            </div>
+              </li>
+            ))}
+          </ul>
+          <div className="mm-menu__cta">
+            <Link className="mm-btn mm-btn--red" href={PREREGISTER_HREF} onClick={() => setMenuOpen(false)}>
+              출시 알림 받기
+            </Link>
           </div>
-        )}
-      </nav>
+        </div>
+      )}
     </header>
   );
 }

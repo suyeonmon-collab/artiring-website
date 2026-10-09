@@ -13,8 +13,8 @@ export default function SupportNoticesPage() {
   const drafts = getDraftNotices();
 
   return (
-    <div className="section">
-      <div className="container-narrow">
+    <div className="mm-page mm-doc">
+      <div className="mm-doc__panel">
         <header className="mb-8">
           <h1 className="font-accent text-3xl md:text-4xl tracking-tight text-[var(--color-gray-900)]">
             공지·고지

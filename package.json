@@ -3,19 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "sync-characters": "node scripts/sync-characters.mjs",
-    "predev": "npm run sync-characters",
-    "prebuild": "npm run sync-characters",
     "dev": "next dev",
     "start": "next start",
     "build": "next build",
     "lint": "next lint"
   },
   "dependencies": {
-    "@google/model-viewer": "^3.5.0",
+    "@noonnu/cafe24-ssurround": "^0.1.0",
     "@supabase/supabase-js": "^2.110.0",
     "date-fns": "^3.0.6",
+    "gsap": "^3.12.5",
     "next": "14.0.4",
+    "pretendard": "^1.3.9",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

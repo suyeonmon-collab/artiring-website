@@ -1,7 +1,22 @@
+// 폰트는 npm 패키지로 함께 배포 (외부 CDN 의존 없음)
+import 'pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css';
+import '@noonnu/cafe24-ssurround/index.css';
 import './globals.css';
+import './mumo.css';
+import localFont from 'next/font/local';
 import Header from '@/components/common/Header';
 import Footer from '@/components/common/Footer';
 import { getSiteUrl } from '@/lib/siteUrl';
+
+// 손글씨: 나눔손글씨 무궁화 (NAVER, OFL). 자주 쓰는 한글 2,350자 + 영문·기호만 담은 웹용 파일
+const handFont = localFont({
+  src: './fonts/nanum-mugunghwa.woff2',
+  weight: '400',
+  style: 'normal',
+  display: 'swap',
+  variable: '--mm-font-hand-face',
+  fallback: ['Pretendard Variable', 'cursive'],
+});
 
 export const metadata = {
   title: {
@@ -43,14 +58,8 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="ko">
+    <html lang="ko" className={handFont.variable}>
       <head>
-        <link
-          rel="stylesheet"
-          as="style"
-          crossOrigin="anonymous"
-          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css"
-        />
         {/* Favicon for Google Search */}
         <link rel="icon" type="image/png" href="/images/pavicon.png" />
         <link rel="shortcut icon" type="image/png" href="/images/pavicon.png" />

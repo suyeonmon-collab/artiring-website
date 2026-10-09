@@ -20,19 +20,19 @@ export default function AboutCtaActions() {
   };
 
   return (
-    <div className="mt-8 flex flex-col items-center gap-4">
-      <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-        <Link href="/artist" className="btn-download">
+    <div className="mm-hero__cta" style={{ flexDirection: 'column', alignItems: 'center' }}>
+      <div className="mm-hero__cta" style={{ marginTop: 0 }}>
+        <Link href="/artist" className="mm-btn">
           작가로 참여하기
         </Link>
-        <button type="button" onClick={handleInquiry} className="btn-secondary">
+        <button type="button" onClick={handleInquiry} className="mm-btn">
           지자체·제휴 문의
         </button>
       </div>
       {open && (
         <p
           role="status"
-          className="px-4 py-3 rounded-xl bg-white text-sm text-[var(--color-gray-700)] leading-relaxed shadow-[0_4px_16px_rgba(0,0,0,0.08)]"
+          className="px-4 py-3 rounded-2xl bg-white text-sm text-[var(--color-gray-900)] leading-relaxed border-2 border-[var(--color-gray-900)]"
         >
           지자체·제휴 문의는{' '}
           <a

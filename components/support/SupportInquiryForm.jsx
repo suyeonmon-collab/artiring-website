@@ -60,8 +60,8 @@ export default function SupportInquiryForm() {
   );
 
   const inputClass = (hasError) =>
-    `w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/30 ${
-      hasError ? 'border-[var(--color-primary)]' : 'border-[var(--color-gray-300)]'
+    `w-full px-4 py-3 border-2 rounded-[14px] bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-secondary-blue)]/40 ${
+      hasError ? 'border-[var(--color-primary)]' : 'border-[var(--color-gray-900)]'
     }`;
 
   const handleTypeChange = (type) => {
@@ -228,10 +228,10 @@ export default function SupportInquiryForm() {
               return (
                 <label
                   key={item.value}
-                  className={`cursor-pointer rounded-xl border px-4 py-3 transition-colors ${
+                  className={`cursor-pointer rounded-[14px] border-2 px-4 py-3 transition-colors ${
                     selected
                       ? 'border-[var(--color-primary)] bg-[var(--color-primary-light)]'
-                      : 'border-[var(--color-gray-300)] bg-white hover:border-[var(--color-primary)]/40'
+                      : 'border-[var(--color-gray-900)] bg-white hover:bg-[var(--color-secondary-yellow-light)]'
                   }`}
                 >
                   <input

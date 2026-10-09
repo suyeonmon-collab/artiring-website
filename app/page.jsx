@@ -5,7 +5,7 @@ export const metadata = {
   title: {
     absolute: '아티링',
   },
-  description: '가야만 만날 수 있는 캐릭터를 모으는 GPS 기반 여행 앱. 방문하고, 인증하고, 수집하고, 도감을 채워보세요.',
+  description: '여행지 곳곳의 작가 캐릭터 카드를 그 장소에 가야만 GPS로 모을 수 있는 여행 앱 뮤모. 아티링이 만들고 있어요.',
   metadataBase: new URL(getSiteUrl()),
   alternates: {
     canonical: '/',

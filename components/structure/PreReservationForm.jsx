@@ -193,7 +193,7 @@ export default function PreReservationForm() {
             onChange={(e) => setFormData((prev) => ({ ...prev, name: e.target.value }))}
             required
             autoComplete="name"
-            className="w-full px-4 py-3 border border-[var(--color-gray-300)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/30"
+            className="w-full px-4 py-3 border-2 border-[var(--color-gray-900)] rounded-[14px] bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-secondary-blue)]/40"
             placeholder="이름을 입력해주세요"
           />
         </div>
@@ -211,8 +211,8 @@ export default function PreReservationForm() {
             required
             autoComplete="tel"
             inputMode="numeric"
-            className={`w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/30 ${
-              phoneError ? 'border-[var(--color-primary)]' : 'border-[var(--color-gray-300)]'
+            className={`w-full px-4 py-3 border-2 rounded-[14px] bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-secondary-blue)]/40 ${
+              phoneError ? 'border-[var(--color-primary)]' : 'border-[var(--color-gray-900)]'
             }`}
             placeholder="010-1234-5678"
           />
@@ -235,8 +235,8 @@ export default function PreReservationForm() {
             }}
             onBlur={() => validateEmail(formData.email)}
             autoComplete="email"
-            className={`w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/30 ${
-              emailError ? 'border-[var(--color-primary)]' : 'border-[var(--color-gray-300)]'
+            className={`w-full px-4 py-3 border-2 rounded-[14px] bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-secondary-blue)]/40 ${
+              emailError ? 'border-[var(--color-primary)]' : 'border-[var(--color-gray-900)]'
             }`}
             placeholder="이메일을 입력해주세요"
           />
