@@ -8,9 +8,6 @@
  * Hallmark · pre-emit critique: P4 H4 E4 S5 R4 V5
  */
 
-/* 손글씨: 나눔손글씨 무궁화 (NAVER, OFL). 자주 쓰는 한글 2,350자 + 영문·기호만 담은 웹용 파일 */
-@font-face{font-family:"Nanum MuGungHwa";src:url(/fonts/nanum-mugunghwa.woff2) format("woff2");font-weight:400;font-style:normal;font-display:swap}
-
 /* ---------- 1. Tokens (값은 주 레퍼런스 Maggie 의 계산된 스타일에서 추출, 색은 브랜드로 치환) ---------- */
 :root{
   /* colour — 바탕(paper)·본문(ink)은 레퍼런스 구조, 강조 자리는 뮤모 브랜드 3색 */
@@ -48,7 +45,7 @@
 
   /* type — Maggie: display 120/96 · 100/80 · 180/144, h2 32/28.8, hand 25/29 */
   --mm-font-display: "Cafe24Ssurround", "Pretendard Variable", system-ui, sans-serif;
-  --mm-font-hand:    "Nanum MuGungHwa", "Pretendard Variable", cursive;
+  --mm-font-hand:    var(--mm-font-hand-face), "Pretendard Variable", cursive;  /* 나눔손글씨 무궁화 (app/layout.jsx 에서 로드) */
   --mm-font-body:    "Pretendard Variable", Pretendard, -apple-system, system-ui, sans-serif;
   --mm-text-mega:    clamp(2.5rem, 1rem + 8.2vw, 9rem);
   --mm-text-display: clamp(2.5rem, 1.2rem + 5.4vw, 6.25rem);
