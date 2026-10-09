@@ -20,14 +20,14 @@
   --mm-color-line:       oklch(85% 0.006 95);            /* Gray 300 계열 */
   --mm-color-red:        oklch(60.7% 0.218 31.3);   /* 브랜드 다홍 #E8341A */
   --mm-color-red-ink:    oklch(54.4% 0.198 31.5);   /* 작은 글자용 다홍 (대비 5.2:1) */
-  --mm-color-red-tint:   oklch(93.8% 0.029 33.7);
+  --mm-color-red-tint:   #FFFFFF;   /* 연분홍 배경 → 흰색 */
   --mm-color-sun:        #ECECEC;   /* 페이지 바탕: 연한 회색 (원래 브랜드 노랑 #FFD43B → 버터 옐로우 → 회색) */
   --mm-color-gold:       #E3B667;   /* 한정 카드·배지 강조 */
   --mm-color-sun-tint:   #FFFFFF;
   --mm-color-sun-2:      #F5F5F5;
   --mm-color-blue:       oklch(62.3% 0.188 259.8);  /* 브랜드 파랑 #3B82F6 */
   --mm-color-blue-ink:   oklch(46% 0.19 263);
-  --mm-color-blue-tint:  oklch(94.4% 0.025 261.1);
+  --mm-color-blue-tint:  #FFFFFF;   /* 연하늘 배경 → 흰색 */
   --mm-color-map-land:   oklch(96.5% 0.012 95);
   --mm-color-map-road:   oklch(99.5% 0.003 95);
   --mm-color-map-park:   oklch(92% 0.05 140);

@@ -5,11 +5,11 @@
 /* CSS Variables - 뮤모 Design System */
 :root {
   --color-primary: #E8341A;
-  --color-primary-light: #FEF0EC;
+  --color-primary-light: #FFFFFF;
   --color-secondary-yellow: #EBD3A0;
   --color-secondary-yellow-light: #F2F2F2;
   --color-secondary-blue: #3B82F6;
-  --color-secondary-blue-light: #EFF6FF;
+  --color-secondary-blue-light: #FFFFFF;
 
   --color-gray-900: #1A1A1A;
   --color-gray-700: #4A4A4A;
