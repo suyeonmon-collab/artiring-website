@@ -53,7 +53,7 @@ const HOW_IT_WORKS = [
     step: '03',
     title: '수집',
     desc: '유저가 카드를 수집하고 도감에 저장해요',
-    src: '/images/screenshots/artist-collect.png',
+    src: '/images/screenshots/collect.jpg',
   },
   {
     step: '04',
@@ -215,10 +215,10 @@ export default function ArtistPage() {
                 <Image src="/images/screenshots/map-full.png" alt="뮤모 지도 화면" fill sizes="240px" priority />
               </div>
               <div className="mm-phone" aria-hidden="true">
-                <Image src="/images/screenshots/album-full.png" alt="" fill sizes="240px" />
+                <Image src="/images/screenshots/album.jpg" alt="" fill sizes="240px" />
               </div>
               <div className="mm-phone" aria-hidden="true">
-                <Image src="/images/screenshots/collect-full.png" alt="" fill sizes="240px" />
+                <Image src="/images/screenshots/collect.jpg" alt="" fill sizes="240px" />
               </div>
               <p className="mm-sticker mm-sticker--2" aria-hidden="true">내 캐릭터가 SS등급!</p>
             </div>
