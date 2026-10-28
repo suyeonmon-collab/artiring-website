@@ -3,6 +3,7 @@ import 'pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css';
 import '@noonnu/cafe24-ssurround/index.css';
 import './globals.css';
 import './mumo.css';
+import './village.css';
 import localFont from 'next/font/local';
 import Header from '@/components/common/Header';
 import Footer from '@/components/common/Footer';

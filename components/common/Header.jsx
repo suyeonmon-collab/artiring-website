@@ -9,6 +9,7 @@ import { usePathname } from 'next/navigation';
 const leftNav = [
   { name: '소개', href: '/about', tone: '' },
   { name: '뮤모 앱', href: '/#app', tone: 'sun' },
+  { name: '뮤뮤월드', href: '/village', tone: '' },
 ];
 
 const rightNav = [
