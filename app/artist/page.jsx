@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { MotionWrapper } from '@/components/common/MotionWrapper';
 import FaqAccordion from '@/components/support/FaqAccordion';
 import ArtistApplyForm from '@/components/artist/ArtistApplyForm';
+import ArtistStudio from '@/components/artist/ArtistStudio';
 import { artistFaqCategories } from '@/lib/artist/faq';
 
 export const metadata = {
@@ -267,6 +268,9 @@ export default function ArtistPage() {
           </MotionWrapper>
         </div>
       </section>
+
+      {/* 2-2. 작가님께 (홈에서 이동) */}
+      <ArtistStudio />
 
       {/* 3. 베타 작가 특전 */}
       <section className="mm-section">

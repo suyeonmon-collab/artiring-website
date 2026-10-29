@@ -7,8 +7,9 @@ import Hero from '@/components/home/mumo/Hero';
 import Statement from '@/components/home/mumo/Statement';
 import Steps from '@/components/home/mumo/Steps';
 import ProductMap from '@/components/home/mumo/ProductMap';
+import Village from '@/components/home/mumo/Village';
+import VillageStory from '@/components/home/mumo/VillageStory';
 import Friends from '@/components/home/mumo/Friends';
-import ArtistsTeaser from '@/components/home/mumo/ArtistsTeaser';
 import Maker from '@/components/home/mumo/Maker';
 import Proof from '@/components/home/mumo/Proof';
 import FinalCta from '@/components/home/mumo/FinalCta';
@@ -94,8 +95,9 @@ export default function LandingPage() {
       <Statement />
       <Steps />
       <ProductMap />
+      <Village />
+      <VillageStory />
       <Friends />
-      <ArtistsTeaser />
       <Maker />
       <Proof />
       <FinalCta />

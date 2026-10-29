@@ -4,7 +4,7 @@ export default function Steps() {
       <div className="mm-wrap">
         <div className="mm-sec-head">
           <h2 className="mm-sec-title mm-reveal" id="how-title">뮤모로 이렇게 모아요</h2>
-          <p className="mm-sec-lead mm-reveal">방문, 인증, 수집, 도감, 완주. 다섯 걸음이면 한 지역이 내 도감에 들어와요.</p>
+          <p className="mm-sec-lead mm-reveal">방문, 인증, 수집, 도감, 완주. 다섯 걸음이면 한 지역이 내 도감에 들어와요. 모은 카드는 앱 속 마을 뮤뮤월드도 키워요.</p>
         </div>
         <div className="mm-steps__notes" aria-hidden="true"><p className="mm-sticker mm-steps__note mm-steps__note--1">보조배터리 챙기기</p><p className="mm-sticker mm-steps__note mm-steps__note--2">걷기 좋은 신발</p></div>
         <ol className="mm-steps__row">

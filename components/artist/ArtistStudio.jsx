@@ -1,6 +1,4 @@
-import Link from 'next/link';
-
-export default function ArtistsTeaser() {
+export default function ArtistStudio() {
   return (
     <section className="mm-artists" id="artists" aria-labelledby="ar-title">
       <div className="mm-wrap mm-artists__grid">
@@ -15,13 +13,7 @@ export default function ArtistsTeaser() {
             <div className="mm-term" role="listitem"><b>100%</b><span>저작권은 작가님께</span></div>
             <div className="mm-term" role="listitem"><b>비독점</b><span>다른 곳 활동 자유</span></div>
           </div>
-          <ol className="mm-flow mm-reveal">
-            <li><span><b>캐릭터 등록</b> · 카드로 쓸 그림과 소개를 올려요.</span></li>
-            <li><span><b>스팟 지정</b> · 카드를 놓을 장소를 골라요.</span></li>
-            <li><span><b>지도에 노출</b> · 여행자 지도에 작가님 스팟이 떠요.</span></li>
-            <li><span><b>방문과 수집</b> · 찾아온 여행자가 카드를 모아 가요.</span></li>
-          </ol>
-          <Link className="mm-btn mm-btn--red" href="/artist">작가 참여 안내 보기</Link>
+          <a className="mm-btn mm-btn--red" href="#apply">베타 작가로 신청하기</a>
         </div>
 
         <div className="mm-studio mm-reveal" aria-label="작가용 화면 예시">
