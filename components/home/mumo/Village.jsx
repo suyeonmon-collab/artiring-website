@@ -1,6 +1,11 @@
-import Link from 'next/link';
+import Image from 'next/image';
 import { VILLAGE_LOOP } from '@/components/village/villageData';
-import VillagePreview from '@/components/village/VillagePreview';
+import Hanja from '@/components/village/Hanja';
+
+const SHOTS = [
+  { src: '/images/screenshots/village-world.webp', ratio: '998 / 1662', title: '뮤뮤월드', desc: '모은 카드와 다녀온 기록으로 마을이 자라요.' },
+  { src: '/images/screenshots/village-cooking.png', ratio: '998 / 1662', title: '요리 도감', desc: '마을에서 만든 요리가 도감에 기록으로 남아요.' },
+];
 
 export default function Village() {
   return (
@@ -14,15 +19,24 @@ export default function Village() {
           </div>
           <ol className="vl-loop">
             {VILLAGE_LOOP.map((s) => (
-              <li key={s.title} className="mm-reveal"><div><h3>{s.title}</h3><p>{s.text}</p></div></li>
+              <li key={s.title} className="mm-reveal"><div><h3>{s.title}</h3><p><Hanja>{s.text}</Hanja></p></div></li>
             ))}
           </ol>
-          <div className="mm-hero__cta mm-reveal" style={{ justifyContent: 'flex-start', marginTop: 'var(--mm-space-xl)' }}>
-            <Link className="mm-btn mm-btn--red" href="/village">뮤뮤월드 이야기 보기</Link>
-          </div>
         </div>
-        <VillagePreview />
+
+        <div className="vl-shots mm-reveal">
+          {SHOTS.map((s) => (
+            <figure key={s.src} className="vl-shot">
+              <div className="mm-phone" style={{ aspectRatio: s.ratio }}>
+                <Image src={s.src} alt={`${s.title} 앱 화면`} fill sizes="(min-width: 960px) 20vw, 45vw" />
+              </div>
+              <figcaption className="mm-phone-cap"><b>{s.title}</b><small>{s.desc}</small></figcaption>
+            </figure>
+          ))}
+          <p className="mm-note vl-shots__note">개발 중인 앱 화면이에요. 출시 때 달라질 수 있어요.</p>
+        </div>
       </div>
+
     </section>
   );
 }

@@ -1,18 +1,4 @@
-/* 뮤뮤월드 소개 섹션 (홈 + /village) — 뮤모 디자인 토큰(mumo.css) 재사용 */
-.vl-fog{position:relative;overflow:hidden;isolation:isolate;border:var(--mm-rule-ink);border-radius:var(--mm-radius-lg);box-shadow:var(--mm-shadow-hard-lg);background:linear-gradient(180deg,var(--mm-color-map-park) 0%,var(--mm-color-map-land) 100%);aspect-ratio:4/5;display:grid;align-content:end;padding:var(--mm-space-lg)}
-.vl-fog__houses{position:absolute;inset:auto 0 22% 0;display:flex;justify-content:center;gap:clamp(.5rem,3vw,1.5rem);align-items:flex-end;z-index:1}
-.vl-house{width:clamp(3rem,10vw,4.5rem);aspect-ratio:1;border:var(--mm-rule-ink);border-radius:var(--mm-radius-chip) var(--mm-radius-chip) 6px 6px;background:var(--mm-color-surface);display:grid;place-items:center;font-size:var(--mm-text-xs);font-weight:700;text-align:center;line-height:1.2;position:relative}
-.vl-house::before{content:"";position:absolute;top:-14px;left:-4px;right:-4px;height:16px;background:var(--mm-color-red);border:var(--mm-rule-ink);border-radius:8px 8px 0 0}
-.vl-house--b{width:clamp(3.4rem,12vw,5.2rem)}
-.vl-house--c{opacity:.75}
-.vl-mist{position:absolute;inset:0;z-index:2;pointer-events:none;background:radial-gradient(ellipse at 50% 55%,transparent 0%,transparent 28%,oklch(99% 0.004 95 / .82) 78%),linear-gradient(180deg,oklch(99% 0.004 95 / .55),transparent 45%)}
-.vl-fog__cap{position:relative;z-index:3;background:var(--mm-color-surface-a85);border:var(--mm-rule-ink);border-radius:var(--mm-radius-card);padding:var(--mm-space-sm) var(--mm-space-md);box-shadow:var(--mm-shadow-hard-sm)}
-.vl-fog__cap b{display:block;font-family:var(--mm-font-display);font-size:var(--mm-text-lg);font-weight:400}
-.vl-fog__cap span{font-size:var(--mm-text-sm);color:var(--mm-color-ink-2)}
-.vl-fog .mm-example-tag{position:absolute;top:var(--mm-space-md);left:var(--mm-space-md);z-index:4}
-@media (prefers-reduced-motion:no-preference){.vl-mist{animation:vl-drift 14s ease-in-out infinite alternate}}
-@keyframes vl-drift{from{transform:scale(1)}to{transform:scale(1.06) translateY(-1%)}}
-
+/* 뮤뮤월드 소개 섹션 (홈 #village) — 뮤모 디자인 토큰(mumo.css) 재사용 */
 .vl-grid{display:grid;gap:var(--mm-space-2xl);grid-template-columns:minmax(0,1fr);align-items:center}
 @media (min-width:60rem){.vl-grid{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr)}}
 .vl-loop{list-style:none;padding:0;margin:var(--mm-space-xl) 0 0;display:grid;gap:var(--mm-space-sm);counter-reset:vl}
@@ -25,7 +11,71 @@
 .vl-act__head{display:flex;flex-wrap:wrap;gap:var(--mm-space-xs);align-items:center}
 .vl-act h3{font-family:var(--mm-font-display);font-weight:400;font-size:var(--mm-text-xl)}
 .vl-act--secret .vl-act__body{color:var(--mm-color-ink-3)}
-.vl-cards{display:flex;gap:var(--mm-space-xs);justify-content:center}
-.vl-cards span{width:clamp(3.2rem,9vw,4.5rem);aspect-ratio:65/90;border:var(--mm-rule-ink);border-radius:var(--mm-radius-chip);background:var(--img) center/cover}
-.vl-cards span:nth-child(odd){transform:rotate(-4deg)}
-.vl-cards span:nth-child(even){transform:rotate(3deg) translateY(6px)}
+.vl-shots{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--mm-space-md);max-width:30rem;margin-inline:auto;width:100%;align-items:end}
+.vl-shot{margin:0}
+.vl-shots__note{grid-column:1/-1;margin:0}
+
+/* 뮤뮤월드 이야기 섹션 (홈 #village-*) */
+.vs-world{list-style:none;padding:0;margin:var(--mm-space-2xl) 0 0;display:grid;gap:var(--mm-space-lg);grid-template-columns:minmax(0,1fr)}
+@media (min-width:40rem){.vs-world{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:64rem){.vs-world{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.vs-world__card{position:relative;background:var(--mm-color-surface);border:var(--mm-rule-ink);border-radius:var(--mm-radius-card);box-shadow:var(--mm-shadow-hard-sm);padding:var(--mm-space-xl) var(--mm-space-lg) var(--mm-space-lg)}
+.vs-world__card:nth-child(odd){transform:rotate(-1.2deg)}
+.vs-world__card:nth-child(even){transform:rotate(1deg)}
+.vs-world__ico{position:absolute;top:-1.1rem;left:var(--mm-space-lg);width:2.6rem;height:2.6rem;border:var(--mm-rule-ink);border-radius:50%;background:var(--mm-color-sun-2);display:grid;place-items:center;font-size:1.3rem}
+.vs-world__card h3{font-family:var(--mm-font-display);font-weight:400;font-size:var(--mm-text-xl);margin:var(--mm-space-xs) 0 6px}
+.vs-world__card p{color:var(--mm-color-ink-2);font-size:var(--mm-text-md);line-height:1.6;margin:0}
+
+.vs-path{list-style:none;padding:0;margin:var(--mm-space-2xl) 0 0;display:grid;gap:var(--mm-space-lg);position:relative}
+.vs-path::before{content:"";position:absolute;left:11px;top:12px;bottom:12px;width:0;border-left:3px dotted var(--mm-color-ink-a16)}
+.vs-path__step{position:relative;display:grid;grid-template-columns:24px minmax(0,1fr);gap:var(--mm-space-md);align-items:start}
+.vs-path__dot{width:24px;height:24px;border:var(--mm-rule-ink);border-radius:50%;background:var(--mm-color-gold);display:grid;place-items:center;font-family:var(--mm-font-display);font-size:.8rem;margin-top:var(--mm-space-md);position:relative;z-index:1}
+.vs-path__card{background:var(--mm-color-surface);border:var(--mm-rule-ink);border-radius:var(--mm-radius-card);box-shadow:var(--mm-shadow-hard-sm);padding:var(--mm-space-md) var(--mm-space-lg)}
+.vs-path__head{display:flex;flex-wrap:wrap;gap:var(--mm-space-xs);align-items:center;justify-content:space-between}
+.vs-path__head b{font-family:var(--mm-font-display);font-weight:400;font-size:var(--mm-text-sm);color:var(--mm-color-red)}
+.vs-path__card h3{font-family:var(--mm-font-display);font-weight:400;font-size:var(--mm-text-xl);margin:4px 0}
+.vs-path__card p{color:var(--mm-color-ink-2);font-size:var(--mm-text-md);line-height:1.6;margin:0}
+.vs-path__step--secret .vs-path__card{background:var(--mm-color-ink);color:var(--mm-color-surface)}
+.vs-path__step--secret .vs-path__head b{color:var(--mm-color-gold)}
+.vs-path__step--secret .vs-path__card p{color:var(--mm-color-surface);opacity:.85}
+.vs-path__lock{display:inline-block;margin-top:var(--mm-space-sm);padding:4px 12px;border:1.5px solid var(--mm-color-gold);border-radius:var(--mm-radius-pill);color:var(--mm-color-gold);font-size:var(--mm-text-xs);font-weight:700}
+
+.vs-feats{display:grid;gap:var(--mm-space-2xl);margin-top:var(--mm-space-2xl)}
+.vs-feat{display:grid;gap:var(--mm-space-xl);grid-template-columns:minmax(0,1fr);justify-items:center;align-items:center}
+@media (min-width:48rem){.vs-feat{grid-template-columns:minmax(0,15rem) minmax(0,1fr);justify-items:stretch;gap:var(--mm-space-2xl)}.vs-feat--rev{grid-template-columns:minmax(0,1fr) minmax(0,15rem)}.vs-feat--rev .vs-feat__shot{order:2}}
+.vs-feat__shot{margin:0;width:min(62vw,15rem);justify-self:center}
+.vs-feat__shot .mm-phone{transform:rotate(-2deg)}
+.vs-feat--rev .vs-feat__shot .mm-phone{transform:rotate(2deg)}
+.vs-feat__body{display:grid;gap:var(--mm-space-sm);justify-items:start}
+.vs-feat__body h3{font-family:var(--mm-font-display);font-weight:400;font-size:var(--mm-text-2xl,1.75rem);line-height:1.2;margin:0}
+.vs-feat__body p{margin:0;color:var(--mm-color-ink-2);font-size:var(--mm-text-md);line-height:1.6}
+.vs-feat__body .vs-feat__tag{display:inline-block;padding:2px 12px;border:1.5px solid var(--mm-color-ink);border-radius:var(--mm-radius-pill);background:var(--mm-color-surface);color:var(--mm-color-ink);font-size:var(--mm-text-xs);font-weight:700}
+.vs-feat__body .vs-feat__also{font-size:var(--mm-text-sm);color:var(--mm-color-ink-3)}
+
+.vs-ladder{list-style:none;padding:0;margin:var(--mm-space-2xl) 0 var(--mm-space-lg);display:grid;gap:var(--mm-space-sm);grid-template-columns:minmax(0,1fr)}
+@media (min-width:40rem){.vs-ladder{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:64rem){.vs-ladder{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.vs-ladder__step{background:var(--mm-color-surface);border:var(--mm-rule-ink);border-radius:var(--mm-radius-card);padding:var(--mm-space-md);display:grid;gap:6px;justify-items:start}
+.vs-ladder__step b{font-family:var(--mm-font-display);font-weight:400;font-size:var(--mm-text-lg)}
+.vs-ladder__step p{margin:0;color:var(--mm-color-ink-2);font-size:var(--mm-text-sm);line-height:1.5}
+
+.vs-star{display:grid;gap:var(--mm-space-2xl);grid-template-columns:minmax(0,1fr);align-items:center;justify-items:center}
+@media (min-width:60rem){.vs-star{grid-template-columns:minmax(0,17rem) minmax(0,1fr);justify-items:stretch}}
+.vs-star__shot{margin:0;position:relative;width:min(66vw,17rem)}
+.vs-star__shot .mm-phone{transform:rotate(-3deg)}
+.vs-star__sticker{position:absolute;right:-12%;bottom:8%;z-index:2}
+.vs-star__body{display:grid;gap:var(--mm-space-md);justify-items:start}
+.vs-star__body p{margin:0}
+.vs-star__note{text-align:left}
+
+.vs-faq{display:grid;gap:var(--mm-space-xl);margin-top:var(--mm-space-2xl)}
+.vs-faq__pair{display:grid;gap:var(--mm-space-sm)}
+.vs-faq__q,.vs-faq__a{margin:0;max-width:34rem;border:var(--mm-rule-ink);padding:var(--mm-space-md) var(--mm-space-lg);font-size:var(--mm-text-md);line-height:1.6}
+.vs-faq__q{justify-self:end;background:var(--mm-color-gold);border-radius:var(--mm-radius-card) var(--mm-radius-card) 4px var(--mm-radius-card);font-weight:700;display:flex;gap:var(--mm-space-sm)}
+.vs-faq__q span{font-family:var(--mm-font-display);font-weight:400}
+.vs-faq__a{justify-self:start;background:var(--mm-color-surface);border-radius:var(--mm-radius-card) var(--mm-radius-card) var(--mm-radius-card) 4px;color:var(--mm-color-ink-2)}
+@media (prefers-reduced-motion:reduce){.vs-world__card,.vs-feat__shot .mm-phone,.vs-star__shot .mm-phone{transform:none}}
+.vs-hanja{font-family:"Hiragino Sans","PingFang TC","Noto Sans CJK KR","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;font-weight:700}
+.vs-world__ico{color:var(--mm-color-ink)}
+.vs-world__ico svg{width:1.4rem;height:1.4rem}
+.vs-path__step--secret .vl-lv{color:var(--mm-color-ink)}

@@ -75,6 +75,11 @@ const journey = [
     title: '지역성장 예비창업지원사업 선정',
     desc: '지역성장 예비창업지원사업에 선정되어, 뮤모를 더 많은 지역으로 확장할 준비를 하고 있어요.',
   },
+  {
+    year: '2026',
+    title: '모두의창업 2차 1라운드 선정',
+    desc: '2026년 모두의창업 2차 1라운드에 선정됐어요.',
+  },
 ];
 
 export default function AboutPage() {
